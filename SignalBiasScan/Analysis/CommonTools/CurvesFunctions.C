@@ -394,14 +394,8 @@ TGraphErrors* GetDerivativeGraph(TGraphErrors* g)
   return gderivative;
 }
 
-TGraphErrors* GetCurvatureGraph(TGraphErrors* g)
+TGraphErrors* GetCurvatureGraph(TGraphErrors* gd, TGraphErrors* gd2)
 {
-  TGraphErrors* gd = GetDerivativeGraph( g );
-  TGraphErrors* gd2 = GetDerivativeGraph( gd );
-  TGraphErrors* gcurv = new TGraphErrors();
-  
-  //gd->Print("all");
-  //gd2->Print("all");
   
   double x1, y1, x2, y2, curv;
   double xmin=-1;
@@ -451,6 +445,13 @@ TGraphErrors* GetCurvatureGraph(TGraphErrors* g)
   return gcurv;
 }
 
+
+TGraphErrors* GetCurvatureGraph(TGraphErrors* g)
+{
+  TGraphErrors* gd = GetDerivativeGraph( g );
+  TGraphErrors* gd2 = GetDerivativeGraph( gd );
+  return GetCurvatureGraph(gd, gd2);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -554,7 +555,7 @@ TGraphErrors* HanningFilter(TGraphErrors* g, int npt=3)
   double voltage=0;
   double signal=0;
   //int ipt=(N-1)/2;
-  int ipt=1;
+  int ipt=0;
   double signal_mean=0;
   double voltage_mean=0;
   if(N<2 || N>g->GetN()) return gsmooth;
@@ -603,6 +604,130 @@ TGraphErrors* HanningFilter(TGraphErrors* g, int npt=3)
   return gsmooth;
   
 }
+
+
+// copy-paste of the code of the HanningFilter function
+// Savitzky-Golay smoothing method
+// Equivalent to fit (least squares method) range of points (at least 5) with cubic polynomials to recompute the middle point
+// New coordinates can be computed from the points in the range and coefficients.
+// Derivates can also be directly computed with special coefficients.
+TGraphErrors* SavitzkyGolaySmoother(TGraphErrors* g, int npt=5, int deriv=0)
+{
+  TGraphErrors* gsmooth = new TGraphErrors();
+  
+  if(npt!=5 && npt!=7) { cout<<"Error : works with npt=5 or 7"<<endl;; return gsmooth; }
+  
+  const int N=npt;
+  double* coef = new double[N];
+  if(npt==5)
+  {
+    coef[0]=-3./35;
+    coef[1]=12./35;
+    coef[2]=17./35;
+    coef[3]=12./35;
+    coef[4]=-3./35;
+
+    if(deriv==1)
+      // rajouter division par le pas
+    {
+      coef[0]=-2./10;
+      coef[1]=-1./10;
+      coef[2]=0./10;
+      coef[3]=1./10;
+      coef[4]=2./10;      
+    }
+    if(deriv==2)
+      // rajouter division par le pas au carré
+    {
+      coef[0]=2./7;
+      coef[1]=-1./7;
+      coef[2]=-2./7;
+      coef[3]=-1./7;
+      coef[4]=2./7;      
+    }
+  }
+  if(npt==7)
+  {
+    coef[0]=-2./21;
+    coef[1]=3./21;
+    coef[2]=6./21;
+    coef[3]=7./21;
+    coef[4]=6./21;
+    coef[5]=3./21;
+    coef[6]=-2./21;
+
+    if(deriv==1)
+    {
+      coef[0]=-3./28;
+      coef[1]=-2./28;
+      coef[2]=-1./28;
+      coef[3]=0./28;
+      coef[4]=1./28;
+      coef[5]=2./28;
+      coef[6]=3./28;
+    }
+    if(deriv==2)
+    {
+      coef[0]=5./42;
+      coef[1]=0./42;
+      coef[2]=-3./42;
+      coef[3]=-4./42;
+      coef[4]=-3./42;
+      coef[5]=0./42;
+      coef[6]=5./42;
+    }
+    
+  }
+
+  double voltage=0;
+  double signal=0;
+  //int ipt=(N-1)/2;
+  int ipt=0;
+  double signal_mean=0;
+  double voltage_mean=0;
+  if(N<2 || N>g->GetN()) return gsmooth;
+  
+  // Choose arbitrarly the first step as the one used for all the points. // For scaling of derivative values
+  float step=0;
+  double v1=0;
+  double v2=0;
+  g->GetPoint(0, v1, signal);
+  g->GetPoint(1, v2, signal);
+  step = abs(v2-v1);
+  
+  for(int ip=0; ip<g->GetN()-N+1; ip++)
+  {
+    voltage_mean = 0;
+    signal_mean = 0;
+    for(int i=0; i<N; i++)
+    {
+      g->GetPoint(ip+i, voltage, signal);
+      voltage_mean+=voltage;
+      signal_mean+=signal*coef[i];
+    }
+    voltage_mean/=N;
+    if(deriv==1) signal_mean/=(step);
+    if(deriv==2) signal_mean/=(step*step); 
+    gsmooth->SetPoint(ipt, voltage_mean, signal_mean);
+    //cout<<"pt "<<ipt<<" "<< voltage_mean<<" "<< signal_mean<<endl;
+    ipt++;
+  }
+  //gsmooth->Print("all");
+
+  gsmooth->SetMarkerStyle(20);
+  //gsmooth->Print("all");
+
+  return gsmooth;
+  
+}
+
+TGraphErrors* GetSavitzkyGolayCurvatureGraph(TGraphErrors* g, int npt=5)
+{
+  TGraphErrors* gd = SavitzkyGolaySmoother( g, npt, 1 );
+  TGraphErrors* gd2 = SavitzkyGolaySmoother( g, npt, 2 );
+  return GetCurvatureGraph(gd, gd2);
+}
+
 
 
 TGraphErrors* GetSmoothGraph(TGraphErrors* g)
