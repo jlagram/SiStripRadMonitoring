@@ -397,6 +397,7 @@ TGraphErrors* GetDerivativeGraph(TGraphErrors* g)
 TGraphErrors* GetCurvatureGraph(TGraphErrors* gd, TGraphErrors* gd2)
 {
   
+  TGraphErrors* gcurv = new TGraphErrors();
   double x1, y1, x2, y2, curv;
   double xmin=-1;
   double ymin=0;
@@ -433,7 +434,7 @@ TGraphErrors* GetCurvatureGraph(TGraphErrors* gd, TGraphErrors* gd2)
     gcurv->SetPoint(i, x2, curv);
   }
   
-  cout<<g->GetN()<<" pts"<<endl; // laisser sinon pb a la Root
+  cout<<gd->GetN()<<" pts"<<endl; // laisser sinon pb a la Root
   
   /*cout<<"------"<<endl;
   g->Print("all");
