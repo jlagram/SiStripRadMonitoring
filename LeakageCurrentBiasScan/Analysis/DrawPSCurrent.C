@@ -4,8 +4,8 @@
 
 void ConvertAllPSToRoot()
 {
-/*  ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20111012_run178367.txt");
-  ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120405_run190459.txt");
+  ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20111012_run178367.txt");
+/*  ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120405_run190459.txt");
   ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120506_run193541.txt");
   ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120510_run193928.txt");
   ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120728_run199832.txt");
@@ -37,12 +37,12 @@ void DrawPSCurrent()
 
   int nmod;
   //ConvertAllPSToRoot();
-  ReadPSCurrentRoot("Data/PS_I_TOB_20120812_run200786.root", 369121605, nmod);
+  TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_20120812_run200786.root",369121605 , nmod);
   //TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20120506_run193541.root", 369121605);
   //TGraph* g2 = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20120405_run190459.root", 369121605);
   
   //TGraph* g = ReadPSCurrentRoot("Data/PS_I_TOB_20120728_run199832.root", 436281516);
-  //g->Draw("APL");
+  g->Draw("APL");
 
   //ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120928_run203832.txt"); 
 /*  TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20120928_run203832.root", 369121382, "", true);
