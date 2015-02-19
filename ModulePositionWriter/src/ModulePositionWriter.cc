@@ -36,6 +36,9 @@
 #include "Geometry/Records/interface/TrackerDigiGeometryRecord.h"
 #include "Geometry/TrackerGeometryBuilder/interface/StripGeomDetUnit.h"
 
+#include "DataFormats/SiStripDetId/interface/SiStripDetId.h"
+#include "Geometry/CommonTopologies/interface/StripTopology.h"
+
 #include "FWCore/ServiceRegistry/interface/Service.h" 
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
@@ -127,7 +130,8 @@ ModulePositionWriter::analyze(const edm::Event& iEvent, const edm::EventSetup& i
    iSetup.get<TrackerDigiGeometryRecord>().get(tracker);
 
    vector< DetId > detUnitIds = tracker->detUnitIds();
-   
+   map< int, float > modStripLength;
+ 
    for(unsigned int idet=0; idet<detUnitIds.size(); idet++)
    {
        if(idet%1000==0) cout<<idet<<" mod read"<<endl;
@@ -141,6 +145,13 @@ ModulePositionWriter::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	   Z = gdu->position().z();
 	   smalltree->Fill();
 	   //cout<<"Mod "<<subdetId<<" "<<detId<<" "<<R<<" "<<Z<<endl;
+
+       // Look also at stripLength
+       // enum ModuleGeometry {UNKNOWNGEOMETRY, IB1, IB2, OB1, OB2, W1A, W2A, W3A, W1B, W2B, W3B, W4, W5, W6, W7};
+       int modGeom = SiStripDetId(detID).moduleGeometry();
+       //modStripLength[ modGeom ] = 
+       cout<<idet<<" subdet : "<<subdetId<<" type "<<modGeom<<" l "<<
+         <<StripTopology(gdu->topology()).stripLength()<<endl;
    }
 }
 
