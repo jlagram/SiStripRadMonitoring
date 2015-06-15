@@ -289,7 +289,7 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 
     edm::Handle<edm::View<reco::Track> > recoTrackHandle;
     iEvent.getByLabel(trackLabel_, recoTrackHandle);
-    const edm::View<reco::Track> & recoTrackCollection = *(recoTrackHandle.product()); 
+    //const edm::View<reco::Track> & recoTrackCollection = *(recoTrackHandle.product()); 
     edm::Handle<std::vector<Trajectory> > TrajectoryCollection;
     iEvent.getByLabel(tkTraj_,TrajectoryCollection);
     edm::Handle<TrajTrackAssociationCollection> trajTrackAssociationHandle;
