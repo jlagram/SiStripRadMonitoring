@@ -41,7 +41,7 @@
 #include <Geometry/CommonTopologies/interface/StripTopology.h>
 
 #include "DataFormats/Common/interface/Ref.h"
-#include "DataFormats/Common/interface/EDProduct.h"
+#include "DataFormats/Common/interface/EDProductfwd.h"
 #include "DataFormats/DetId/interface/DetId.h"
 #include "DataFormats/SiStripCluster/interface/SiStripCluster.h"
 #include "DataFormats/TrackerRecHit2D/interface/SiStripRecHit2DCollection.h"
@@ -63,7 +63,7 @@
 #include <DataFormats/TrackerRecHit2D/interface/SiStripRecHit2D.h>
 
 #include <RecoTracker/TransientTrackingRecHit/interface/TSiStripRecHit2DLocalPos.h>
-#include <RecoTracker/TransientTrackingRecHit/interface/TSiTrackerMultiRecHit.h>
+//#include <RecoTracker/TransientTrackingRecHit/interface/TSiTrackerMultiRecHit.h>
 #include <RecoTracker/TransientTrackingRecHit/interface/TSiPixelRecHit.h>
 #include <RecoTracker/TransientTrackingRecHit/interface/TSiStripRecHit1D.h>
 #include "RecoVertex/VertexPrimitives/interface/TransientVertex.h"
@@ -94,6 +94,7 @@
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 
 #include "TTree.h"
+#include "TH1F.h"
 
 #include "../interface/TreeEvent.h"
 
@@ -205,7 +206,11 @@ class SignalBiasScan : public edm::EDAnalyzer {
   edm::Service<TFileService> fs;
 
   TreeEvent *treeevent;
-  
+
+  // Histos of primary vertex quantities 
+  TH1F *hnPV; // number of primary vertices
+  TH1F *hPVz; // z position
+  TH1F *hPVr; // rho position
 };
 
 //
@@ -241,7 +246,10 @@ SignalBiasScan::SignalBiasScan(const edm::ParameterSet& iConfig) {
   treeevent = new TreeEvent();
   
   smalltree->Branch("event", "TreeEvent", &treeevent, 32000, 3);
-  
+ 
+  hnPV = new TH1F("hnPV", "number of primary vertices", 200, 0, 200);
+  hPVz = new TH1F("hPVz", "z position of the PVs", 100, -50, 50);
+  hPVr = new TH1F("hPVr", "rho position of the PVs", 100, 0, 2.5); 
 }
 
 
@@ -277,19 +285,23 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   iEvent.getByLabel(primaryVertexColl_,primaryVertex);
   
   // Check there is at least one good primary vertex
-  bool foundGoodVertex = true; 
-  for(unsigned int i = 0; i< primaryVertex->size() ; i++){    
-    if(!(*primaryVertex)[i].isFake() && (*primaryVertex)[i].tracksSize()>2 
-       && fabs( (*primaryVertex)[i].z()) <= 24 && fabs( (*primaryVertex)[i].position().rho()) <= 2) foundGoodVertex = true; 
+  bool foundGoodVertex = true;
+  hnPV->Fill(primaryVertex->size()); 
+  for(unsigned int i = 0; i< primaryVertex->size() ; i++){
+    if(!(*primaryVertex)[i].isFake() && (*primaryVertex)[i].tracksSize()>2){
+      hPVz->Fill((*primaryVertex)[i].z());
+      hPVr->Fill((*primaryVertex)[i].position().rho());
+      if( fabs( (*primaryVertex)[i].z()) <= 24 && fabs( (*primaryVertex)[i].position().rho()) <= 2) foundGoodVertex = true; 
+    }
   }
-  
-  
-  
+ 
+
+ 
   if(foundGoodVertex){
 
     edm::Handle<edm::View<reco::Track> > recoTrackHandle;
     iEvent.getByLabel(trackLabel_, recoTrackHandle);
-    const edm::View<reco::Track> & recoTrackCollection = *(recoTrackHandle.product()); 
+    //const edm::View<reco::Track> & recoTrackCollection = *(recoTrackHandle.product()); 
     edm::Handle<std::vector<Trajectory> > TrajectoryCollection;
     iEvent.getByLabel(tkTraj_,TrajectoryCollection);
     edm::Handle<TrajTrackAssociationCollection> trajTrackAssociationHandle;
@@ -462,6 +474,10 @@ SignalBiasScan::beginJob() {
 // ------------ method called once each job just after ending the event loop  ------------
 void 
 SignalBiasScan::endJob() {
+
+  hnPV->Write();
+  hPVz->Write();
+  hPVr->Write();
 }
 
 
