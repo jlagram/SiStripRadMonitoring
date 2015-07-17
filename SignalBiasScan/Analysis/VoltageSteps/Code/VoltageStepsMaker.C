@@ -96,7 +96,9 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
 	  if(fin.eof()) continue;
 	  std::stringstream ss(line);
 	  ss >> step >> str_time >> evt >> str_orbit >> voltage >> run;
-	  	  
+	  //std::cout<<"Step "<<step<<" "<<str_time<<" "<<evt<<" "<<str_orbit<<" "<<voltage<<" "<<run<<std::endl;
+          //std::cout<<" previous_step : "<<step_previous<<std::endl; 	 
+ 
 	  if(step_previous!=step) 
 	  {
 	    evt_start = evt;
@@ -122,7 +124,7 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
 		  std::cout<<" >>> ERROR : skip step "<<step<<". time_end < time_start !"<<std::endl;
 		
 		// Store steps definitions
-		if(run_previous==run && evt_end > evt_start && time_end >= time_start)
+		if(run_previous==run && evt_end >= evt_start && time_end >= time_start)
 		{
           time_start+=1; // Prefer to loose 1 sec than to use data with wrong setting
           time_end-=1; // Prefer to loose 1 sec than to use data with wrong setting 

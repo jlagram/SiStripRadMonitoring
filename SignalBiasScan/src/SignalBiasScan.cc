@@ -475,6 +475,7 @@ SignalBiasScan::beginJob() {
 void 
 SignalBiasScan::endJob() {
 
+  fs->cd();
   hnPV->Write();
   hPVz->Write();
   hPVr->Write();

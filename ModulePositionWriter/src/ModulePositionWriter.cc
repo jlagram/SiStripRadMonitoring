@@ -43,7 +43,7 @@
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
 #include "TTree.h"
-#include "DataFormats/Common/interface/EDProduct.h"
+#include "DataFormats/Common/interface/EDProductfwd.h"
 #include "DataFormats/DetId/interface/DetId.h"
 
 //
@@ -149,9 +149,10 @@ ModulePositionWriter::analyze(const edm::Event& iEvent, const edm::EventSetup& i
        // Look also at stripLength
        // enum ModuleGeometry {UNKNOWNGEOMETRY, IB1, IB2, OB1, OB2, W1A, W2A, W3A, W1B, W2B, W3B, W4, W5, W6, W7};
        int modGeom = SiStripDetId(detID).moduleGeometry();
+       const StripTopology& topo = (const StripTopology&) gdu->topology();
        //modStripLength[ modGeom ] = 
-       cout<<idet<<" subdet : "<<subdetId<<" type "<<modGeom<<" l "<<
-         <<StripTopology(gdu->topology()).stripLength()<<endl;
+       cout<<idet<<" subdet : "<<subdetId<<" type "<<modGeom<<" l "
+         <<topo.stripLength()<<endl;
    }
 }
 

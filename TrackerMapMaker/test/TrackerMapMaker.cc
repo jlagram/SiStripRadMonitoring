@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   if(argc>4) outputfile=argv[4];
 
   std::string line;
-  ifstream fin(inputfile);
+  std::ifstream fin(inputfile);
   int detid;
   float value;
 

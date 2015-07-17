@@ -533,7 +533,7 @@ TGraphErrors* HanningFilter(TGraphErrors* g, int npt=3)
 {
   TGraphErrors* gsmooth = new TGraphErrors();
   
-  if(npt!=3 && npt!=5) { cout<<"Error : Lissage de Hanning prévu seulement sur 3 ou 5 points."<<endl;; return gsmooth; }
+  if(npt!=3 && npt!=5) { cout<<"Error : Lissage de Hanning prevu seulement sur 3 ou 5 points."<<endl;; return gsmooth; }
   
   const int N=npt;// FUNCTION WRITTEN FOR N=3, CHECKS NEEDED IF WANT TO GENERALIZE
   // coef for hanning

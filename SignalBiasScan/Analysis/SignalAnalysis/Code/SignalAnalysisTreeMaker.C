@@ -57,6 +57,7 @@ void SignalAnalysisTreeMaker::Loop()
   //else VSmaker.readVoltageSteps_evtnumber(stepsfile.c_str());
   VSmaker.readVoltageSteps(stepsfile.c_str(), usetimestamp);
   std::cout << " done" << std::endl;
+  std::cout << " found " << VSmaker.getNVoltage() << " steps " << std::endl;
   
   VSmaker.Initialize();
   t_monitor_start = VSmaker.t_monitor_start;
@@ -134,7 +135,7 @@ void SignalAnalysisTreeMaker::Loop()
 	  commonHistos[idet][0]->Fill(event->Ntracks); // adapted to v1.1 data format
 	  commonHistos[idet][4]->Fill(theVoltage);
 	}
- 
+
     // Loop over tracks
     for(unsigned int itr=0; itr<event->tracks.size(); itr++)
 	{
@@ -214,7 +215,7 @@ void SignalAnalysisTreeMaker::Loop()
 
     } // End of loop over tracks
   } // End of loop over events
- 
+
   
 
   // Fit of histos with Landau and store results
@@ -296,6 +297,8 @@ void SignalAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*
 void SignalAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, TreeHit *hit, int thePointNumber, bool sensors, std::vector< TH1F* > commonHistos, float
 barycenter, float seed, float seedChargeAngleCorr)
 {
+
+
   if(thePointNumber<0) return;
 
   std::map<ULong64_t , std::vector<TH1F*> >::iterator iter;
@@ -306,6 +309,7 @@ barycenter, float seed, float seedChargeAngleCorr)
   ULong64_t detid = hit->detId;
   if(sensors)  detid = detid*10+firstsensor;
   //std::cout << "Detid " << detid << " "<< hit->detId <<" "<<firstsensor<< std::endl;
+
  
   iter = HistSoN.find(detid);
   if(iter == HistSoN.end() ){
@@ -314,6 +318,7 @@ barycenter, float seed, float seedChargeAngleCorr)
 	TString histoname;
 	histoname.Form("DetID_%llu",detid);
 	if(use_onstrip!=0) histoname.Append(Form("_%i",use_onstrip)); 
+        if(VSmaker.getNVoltage()>0) // protection for an exception in CMSSW_74X
 	for(int j=0; j< VSmaker.getNVoltage(); j++){
 	  std::string s;
 	  std::stringstream out;
