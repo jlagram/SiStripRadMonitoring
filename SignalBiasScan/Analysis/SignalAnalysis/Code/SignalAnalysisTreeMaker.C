@@ -548,6 +548,9 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
           // TIB - 1.2.2.1
       detid==369121390 || detid==369121382 || detid==369121386 || 
       detid==369121385 || detid==369121389 || detid==369121381 ||
+          // TIB + 1.6.2.5
+      detid==369125870 || detid==369125862 || detid==369125866 ||
+      detid==369125869 || detid==369125865 || detid==369125861 ||
           // others in TIB  
       detid==369121437 || detid==369142077 || detid==369121722 || 
       detid==369125534 || detid==369137018 || detid==369121689 ||
