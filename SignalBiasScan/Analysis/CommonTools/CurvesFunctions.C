@@ -62,6 +62,26 @@ int GetLayer(ULong64_t modid)
 
 }
 
+int GetWheel(ULong64_t modid)
+{
+  if(modid>999999999) modid/=10; // sensor option for TOB
+  Int_t subdet = GetSubdet(modid);
+
+  static const unsigned wheelStartBitTID = 11;
+  static const unsigned wheelMaskTID = 0x3;
+  static const unsigned wheelStartBitTEC = 14;
+  static const unsigned wheelMaskTEC = 0xF;
+  Int_t wheel = 0;
+
+  // For TID 
+  if(subdet==4) wheel = ((modid>>wheelStartBitTID) & wheelMaskTID);
+  // For TEC
+  if(subdet==6) wheel = ((modid>>wheelStartBitTEC) & wheelMaskTEC);
+  // For barrel, return 0;
+ 
+  return wheel;
+}
+
 
 // TGraph infos
 //--------------
@@ -103,6 +123,34 @@ double GetMin(TGraph* g)
   }
   
   return xmin;
+}
+
+bool isGoodCurve(TGraph* g, string type)
+{
+
+  bool isGood = true;
+
+  double x1=0;
+  double y1=0;
+  double x2=0;
+  double y2=0;
+  for(int ipt=0; ipt<g->GetN(); ipt++)
+  {
+    g->GetPoint(ipt, x2, y2);
+    //cout<<ipt<<" "<<x2<<" "<<y2<<endl;
+
+    if(ipt==0 && x2>75) {cerr<<"First step above 75V: "<<x2<<"V"<<endl; return false;}
+    if(ipt!=0 && fabs(x2-x1)>40) {cerr<<"Too large step between voltage points: "<<x1<<"-"<<x2<<"V"<<endl; return false;}
+    if(ipt!=0 && x2>150 && (y2-y1)<-15 && type=="Signal") {cerr<<"Too large step between y points: "<<x1<<"V: "<<y1<<"  "<<x2<<"V: "<<y2<<endl; return false;}
+    //if(ipt!=0 && fabs(y2-y1)>1. && type=="ClusterWidth") {cerr<<"Too large step between y points: "<<x1<<"V: "<<y1<<"  "<<x2<<"V: "<<y2<<endl; return false;}
+
+    x1=x2;
+    y1=y2;
+  }
+  // last point
+  if(x2<250) {cerr<<"Last step below 250V: "<<x2<<"V"<<endl; return false;}
+
+  return isGood;  
 }
 
 
@@ -398,7 +446,8 @@ TGraphErrors* GetCurvatureGraph(TGraphErrors* gd, TGraphErrors* gd2)
 {
   
   TGraphErrors* gcurv = new TGraphErrors();
-  double x1, y1, x2, y2, curv;
+  double x1=0;
+  double y1, x2, y2, curv;
   double xmin=-1;
   double ymin=0;
   double xmax=-1;
@@ -1029,7 +1078,8 @@ int CorrectGraphForLeakageCurrent(TGraph* g, ULong64_t detid=369121606, string r
 {
   // Get correction function
   string filename="LeakCurCorr"+run+".root";
-  TFile* f = new TFile(filename.c_str(), "read");
+  string filepath="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/"+filename;
+  TFile* f = new TFile(filepath.c_str(), "read");
   if(!f) {cout<<"No leakage current correction file : "<<filename<<endl; return 0;}
   
   int out = CorrectGraphForLeakageCurrent(g, detid, f);
