@@ -322,7 +322,7 @@ TGraph* ReadDCUCurrentRoot(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.
   
 }
 
-TGraph* ReadDCUCurrentFromGB(char* filename="~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", int modid=369121605,
+TGraph* ReadDCUCurrentFromGB(char* filename="~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", int modid=369121606,
  char* bad_periods="", bool print=false, TGraph* gtemp=0)
 {
 
@@ -369,7 +369,8 @@ TGraph* ReadDCUCurrentFromGB(char* filename="~/work/DCU_TIBD_TOB_from_1348837200
   for(int i=0; i<nentries; i++)
   {
     tree->GetEntry(i);
-	time = Dcutimestamp-3600*3;
+	time = Dcutimestamp-3600*3;    
+	time_t print_time = time;
 
     // Remove points during bad periods
 	if(strcmp(bad_periods, ""))
@@ -385,7 +386,7 @@ TGraph* ReadDCUCurrentFromGB(char* filename="~/work/DCU_TIBD_TOB_from_1348837200
 
     if(Detid==modid) 
 	{ 
-	  if(print) cout<<" I_dcu "<<Ileak<<" t "<<time<<endl;
+	  if(print)  cout<<" I_dcu "<<Ileak<<" t "<<time<<" :  "<<ctime(&print_time)<<endl;
 	  if(Ileak<20) continue;
 	  g->SetPoint(ipt, time, Ileak);
 	  if(gtemp) gtemp->SetPoint(ipt, time, TemperatureSi);

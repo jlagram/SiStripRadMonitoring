@@ -49,7 +49,7 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
   // Read files with current infos
   gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
   //gcur_DCU = ReadDCUCurrentFromGB("~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", detid, bad_periods);
-  gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods);
+  gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
   
   if(!gcur_PS) {std::cout<<" No PS current info. Exit."<<std::endl; return;}
   //gcur_DCU = 0; // force to not use DCU
@@ -314,7 +314,7 @@ Double_t fitvdrop(Double_t *x, Double_t *par)
 }
 
 
-void ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*& fit, char* bad_periods="", bool show=true)
+int ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*& fit, char* bad_periods="", bool show=true)
 {
   
   // Loop over modules
@@ -367,34 +367,44 @@ void ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*
   gvdrop->SetMarkerStyle(20);
   if(show) gvdrop->Draw("AP");
 
+  int fit_status=-999;
   // Fit voltage drop
   // sqrt(x) function works for spring 2012 runs for modules with high Vdepl (almost no 'plateau')
-  /*TF1* fvdrop = new TF1("fvdrop", " [0]*([1]+(1+[2]*x)*sqrt(x)) ", 20, 360);
+  // used also for early 2015 runs with reduced leakage current and all Run1 when fitting the curves for all the modules (more robust)
+  TF1* fvdrop = new TF1("fvdrop", " [0]*([1]+(1+[2]*x)*sqrt(x)) ", 20, 360);
   fvdrop->SetParameter(0,0.2);
-  fvdrop->SetParLimits(0, -1, 10);  
-  fvdrop->SetParLimits(1, -100, 100);
+  fvdrop->SetParLimits(0, -5, 10);  
+  fvdrop->SetParLimits(1, -10, 100);
   fvdrop->SetParameter(1,-1);  
-  gvdrop->Fit("fvdrop");*/
+  fit_status = gvdrop->Fit("fvdrop");
+  // For 2015 bad fits
+  if(fvdrop->GetParameter(1)<-9.9){
+    fvdrop->SetParameter(0,0.);
+    fvdrop->SetParameter(1,50);
+    fvdrop->SetParameter(3,0.);
+    fit_status = gvdrop->Fit("fvdrop");
+  }
+
 
   // function with curve in 2 parts : x^1/2 + x^3/2 and pol1 for 'plateau'
   // 5 parameters, so need more points
-  /*TF1* fvdrop = new TF1("fvdrop", fitfunction, 20, 360, 5);
+/*  TF1* fvdrop = new TF1("fvdrop", fitfunction, 20, 360, 5);
   fvdrop->SetParameter(2, 150);
   fvdrop->SetParLimits(1, 0.001, 10);
   fvdrop->SetParameter(3, 0.01);
-  gvdrop->Fit("fvdrop");*/
-
+  fit_status = gvdrop->Fit("fvdrop");
+/*
   // function with curve in 2 parts : sigmoid and pol1
   // fit needs a lot of points to work
   /*TF1* fvdrop = new TF1("fvdrop", fitfunction2, 20, 360, 5);
   fvdrop->SetParameter(0, 3.);
   fvdrop->SetParameter(2, 150);
   fvdrop->SetParameter(4, 0.03);
-  gvdrop->Fit("fvdrop");*/
+  fit_status = gvdrop->Fit("fvdrop");*/
 
   // For TOB
   
-  TF1* fvdrop = new TF1("fvdrop", fitvdrop , 30, 360, 5);
+/*  TF1* fvdrop = new TF1("fvdrop", fitvdrop , 30, 360, 5);
   fvdrop->SetParameter(0, -0.2);
   fvdrop->SetParLimits(0, -10, 0);
   fvdrop->SetParameter(1,-1);
@@ -402,10 +412,10 @@ void ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*
   fvdrop->SetParameter(2, 200);
   //fvdrop->SetParLimits(2, 175, 225);
   //fvdrop->SetParLimits(3, -1, 10);  
-  gvdrop->Fit("fvdrop", "R");
+  fit_status = gvdrop->Fit("fvdrop", "R");
   cout << "Kink_fit= " << fvdrop->GetParameter(2) << endl;
   cout << "Chi_Square_fit = " << fvdrop->GetChisquare()/fvdrop->GetNDF() << endl;
-  
+*/  
   
   if(show) 
   {
@@ -419,7 +429,7 @@ void ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*
   
   fit = (TF1*) gvdrop->GetListOfFunctions()->First();
   
-  return;
+  return fit_status;
   
 }
 
@@ -502,6 +512,10 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
 
   int idet=0;
   int ifit=0;
+  int status=0;
+  int ngoodfit=0;
+  int nbadfit=0;
+  int nnotconv=0;
   TGraph *gvdrop;
   TF1 *fit;
 
@@ -511,6 +525,10 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
   int detid=0;
   bool show=false;
 
+  // storing graphs for bad fits (limit on chi2/ndf)
+  float chi2_limit = 3.; //2015: 3.
+
+  // Loop on detids
   if(fin.is_open())  {
     while( getline ( fin, line) && idet < 6000)
     {
@@ -519,7 +537,7 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
       ss >> detid;
 	  idet++;
 
-	  ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods, show);
+	  status = ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods, show);
 
       // Store fit result
       if(fit)
@@ -533,7 +551,10 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
 		cerr<<detid<<" "<<fit->Eval(300)<<endl;
     	gvdrop->SetName(Form("vdrop_%i", detid));
     	//gvdrop->Write();
-    	if(fit->GetChisquare()/fit->GetNDF() > 10.) gvdrop->Write();
+    	if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) gvdrop->Write();
+        if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) nbadfit++;
+        else ngoodfit++;
+        if(status==4) nnotconv++;
     	if(fit->GetNDF()) hchi2->Fill(fit->GetChisquare()/fit->GetNDF());
     	g2param->SetPoint(ifit, fit->GetParameter(0), fit->GetParameter(1));
     	hparam0->Fill(fit->GetParameter(0));
@@ -552,11 +573,11 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
 
 
   // Write output root file
-  cout<<"Chi2 mean : "<<hchi2->GetMean()<<endl;
-  cout<<"Correl param : "<<g2param->GetCorrelationFactor()<<endl;
-  cout<<"param0 : "<<hparam0->GetMean()<<" +/- "<<hparam0->GetRMS()<<endl;
-  cout<<"param1 : "<<hparam1->GetMean()<<" +/- "<<hparam1->GetRMS()<<endl;
-  cout<<"param2 : "<<hparam2->GetMean()<<" +/- "<<hparam2->GetRMS()<<endl;
+  cerr<<"Chi2 mean : "<<hchi2->GetMean()<<endl;
+  cerr<<"Correl param : "<<g2param->GetCorrelationFactor()<<endl;
+  cerr<<"param0 : "<<hparam0->GetMean()<<" +/- "<<hparam0->GetRMS()<<endl;
+  cerr<<"param1 : "<<hparam1->GetMean()<<" +/- "<<hparam1->GetRMS()<<endl;
+  cerr<<"param2 : "<<hparam2->GetMean()<<" +/- "<<hparam2->GetRMS()<<endl;
   fout->cd();
   hchi2->Write();
   g2param->SetName("g2param");
@@ -566,6 +587,10 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
   hparam2->Write();
   fout->Close();
   
+  cerr<<"N good fits: "<<ngoodfit<<endl;
+  cerr<<"N bad fits: "<<nbadfit<<" (chi2/ndf > "<<chi2_limit<<", not bad enough that the fit is rejected (>50.))"<<endl;
+  cerr<<"N fits w/o convergence: "<<nnotconv<<endl;
+
 }
 
 //------------------------------------------------------------------------
@@ -654,9 +679,29 @@ void ComputeILeakCorrections(char* subdet="TIB_L1", char* run="20120506_run19354
 
   //ComputeCorrections("TIB_L1", "20121130_run208339", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20121130_run208339.txt");
   //ComputeCorrections("TIB_L1", "20130213_run211797", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20150603_run246963", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20150603_run246963.txt"); 
   
-  
+  //ComputeAllCorrections("TIB", "20120405_run190459", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  //ComputeAllCorrections("TIB", "20120510_run193928", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  //ComputeAllCorrections("TIB", "20120812_run200786", "Data/TIB_detids_sorted.txt");
+
+  // 2015
+
+  //ComputeCorrections("TIB_L1", "20150821_run254790", detids_2012_bis, N_2012_bis, "");
+  ComputeCorrections("TIB_L1", "20151007_run258443", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20151007_run258443.txt");
+
+  //ComputeAllCorrections("TIB", "20150603_run246963", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+
+   
+
+  // TESTS
+  const int N_test=10;
+  int detids_test[N_test]={369174348, 369170952, 369158584, 369137878, 369157316, 369138229, 369141097, 369175404, 369157284, 369157176};
+  //ComputeCorrections("TIB", "20150603_run246963", detids_test, N_test, "Steps/bad_periods_20150603_run246963.txt");  
+
+ 
   // TOB
+  //-----
   const int N_TOB=6;
   int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
   //DrawConditions("TOB", "20121130_run208339",436281508 , "Steps/bad_periods_20121130_run208339.txt");
@@ -666,7 +711,7 @@ void ComputeILeakCorrections(char* subdet="TIB_L1", char* run="20120506_run19354
 //  ComputeCorrections("TOB", "20120928_run203832", detids_TOB, N_TOB, "Steps/bad_periods_20120928_run203832.txt");    
 //  ComputeCorrections("TOB", "20121130_run208339", detids_TOB, N_TOB, "Steps/bad_periods_20121130_run208339.txt");
 //  ComputeCorrections("TOB", "20120405_run190459", detids_TOB, N_TOB, "Steps/bad_periods_20120405_run190459.txt");
-  ComputeCorrections("TOB", "20120812_run200786", detids_TOB, N_TOB, "");
+  //ComputeCorrections("TOB", "20120812_run200786", detids_TOB, N_TOB, "");
 
 
 

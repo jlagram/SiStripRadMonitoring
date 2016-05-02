@@ -4,7 +4,7 @@
 
 void ConvertAllPSToRoot()
 {
-  ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20111012_run178367.txt");
+//  ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20150821_run254790.txt");
 /*  ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120405_run190459.txt");
   ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120506_run193541.txt");
   ConvertPSCurrentTxtToRoot("Data/PS_I_TIB_L1_20120510_run193928.txt");
@@ -37,8 +37,9 @@ void DrawPSCurrent()
 
   int nmod;
   //ConvertAllPSToRoot();
-  TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_20120812_run200786.root",369121605 , nmod);
-  //TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20120506_run193541.root", 369121605);
+  //TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20150821_run254790.root", 369121381, nmod);
+  TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20151007_run258443.root", 369125861, nmod);
+  //TGraph* g = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20120506_run193541.root", 3691216005);
   //TGraph* g2 = ReadPSCurrentRoot("Data/PS_I_TIB_L1_20120405_run190459.root", 369121605);
   
   //TGraph* g = ReadPSCurrentRoot("Data/PS_I_TOB_20120728_run199832.root", 436281516);

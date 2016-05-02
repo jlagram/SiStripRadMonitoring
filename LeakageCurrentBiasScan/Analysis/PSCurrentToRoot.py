@@ -15,6 +15,16 @@ parser.add_argument('-subdet', nargs='?', help='option to parse only infos from 
 parser.add_argument('-T', nargs='?', const='T', help='run only until it finds 10 selected entries')
 args = parser.parse_args()
 
+# class to store option when argparse package is not available
+#class arg_struc:
+#    def __init__(self):
+#        self.input = ['Data/Current_03-04_07_2015.csv']
+#        self.subdet = 1
+#        self.T = 1
+
+#args = arg_struc()
+
+
 filein = args.input[0]
 fileout = filein.replace('.csv', '.root')
 
