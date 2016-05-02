@@ -67,12 +67,13 @@ public :
    std::map<ULong64_t, TProfile* > Monitors_TID;
    std::map<ULong64_t, TProfile* > Monitors_TEC;
    
+   void CreateHistosForDetID(ULong64_t , std::map<ULong64_t , std::vector<TH1F*> > &, std::map<ULong64_t , std::vector<TProfile*> > &);
    void FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &, std::map< ULong64_t , std::vector<TProfile*> > &, 
                     TreeHit *, int , bool , std::vector< TH1F* > );
    void FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &, std::map< ULong64_t , std::vector<TProfile*> > &, 
                     TreeFullHit *, int , bool , std::vector< TH1F* > );
    void FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &, std::map< ULong64_t , std::vector<TProfile*> > &, 
-                    TreeHit *, int , bool , std::vector< TH1F* > , float, float , float );
+                    TreeHit *, int , bool , std::vector< TH1F* > , float, float , float, float );
 
    void FillHistos(std::map< ULong64_t , std::vector<TH1F*> > &, std::map< ULong64_t , std::vector<TProfile*> > &,
                    std::vector<TreeHit> &, int , bool , std::vector< TH1F* >, std::map<ULong64_t, TProfile* > );

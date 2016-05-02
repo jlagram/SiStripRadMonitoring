@@ -219,7 +219,10 @@ void ClusterWidthAnalysisTreeMaker::Loop()
     FitHistos(HistSoN_TIB_onstrip[2], "TIB_output_DecoMode_onstrip_3.root", commonHistos[0], Monitors_TIB);
   }
   
-  if((part==2 || part==0)) FitHistos(HistSoN_TOB, "TOB_output_DecoMode.root", commonHistos[1], Monitors_TOB);
+  if((part==2 || part==0)) {
+   FitHistos(HistSoN_TOB, "TOB_output_DecoMode.root", commonHistos[1], Monitors_TOB);
+   FitProfiles(ProfVsAngle_TOB, "TOB_output_DecoMode_prof.root");
+  }
   
   if((part==3 || part==0) && !use_onstrip) FitHistos(HistSoN_TID, "TID_output_DecoMode.root", commonHistos[2], Monitors_TID);
   if((part==3 || part==0) && use_onstrip!=0) {
@@ -243,7 +246,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, std::map<ULong64_t , std::vector<TProfile*> > &ProfVsAngle,
  TreeHit *hit, int thePointNumber, bool sensors, std::vector< TH1F* > commonHistos)
 {
-  FillHitInfo(HistSoN, ProfVsAngle, hit, thePointNumber, sensors, commonHistos, 0, 0, 0);
+  FillHitInfo(HistSoN, ProfVsAngle, hit, thePointNumber, sensors, commonHistos, 0, 0, 0, 0);
 }
 
 void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, std::map<ULong64_t , std::vector<TProfile*> > &ProfVsAngle,
@@ -272,7 +275,7 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
 	  newHit.width = clustersStripsIndex[icl].size();
 	  //std::cout<<"newHit  C :"<<newHit.chargeAngleCorr<<" N : "<<newHit.noise<<" w : "<<newHit.width<<endl;
 
-      FillHitInfo(HistSoN, ProfVsAngle, &newHit, thePointNumber, sensors, commonHistos, 0, 0, 0);
+      FillHitInfo(HistSoN, ProfVsAngle, &newHit, thePointNumber, sensors, commonHistos, 0, 0, 0, 0);
 	  newHit.detId = 0;
 	  newHit.angle = 0;
 	  newHit.tsosy = 0;
@@ -284,37 +287,19 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
     if(clustersStripsIndex.size()>1) N_clus_split++;
     
   }
-  else FillHitInfo(HistSoN, ProfVsAngle, dynamic_cast< TreeHit* >(hit), thePointNumber, sensors, commonHistos, hit->barycenter, hit->seed, hit->seedChargeAngleCorr);
+  else FillHitInfo(HistSoN, ProfVsAngle, dynamic_cast< TreeHit* >(hit), thePointNumber, sensors, commonHistos, 
+                    hit->barycenter, hit->seed, hit->seedChargeAngleCorr, hit->locBy);
 }
 
 
-// FillHitInfo in detail
-void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, std::map<ULong64_t , std::vector<TProfile*> > &ProfVsAngle,
- TreeHit *hit, int thePointNumber, bool sensors, std::vector< TH1F* > commonHistos, float
-barycenter, float seed, float seedChargeAngleCorr)
+// method used to instantiate vectors of histos and profiles
+void ClusterWidthAnalysisTreeMaker::CreateHistosForDetID(ULong64_t detid, std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, std::map<ULong64_t , std::vector<TProfile*> > &ProfVsAngle)
 {
-  if(thePointNumber<0) return;
-  
-  //if(hit->chargeAngleCorr < 10*hit->noise) return;
-  if(commonHistos.size()>5) commonHistos[5]->Fill(hit->chargeAngleCorr / hit->noise);
-
-  float angle = hit->angle;
-  if(angle>TMath::Pi()/2) angle -= TMath::Pi();
-  if(angle<-TMath::Pi()/2) angle += TMath::Pi();
-  //if(fabs(angle)<0. || fabs(angle)>0.2) return;
-  //if(angle>0 && angle<0.15) return;
-
   std::map<ULong64_t , std::vector<TH1F*> >::iterator iter;
   std::vector<TH1F*> detidvector;
   std::map<ULong64_t , std::vector<TProfile*> >::iterator iterProf;
   std::vector<TProfile*> profvector;
 
-  int firstsensor = hit->tsosy<0 ? 1 : 2;
-  
-  ULong64_t detid = hit->detId;
-  if(sensors)  detid = detid*10+firstsensor;
-  //std::cout << "Detid " << detid << " "<< hit->detId <<" "<<firstsensor<< std::endl;
- 
   iter = HistSoN.find(detid);
   if(iter == HistSoN.end() ){
 	//std::cout << "Detid " << detIds[i] << " not found yet, creating vector " << std::endl;
@@ -333,18 +318,60 @@ barycenter, float seed, float seedChargeAngleCorr)
 	  TString thestr = histoname+"_"+s;
 	  detidvector.push_back( new TH1F(thestr.Data(), thestr.Data() , 20, 0, 20)  ); 
 	  TString theprofstr = profname+"_"+s;
-	  profvector.push_back( new TProfile(theprofstr.Data(), theprofstr.Data() , 60, -3, 3)  ); 
+	  profvector.push_back( new TProfile(theprofstr.Data(), theprofstr.Data() , 120, -3, 3)  ); 
 	}
 
 	HistSoN.insert(std::pair<ULong64_t,std::vector<TH1F*> >(detid,detidvector));
 	ProfVsAngle.insert(std::pair<ULong64_t,std::vector<TProfile*> >(detid,profvector));
-    iter = HistSoN.find(detid);
   }
+  
+  return;
+}
 
+
+// FillHitInfo in detail
+
+void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, std::map<ULong64_t , std::vector<TProfile*> > &ProfVsAngle,
+ TreeHit *hit, int thePointNumber, bool sensors, std::vector< TH1F* > commonHistos, float barycenter, float seed, float seedChargeAngleCorr, float locBy)
+{
+  if(thePointNumber<0) return;
+  
+  std::map<ULong64_t , std::vector<TH1F*> >::iterator iter;
+  std::map<ULong64_t , std::vector<TProfile*> >::iterator iterProf;
+
+  //if(hit->chargeAngleCorr < 10*hit->noise) return;
+  if(commonHistos.size()>5) commonHistos[5]->Fill(hit->chargeAngleCorr / hit->noise);
+
+  float angle = hit->angle;
+  if(angle>TMath::Pi()/2) angle -= TMath::Pi();
+  if(angle<-TMath::Pi()/2) angle += TMath::Pi();
+  //if(fabs(angle)<0. || fabs(angle)>0.2) return;
+  //if(angle>0 && angle<0.15) return;
+
+  int firstsensor = hit->tsosy<0 ? 1 : 2;
+  
+  ULong64_t detid = hit->detId;
+  if(sensors)  detid = detid*10+firstsensor;
+  //std::cout << "Detid " << detid << " "<< hit->detId <<" "<<firstsensor<< std::endl;
+ 
+  // Create histos and profiles when needed
+  CreateHistosForDetID(detid, HistSoN, ProfVsAngle);
+  iter = HistSoN.find(detid);
   if( iter == HistSoN.end() ){
 	std::cout << "Error could not find Histogram with DetID: " << detid << std::endl;
 	return;
   }
+  
+  // Create histos and profiles at the layer level. Create pseudo-detids for this.
+  int subdet = ((hit->detId>>25)&0x7); // TIB=3, TID=4, TOB=5, TEC=6
+  int layer = 0; // ring for endcap
+  if(subdet==3 || subdet==5) layer = ((hit->detId>>14)&0x7);
+  if(subdet==4) layer = ((hit->detId>>9)&0x3);
+  if(subdet==6) layer = ((hit->detId>>5)&0x7);
+  
+  int layerid = subdet*100+layer*10;
+  if(locBy<0) layerid++;
+  CreateHistosForDetID(layerid, HistSoN, ProfVsAngle);
 
   if(commonHistos.size()>2) commonHistos[2]->Fill(hit->tsosx-hit->clusx);
   // before using angle info, check that traj measurement close to cluster position
@@ -408,6 +435,16 @@ barycenter, float seed, float seedChargeAngleCorr)
   iterProf = ProfVsAngle.find(detid);
   if( iterProf != ProfVsAngle.end() )
     iterProf->second.at(thePointNumber)->Fill(tan(angle), hit->width);
+	
+  // Fill histos and profiles for layer
+  iter = HistSoN.find(layerid);
+  if( iter != HistSoN.end() && hit->chargeAngleCorr > 0 && usehit )
+    iter->second.at(thePointNumber)->Fill(hit->width);
+  
+  iterProf = ProfVsAngle.find(layerid);
+  if( iterProf != ProfVsAngle.end() )
+    iterProf->second.at(thePointNumber)->Fill(tan(angle), hit->width);
+	
 }
 
 void ClusterWidthAnalysisTreeMaker::FillHistos(std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, std::map<ULong64_t , std::vector<TProfile*> > &ProfVsAngle,
@@ -508,6 +545,8 @@ void ClusterWidthAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<T
 	  bool rmfit=false;
 
       if( rmfit || 
+	  // histos at the layer/ring level
+	  detid<10000 ||
       // TIB modules
           // TIB - 1.4.2.5
       detid==369121605 || detid==369121606 || detid==369121614 || 
@@ -665,6 +704,8 @@ void ClusterWidthAnalysisTreeMaker::FitProfiles(std::map<ULong64_t , std::vector
 	  
 
       if( rmfit || 
+	  // profiles at the layer/ring level
+	  detid<10000 ||
       // TIB modules
           // TIB - 1.4.2.5
       detid==369121605 || detid==369121606 || detid==369121614 || 
