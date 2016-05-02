@@ -32,7 +32,7 @@ time_t convertTimestamp( std::string str){
   ctime(&out_time); // Have to let this line, otherwise 1 hour shift with gcc compared to AClic !!
   //2 hours shift, due to daylight saving time + shift of local time with UTC ?
   // only 1 hour shift starting from nov 2012
-  if(year>2012 || (year==2012 && month>=10)) out_time+=3600;
+  if(year==2013 || (year==2012 && month>=10)) out_time+=3600;
   else out_time+=7200;
   
   return out_time;
