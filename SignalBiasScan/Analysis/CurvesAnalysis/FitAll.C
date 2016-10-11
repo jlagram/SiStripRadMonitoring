@@ -108,10 +108,11 @@ void FitAllCurves(string DirName, string SubDet, string Run, string type)
   
   Int_t layer = 0;
   float mean, rms;
+  TH1F* hrms = new TH1F("hrms", "yrms", 50, 0, 10);  
 
   std::cout << nentries << std::endl;
 
-  string leakcurfilename="LeakCurCorr_"+SubDet+Run+".root";
+  string leakcurfilename="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/LeakCurCorr_"+SubDet+Run+".root";
   TFile* leakcurfile = new TFile(leakcurfilename.c_str(), "read");
   if(!leakcurfile) {cout<<"No leakage current correction file : "<<leakcurfilename<<endl<<"-----------------------------------------------"<<endl; }
 
@@ -160,8 +161,10 @@ void FitAllCurves(string DirName, string SubDet, string Run, string type)
       int corrected = CorrectGraphForLeakageCurrent(thegraph, tempdetid, leakcurfile);
 
       GetYMeanRMS(thegraph, mean, rms);
-	  //cout<<"rms "<<rms<<endl;
-	  //if(rms<0.1) continue;
+      cout<<"rms "<<rms<<endl;
+      hrms->Fill(rms);
+      // Check if module was in the Vbias scan
+      //if(rms<1.) {cerr<<"module "<<tempdetid<<" is skipped, yrms<1. ("<<rms<<")"<<endl; continue;}
 
       thegraph->SetLineColor(2);
       thegraph->SetMarkerColor(1);
@@ -173,9 +176,19 @@ void FitAllCurves(string DirName, string SubDet, string Run, string type)
 	  int debug = 0;
 	  bool filter_twice = false;
 	  if(SubDet=="TID" && (Run=="_170000" || Run=="_193928") ) filter_twice=true;
-	  // Check if module was in the Vbias scan
-	  if(rms>0.2) Vdep = FitCurve( thegraph, debug, filter_twice );
-	  else Vdep=-1;
+
+      bool small_rms=false;
+      if((type=="Signal" && rms<1.) || (type=="ClusterWidth" && rms<0.3)) small_rms=true;
+      // Check if module was in the Vbias scan
+      if((isGoodCurve(thegraph, type) && !small_rms) ||
+         (tempdetid==369121389 && Run=="_258443")) //exception
+        Vdep = FitCurve( thegraph, debug, filter_twice );
+      else 
+      { 
+        Vdep=-1;
+        if(small_rms) cerr<<" small yrms: "<<rms<<endl;
+        cerr<<"module "<<tempdetid<<" is skipped."<<endl;
+      }
 	  
 	  tempdepvolt.clear();
       tempdepvolt.push_back(layer);
@@ -212,6 +225,7 @@ void FitAllCurves(string DirName, string SubDet, string Run, string type)
   std::cout<<nbadfit<<" bad fits over "<<nfit<<std::endl;
   
   output->cd();
+  hrms->Write();
   tout->Write();
   gDirectory->Write();
   output->Close();
@@ -227,8 +241,7 @@ void FitAllCurves(string DirName, string SubDet, string Run, string type)
 // root -l -b -q FitAll.C+
 void FitAll()
 {
-  FitAllCurves("~/work/public/SiStripRadMonitoring/SignalCurves/", "TID", "_160497",
-  "Signal");
+  FitAllCurves("~/work/public/SiStripRadMonitoring/SignalCurves/", "TIB", "_271056", "Signal");
 
 }
 
