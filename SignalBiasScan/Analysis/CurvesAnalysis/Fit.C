@@ -1,6 +1,6 @@
 #include "../CommonTools/CurvesFunctions.C"
 #include "TLine.h"
-
+#include "TCanvas.h"
 
 Double_t fitsigmo(Double_t *x, Double_t *par){
   Double_t value, value_th, value_0;
@@ -36,6 +36,9 @@ Double_t fitpol(Double_t *x, Double_t *par){
 
 double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false)
 {
+
+  // option to use SavitzkyGolaySmoother that can gives derivatives on a larger range
+  bool SGSmooth=false;
   
   double vdep=0;
   if(!g) return vdep;
@@ -43,6 +46,18 @@ double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false)
   
   TF1* f3 = new TF1("fp1", "pol1", 20, 360);
   f3->SetLineColor(4);
+
+
+  // Clean-up of the curve with the MedianFilter
+  TGraphErrors* gmedian = MedianFilter( g );
+  /*int nfilt=1;
+  while (!IsMonoton(gmedian) && nfilt<4) {
+    gmedian = MedianFilter( gmedian );
+    nfilt++;
+  }*/
+  //cout<<nfilt<<" median filter applied"<<endl;
+  gmedian = MedianFilter( gmedian );
+  
   
   double y;
   double xlow=350;
@@ -50,33 +65,35 @@ double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false)
   double ymin=999;
   double vdep1=0;
   // prendre le point le plus haut est robuste et marche bien pour les hauts vdep
-  TGraphErrors *gsmooth = MedianFilter(g);
-  gsmooth = MedianFilter(gsmooth);
-  for(int ipt=0; ipt<gsmooth->GetN(); ipt++)
+  for(int ipt=0; ipt<gmedian->GetN(); ipt++)
   {
-    gsmooth->GetPoint(ipt, xlow, y);
-	if(y>ymax) {ymax=y; vdep1=xlow;}
-	if(y<ymin) ymin=y;
+    gmedian->GetPoint(ipt, xlow, y);
+    if(y>ymax) {ymax=y; vdep1=xlow;}
+    if(y<ymin) ymin=y;
   }
+
+
   // Compute a voltage threshold for Kink finding algo
   // 80% of ymax
-  double ythresh = ymin + (ymax-ymin)*0.8;
+  // ymin depends on the steps taken at low HV -> use 1 as a common minimum for both Signal and ClusterWidth
+  double ylow = 1;
+  double ythresh = ylow + (ymax-ylow)*0.8;
   double xthresh=0;
-  for(int ipt=0; ipt<gsmooth->GetN(); ipt++)
+  for(int ipt=0; ipt<gmedian->GetN(); ipt++)
   {
-    gsmooth->GetPoint(ipt, xlow, y);
+    gmedian->GetPoint(ipt, xlow, y);
 	if(y>ythresh)
 	{
 	  ipt--;
-	  gsmooth->GetPoint(ipt, xlow, y);
+	  gmedian->GetPoint(ipt, xlow, y);
 	  xthresh = xlow;
-	  ipt = gsmooth->GetN();
+	  ipt = gmedian->GetN();
 	}
   }
   cout<<"x thresh : "<<xthresh<<endl;
   
   
-  //g=gsmooth;
+  //g=gmedian;
   int npt = g->GetN()-5;
   xlow=350;
   double chi2=0;
@@ -159,19 +176,17 @@ double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false)
 
 
 
-      TGraphErrors* gmedian;
-      gmedian = MedianFilter( g );
-      int nfilt=1;
-      /*while (!IsMonoton(gmedian) && nfilt<4) {
-        gmedian = MedianFilter( gmedian );
-        nfilt++;
-      }*/
-      gmedian = HanningFilter(gsmooth);
-	  // To check : 2nd hanningFilter better with 3 or 5 points ?
-	  if(filter_twice) gmedian = HanningFilter(gmedian); // For TOB, some scans for TID
-      //cout<<nfilt<<" median filter applied"<<endl;
+      TGraphErrors* gsmooth = gmedian;
+      if(SGSmooth) gsmooth = SavitzkyGolaySmoother(gmedian, 5, 0);
+      else{
+        gsmooth = HanningFilter(gmedian);
+        // To check : 2nd hanningFilter better with 3 or 5 points ?
+        if(filter_twice) gsmooth = HanningFilter(gsmooth); // For TOB, some scans for TID
+      }
 
-      TGraphErrors* gscurv = GetCurvatureGraph( gmedian );
+      TGraphErrors* gscurv;
+      if(SGSmooth) gscurv = GetSavitzkyGolayCurvatureGraph( gmedian );
+      else gscurv = GetCurvatureGraph( gsmooth );
       gscurv->SetMarkerStyle(20);
       TGraph* g3pts = new TGraph();
       float xopt = GetOptimalMinNPts(gscurv, g3pts, xthresh);
@@ -190,7 +205,7 @@ double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false)
     //f2->Draw("same");
     //f3->Draw("same");
 	gsmooth->SetMarkerColor(17);
-	//gsmooth->Draw("P");
+	gsmooth->Draw("P");
 gmedian->SetMarkerColor(15);
 //gmedian->Draw("P");	
 	TLine *l = new TLine(vdep, ymin, vdep, ymax+0.1);
@@ -242,6 +257,9 @@ void FitOneCurve(string dirname, string subdet, string run, ULong64_t modid, str
   if(type=="Signal") g = GetGraph(dirname, subdet, run, modid, 0);
   if(!g) return;
 
+  isGoodCurve(g, type);
+  //if(!isGoodCurve(g, type)) return;
+
   // Correct for voltage drop due to leakage current
   string corr_name="_"+subdet+run;
   int corrected = CorrectGraphForLeakageCurrent(g, modid, corr_name);
@@ -267,6 +285,18 @@ void FitTIBCurves(string dirname, string run, string type)
   // L4
   FitOneCurve(dirname, "TIB", run, 369169980, type, 1);
   FitOneCurve(dirname, "TIB", run, 369169864, type, 1);
+  FitOneCurve(dirname, "TIB", run, 369170636, type, 1);
+  FitOneCurve(dirname, "TIB", run, 369173944, type, 1);
+
+}
+
+void FitTIBLowVfdCurves(string dirname, string run, string type)
+{
+  // L1
+  FitOneCurve(dirname, "TIB", run, 369121302, type, 1);
+  FitOneCurve(dirname, "TIB", run, 369170776, type, 1);
+
+  // L4
   FitOneCurve(dirname, "TIB", run, 369170636, type, 1);
   FitOneCurve(dirname, "TIB", run, 369173944, type, 1);
 
@@ -300,18 +330,28 @@ void FitTIBSmallScan(string dirname, string run, string type)
 
 void FitTIDCurves(string dirname, string run, string type)
 {
-  FitOneCurve(dirname, "TID", run, 402674846, type, 1);
+  /*FitOneCurve(dirname, "TID", run, 402674846, type, 1);
   FitOneCurve(dirname, "TID", run, 402673352, type, 1);
   FitOneCurve(dirname, "TID", run, 402673440, type, 1);
   FitOneCurve(dirname, "TID", run, 402664109, type, 1);
+*/
+
+  FitOneCurve(dirname, "TID", run, 402668829, type, 1);
+  FitOneCurve(dirname, "TID", run, 402672930, type, 1);
+  FitOneCurve(dirname, "TID", run, 402677025, type, 1);
+  FitOneCurve(dirname, "TID", run, 402677041, type, 1);
+  
 }
 
 void Fit()
 {
   //FitOneCurve("TIB", "_208339", 369125869, "Signal", 1);
   //FitOneCurve("TIB", "_200786", 369136953, "Signal", 1);
-  //FitTIDCurves("~/work/public/SiStripRadMonitoring/SignalCurves/", "_190459", "Signal");402664070
-  FitOneCurve("~/work/public/SiStripRadMonitoring/SignalCurves/", "TID", "_190459", 402664070, "Signal", 1);
+  //FitOneCurve("~/work/public/SiStripRadMonitoring/SignalCurves/", "TIB", "_178367", 369125862, "Signal", 1);
+  //FitOneCurve("~/work/public/SiStripRadMonitoring/ClusterWidthCurves/", "TIB", "_246963", 369121302, "ClusterWidth", 1);
+  //FitTIDCurves("~/work/public/SiStripRadMonitoring/SignalCurves/",  "_193928","Signal");
+  //FitOneCurve("~/work/public/SiStripRadMonitoring/SignalCurves/", "TID", "_246963", 402664070, "Signal", 1);
+  //FitTIBLowVfdCurves("~/work/public/SiStripRadMonitoring/SignalCurves/",  "_193928","Signal");
   
-  //FitTIBSmallScan("_170000");
+  FitTIBSmallScan("~/work/public/SiStripRadMonitoring/SignalCurves/",  "_271056","Signal");
 }
