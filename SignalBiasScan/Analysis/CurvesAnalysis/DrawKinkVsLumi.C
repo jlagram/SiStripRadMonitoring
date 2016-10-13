@@ -17,13 +17,23 @@
 // Correct for the difference of total inelastic cross section when center of mass energy change
 double CorrectForCME(double lumi)
 {
-  double lumi_8TeV = lumi<6.11 ? 0 : lumi - 6.11;
-  double lumi_7TeV = lumi - lumi_8TeV;
-  return lumi_7TeV + lumi_8TeV*73500./68000;
+  
+  double lumi_13TeV = lumi<29.46 ? 0 : lumi - 29.46;
+  
+  double lumi_8TeV = lumi<6.12 ? 0 : lumi - 6.12;
+  if(lumi>29.46) lumi_8TeV = 23.34;
+  
+  double lumi_7TeV = lumi - lumi_13TeV - lumi_8TeV;
+  
+  if(lumi>29.46) return lumi;
+  else return lumi_7TeV + lumi_8TeV*74700./73500;
+  
+  //return lumi_7TeV + lumi_8TeV*73500./68000; // CMS xsections
+  //return lumi_7TeV + lumi_8TeV*74700./73500; // Totem xsections
 }
 
 
-void DrawOneModule(string dirname, string subdet, string antype, string ref, const int NF, string* runs, float* lumis, ULong64_t detid, bool useflu=false)
+void DrawOneModule(string dirname, string subdet, string antype, string ref, const int NF, string* runs, float* lumis, ULong64_t detid, bool useflu=false, bool print=false)
 {
   if(subdet!="TIB" && subdet!="TOB" && subdet!="TID") 
   {cout<<"Subdet '"<<subdet<<"' not allowed."<<endl; return;}
@@ -32,8 +42,10 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
 
   // Fluence
-  ModFluence DetFluence;
-  DetFluence.loadFile();
+  ModFluence DetFluenceRun1;
+  DetFluenceRun1.loadFile("../CommonTools/modulesFluence_3500_sigmaTotem.root");
+  ModFluence DetFluenceRun2;
+  DetFluenceRun2.loadFile("../CommonTools/modulesFluence_7000.root");
  
 
   ULong64_t odetid;
@@ -67,14 +79,18 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
     tr->SetBranchAddress("CHI2",&ochi2); // significance min
 
     double lumi=0;
-    double fluence=0;
-    if(useflu) fluence = DetFluence.GetFluence(detid);
+	double lumi_Run1=29.46;
 	UInt_t nentries = tr->GetEntries();
     for(UInt_t ie = 0; ie <nentries; ie++){
       tr->GetEntry(ie);
 	  if(odetid==detid && odepvolt>=0) {
 	    lumi = lumis[i];
-		if(useflu) lumi = CorrectForCME(lumi) * fluence;
+		if(useflu) {
+		  if(lumi>lumi_Run1) 
+		    lumi = CorrectForCME(lumi-lumi_Run1) * DetFluenceRun2.GetFluence(detid) 
+			         + CorrectForCME(lumi_Run1) * DetFluenceRun1.GetFluence(detid);
+		  else lumi = CorrectForCME(lumi) * DetFluenceRun1.GetFluence(detid);
+		}
 		g->SetPoint(ipt, lumi, odepvolt);
 		g->SetPointError(ipt, 0, oerrdepvolt);
 		ipt++; 
@@ -114,7 +130,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   
   c1->Modified();
   c1->Update();
-  //c1->Print(Form("KinkVsLumi_detid_%llu.eps", detid));
+  if(print) c1->Print(Form("KinkVsLumi_detid_%llu_%s.eps", detid, antype.c_str()));
   getchar();
 }
 
@@ -283,29 +299,58 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   return h;
 }
 
-TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string antype, string ref, const int NF, string* runs, float* lumis)
+TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string antype, string ref, const int NF, string* runs, float* lumis, bool useflu=false)
 {
 
+  bool useRmsAsErrors=true;
+
+  // Fluence
+  ModFluence DetFluenceRun1;
+  DetFluenceRun1.loadFile("../CommonTools/modulesFluence_3500_sigmaTotem.root");
+  ModFluence DetFluenceRun2;
+  DetFluenceRun2.loadFile("../CommonTools/modulesFluence_7000.root");
+  double fluence=0;
+  double fluenceRun1=0;
+  double fluenceRun2=0;
+  // use fluence of one of the modules
+  if(useflu) {
+    fluenceRun1 = DetFluenceRun1.GetFluence(369121381);
+    fluenceRun2 = DetFluenceRun2.GetFluence(369121381);
+  }
+  
   TCanvas *c1 = new TCanvas();
   TGraphErrors *g = new TGraphErrors();
   int ipt=0;
   
   TH1F* href = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, "labref", false);
 
+  double lumi=0;
+  double lumi_Run1=29.46;
   for(int i=0; i<NF; i++)
   {
     TH1F* hdiff = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, runs[i], false);
-	g->SetPoint(ipt, lumis[i], hdiff->GetMean()-href->GetMean());
-	g->SetPointError(ipt, 0, hdiff->GetRMS());
-	if(i==0) g->SetPointError(ipt, 0, href->GetRMS());
-	//g->SetPointError(ipt, 0, hdiff->GetMeanError());
+        lumi = lumis[i];
+		if(useflu) {
+		  if(lumi>lumi_Run1) 
+		    lumi = CorrectForCME(lumi-lumi_Run1) * fluenceRun2 
+			         + CorrectForCME(lumi_Run1) * fluenceRun1;
+		  else lumi = CorrectForCME(lumi) * fluenceRun1;
+		}
+	g->SetPoint(ipt, lumi, hdiff->GetMean());//-href->GetMean());
+	if(useRmsAsErrors) g->SetPointError(ipt, 0, hdiff->GetRMS());
+        else g->SetPointError(ipt, 0, hdiff->GetMeanError());
+	if(i==0){
+          if(useRmsAsErrors) g->SetPointError(ipt, 0, href->GetRMS());
+          else g->SetPointError(ipt, 0, href->GetMeanError());
+        }
 	cout<<ipt<<" mean "<<hdiff->GetMean()-href->GetMean()<<" rms "<<hdiff->GetRMS()
 	    <<" rms_err "<<hdiff->GetRMSError()<<endl;
 	ipt++;
   }
   
   TH1F* h = g->GetHistogram();
-  h->GetXaxis()->SetTitle("L_{int} [fb-1]");
+  if(useflu) h->GetXaxis()->SetTitle("fluence [cm-2]");
+  else h->GetXaxis()->SetTitle("L_{int} [fb-1]");
   h->GetYaxis()->SetTitle("V_{fd} [V]");
   g->SetMarkerStyle(20);
   g->Draw("APL");
@@ -335,21 +380,25 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string antype, string ref, const int NF, string* runs, float* lumis, int layer=1, bool show=false, bool useflu=false)
 {
 
+  bool useRmsAsErrors=false;
+
   if(NF<1) { cout<<"Error : should give at list one run"<<endl; return 0;}
 
   // Fluence
-  ModFluence DetFluence;
-  DetFluence.loadFile("../CommonTools/modulesFluence.root");
+  ModFluence DetFluenceRun1;
+  DetFluenceRun1.loadFile("../CommonTools/modulesFluence_3500_sigmaTotem.root");
+  ModFluence DetFluenceRun2;
+  DetFluenceRun2.loadFile("../CommonTools/modulesFluence_7000.root");
   double fluence=0; // average fluence for the layer
   double tempfluence, tempR, tempZ;
-  TProfile* pFluenceVsZ = new TProfile("pFZ","", -110,110,54);
-  TProfile* pFluenceVsR = new TProfile("pFR","", 0,110,55);
+  TProfile* pFluenceVsZ = new TProfile("pFZ","", 60,-120,120);
+  TProfile* pFluenceVsR = new TProfile("pFR","", 55,0,110);
 
   TH1F* href;
   TH1F* histos[NF];
   TProfile* profiles[NF];
   
-  if(subdet!="TIB" && subdet!="T0B" && subdet!="TID") 
+  if(subdet!="TIB" && subdet!="TOB" && subdet!="TID") 
   {cout<<"Subdet '"<<subdet<<"' not allowed."<<endl; return 0;}
   
   
@@ -377,7 +426,7 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
   float ScanRef_Vdepl[11000];
   unsigned int Nscanref=0;
 
-  href = new TH1F("h", "", 100, -100, 100);
+  href = new TH1F("h", "", 100, -100, 400);
   
   string filename = dirname+"/"+"DECO_"+antype+"_"+subdet;
   TFile *fscanref = TFile::Open((filename+ref+".root").c_str());
@@ -398,13 +447,14 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
   for(UInt_t ie = 0; ie <nentries; ie++){
 	tscanref->GetEntry(ie);
 	if(odepvolt>=0 && olayer==layer)
-           //&& SubdetRef.GetVdepl(odetid)>270  )
+           //&& SubdetRef.GetVdepl(odetid)>240 && SubdetRef.GetVdepl(odetid)<280)
 	{
       ScanRef_DetIDs[Nscanref] = odetid;
 	  ScanRef_Vdepl[Nscanref] = odepvolt;
 	  Nscanref++;
 	  //tempfluence = DetFluence.GetFluence(odetid);
-	  DetFluence.GetModFluenceInfos(odetid, tempfluence, tempR, tempZ);
+	  DetFluenceRun1.GetModFluenceInfos(odetid, tempfluence, tempR, tempZ);
+	  // TO UPDATE
 	  fluence += tempfluence;
 	  pFluenceVsZ->Fill(tempZ, tempfluence);
 	  pFluenceVsR->Fill(tempR, tempfluence);
@@ -412,6 +462,7 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
   }
   fscanref->Close();
   fluence/=Nscanref;
+  cout<<"Layer "<<layer<<" fluence: "<<fluence<<endl;
   
   TCanvas *c1 = 0;
   TCanvas *c2 = 0;
@@ -423,7 +474,9 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
   // Fill first histo
   for(unsigned int iscanref=0; iscanref<Nscanref; iscanref++)
   {
-     href->Fill(SubdetRef.GetVdepl(ScanRef_DetIDs[iscanref])-ScanRef_Vdepl[iscanref]);
+     //if(SubdetRef.GetVdepl(ScanRef_DetIDs[iscanref])>120 && SubdetRef.GetVdepl(ScanRef_DetIDs[iscanref])<180)
+     //href->Fill(SubdetRef.GetVdepl(ScanRef_DetIDs[iscanref])-ScanRef_Vdepl[iscanref]);
+     href->Fill(SubdetRef.GetVdepl(ScanRef_DetIDs[iscanref]));
   }
   
   if(show)
@@ -436,6 +489,7 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
 	c3->Divide(1,2);
 	c3->cd(1);
 	pFluenceVsZ->Draw();
+        //pFluenceVsZ->Print("all");
 	c3->cd(2);
 	pFluenceVsR->Draw();
 	c3->cd();
@@ -451,7 +505,7 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
   //TH1F* hl = new TH1F("hl","",6, 0, 6);
   for(unsigned int ir=0; ir<NF; ir++)
   {
-    histos[ir] = new TH1F(Form("h%i",ir), "", 100, -100, 100);
+    histos[ir] = new TH1F(Form("h%i",ir), "", 100, -100, 400);
 	profiles[ir] = new TProfile(Form("p%i",ir), "", 60, 0, 300);
     
 	TFile *f = TFile::Open((filename+runs[ir]+".root").c_str());
@@ -474,10 +528,14 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
       for(unsigned int iscanref=0; iscanref<Nscanref; iscanref++)
       {
     	if(odetid==ScanRef_DetIDs[iscanref] && odepvolt>=0 && olayer==layer )
+            //&& odepvolt>120 && odepvolt<180)
+
 		{  
-           histos[ir]->Fill(odepvolt-ScanRef_Vdepl[iscanref]);
+           //histos[ir]->Fill(odepvolt-ScanRef_Vdepl[iscanref]);
+           histos[ir]->Fill(odepvolt);
 		   profiles[ir]->Fill(ScanRef_Vdepl[iscanref], odepvolt-ScanRef_Vdepl[iscanref]);
 		   //if(odepvolt-ScanRef_Vdepl[iscanref]>15) hl->Fill(olayer);
+                   if(show && fabs(odepvolt-ScanRef_Vdepl[iscanref])>60) cout<<odetid<<" ref "<<ScanRef_Vdepl[iscanref]<<" cur "<<odepvolt<<endl;
 		 } 
       }
 	}
@@ -516,9 +574,12 @@ TGraphErrors* DrawDiffModules_FullScan(string dirname, string subdet, string ant
 	if(useflu) lumi = CorrectForCME(lumi) * fluence;
 	//g->SetPoint(ipt, lumi*ratio[layer], histos[i]->GetMean());
 	g->SetPoint(ipt, lumi, histos[i]->GetMean());//-href->GetMean());
-	g->SetPointError(ipt, 0, histos[i]->GetRMS());
-	if(i==0) g->SetPointError(ipt, 0, href->GetRMS());
-	//g->SetPointError(ipt, 0, hdiff->GetMeanError());
+	if(useRmsAsErrors) g->SetPointError(ipt, 0, histos[i]->GetRMS());
+        else g->SetPointError(ipt, 0, histos[i]->GetMeanError());
+	if(i==0){
+           if(useRmsAsErrors) g->SetPointError(ipt, 0, href->GetRMS());
+	   else g->SetPointError(ipt, 0, href->GetMeanError());
+        }
 	cout<<ipt<<" mean "<<histos[i]->GetMean()-href->GetMean()<<" rms "<<histos[i]->GetRMS()
 	    <<" rms_err "<<histos[i]->GetRMSError()<<endl;
 	ipt++;
@@ -740,15 +801,19 @@ TProfile* PrintDiffModules_FullScan(string dirname, string subdet, string antype
 void DrawKinkVsLumi()
 {
   
-  string dirname="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/ClusterWidthCurves/";
+  string dirname="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/SignalCurves/";
+  string dirname_cw="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/ClusterWidthCurves/";
   bool usefluence = true;
 
+  string subdet="TIB";
+
   gStyle->SetOptStat(111111);
-  const int NF=12;
+  const int NF=16;
   string runs[NF];
   float lumis[NF];
   
-  runs[0] = "_160497_preamp_corrected2_32ns";
+  //OLD
+  /*runs[0] = "_160497_preamp_corrected2_32ns";
   runs[1] = "_170000_newlandau_S_wchi2_wnhits";
   runs[2] = "_178367_newlandau_S_wchi2_wnhits";
   runs[3] = "_180076_newlandau_S_wchi2_wnhits";
@@ -759,7 +824,24 @@ void DrawKinkVsLumi()
   runs[8] = "_200786";
   runs[9] = "_203832_merged_steps";
   runs[10] = "_208339_merged_steps";
+  runs[11] = "_211797";*/
+
+  runs[0] = "_160497";
+  runs[1] = "_170000";
+  runs[2] = "_178367";
+  runs[3] = "_180076";
+  runs[4] = "_190459_ZeroBias1-2";
+  runs[5] = "_193541";
+  runs[6] = "_193928";
+  runs[7] = "_199832";
+  runs[8] = "_200786";
+  runs[9] = "_203832";
+  runs[10] = "_208339";
   runs[11] = "_211797";
+  runs[12] = "_246963";
+  runs[13] = "_254790";
+  runs[14] = "_258443";
+  runs[15] = "_271056";
 
   lumis[0] = 0.045;
   lumis[1] = 1.44;
@@ -773,22 +855,39 @@ void DrawKinkVsLumi()
   lumis[9] = 21.18;
   lumis[10] = 28.57;
   lumis[11] = 29.45;
-  
-  const int NF_full=5;
+  // Total Run1=29.46
+  lumis[12] = 29.51; 
+  lumis[13] = 29.63;
+  lumis[14] = 31.55;
+  // 2016
+  lumis[15] = 33.72;
+ 
+  const int NF_full=7;
   string runs_full[NF];
   float lumis_full[NF];
   
-  runs_full[0] = "_160497_preamp_corrected2_32ns";
+/*  runs_full[0] = "_160497_preamp_corrected2_32ns";
   runs_full[1] = "_170000_newlandau_S_wchi2_wnhits";//_141865_S_NEW
   runs_full[2] = "_190459_timestamp";
   runs_full[3] = "_193928_timestamp";
   runs_full[4] = "_200786"; //_200786_wLeakCurCorr
+*/
+  
+  runs_full[0] = "_160497_SGSmooth"; // _160497_SGSmooth
+  runs_full[1] = "_170000";
+  runs_full[2] = "_190459_noLeakCorr"; // _190459_SGSmooth
+  runs_full[3] = "_193928_noLeakCorr"; // _193928_SGSmooth
+  runs_full[4] = "_200786_noLeakCorr";
+  runs_full[5] = "_246963";
+  runs_full[6] = "_271056";
 
   lumis_full[0] = 0.045;
   lumis_full[1] = 1.44;
   lumis_full[2] = 6.15;
   lumis_full[3] = 7.41;
   lumis_full[4] = 16.98;
+  lumis_full[5] = 29.51;
+  lumis_full[6] = 34.5;
 
   //runs_full[0] = "_200786";
   //lumis_full[0] = 16.98;
@@ -811,50 +910,53 @@ void DrawKinkVsLumi()
   //DrawModules_SmallScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", NF, runs, lumis);
   //DrawHistoDiffModules_SmallScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", "_208339_merged_steps");
   //DrawHistoDiffModules_SmallScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", "labref");
-//  TGraphErrors* gS = DrawDiffModules_SmallScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", NF, runs, lumis);
-  
+  //DrawHistoDiffModules_SmallScan(dirname, "TIB", "Signal_KinkThresh", "_193541", "_160497");
+  TGraphErrors* gS = DrawDiffModules_SmallScan(dirname, "TIB", "Signal_KinkThresh", "_160497", NF, runs, lumis, usefluence);
+  //DrawOneModule(dirname, "TIB", "Signal_KinkThresh", "_160497", NF, runs, lumis, 369125862, usefluence, true);
     
-/*  TProfile* p1 = PrintDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", "_200786", 1, false, false);
-  TProfile* p2 = PrintDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", "_200786", 2, false, false);
-  TProfile* p3 = PrintDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", "_200786", 3, false, false);
-  TProfile* p4 = PrintDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns", "_200786", 4, false, false);
+  // _160497_preamp_corrected2_32ns was used before & Kink
+  /*TProfile* p1 = PrintDiffModules_FullScan(dirname, "TIB", "Signal_KinkThresh", "_160497", "_200786", 1, false, false);
+  TProfile* p2 = PrintDiffModules_FullScan(dirname, "TIB", "Signal_KinkThresh", "_160497", "_200786", 2, false, false);
+  TProfile* p3 = PrintDiffModules_FullScan(dirname, "TIB", "Signal_KinkThresh", "_160497", "_200786", 3, false, false);
+  TProfile* p4 = PrintDiffModules_FullScan(dirname, "TIB", "Signal_KinkThresh", "_160497", "_200786", 4, false, false);
   p1->Draw();
   p2->SetLineColor(2);
   p2->Draw("same");
   p3->SetLineColor(4);
   p3->Draw("same");
   p4->SetLineColor(8);
-  p4->Draw("same");
-*/
+  p4->Draw("same");*/
 
-/*
-  string subdet="TID";
-  TGraphErrors *g1 = DrawDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns",
+
+  //OLD REF: _160497_preamp_corrected2_32ns
+  TGraphErrors *g1 = DrawDiffModules_FullScan(dirname, subdet, "Signal_KinkThresh", "_160497_SGSmooth",
    NF_full, runs_full, lumis_full, 1, false, usefluence);
-  TGraphErrors *g2 = DrawDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns",
+  TGraphErrors *g2 = DrawDiffModules_FullScan(dirname, subdet, "Signal_KinkThresh", "_160497_SGSmooth",
    NF_full, runs_full, lumis_full, 2, false, usefluence);
-  TGraphErrors *g3 = DrawDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns",
+  TGraphErrors *g3 = DrawDiffModules_FullScan(dirname, subdet, "Signal_KinkThresh", "_160497_SGSmooth",
    NF_full, runs_full, lumis_full, 3, false, usefluence);
-  TGraphErrors *g4 = DrawDiffModules_FullScan(dirname, "TIB", "Kink", "_160497_preamp_corrected2_32ns",
+  TGraphErrors *g4 = DrawDiffModules_FullScan(dirname, subdet, "Signal_KinkThresh", "_160497_SGSmooth",
    NF_full, runs_full, lumis_full, 4, false, usefluence);
 
   TH1F* hf = g1->GetHistogram();
-  hf->SetMaximum(20);
-  hf->SetMinimum(-30); 
+  //hf->SetMaximum(45);
+  //hf->SetMinimum(-65); 
+  hf->SetMaximum(300);
+  hf->SetMinimum(100); 
  
   g1->Draw("AP");
   g2->Draw("P");
   g3->Draw("P");
-  g4->Draw("P");
-*/
+  if(subdet=="TIB") g4->Draw("P");
+
 
   // Compare errors for full and small scans L1 modules
-/*  TH1F* hf = g1->GetHistogram();
-  hf->SetMinimum(-25);
-  gS->SetMarkerColor(2);
-  gS->SetLineColor(2);
-  gS->Draw("P");
-*/
+  //TH1F* hf = g1->GetHistogram();
+  //hf->SetMinimum(-25);
+  //gS->SetMarkerColor(2);
+  //gS->SetLineColor(2);
+  //gS->Draw("PL");
+
 
   // TOB //
   //-----//
@@ -864,8 +966,18 @@ void DrawKinkVsLumi()
   //ShowBestCurve("TOB", "_208339_merged_steps_Sensors", 4362815122, true, false);
   //DrawHistoDiffModules_SmallScan("dirname, TOB", "_208339_merged_steps_Sensors");
   //DrawDiffModules_SmallScan(dirname, "TOB", NF_TOB, runs_TOB, lumis_TOB);
+ 
   
-  
+  /*TGraphErrors *g1 = DrawDiffModules_FullScan(dirname, "TOB", "Signal_KinkThresh", "_160497",
+   NF_full, runs_full, lumis_full, 1, false, usefluence);
+  TGraphErrors *g2 = DrawDiffModules_FullScan(dirname, "TOB", "Signal_KinkThresh", "_160497",
+   NF_full, runs_full, lumis_full, 2, true, usefluence);
+  TGraphErrors *g3 = DrawDiffModules_FullScan(dirname, "TOB", "Signal_KinkThresh", "_160497",
+   NF_full, runs_full, lumis_full, 3, false, usefluence);
+  TGraphErrors *g4 = DrawDiffModules_FullScan(dirname, "TOB", "Signal_KinkThresh", "_160497",
+   NF_full, runs_full, lumis_full, 4, false, usefluence);
+  */
+
   // ClusterWidth analysis
   //-----------------------
   
@@ -874,7 +986,7 @@ void DrawKinkVsLumi()
   string runs_cw[NF];
   float lumis_cw[NF];
   
-  runs_cw[0] = "_160497";
+  /*runs_cw[0] = "_160497";
   runs_cw[1] = "_170000";
   runs_cw[2] = "_180076";
   runs_cw[3] = "_190459_leakcor";
@@ -885,6 +997,19 @@ void DrawKinkVsLumi()
   runs_cw[8] = "_203832_leakcor";
   runs_cw[9] = "_208339_leakcor";
   runs_cw[10] = "_211797_leakcor";
+  */
+
+  runs_cw[0] = "_160497";
+  runs_cw[1] = "_170000";
+  runs_cw[2] = "_180076";
+  runs_cw[3] = "_190459";
+  runs_cw[4] = "_193541";
+  runs_cw[5] = "_193928";
+  runs_cw[6] = "_199832";
+  runs_cw[7] = "_200786";
+  runs_cw[8] = "_203832";
+  runs_cw[9] = "_208339";
+  runs_cw[10] = "_211797";
   lumis_cw[0] = 0.045;
   lumis_cw[1] = 1.44;
   lumis_cw[2] = 6.02;
@@ -897,7 +1022,7 @@ void DrawKinkVsLumi()
   lumis_cw[9] = 28.57;
   lumis_cw[10] = 29.45;
 
-  const int NF_cw_f=5;
+  const int NF_cw_f=6;
   string runs_cw_f[NF];
   float lumis_cw_f[NF];
   runs_cw_f[0] = "_160497";
@@ -905,15 +1030,17 @@ void DrawKinkVsLumi()
   runs_cw_f[2] = "_190459";
   runs_cw_f[3] = "_193928";
   runs_cw_f[4] = "_200786";
+  runs_cw_f[5] = "_246963";
   lumis_cw_f[0] = 0.045;
   lumis_cw_f[1] = 1.44;
   lumis_cw_f[2] = 6.15;
   lumis_cw_f[3] = 7.41;
   lumis_cw_f[4] = 16.98;
+  lumis_cw_f[5] = 29.5;
 
-  //DrawHistoDiffModules_SmallScan(dirname, "TIB", "ClusterWidth_KinkThresh", "_160497", "_193928", true);
-  //TGraphErrors* gCW = DrawDiffModules_SmallScan(dirname, "TIB", "ClusterWidth_KinkThresh", "_160497", NF_cw, runs_cw, lumis_cw);
-  //DrawDiffModules_FullScan(dirname, "TIB", "ClusterWidth_Kink", "_160497", NF_cw_f, runs_cw_f, lumis_cw_f, 1, true);
+  //DrawHistoDiffModules_SmallScan(dirname_cw, "TIB", "ClusterWidth_KinkThresh", "_160497", "_193928", true);
+  //TGraphErrors* gCW = DrawDiffModules_SmallScan(dirname_cw, "TIB", "ClusterWidth_KinkThresh", "_160497", NF_cw, runs_cw, lumis_cw);
+  //DrawDiffModules_FullScan(dirname_cw, "TIB", "ClusterWidth_Kink", "_160497", NF_cw_f, runs_cw_f, lumis_cw_f, 1, true);
 
   const int NF_cw_max=5;
   string runs_cw_max[NF];
@@ -929,7 +1056,7 @@ void DrawKinkVsLumi()
   lumis_cw_max[2] = 6.15;
   lumis_cw_max[3] = 15.14;
   lumis_cw_max[4] = 16.98;
-//  TGraphErrors* gCW_max = DrawDiffModules_SmallScan(dirname, "TIB", "ClusterWidth_Max", "_160497", NF_cw_max, runs_cw_max, lumis_cw_max);
+  //TGraphErrors* gCW_max = DrawDiffModules_SmallScan(dirname_cw, "TIB", "Cme_cwlusterWidth_Max", "_160497", NF_cw_max, runs_cw_max, lumis_cw_max);
 
   //gS->Draw("APL");
   //gCW->SetMarkerColor(4);
@@ -940,26 +1067,27 @@ void DrawKinkVsLumi()
   //gCW_max->Draw("P");
   
   
-  string subdet="TID";
-  TGraphErrors *gCW1 = DrawDiffModules_FullScan(dirname, subdet, "ClusterWidth_KinkThresh", "_160497",
+/*  string subdet="TIB";
+  //-----------------
+  TGraphErrors *gCW1 = DrawDiffModules_FullScan(dirname_cw, subdet, "ClusterWidth_KinkThresh", "_160497",
    NF_cw_f, runs_cw_f, lumis_cw_f, 1, false, usefluence);
-  TGraphErrors *gCW2 = DrawDiffModules_FullScan(dirname, subdet, "ClusterWidth_KinkThresh", "_160497",
+  TGraphErrors *gCW2 = DrawDiffModules_FullScan(dirname_cw, subdet, "ClusterWidth_KinkThresh", "_160497",
    NF_cw_f, runs_cw_f, lumis_cw_f, 2, false, usefluence);
-  TGraphErrors *gCW3 = DrawDiffModules_FullScan(dirname, subdet, "ClusterWidth_KinkThresh", "_160497",
+  TGraphErrors *gCW3 = DrawDiffModules_FullScan(dirname_cw, subdet, "ClusterWidth_KinkThresh", "_160497",
    NF_cw_f, runs_cw_f, lumis_cw_f, 3, false, usefluence);
   TGraphErrors *gCW4;
-  if(subdet=="TIB") gCW4 = DrawDiffModules_FullScan(dirname, subdet, "ClusterWidth_KinkThresh", "_160497",
+  if(subdet=="TIB") gCW4 = DrawDiffModules_FullScan(dirname_cw, subdet, "ClusterWidth_KinkThresh", "_160497",
    NF_cw_f, runs_cw_f, lumis_cw_f, 4, false, usefluence);
 
   TH1F* hCWf = gCW1->GetHistogram();
   hCWf->SetMaximum(60);
-  hCWf->SetMinimum(-10); 
+  hCWf->SetMinimum(-60); 
  
   gCW1->Draw("AP");
   gCW2->Draw("P");
   gCW3->Draw("P");
   if(subdet=="TIB") gCW4->Draw("P");
-
+*/
 }
 
 

@@ -1,0 +1,1 @@
+cat 1MeVneq_3500_2-5cm.dat | awk '{if(($2 < 131) && ($1>-271) && ($1<271)) print $0}' > 1MeVneq_3500_2-5cm_tracker.dat
