@@ -90,6 +90,7 @@
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
 
+#include "FWCore/Utilities/interface/EDGetToken.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 
@@ -184,8 +185,14 @@ class SignalBiasScan : public edm::EDAnalyzer {
   edm::ESHandle<TrackerGeometry> tracker_;
   edm::InputTag tkTraj_;
   edm::InputTag labelTrajToTrack_;
-  edm::InputTag siStripClusters_;
+  //edm::InputTag siStripClusters_;
   edm::InputTag primaryVertexColl_;
+
+  const edm::EDGetTokenT<reco::VertexCollection> vertexSrc;
+  const edm::EDGetTokenT<edm::View<reco::Track> > trackSrc;
+  const edm::EDGetTokenT<std::vector<Trajectory> > trajSrc;
+  const edm::EDGetTokenT<TrajTrackAssociationCollection> trajTrackAssociationSrc;
+
   
   bool fullHitInfo_TIB_;
   bool fullHitInfo_TOB_;
@@ -224,15 +231,20 @@ class SignalBiasScan : public edm::EDAnalyzer {
 //
 // constructors and destructor
 //
-SignalBiasScan::SignalBiasScan(const edm::ParameterSet& iConfig) {
+SignalBiasScan::SignalBiasScan(const edm::ParameterSet& iConfig):
+vertexSrc( consumes<reco::VertexCollection>(iConfig.getParameter<edm::InputTag>("primaryVertexColl") )), 
+trackSrc( consumes<edm::View<reco::Track> >( iConfig.getParameter<edm::InputTag>("trackLabel") )),
+trajSrc( consumes<std::vector<Trajectory> >( iConfig.getParameter<edm::InputTag>("tkTraj") )),
+trajTrackAssociationSrc( consumes<TrajTrackAssociationCollection>( iConfig.getParameter<edm::InputTag>("labelTrajToTrack") ))
+{
 
   //now do what ever initialization is needed
-  trackLabel_            = iConfig.getParameter<edm::InputTag>     ("trackLabel"      );
-  tkTraj_                = iConfig.getParameter<edm::InputTag>     ("tkTraj"          );
-  labelTrajToTrack_      = iConfig.getParameter<edm::InputTag>     ("labelTrajToTrack");
-  siStripClusters_       = iConfig.getParameter<edm::InputTag>     ("siStripClusters" );
-  primaryVertexColl_     = iConfig.getParameter<edm::InputTag>   ("primaryVertexColl"  );
-  
+  //trackLabel_            = iConfig.getParameter<edm::InputTag>     ("trackLabel"      );
+  //tkTraj_                = iConfig.getParameter<edm::InputTag>     ("tkTraj"          );
+  //labelTrajToTrack_      = iConfig.getParameter<edm::InputTag>     ("labelTrajToTrack");
+  //siStripClusters_       = iConfig.getParameter<edm::InputTag>     ("siStripClusters" );
+  //primaryVertexColl_     = iConfig.getParameter<edm::InputTag>   ("primaryVertexColl"  );
+ 
   fullHitInfo_TIB_		= iConfig.getParameter< bool >   ( "fullHitInfo_TIB" );
   fullHitInfo_TOB_		= iConfig.getParameter< bool >   ( "fullHitInfo_TOB" );
   fullHitInfo_TID_		= iConfig.getParameter< bool >   ( "fullHitInfo_TID" );
@@ -282,8 +294,9 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   //get primary vertex
   //------------------
   edm::Handle<reco::VertexCollection> primaryVertex;
-  iEvent.getByLabel(primaryVertexColl_,primaryVertex);
-  
+  iEvent.getByToken(vertexSrc,primaryVertex);
+ 
+
   // Check there is at least one good primary vertex
   bool foundGoodVertex = true;
   hnPV->Fill(primaryVertex->size()); 
@@ -300,12 +313,12 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   if(foundGoodVertex){
 
     edm::Handle<edm::View<reco::Track> > recoTrackHandle;
-    iEvent.getByLabel(trackLabel_, recoTrackHandle);
+    iEvent.getByToken(trackSrc, recoTrackHandle);
     //const edm::View<reco::Track> & recoTrackCollection = *(recoTrackHandle.product()); 
     edm::Handle<std::vector<Trajectory> > TrajectoryCollection;
-    iEvent.getByLabel(tkTraj_,TrajectoryCollection);
+    iEvent.getByToken(trajSrc, TrajectoryCollection);
     edm::Handle<TrajTrackAssociationCollection> trajTrackAssociationHandle;
-    iEvent.getByLabel(labelTrajToTrack_,trajTrackAssociationHandle);
+    iEvent.getByToken(trajTrackAssociationSrc, trajTrackAssociationHandle);
     
     edm::ESHandle<TrackerGeometry> theTrackerGeometry;
     iSetup.get<TrackerDigiGeometryRecord>().get( theTrackerGeometry );  

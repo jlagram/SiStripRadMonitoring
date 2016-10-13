@@ -1,4 +1,4 @@
-#include "Code/DCUCurrent.h"
+#include "DCUCurrent.h"
 
 TGraph* ReadPSCurrentTxt(char* filename="Data/PS_I_TIB_L1_20120405_run190459.txt", int detid=369121605, char* bad_periods="")
 {

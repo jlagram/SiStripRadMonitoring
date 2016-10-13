@@ -30,6 +30,7 @@ LOGS          = $(SOURCES:.$(SrcSuf)=.$(LogSuf))
 #------------------------------------------------------------------------------
 DEFAULT_TARGET = DrawKinkVsLumi
 #DEFAULT_TARGET = FitAll
+#DEFAULT_TARGET = CompareCurves
 #------------------------------------------------------------------------------
 
 all: compile run

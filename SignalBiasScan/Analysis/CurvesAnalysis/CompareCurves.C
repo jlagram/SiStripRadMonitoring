@@ -1,8 +1,17 @@
 #include "../CommonTools/CurvesFunctions.C"
 #include "../CommonTools/tdrstyle.C"
+#include "TCanvas.h"
+#include "TLine.h"
+#include "TColor.h"
+#include "TStyle.h"
+#include "TLegend.h"
+#include "TApplication.h"
+#include "TText.h"
 
 void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULong64_t* modid, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="")
 {
+
+ cout<<"entering CompareCurve(...)"<<endl;
  int err_type=0;
  //int modid=369121606;
  //int modid=369120501;
@@ -38,14 +47,17 @@ void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULo
  colors[5] = kOrange;
  colors[6] = kGray;
  colors[7] = kGray+2;
+ for(int icol=8; icol<20; icol++) colors[icol] = 1;
 
+ // black and grey for the 3 runs of 2011
  colors[0] = 1;
  colors[1] = 14;
  colors[2] = 17;
  
- // Rainbow colors
+ // Rainbow colors for 2012-13
  gStyle->SetPalette(1); // 50 colors
- int ncol=NF-3;
+ int ncol=7;
+ if(NF<11) ncol=NF-3;
  if(ncol<2) ncol=2;
  for(int i=0; i<ncol; i++)
  { 
@@ -55,7 +67,13 @@ void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULo
    if(i%2==1) cout<<i+3<<" "<<50./(ncol-1)<<"*"<<(ncol-(i+1.5)/2.)<<"="<<colors[i+3]<<endl;
  }
  colors[6]=kOrange+1;
+ colors[9]=kGreen+1;
 
+ // For 2015
+ colors[10]=kBlue+1;
+ colors[11]=kAzure+10;
+ colors[12]=kAzure+1;
+ 
  int ifirst=-1;
   
  // Get TF1
@@ -73,6 +91,7 @@ void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULo
  }
 
  // Get Graph
+ cout<<"get graph"<<endl;
  double x0, y0, x1, y1, x2, y2;
  float maxend=0;
  for(int i=0; i<NF; i++)
@@ -100,6 +119,10 @@ void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULo
      g[i]->GetPoint(npt-1, x2, y2);
      lastpoints[i] = (y0+y1+y2)/3.;
 	 if(lastpoints[i]>maxend) maxend=lastpoints[i];
+     // Curve from 2015 ends at 300V! Do a kind of extrapolation to 330V
+     if(runs[i]=="_246963"){
+       lastpoints[i] = y2+(y2-y0);
+     }
    }   
  }
  
@@ -109,10 +132,12 @@ void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULo
  {
    if(!g[i]) continue;
    
+   float scale=1;
+   //For signal scale at 90;
+   if(type=="Signal") scale = lastpoints[i]/90;
    //scale at plateau of first curve
-   //float scale = lastpoints[i]/lastpoints[ifirst];
-   //scale at 90;
-   float scale = lastpoints[i]/maxend;
+   else scale = lastpoints[i]/lastpoints[ifirst];
+   //float scale = lastpoints[i]/maxend;
    
    int npt = g[i]->GetN();
    cout<<"Scale "<<i<<" : "<<scale<<endl;
@@ -126,18 +151,22 @@ void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULo
  TCanvas c1("c1", "", 600, 400);//1200,800
  if(!g[ifirst]) return;
  TH1F* h = g[ifirst]->GetHistogram();
- //h->SetMinimum(10);
- h->SetMinimum(1);
+ if(type=="Signal") h->SetMinimum(10);
+ else h->SetMinimum(1);
  h->SetMaximum(ceil(maxend));
+ if(normalize && type=="Signal") h->SetMaximum(100);
  h->GetXaxis()->SetTitle("V_{bias} [V]");
-
+ h->GetXaxis()->SetLimits(0, 380);
+ h->Draw();
 
  int detid;
  if(subdet=="TOB") detid = modid[ifirst] / 10;
  else detid=modid[ifirst];
- 
- g[ifirst]->SetTitle(Form("Detid %llu - %s L%i",modid[ifirst], subdet.c_str(), GetLayer(detid)));
- g[ifirst]->Draw("ALP");
+
+ //h->SetTitle(Form("Detid %llu - %s L%i",modid[ifirst], subdet.c_str(), GetLayer(detid)));
+ TText title(0.35, 0.96, Form("Detid %llu - %s L%i",modid[ifirst], subdet.c_str(), GetLayer(detid)));
+ title.SetNDC();
+ title.Draw();
  
  float ymin = h->GetMinimum(); //g[ifirst]->GetYaxis()->GetXmin();
  float ymax = g[ifirst]->GetYaxis()->GetXmax();
@@ -237,7 +266,7 @@ void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULo
 void CompareCurve(string dirname, string subdet, const int NF, string* runs, ULong64_t modid, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="")
 {
   ULong64_t modids[NF];
-  for(int i; i<NF; i++) modids[i] = modid;
+  for(int i=0; i<NF; i++) modids[i] = modid;
   CompareCurve(dirname, subdet, NF, runs, modids, type, normalize, showfit, print, suffix);
 }
 
@@ -404,17 +433,22 @@ void CompareTOBCurves_SensorsSeparation(string dirname, const int NF, string* ru
 
 void CompareCurves()
 {
+ cout<<"entering CompareCurves()"<<endl;
  //gROOT->ProcessLine(".L ~/scratch0/CMSSW_4_2_5/src/Radiation_Signal/BiasScanSignal/test/signalFunction.cpp");
  //gROOT->ProcessLine(".L ~/scratch0/CMSSW_4_2_5/src/Radiation_Signal/BiasScanSignal/test/fitSignal.cpp");
  //gSystem->Load("~/scratch0/CMSSW_4_2_5/src/Radiation_Signal/BiasScanSignal/test/signalFunction.so");
 
+ cout<<"setting styles"<<endl;
  setTDRStyle();
 
+ cout<<"setting options"<<endl;
  // directory of root files
- string dirname = "/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/ClusterWidthCurves";
- string type = "ClusterWidth"; 
+ string dirname = "/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/SignalCurves";
+ string type = "Signal"; 
+ //string dirname = "/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/ClusterWidthCurves";
+ //string type = "ClusterWidth";
 
- const int NF=10;
+ const int NF=14;
  string runs[NF];
 
  //runs[0] = "_200786_steps";
@@ -514,41 +548,72 @@ void CompareCurves()
  runs[7] = "_20120928_run203832";
  runs[8] = "_20121130_run208339";
  runs[9] = "";//_211797";*/
- 
- runs[0] = "_160497";
+
+ // Full scans 
+/* runs[0] = "_160497";
  runs[1] = "_170000";
  runs[2] = "";
  runs[3] = "_190459";
  runs[4] = "_193928";
- runs[5] = "";//_199832";
+ runs[5] = "";
  runs[6] = "_200786";
  runs[7] = "";
  runs[8] = "";
- runs[9] = "";//_211797";
+ runs[9] = "";
+ runs[10] = "_246963";
+*/
+
+ // All scans
+ runs[0] = "_190459";//_160497";
+ runs[1] = "_190459";//_170000";
+ runs[2] = "_190459";
+ runs[3] = "_190459";
+ runs[4] = "_193928";
+ runs[5] = "_199832";
+ runs[6] = "_200786";
+ runs[7] = "_203832";
+ runs[8] = "_208339";
+ runs[9] = "_211797";
+ runs[10] = "_246963";
+ runs[11] = "_254790";
+ runs[12] = "_258443";
+ runs[13] = "_271056";
+
  
- 
- bool normalize=false;
+ bool normalize=true;
  bool print=false;
  bool showfit=false;
  
  // suffix for plot file name
+ //string suffix = "";
  //string suffix = "_2011-12-13";
- string suffix = "_203832_signalEff";
- 
- //CompareCurve("TIB", NF, runs, 369125869, type, normalize, showfit, print, suffix);
- //CompareTIBCurves(NF, runs, type, normalize, showfit, print, suffix);
+ //string suffix = "_203832_signalEff";
+ string suffix = "_S_258443"; 
 
-// CompareCurve("TIB", NF, runs, 369121381, type, normalize, showfit, print, suffix);
-// CompareTIBCurves_SmallScan(NF, runs, type, normalize, showfit, print, suffix);
+ //CompareCurve(dirname, "TIB", NF, runs, 369125869, type, normalize, showfit, print, suffix);
+ //CompareTIBCurves(dirname, NF, runs, type, normalize, showfit, print, suffix);
+
+ //CompareCurve(dirname, "TIB", NF, runs, 369121381, type, normalize, showfit, print, suffix);
+ CompareTIBCurves_SmallScan(dirname, NF, runs, type, normalize, showfit, print, suffix);
  
- //CompareTOBCurves(NF, runs, type, normalize, showfit, print, suffix);
+ //CompareTOBCurves(dirname, NF, runs, type, normalize, showfit, print, suffix);
 
  //runs[0] = "_160497_Sensors";
  //runs[1] = "_160497_Sensors";
- //CompareTOBCurves_SensorsSeparation(NF, runs, type, normalize, showfit, print, suffix);
+ //CompareTOBCurves_SensorsSeparation(dirname, NF, runs, type, normalize, showfit, print, suffix);
  
  //CompareTOBCurves_SmallScan(dirname, NF, runs, type, normalize, showfit, print, suffix);
 
- CompareTIDCurves(dirname, NF, runs, type, normalize, showfit, print, suffix);
+ //CompareTIDCurves(dirname, NF, runs, type, normalize, showfit, print, suffix);
 
+}
+
+int main(int argc, char** argv)
+{
+  TApplication app("ROOT Application", &argc, argv);
+  //app.SetReturnFromRun(true);
+  CompareCurves();
+  app.Run();
+  //app.Terminate();
+  return 0;
 }

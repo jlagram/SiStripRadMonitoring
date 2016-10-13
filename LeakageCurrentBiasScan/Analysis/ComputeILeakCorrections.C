@@ -688,11 +688,13 @@ void ComputeILeakCorrections(char* subdet="TIB_L1", char* run="20120506_run19354
   // 2015
 
   //ComputeCorrections("TIB_L1", "20150821_run254790", detids_2012_bis, N_2012_bis, "");
-  ComputeCorrections("TIB_L1", "20151007_run258443", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20151007_run258443.txt");
+  //ComputeCorrections("TIB_L1", "20151007_run258443", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20151007_run258443.txt");
 
   //ComputeAllCorrections("TIB", "20150603_run246963", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
 
-   
+  // 2016
+  //ComputeCorrections("TIB", "20160423_run271056", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20160423_run271056.txt"); 
+  ComputeAllCorrections("TIB", "20160423_run271056", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
 
   // TESTS
   const int N_test=10;
