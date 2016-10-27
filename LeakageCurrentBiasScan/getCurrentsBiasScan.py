@@ -67,14 +67,14 @@ else:
 	cursor.execute(query, {"the_start_time" : startTime, "the_end_time" : endTime})
 row = cursor.fetchall()		      
 if issmall:
-	fileCurrents = "SmallBiasScan_" + str(startTime) + "_" + str(endTime) + ".txt"
+	fileCurrents = "SmallBiasScan_" + str(startTime) + "_" + str(endTime) + ".csv"
 else:
-	fileCurrents = "FullBiasScan_" + str(startTime) + "_" + str(endTime) + ".txt"
+	fileCurrents = "FullBiasScan_" + str(startTime) + "_" + str(endTime) + ".csv"
 fcur = open(fileCurrents, "w+")
 	
 		      
 for i in xrange(len(row)):			      
-	fcur.write(str(row[i][0]) + "   " + str(row[i][1]) + "   " + str(row[i][2])+ "\n")
+	fcur.write(str(row[i][0]) + "," + str(row[i][1]) + "," + str(row[i][2])+ "\n")
 		      
 fcur.close()
 connection.close()
