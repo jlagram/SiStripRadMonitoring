@@ -108,12 +108,14 @@ for row in currents:
     if nparts < 2: print "ERROR : wrong time format"
     if str_time_parts[nparts-1]=='AM' or str_time_parts[nparts-1]=='PM' :
         t = time.strptime(str_time, "%d-%b-%y %I.%M.%S.%f000 %p")
-        # shift to be in UTC
-        entry.TIME = int(time.mktime(t)) - 3600
     else:
-        t = time.strptime(str_time, "%d-%b-%y %H.%M.%S.%f000")
-        # shift to be in UTC
-        entry.TIME = int(time.mktime(t)) - 3600
+        try:	
+            t = time.strptime(str_time, "%d-%b-%y %H.%M.%S.%f000")
+        except ValueError:
+			# try an other format
+			t = time.strptime(str_time, "%Y-%m-%d %H:%M:%S.%f000")
+    # shift to be in UTC
+    entry.TIME = int(time.mktime(t)) - 3600
     
     # fill one entry per detid
     entry.PS = str_ps
