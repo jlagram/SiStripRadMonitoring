@@ -72,7 +72,7 @@ else:
 	fileCurrents = "FullBiasScan_" + str(startTime) + "_" + str(endTime) + ".csv"
 fcur = open(fileCurrents, "w+")
 	
-		      
+fcur.write('"PGNAME","DATETIME","PS_ILEAK"\n')		      
 for i in xrange(len(row)):			      
 	fcur.write(str(row[i][0]) + "," + str(row[i][1]) + "," + str(row[i][2])+ "\n")
 		      
