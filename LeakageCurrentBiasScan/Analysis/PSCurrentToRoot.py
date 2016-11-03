@@ -113,7 +113,11 @@ for row in currents:
             t = time.strptime(str_time, "%d-%b-%y %H.%M.%S.%f000")
         except ValueError:
 			# try an other format
-			t = time.strptime(str_time, "%Y-%m-%d %H:%M:%S.%f000")
+			try:
+			    t = time.strptime(str_time, "%Y-%m-%d %H:%M:%S.%f000")
+			except ValueError:
+				# try still an other format
+				t = time.strptime(str_time, "%Y-%m-%d %H:%M:%S")
     # shift to be in UTC
     entry.TIME = int(time.mktime(t)) - 3600
     
