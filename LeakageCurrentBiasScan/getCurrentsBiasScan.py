@@ -47,7 +47,7 @@ query2="""
 	    (select max(since) as cd, alias from  cms_trk_dcs_pvss_cond.aliases group by alias ) md, cms_trk_dcs_pvss_cond.aliases lal
 	  join cms_trk_dcs_pvss_cond.dp_name2id on dpe_name=concat(dpname,'.')
 	  where md.alias=lal.alias and lal.since=cd
-	  and (lal.alias like '%TIBplus_1_6_2_5_%' or lal.alias like '%TOBplus_4_#_3_8%' or lal.alias like '%TECminus_3_7_1_1_2%' or lal.alias like '%TECminus_3_7_1_1_3%' or lal.alias like '%TIBminus_1_2_2_1%')
+	  and (lal.alias like '%TIBplus_1_6_2_5_%' or lal.alias like '%TOBplus_4_3_3_8%' or lal.alias like '%TECminus_3_7_1_1_2%' or lal.alias like '%TECminus_3_7_1_1_3%' or lal.alias like '%TIBminus_1_2_2_1%')
 	)
 	select cable, change_date,actual_Imon from cms_trk_dcs_pvss_cond.fwcaenchannel caen
 	join cables on (caen.dpid=cables.dpid)
