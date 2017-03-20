@@ -34,10 +34,11 @@ int convertTimestamp( std::string str){
   if(time.tm_sec < 0 || time.tm_sec > 61) std::cout<<" Wrong sec format : "<<year<<std::endl; 
   //cout<<" timestamp "<<year<<" "<<time.tm_mon<<" "<<time.tm_mday<<" "<<time.tm_hour<<" "<<time.tm_min<<" "<<time.tm_sec<<std::endl;
 
+  // linux time in s in UTC
   time_t out_time = mktime( &time );
   // Next lines to avoid random shifts of 1 hour that happen sometimes when doing conversion !!
   struct tm * timeinfo;
-  timeinfo = localtime(&out_time); 
+  timeinfo = localtime(&out_time);
   if(hour!=timeinfo->tm_hour) 
   {
     //std::cout<<"try to correct hour : origin "<<hour<<" bad "<<timeinfo->tm_hour<<std::endl;
@@ -47,7 +48,7 @@ int convertTimestamp( std::string str){
     timeinfo = localtime(&out_time);
   }
   if(hour!=timeinfo->tm_hour) {std::cout<<"ERROR in hour : "<<hour<<" "<<timeinfo->tm_hour<<std::endl; return 0;}
-  return out_time-3600; //->UTC
+  return out_time; // in UTC
   
 } 
 

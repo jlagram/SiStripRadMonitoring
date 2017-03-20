@@ -9,6 +9,12 @@
 #include "TF1.h"
 #include "TLegend.h"
 #include "TLine.h"
+#include "TMath.h"
+
+map< int, TGraph*> map_DCU_currents;
+map< int, TGraph*> map_PS_currents;
+map< int, int> map_NMOD;
+
 
 double GetMaximum(TGraph* g)
 {
@@ -35,7 +41,8 @@ void Scale(TGraph *& g, double scale)
   return;  
 }
 
-void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph *&gvolt, 
+
+void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph *&gvolt, int& nmodforchannel,
                    char* subdet="TIB_L1", char* run="20120506_run193541", int detid=369121605, char* bad_periods="")
 {
 
@@ -45,67 +52,80 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
   gvolt = 0;//ReadVoltage(Form("Data/ConditionBrowser_%s.root", run));
   //if(!gvolt) std::cout<<" ConditionBrowser file does not exist, but it is not a problem."<<std::endl;
   
-  int nmodforchannel=1;
+  nmodforchannel=1;
   // Read files with current infos
-  gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
+  //gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
   //gcur_DCU = ReadDCUCurrentFromGB("~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", detid, bad_periods);
-  gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
+  gcur_DCU = ReadDCUCurrentFromGB(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/DCU/DCU_I_%s.root", run), detid, bad_periods);
+  //gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
+  gcur_PS = ReadPSCurrentRoot(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/PS/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
   
-  if(!gcur_PS) {std::cout<<" No PS current info. Exit."<<std::endl; return;}
-  //gcur_DCU = 0; // force to not use DCU
-  
-  // If no DCU info, will user only PS info
-  float scale=1.;
-  double time=0;
-  double current=0;
-  if(!gcur_DCU)
-  { 
-    std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl;
-    gcur_DCU = (TGraph*) gcur_PS->Clone();
-    if(!gcur_DCU) {std::cout<<" No PS info neither. Exit."<<std::endl; return;}
-    
-    scale = 1./nmodforchannel; // Approximation of an equal sharing among sensors and over Vbias
-
-    // fractions computed on 20120506_run193541
-    const int N_TIB_L1_2012=17;
-    int detids_TIB_L1_2012[N_TIB_L1_2012]={369121381,369121382,369121385,369121386,369121389,369121390,
-	                         369121605,369121606,369121609,369121610,369121613,369121614,
-							 369125861,369125862,369125866,369125869,369125870};  
-    float dcu_fractions_TIB_L1_2012[N_TIB_L1_2012]={0.346, 0.329, 0.324, 0.339, 0.345, 0.329,
-                                      0.345, 0.339, 0.339, 0.312, 0.320, 0.345,
-								      0.400, 0.307, 0.217, 0.627, 0.476};
-									  
-    // fractions computed on 20120928_run203832
-    const int N_TOB=6;
-    int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
-    float dcu_fractions_TOB[N_TOB]={0.296, 0.320, 0.327, 0.336, 0.365, 0.334};
-
-    
-	if(!strcmp(subdet,"TIB_L1"))
-	for(int idet=0; idet<N_TIB_L1_2012; idet++)
-	  if(detid==detids_TIB_L1_2012[idet]) scale = dcu_fractions_TIB_L1_2012[idet];
-	if(!strcmp(subdet,"TOB"))
-	for(int idet=0; idet<N_TOB; idet++)
-	  if(detid==detids_TOB[idet]) scale = dcu_fractions_TOB[idet];
-
-	cout<<"dcu/ps fraction = "<<scale<<endl;
-
-    for(int ic=0; ic<gcur_DCU->GetN(); ic++)
-    {
-      gcur_DCU->GetPoint(ic, time, current);
-      gcur_DCU->SetPoint(ic, time, current*scale);
-    }
-  }
-  
+  return;
 }
 
-TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool current_ratio=false)
+void ClearConditions()
+{
+  map_DCU_currents.clear();
+  map_PS_currents.clear();
+  map_NMOD.clear();
+}
+
+// load currents for all detids in memory
+void LoadConditions(map< int, TGraph*> &map_dcu_currents, map< int, TGraph*> &map_ps_currents, map< int, int> &map_nmodforchannel, char* subdet="TIB", char* run="20120506_run193541", char* bad_periods="")
 {
   
-  // if current_ratio is true, return ratio of leakage current DCU / PS
+  map_dcu_currents.clear();
+  map_ps_currents.clear();
+  map_nmodforchannel.clear();
+  //ReadCurrentRootForAllDetids(Form("Data/PS_I_%s_%s.root", subdet, run), map_dcu_currents, map_nmodforchannel, "dcu", bad_periods);
+  ReadDCUCurrentFromDCUDataForAllDetids(map_dcu_currents, Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/DCU/DCU_I_%s.root", run), subdet, bad_periods);
+  //ReadCurrentRootForAllDetids(Form("Data/PS_I_%s_%s.root", subdet, run), map_ps_currents, map_nmodforchannel, "ps", bad_periods);
+  ReadCurrentRootForAllDetids(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/PS/PS_I_%s_%s.root", subdet, run), map_ps_currents, map_nmodforchannel, "ps", bad_periods);
+}
+
+void GetLoadedConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph *&gvolt, int& nmodforchannel, 
+                   char* run="20120506_run193541", int detid=369121605)
+{
+
+  // Read files with voltage infos
+  gsteps = ReadSteps(Form("Steps/Steps_%s.txt", run),false);
+  if(!gsteps) {std::cout<<" No voltage steps info. Exit."<<std::endl; return;}
+  gvolt = 0;//ReadVoltage(Form("Data/ConditionBrowser_%s.root", run));
+  //if(!gvolt) std::cout<<" ConditionBrowser file does not exist, but it is not a problem."<<std::endl;
   
-  TGraphErrors* gshift = new TGraphErrors();
-  TGraphErrors* gratio = new TGraphErrors();
+  nmodforchannel=1;
+  // Get current infos
+  
+  if(map_DCU_currents.find(detid) != map_DCU_currents.end())
+    gcur_DCU = map_DCU_currents[detid];
+  else
+    gcur_DCU = new TGraph(); // return an empty graph
+  
+  if(map_PS_currents.find(detid) != map_PS_currents.end())
+  {
+    gcur_PS = map_PS_currents[detid];
+    nmodforchannel = map_NMOD[detid];
+  }
+  else
+    gcur_PS = new TGraph();
+  
+  //cout<<"DCU "<<gcur_DCU->GetN()<<endl;
+  //cout<<"PS "<<gcur_PS->GetN()<<endl;
+  return;
+}
+
+
+
+// Get voltage drop and DCU/PS ratio. Done in the same time because both need interpolation
+void GetVoltageDropAndRatio(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, TGraphErrors *&gvdrop, TGraphErrors *&gratio)
+{
+  gvdrop = new TGraphErrors();
+  gratio = new TGraphErrors();
+  
+  if(!gsteps || !gcur_DCU || !gcur_PS) {std::cout<<" Missing input. Exiting GetVoltageDropAndRatio()."<<std::endl; return;}
+  if(!gsteps->GetN() || !gcur_DCU->GetN() || !gcur_PS->GetN()) {std::cout<<" Empty input. Exiting GetVoltageDropAndRatio()."<<std::endl; return;}
+  //cout<<"steps: "<<gsteps->GetN()<<" dcu: "<<gcur_DCU->GetN()<<" ps: "<<gcur_PS->GetN()<<endl;
+  if(gcur_PS->GetN()<8) {std::cout<<" Too few PS currents values. Exiting GetVoltageDropAndRatio()."<<std::endl; return;}
   
   double time=0;
   double current=0;
@@ -135,18 +155,19 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
     gcur_DCU->GetPoint(ic, time, current);
     time_cur=int(time);
     if(time_cur==0) continue;
-    // cout<<time_cur<<" "<<current<<"uA"<<endl;
+     //cout<<time_cur<<" "<<current<<"uA"<<endl;
     
     // Look for current in PS at time_cur
     for(int icps=0; icps<gcur_PS->GetN(); icps++)
     {
       gcur_PS->GetPoint(icps, time, current_PS);
       time_cur_PS=int(time);
+	   //cout<<"PS "<<time_cur_PS<<" "<<current_PS<<"uA"<<endl;
       
       // Get PS current
       if(time_cur>=prev_time_cur_PS && time_cur<time_cur_PS)
       {
-        // cout<<prev_time_cur_PS<<" "<<previous_current_PS<<"uA - "<<time_cur_PS<<" "<<current_PS<<"uA"<<endl;
+         //cout<<prev_time_cur_PS<<" "<<previous_current_PS<<"uA - "<<time_cur_PS<<" "<<current_PS<<"uA"<<endl;
         cur_PS=(previous_current_PS+current_PS)/2.;
         if(!prev_time_cur_PS) cur_PS=0; // time_cur before first PS meas. Set to 0 to not use it.
         cur_PS_err=fabs(current_PS-cur_PS);
@@ -167,9 +188,9 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
     {
       gsteps->GetPoint(iv, time, voltage);
       time_volt=int(time);
-      // cout<<"  "<<time_volt<<" "<<voltage<<"V"<<endl;
+       //cout<<"  "<<time_volt<<" "<<voltage<<"V"<<endl;
       
-      // Compute voltage shift
+      // Compute voltage shift and DCU/PS ratio
       if(time_cur>=prev_time_volt && time_cur<time_volt)
       {
         //cout<<prev_time_volt<<" "<<previous_voltage<<"V - "<<time_volt<<" "<<voltage<<"V"<<endl;
@@ -188,8 +209,8 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
 		{
           shift= current*13.8e-3+cur_PS*1.e-3;
           shift_err= 2*13.8e-3+cur_PS_err*1.e-3;
-          gshift->SetPoint(ipt, volt, shift);
-          gshift->SetPointError(ipt, volt_err, shift_err);
+          gvdrop->SetPoint(ipt, volt, shift);
+          gvdrop->SetPointError(ipt, volt_err, shift_err);
 		  gratio->SetPoint(ipt, volt, current/cur_PS);
 		  gratio->SetPointError(ipt, volt_err, 
 		    current/cur_PS*sqrt(pow(cur_PS_err/cur_PS,2) + pow(2/current,2)));
@@ -202,12 +223,157 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
     }
   } // End of loop on DCU measurements
   
-  TH1F* h = gshift->GetHistogram();
+  TH1F* h = gvdrop->GetHistogram();
   h->GetXaxis()->SetTitle("V_{bias} [V]");
   h->GetYaxis()->SetTitle("V_{drop} [V]");
   
-  if(current_ratio) return gratio;
-  else return gshift;
+  return;  
+}
+
+
+// Decide to use DCU currents or not. If not update with PS currents * scale factor
+void ApplyDCUOverPSRatio(TGraph *gsteps, TGraph *&gcur_DCU, TGraph *gcur_PS, TGraph *gvolt, int nmodforchannel, double &mean_ratio,
+                   char* subdet="TIB_L1", char* run="20120506_run193541", int detid=369121605, char* bad_periods="", bool force_use_DCU=false)
+{
+
+  TGraphErrors* gvdrop;
+  TGraphErrors* gratio;
+  /*cout<<gcur_DCU<<" "<<gcur_PS<<endl;
+  if(!gcur_DCU) cout<<"No dcu"<<endl;
+  else cout<<" n dcu "<<gcur_DCU->GetN()<<endl;
+  if(!gcur_PS) cout<<"No ps"<<endl;
+  else cout<<" n ps "<<gcur_PS->GetN()<<endl;*/
+  
+  bool use_DCU=true;
+  mean_ratio = -1;
+  double xfirst,xlast;
+  
+  if(!gcur_DCU && !gcur_PS) {std::cout<<" No DCU , neither PS currents graphs. Exiting."<<std::endl; return;}
+  // In the following take care of cases with no DCU infos but not with no PS currents
+  if(!gcur_PS) {std::cout<<" No PS currents graph. Exiting."<<std::endl; return;}
+
+  // If no DCU info, will use only PS info
+  if(!gcur_DCU)
+  {
+	use_DCU=false;
+    std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl;
+  }
+  else
+  {
+	if(gcur_DCU->GetN()==0)
+	{
+	  use_DCU=false;
+      std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl;
+	}
+	else
+	if(!force_use_DCU)
+	{
+      // For checking DCU points within scan and range covered
+      GetVoltageDropAndRatio(gsteps, gcur_DCU, gcur_PS, gvdrop, gratio);
+      
+	  if(gratio->GetN()){
+
+		xfirst = TMath::MinElement(gratio->GetN(), gratio->GetX());
+		xlast = TMath::MaxElement(gratio->GetN(), gratio->GetX());
+		cout<<" nb of useful DCU values: "<<gratio->GetN()<<endl;
+		cout<<" range of useful DCU values: "<<fabs(xlast-xfirst)<<endl;
+
+		// if enough DCU values, will use them to compute Vdrop
+		// check also how wide is the range covered
+		if(gratio->GetN()>=8 && (xfirst<=75 && xlast>=275))
+	      use_DCU=true;
+		else
+		// if too few points available for DCU values within the scan
+		// uses PS values and DCU/PS ratio
+		if(gratio->GetN()>=5 || (gratio->GetN()>=2 && fabs(xlast-xfirst)>=80))
+		{
+		  use_DCU=false;
+		  gratio->Fit("pol0", "q");
+		  mean_ratio = gratio->GetFunction("pol0")->GetParameter(0);
+		}
+		else
+		// if even less DCU values within the scan uses PS values
+		use_DCU=false;
+	  
+	  }
+	  else use_DCU=false; 
+	
+	  // Old measurements
+      /*use_DCU=false;
+	  // fractions computed on 20120506_run193541
+	  const int N_TIB_L1_2012=17;
+      int detids_TIB_L1_2012[N_TIB_L1_2012]={369121381,369121382,369121385,369121386,369121389,369121390,
+	                           369121605,369121606,369121609,369121610,369121613,369121614,
+							   369125861,369125862,369125866,369125869,369125870};  
+      float dcu_fractions_TIB_L1_2012[N_TIB_L1_2012]={0.346, 0.329, 0.324, 0.339, 0.345, 0.329,
+                                    	0.345, 0.339, 0.339, 0.312, 0.320, 0.345,
+								    	0.400, 0.307, 0.217, 0.627, 0.476};
+
+      // fractions computed on 20120928_run203832
+      const int N_TOB=6;
+      int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
+      float dcu_fractions_TOB[N_TOB]={0.296, 0.320, 0.327, 0.336, 0.365, 0.334};
+
+
+	  if(!strcmp(subdet,"TIB"))
+	  for(int idet=0; idet<N_TIB_L1_2012; idet++)
+		if(detid==detids_TIB_L1_2012[idet]) mean_ratio = dcu_fractions_TIB_L1_2012[idet];
+
+	  if(!strcmp(subdet,"TOB"))
+	  for(int idet=0; idet<N_TOB; idet++)
+		if(detid==detids_TOB[idet]) mean_ratio = dcu_fractions_TOB[idet];*/
+
+  	}
+}
+  cout<<" fitted ratio: "<<mean_ratio<<endl;
+  
+  // If no DCU info, will use only PS info
+  float scale=1.;
+  double time=0;
+  double current=0;
+  if(!use_DCU)
+  { 
+	gcur_DCU = (TGraph*) gcur_PS->Clone();
+    if(gcur_DCU->GetN()==0) {std::cout<<" No PS info. Exit."<<std::endl; return;}
+    
+    scale = 1./nmodforchannel; // Approximation of an equal sharing among sensors and over Vbias
+	
+	// DCU/PS ratio
+	if(mean_ratio>0 && mean_ratio<1) scale=mean_ratio;
+	
+	// Old measurements
+    /*// fractions computed on 20120506_run193541
+    const int N_TIB_L1_2012=17;
+    int detids_TIB_L1_2012[N_TIB_L1_2012]={369121381,369121382,369121385,369121386,369121389,369121390,
+	                         369121605,369121606,369121609,369121610,369121613,369121614,
+							 369125861,369125862,369125866,369125869,369125870};  
+    float dcu_fractions_TIB_L1_2012[N_TIB_L1_2012]={0.346, 0.329, 0.324, 0.339, 0.345, 0.329,
+                                      0.345, 0.339, 0.339, 0.312, 0.320, 0.345,
+								      0.400, 0.307, 0.217, 0.627, 0.476};
+									  
+    // fractions computed on 20120928_run203832
+    const int N_TOB=6;
+    int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
+    float dcu_fractions_TOB[N_TOB]={0.296, 0.320, 0.327, 0.336, 0.365, 0.334};
+
+    
+	if(!strcmp(subdet,"TIB_L1"))
+	for(int idet=0; idet<N_TIB_L1_2012; idet++)
+	  if(detid==detids_TIB_L1_2012[idet]) scale = dcu_fractions_TIB_L1_2012[idet];
+	if(!strcmp(subdet,"TOB"))
+	for(int idet=0; idet<N_TOB; idet++)
+	  if(detid==detids_TOB[idet]) scale = dcu_fractions_TOB[idet];
+	*/
+
+	cout<<" nb of modules: "<<nmodforchannel<<endl;
+	cout<<" dcu/ps fraction: "<<scale<<endl;
+
+    for(int ic=0; ic<gcur_DCU->GetN(); ic++)
+    {
+      gcur_DCU->GetPoint(ic, time, current);
+      gcur_DCU->SetPoint(ic, time, current*scale);
+    }
+  }
   
 }
 
@@ -215,7 +381,7 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
 //----------------------------------------------------------------------------
 
 void DrawConditions(char* subdet="TIB", char* run="20120928_run203832", int detid=369121381, 
-                    char* bad_periods="Steps/bad_periods_20120928_run203832.txt")
+                    char* bad_periods="Steps/bad_periods_20120928_run203832.txt", bool print=false)
 {
     cout<<" DetID "<<detid<<endl;
 
@@ -224,7 +390,8 @@ void DrawConditions(char* subdet="TIB", char* run="20120928_run203832", int deti
     TGraph* gcur_DCU;
     TGraph* gcur_PS;
     TGraph* gvolt;
-    GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
+	int nmodforchannel;
+    GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmodforchannel, subdet, run, detid, bad_periods);
 	
 	double Steps_max = GetMaximum(gsteps);
 	double PS_max = GetMaximum(gcur_PS);
@@ -240,6 +407,11 @@ void DrawConditions(char* subdet="TIB", char* run="20120928_run203832", int deti
     if(gvolt) gvolt->Draw("P");
     gcur_DCU->Draw("P");
     gcur_PS->Draw("PL");
+	cout<<"I_PS"<<endl;
+	gcur_PS->Print("all");
+    gcur_DCU->Draw("P");
+	cout<<"I_DCU"<<endl;
+	gcur_DCU->Print("all");
     TH1F* h = gsteps->GetHistogram();
     h->SetTitle(Form("DetID %i", detid));
     h->GetYaxis()->SetTitle("[V or #muA]");
@@ -259,9 +431,11 @@ void DrawConditions(char* subdet="TIB", char* run="20120928_run203832", int deti
      l->SetLineStyle(3);
      //l->Draw();
    } 
+   
+   if(print) c1->Print(Form("Conditions_detid_%i.eps", detid));
 }
 
-double DrawDCUOverPSRatio(char* subdet="TIB_L1", char* run="20120506_run193541", int detid=369121381, char* bad_periods="", bool print=false)
+double DrawDCUOverPSRatio(char* subdet="TIB", char* run="20150821_run254790", int detid=369121381, char* bad_periods="", bool print=false)
 {
     cout<<" DetID "<<detid<<endl;
 
@@ -270,9 +444,12 @@ double DrawDCUOverPSRatio(char* subdet="TIB_L1", char* run="20120506_run193541",
     TGraph* gcur_DCU;
     TGraph* gcur_PS;
     TGraph* gvolt;
-    GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
-	
-    TGraph* gratio = GetVoltageDrop(gsteps, gcur_DCU, gcur_PS, true);
+	int nmodforchannel;
+    GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmodforchannel, subdet, run, detid, bad_periods);
+		
+    TGraphErrors* gvdrop;
+	TGraphErrors* gratio;
+	GetVoltageDropAndRatio(gsteps, gcur_DCU, gcur_PS, gvdrop, gratio);
 	
 	double mean_ratio = 0.;
 	gratio->Fit("pol0");
@@ -314,18 +491,33 @@ Double_t fitvdrop(Double_t *x, Double_t *par)
 }
 
 
-int ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*& fit, char* bad_periods="", bool show=true)
+int ComputeCorrection(char* subdet, char* run, int detid, TGraphErrors *&gvdrop, TF1 *&fit, char* bad_periods="", bool show=true)
 {
   
   // Loop over modules
   cout<<" DetID "<<detid<<endl;
+  
+  gvdrop = 0;
+  fit = 0;
 
   // Get currents and voltage
-  TGraph* gsteps;
-  TGraph* gcur_DCU;
-  TGraph* gcur_PS;
-  TGraph* gvolt;
-  GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
+  TGraph* gsteps = 0;
+  TGraph* gcur_DCU = 0;
+  TGraph* gcur_PS = 0;
+  TGraph* gvolt = 0;
+  int nmodforchannel;
+  //cout<<"getting conditions"<<endl;
+  if(map_PS_currents.size()>0)  GetLoadedConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmodforchannel, run, detid);
+  else GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmodforchannel, subdet, run, detid, bad_periods);
+
+  if(!gcur_PS || gcur_PS->GetN()==0) {std::cerr<<" No PS currents. Skipping detid."<<std::endl; return -11;}
+
+  TGraph* gcur_DCU_untouched = 0;
+  if(gcur_DCU) gcur_DCU_untouched = (TGraph*) gcur_DCU->Clone();
+  
+  double mean_ratio;
+  //cout<<"applying DCU/PS"<<endl;
+  ApplyDCUOverPSRatio(gsteps, gcur_DCU, gcur_PS, gvolt, nmodforchannel, mean_ratio, subdet, run, detid, bad_periods);
 
   // scale graphs for drawing
   double Steps_max = GetMaximum(gsteps);
@@ -339,10 +531,10 @@ int ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*&
   Scale( gcur_DCU_clone, scale_DCU);
 
   // Draw conditions for monitoring
-  TCanvas* c1;
+  TCanvas* c1=0;
   if(show) 
   {
-    c1 = new TCanvas();
+    c1 = new TCanvas("c1", "Conditions");
     gsteps->Draw("APL");
     if(gvolt) gvolt->Draw("P");
     gcur_DCU_clone->Draw("P");
@@ -357,15 +549,30 @@ int ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*&
     leg->AddEntry(gcur_PS_clone, Form("Leak. cur. from PS (x%.2f)", scale_PS), "pl");
     leg->AddEntry(gcur_DCU_clone, Form("Leak. cur. from DCU (x%.2f)", scale_DCU), "p");
     leg->Draw();
+	
   } 
   
+  // Show DCU/PS ratio
+  TCanvas* c3=0;
+  TGraphErrors* gratio_dcu_untouched;
+  if(show && mean_ratio!=-1)
+  {
+    c3 = new TCanvas("c3", "DCU/PS ratio", 200, 0, 700, 500);
+	GetVoltageDropAndRatio(gsteps, gcur_DCU_untouched, gcur_PS, gvdrop, gratio_dcu_untouched);
+	gratio_dcu_untouched->Fit("pol0", "q");
+	gratio_dcu_untouched->Draw("AP");
+  }
+   
   // Compute voltage drop induced by leakage current
-  TCanvas* c2;
-  if(show) c2 = new TCanvas("c2", "V drop", 200, 0, 700, 500);
-  gvdrop = GetVoltageDrop(gsteps, gcur_DCU, gcur_PS);
+  TCanvas* c2=0;
+  if(show) c2 = new TCanvas("c2", "V drop", 400, 0, 700, 500);
+  TGraphErrors* gratio;
+  GetVoltageDropAndRatio(gsteps, gcur_DCU, gcur_PS, gvdrop, gratio);
   gvdrop->SetTitle(Form("DetID %i", detid));
   gvdrop->SetMarkerStyle(20);
   if(show) gvdrop->Draw("AP");
+  
+  
 
   int fit_status=-999;
   // Fit voltage drop
@@ -375,7 +582,7 @@ int ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*&
   fvdrop->SetParameter(0,0.2);
   fvdrop->SetParLimits(0, -5, 10);  
   fvdrop->SetParLimits(1, -10, 100);
-  fvdrop->SetParameter(1,-1);  
+  fvdrop->SetParameter(1,-1);
   fit_status = gvdrop->Fit("fvdrop");
   // For 2015 bad fits
   if(fvdrop->GetParameter(1)<-9.9){
@@ -419,15 +626,19 @@ int ComputeCorrection(char* subdet, char* run, int detid, TGraph*& gvdrop, TF1*&
   
   if(show) 
   {
-    c1->Modified();
-    c1->Update();
+    if(c1) {c1->Modified(); c1->Update(); }
     //c1->Print(Form("Ileak-Vbias_%s_%i.pdf", run, detid));
-    c2->Modified();
-    c2->Update();
+    if(c2) { c2->Modified(); c2->Update(); }
     //c2->Print(Form("IleakEffect_%s_%i.pdf", run, detid));
+    if(c3) { c3->Modified(); c3->Update(); }
   }
   
   fit = (TF1*) gvdrop->GetListOfFunctions()->First();
+  if(fit) cout<<"Correction at 300V:  "<<fit->Eval(300)<<" V"<<endl;
+  
+  //delete c1;
+  //delete c2;
+  //delete c3;
   
   return fit_status;
   
@@ -447,13 +658,26 @@ void ComputeCorrections(char* subdet, char* run, int* detids, const int N, char*
   // Loop over modules
   int detid=0;
   int ifit=0;
-  TGraph *gvdrop;
+  int status=-999;
+  TGraphErrors *gvdrop;
   TF1 *fit;
+  double xfirst,xlast;
   for(int idet=0; idet<N; idet++)
   {
 
     detid = detids[idet];
-	ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods);
+	status = ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods);
+	
+	if(status==-11) continue; // no PS currents
+	
+	if(gvdrop)
+	if(gvdrop->GetN()) 
+	{
+	  xfirst = TMath::MinElement(gvdrop->GetN(), gvdrop->GetX());
+	  xlast = TMath::MaxElement(gvdrop->GetN(), gvdrop->GetX());
+	  if(gvdrop->GetN()<8 || !(xfirst<=75 && xlast>=240)) 
+	    {cerr<<"Too few points for computing correction for detid "<<detid<<endl; continue;}
+	}
     
     // Store fit result
     if(fit)
@@ -499,9 +723,150 @@ void ComputeCorrections(char* subdet, char* run, int* detids, const int N, char*
   
 }
 
+void ComputeDCUOverPSRatios(char* subdet, char* run, int* detids, const int N, char* bad_periods="")
+{
+  
+  // Histos and output file
+  TFile* fout = new TFile(Form("DCUOverPSRatio_%s_%s.root", subdet, run),"recreate");
+  //TH1F* hratio = new TH1F("hratio", "ratio", 100, 0.2, .7);
+  //TH1F* hnpts = new TH1F("hnpts", "npts", 30, 0, 30);
+  //TH1F* hrange = new TH1F("hrange", "range", 35, 0, 350);
+  
+  TTree* tout = new TTree("ratio","DCUOverPSRatio");
+  ULong64_t detid;
+  double nmod_avg_diff, fit_avg_diff, I_min, I_max, I_rms, I_ratio, V_min, V_max;
+  int nmod, npts;
+  tout->Branch("DETID",&detid,"DETID/l");
+  tout->Branch("NMOD", &nmod, "NMOD/I");
+  tout->Branch("NMOD_RATIO_AVG_DIFF", &nmod_avg_diff,"NMOD_RATIO_AVG_DIFF/D");
+  tout->Branch("FIT_RATIO_AVG_DIFF", &fit_avg_diff, "FIT_RATIO_AVG_DIFF/D");
+  tout->Branch("I_RATIO_MIN",&I_min,"I_RATIO_MIN/D");
+  tout->Branch("I_RATIO_MAX",&I_max,"I_RATIO_MAX/D");
+  tout->Branch("I_RATIO_RMS",&I_rms,"I_RATIO_RMS/D");
+  tout->Branch("I_RATIO",&I_ratio,"I_RATIO/D");
+  tout->Branch("V_MIN",&V_min,"V_MIN/D");
+  tout->Branch("V_MAX",&V_max,"V_MAX/D");
+  tout->Branch("NPTS",&npts,"NTPS/I");
+  
+  TGraph* gsteps;
+  TGraph* gcur_DCU;
+  TGraph* gcur_PS;
+  TGraph* gvolt;
+  TGraphErrors* gvdrop;
+  TGraphErrors* gratio;
+
+  // Loop over modules
+  //int detid=0;
+  int ifit=0;
+  double mean_ratio = 0.;
+  double x, y;
+  for(int idet=0; idet<N; idet++)
+  {
+
+    detid = detids[idet];
+    
+    // Get currents and voltage
+    if(map_PS_currents.size()>0)  GetLoadedConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmod, run, detid);
+    else GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmod, subdet, run, detid, bad_periods);
+	
+    // to get explicitely gvdrop and gratio
+	GetVoltageDropAndRatio(gsteps, gcur_DCU, gcur_PS, gvdrop, gratio);
+	//cout<<" ratio: "<<gratio->GetN()<<endl;
+	
+	mean_ratio = 0;
+	nmod_avg_diff = 0;
+	fit_avg_diff = 0;
+	I_min = -1;
+	I_max = -1;
+	I_rms = 0;
+	V_min = -1;
+	V_max = -1;
+	
+	if(gratio->GetN()>0){
+
+	  gratio->Fit("pol0", "q");
+	  mean_ratio = gratio->GetFunction("pol0")->GetParameter(0);
+	  
+	  double* x_val = gratio->GetX();
+	  V_min = TMath::MinElement(gratio->GetN(), x_val);
+	  V_max = TMath::MaxElement(gratio->GetN(), x_val);
+	  
+	  double* y_val = gratio->GetY();
+	  I_min = TMath::MinElement(gratio->GetN(), y_val);
+	  I_max = TMath::MaxElement(gratio->GetN(), y_val);
+	  I_rms = gratio->GetRMS(2);
+	  
+	  for(int ipt=0; ipt<gratio->GetN(); ipt++){
+	    gratio->GetPoint(ipt, x, y);
+		nmod_avg_diff+=TMath::Abs(1./nmod-y);
+		fit_avg_diff+=TMath::Abs(mean_ratio-y);
+	  }
+	  nmod_avg_diff/=gratio->GetN();
+	  fit_avg_diff/=gratio->GetN();
+	}
+	
+	//hratio->Fill(mean_ratio);
+	//hnpts->Fill(gratio->GetN());
+	//hrange->Fill(fabs(xlast-xfirst));    
+
+	I_ratio = mean_ratio;
+	npts = gratio->GetN();
+    tout->Fill();
+    
+    //getchar();
+      
+  } // End of loop over modules
+  
+
+  // Write output root file
+  fout->cd();
+  //hratio->Write();
+  //hnpts->Write();
+  //hrange->Write();
+  tout->Write();
+  fout->Close();
+  
+  ClearConditions();
+  
+}
+
+void ComputeAllDCUOverPSRatios(char* subdet, char* run, char* filename, char* bad_periods="")
+{
+  
+  // load currents for all detids
+  LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, subdet, run, bad_periods);
+
+  // input file with list of detids
+  std::string line;
+  ifstream fin(filename);
+  int detid=0;
+  int idet=0;
+  int detids[6500];
+
+  // Loop on detids
+  if(fin.is_open())  {
+    while( getline ( fin, line) && idet < 6500)
+    {
+      if(fin.eof()) continue;
+      std::stringstream ss(line);
+      ss >> detid;
+	  detids[idet]=detid;
+	  idet++;
+	}
+  }
+  
+  ComputeDCUOverPSRatios(subdet, run, detids, idet, bad_periods);
+  ClearConditions();
+  return;
+}
+
+
 void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_periods="")
 {
   
+  // load currents for all detids
+  LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, subdet, run, bad_periods);
+
   // Histos and output file
   TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);
@@ -515,8 +880,11 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
   int status=0;
   int ngoodfit=0;
   int nbadfit=0;
+  int nrejectedfit=0;
+  int nnoinfo=0;
   int nnotconv=0;
-  TGraph *gvdrop;
+  int nfewcurpts=0;
+  TGraphErrors *gvdrop;
   TF1 *fit;
 
   // input file with list of detids
@@ -524,13 +892,14 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
   ifstream fin(filename);
   int detid=0;
   bool show=false;
+  double xfirst,xlast;
 
   // storing graphs for bad fits (limit on chi2/ndf)
-  float chi2_limit = 3.; //2015: 3.
+  float chi2_limit = 3.; //2012: 5. //2015: 3. 
 
   // Loop on detids
   if(fin.is_open())  {
-    while( getline ( fin, line) && idet < 6000)
+    while( getline ( fin, line) && idet < 6500)
     {
       if(fin.eof()) continue;
       std::stringstream ss(line);
@@ -538,11 +907,21 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
 	  idet++;
 
 	  status = ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods, show);
-
+	  if(status==-11) nnoinfo++;
+	  
+	  if(gvdrop)
+	  if(gvdrop->GetN())
+	  {
+		xfirst = TMath::MinElement(gvdrop->GetN(), gvdrop->GetX());
+		xlast = TMath::MaxElement(gvdrop->GetN(), gvdrop->GetX());
+		if(gvdrop->GetN()<8 || !(xfirst<=75 && xlast>=240)) 
+		  {cerr<<"Too few points for computing correction for detid "<<detid<<".  "<<gvdrop->GetN()<<" pts  from "<<xfirst<<" to "<<xlast<<" V"<<endl; nfewcurpts++; continue;}
+	  }
+	  
       // Store fit result
       if(fit)
       if(fit->GetNDF()>1)
-      //if(fit->GetChisquare()/fit->GetNDF() < 50.)
+      if(fit->GetChisquare()/fit->GetNDF() < 50.)
       {
     	fout->cd();
     	cout<<"Storing fit for detid "<<detid<<endl;
@@ -562,6 +941,7 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
     	hparam2->Fill(fit->GetParameter(2));
     	ifit++;
       }
+	  else nrejectedfit++;
 
       if(show) getchar();
 
@@ -587,9 +967,15 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
   hparam2->Write();
   fout->Close();
   
+  cerr<<"N tot detids: "<<idet<<endl;
   cerr<<"N good fits: "<<ngoodfit<<endl;
   cerr<<"N bad fits: "<<nbadfit<<" (chi2/ndf > "<<chi2_limit<<", not bad enough that the fit is rejected (>50.))"<<endl;
+  cerr<<"N rejected fits: "<<nrejectedfit<<" (chi2/ndf > 50.)"<<endl;
   cerr<<"N fits w/o convergence: "<<nnotconv<<endl;
+  cerr<<"N detids w/o currents infos: "<<nnoinfo<<endl;
+  cerr<<"N detids w too few currents infos: "<<nfewcurpts<<endl;
+  
+  ClearConditions();
 
 }
 
@@ -671,30 +1057,67 @@ void ComputeILeakCorrections(char* subdet="TIB_L1", char* run="20120506_run19354
   int detids_2012_bis[N_2012_bis]={369121381,369121382,369121385,369121386,369121389,369121390,369125861,369125862,369125866,369125869,369125870};
   int detids_2012_4PS[4]={369121381,369121382,369125861,369125862};
 
-  //ComputeCorrections("TIB_L1", "20120728_run199832", detids_2012, N_2012, "Steps/bad_periods_20120728_run199832.txt");
-  //ComputeCorrections("TIB_L1", "20120812_run200786", detids_2012, N_2012);
 
-  //ComputeCorrections("TIB_L1", "20120928_run203832", detids_2012_4PS, 4, "Steps/bad_periods_20120928_run203832.txt");   
-  //ComputeCorrections("TIB_L1", "20120928_run203832", detids_2012, N_2012, "Steps/bad_periods_20120928_run203832.txt");
-
-  //ComputeCorrections("TIB_L1", "20121130_run208339", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20121130_run208339.txt");
-  //ComputeCorrections("TIB_L1", "20130213_run211797", detids_2012_bis, N_2012_bis, "");
-  //ComputeCorrections("TIB", "20150603_run246963", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20150603_run246963.txt"); 
+  /*ComputeCorrections("TIB", "20120506_run193541", detids_2012, N_2012, "");
+  ComputeDCUOverPSRatios("TIB", "20120506_run193541", detids_2012, N_2012, "");
   
-  //ComputeAllCorrections("TIB", "20120405_run190459", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
-  //ComputeAllCorrections("TIB", "20120510_run193928", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
-  //ComputeAllCorrections("TIB", "20120812_run200786", "Data/TIB_detids_sorted.txt");
+  ComputeCorrections("TIB", "20120728_run199832", detids_2012, N_2012, "Steps/bad_periods_20120728_run199832.txt");
+  ComputeDCUOverPSRatios("TIB", "20120728_run199832", detids_2012, N_2012, "Steps/bad_periods_20120728_run199832.txt");
+
+  //ComputeCorrections("TIB_L1", "20120928_run203832", detids_2012_4PS, 4, "Steps/bad_periods_20120928_run203832.txt");	
+  ComputeCorrections("TIB", "20120928_run203832", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20120928_run203832.txt");
+  ComputeDCUOverPSRatios("TIB", "20120928_run203832", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20120928_run203832.txt");
+
+  ComputeCorrections("TIB", "20121130_run208339", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20121130_run208339.txt");
+  ComputeDCUOverPSRatios("TIB", "20121130_run208339", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20121130_run208339.txt");
+
+  ComputeCorrections("TIB", "20130213_run211797", detids_2012_bis, N_2012_bis, "");
+  ComputeDCUOverPSRatios("TIB", "20130213_run211797", detids_2012_bis, N_2012_bis, "");
+ */
+  
+  /*TGraphErrors* gv;
+  TF1* fv;
+  ComputeCorrection("TIB", "20120812_run200786", 369158836, gv, fv, "");*/
+  
+  /*//ComputeCorrections("TIB", "20120405_run190459", detids_2012, N_2012, "Steps/bad_periods_20120405_run190459.txt");
+  ComputeAllCorrections("TIB", "20120405_run190459", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  ComputeAllDCUOverPSRatios("TIB", "20120405_run190459", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  //ComputeCorrections("TIB", "20120510_run193928", detids_2012, N_2012, "Steps/bad_periods_20120510_run193928.txt");
+  ComputeAllCorrections("TIB", "20120510_run193928", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  ComputeAllDCUOverPSRatios("TIB", "20120510_run193928", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  ComputeAllCorrections("TIB", "20120812_run200786", "Data/TIB_detids_sorted.txt");
+  ComputeAllDCUOverPSRatios("TIB", "20120812_run200786", "Data/TIB_detids_sorted.txt");*/
 
   // 2015
 
-  //ComputeCorrections("TIB_L1", "20150821_run254790", detids_2012_bis, N_2012_bis, "");
-  //ComputeCorrections("TIB_L1", "20151007_run258443", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20151007_run258443.txt");
-
   //ComputeAllCorrections("TIB", "20150603_run246963", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+  //ComputeAllDCUOverPSRatios("TIB", "20150603_run246963", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+
+  /*ComputeCorrections("TIB", "20150821_run254790", detids_2012_bis, N_2012_bis, "");
+  ComputeDCUOverPSRatios("TIB", "20150821_run254790", detids_2012_bis, N_2012_bis, "");
+  ComputeCorrections("TIB", "20151007_run258443", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20151007_run258443.txt");
+  ComputeDCUOverPSRatios("TIB", "20151007_run258443", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20151007_run258443.txt");
+  ComputeCorrections("TIB", "20151121_run262254", detids_2012_bis, N_2012_bis, "");
+  ComputeDCUOverPSRatios("TIB", "20151121_run262254", detids_2012_bis, N_2012_bis, "");
+*/
 
   // 2016
-  //ComputeCorrections("TIB", "20160423_run271056", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20160423_run271056.txt"); 
-  ComputeAllCorrections("TIB", "20160423_run271056", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+  //ComputeAllCorrections("TIB", "20160423_run271056", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+  //ComputeAllDCUOverPSRatios("TIB", "20160423_run271056", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+
+  //ComputeDCUOverPSRatios("TIB", "20160423_run271056", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20160423_run271056", detids_2012_bis, N_2012_bis, "");
+  /*ComputeDCUOverPSRatios("TIB", "20160612_run274969", detids_2012_bis, N_2012_bis, "");
+  ComputeCorrections("TIB", "20160612_run274969", detids_2012_bis, N_2012_bis, "");
+  ComputeDCUOverPSRatios("TIB", "20160706_run276437", detids_2012_bis, N_2012_bis, "");
+  ComputeCorrections("TIB", "20160706_run276437", detids_2012_bis, N_2012_bis, "");
+  ComputeDCUOverPSRatios("TIB", "20160803_run278167", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20160803_run278167.txt");
+  ComputeCorrections("TIB", "20160803_run278167", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20160803_run278167.txt");
+  ComputeDCUOverPSRatios("TIB", "20160909_run280385", detids_2012_bis, N_2012_bis, "");
+  ComputeCorrections("TIB", "20160909_run280385", detids_2012_bis, N_2012_bis, "");
+  ComputeDCUOverPSRatios("TIB", "20161116_run285371", detids_2012_bis, N_2012_bis, "");
+  ComputeCorrections("TIB", "20161116_run285371", detids_2012_bis, N_2012_bis, "");
+*/
 
   // TESTS
   const int N_test=10;
@@ -708,15 +1131,162 @@ void ComputeILeakCorrections(char* subdet="TIB_L1", char* run="20120506_run19354
   int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
   //DrawConditions("TOB", "20121130_run208339",436281508 , "Steps/bad_periods_20121130_run208339.txt");
 
-//  ComputeCorrections("TOB", "20120510_run193928", detids_TOB, N_TOB, "Steps/bad_periods_20120510_run193928.txt");  
-//  ComputeCorrections("TOB", "20120728_run199832", detids_TOB, N_TOB, "Steps/bad_periods_20120728_run199832.txt");
-//  ComputeCorrections("TOB", "20120928_run203832", detids_TOB, N_TOB, "Steps/bad_periods_20120928_run203832.txt");    
-//  ComputeCorrections("TOB", "20121130_run208339", detids_TOB, N_TOB, "Steps/bad_periods_20121130_run208339.txt");
-//  ComputeCorrections("TOB", "20120405_run190459", detids_TOB, N_TOB, "Steps/bad_periods_20120405_run190459.txt");
-  //ComputeCorrections("TOB", "20120812_run200786", detids_TOB, N_TOB, "");
+  // 2012
+  
+/*  ComputeAllDCUOverPSRatios("TOB", "20120405_run190459", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  ComputeAllDCUOverPSRatios("TOB", "20120510_run193928", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  ComputeAllDCUOverPSRatios("TOB", "20120812_run200786", "Data/TOB_detids_sorted.txt");
+*/
+/*  //ComputeDCUOverPSRatios("TOB", "20120405_run190459", detids_TOB, N_TOB, "Steps/bad_periods_20120405_run190459.txt");
+  ComputeDCUOverPSRatios("TOB", "20120506_run193541", detids_TOB, N_TOB, "");
+  //ComputeDCUOverPSRatios("TOB", "20120510_run193928", detids_TOB, N_TOB, "Steps/bad_periods_20120510_run193928.txt");
+  ComputeDCUOverPSRatios("TOB", "20120728_run199832", detids_TOB, N_TOB, "Steps/bad_periods_20120728_run199832.txt");
+  //ComputeDCUOverPSRatios("TOB", "20120812_run200786", detids_TOB, N_TOB);
+  ComputeDCUOverPSRatios("TOB", "20120928_run203832", detids_TOB, N_TOB, "Steps/bad_periods_20120928_run203832.txt");
+  ComputeDCUOverPSRatios("TOB", "20121130_run208339", detids_TOB, N_TOB, "Steps/bad_periods_20121130_run208339.txt");
+  ComputeDCUOverPSRatios("TOB", "20130213_run211797", detids_TOB, N_TOB, "");
+*/
+    
+ /* ComputeAllCorrections("TOB", "20120405_run190459", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  ComputeAllCorrections("TOB", "20120510_run193928", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  ComputeAllCorrections("TOB", "20120812_run200786", "Data/TOB_detids_sorted.txt");
+*/
+/*  //ComputeCorrections("TOB", "20120405_run190459", detids_TOB, N_TOB, "Steps/bad_periods_20120405_run190459.txt");
+  ComputeCorrections("TOB", "20120506_run193541", detids_TOB, N_TOB, "");
+  //ComputeCorrections("TOB", "20120510_run193928", detids_TOB, N_TOB, "Steps/bad_periods_20120510_run193928.txt");
+  ComputeCorrections("TOB", "20120728_run199832", detids_TOB, N_TOB, "Steps/bad_periods_20120728_run199832.txt");
+  //ComputeCorrections("TOB", "20120812_run200786", detids_TOB, N_TOB);
+  ComputeCorrections("TOB", "20120928_run203832", detids_TOB, N_TOB, "Steps/bad_periods_20120928_run203832.txt");
+  ComputeCorrections("TOB", "20121130_run208339", detids_TOB, N_TOB, "Steps/bad_periods_20121130_run208339.txt");
+  ComputeCorrections("TOB", "20130213_run211797", detids_TOB, N_TOB, "");
+*/    
+  // 2015
+
+  //ComputeAllDCUOverPSRatios("TOB", "20150603_run246963", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+  
+  /*//ComputeDCUOverPSRatios("TOB", "20150603_run246963", detids_TOB, N_TOB, "Steps/bad_periods_20150603_run246963.txt"); 
+  ComputeDCUOverPSRatios("TOB", "20150821_run254790", detids_TOB, N_TOB, "");
+  ComputeDCUOverPSRatios("TOB", "20151007_run258443", detids_TOB, N_TOB, "Steps/bad_periods_20151007_run258443.txt");
+  ComputeDCUOverPSRatios("TOB", "20151121_run262254", detids_TOB, N_TOB, "");*/
+
+  //ComputeAllCorrections("TOB", "20150603_run246963", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+  
+  /*ComputeCorrections("TOB", "20150603_run246963", detids_TOB, N_TOB, "Steps/bad_periods_20150603_run246963.txt"); 
+  /*ComputeCorrections("TOB", "20150821_run254790", detids_TOB, N_TOB, "");
+  ComputeCorrections("TOB", "20151007_run258443", detids_TOB, N_TOB, "Steps/bad_periods_20151007_run258443.txt");
+  ComputeCorrections("TOB", "20151121_run262254", detids_TOB, N_TOB, "");*/
 
 
+  // 2016
+  /*ComputeAllDCUOverPSRatios("TOB", "20160423_run271056", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
 
-  //ComputeAllCorrections("TOB", "20120812_run200786", "Data/TOB_detids_sorted.txt", "");
+  //ComputeDCUOverPSRatios("TOB", "20160423_run271056", detids_TOB, N_TOB, "");
+  ComputeDCUOverPSRatios("TOB", "20160612_run274969", detids_TOB, N_TOB, "");
+  ComputeDCUOverPSRatios("TOB", "20160706_run276437", detids_TOB, N_TOB, "");
+  ComputeDCUOverPSRatios("TOB", "20160803_run278167", detids_TOB, N_TOB, "Steps/bad_periods_20160803_run278167.txt");
+  ComputeDCUOverPSRatios("TOB", "20160909_run280385", detids_TOB, N_TOB, "");
+  ComputeDCUOverPSRatios("TOB", "20161116_run285371", detids_TOB, N_TOB, "");*/
+
+  //ComputeAllCorrections("TOB", "20160423_run271056", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+
+  //ComputeCorrections("TOB", "20160423_run271056", detids_TOB, N_TOB, "");
+  /*ComputeCorrections("TOB", "20160612_run274969", detids_TOB, N_TOB, "");
+  ComputeCorrections("TOB", "20160706_run276437", detids_TOB, N_TOB, "");
+  ComputeCorrections("TOB", "20160803_run278167", detids_TOB, N_TOB, "Steps/bad_periods_20160803_run278167.txt");
+  ComputeCorrections("TOB", "20160909_run280385", detids_TOB, N_TOB, "");
+  ComputeCorrections("TOB", "20161116_run285371", detids_TOB, N_TOB, "");*/
+
+  TGraphErrors* gv;
+  TF1* fv;
+  //LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, "TOB", "20120510_run193928", "Steps/bad_periods_20120510_run193928.txt");
+  //ComputeCorrection("TOB", "20120510_run193928", 436281508, gv, fv, "Steps/bad_periods_20120510_run193928.txt");
+  //DrawDCUOverPSRatio("TOB", "20120510_run193928", 436281508, "Steps/bad_periods_20120510_run193928.txt");
+
+  // TID
+  //-----
+  const int N_TID=4;
+  int detids_TID[N_TID]={402668829, 402672930, 402677025, 402677041};
+  //ComputeCorrections("TID", "20160423_run271056", detids_TID, N_TID, "Steps/bad_periods_20160423_run271056.txt");
+
+/*  ComputeAllDCUOverPSRatios("TID", "20120405_run190459", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  ComputeAllDCUOverPSRatios("TID", "20120510_run193928", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  ComputeAllDCUOverPSRatios("TID", "20120812_run200786", "Data/TID_detids_sorted.txt");
+  ComputeAllDCUOverPSRatios("TID", "20150603_run246963", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+  ComputeAllDCUOverPSRatios("TID", "20160423_run271056", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+
+  ComputeAllCorrections("TID", "20120405_run190459", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  ComputeAllCorrections("TID", "20120510_run193928", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  ComputeAllCorrections("TID", "20120812_run200786", "Data/TID_detids_sorted.txt");
+  ComputeAllCorrections("TID", "20150603_run246963", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+  ComputeAllCorrections("TID", "20160423_run271056", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+*/  
+
+  // TEC
+  //------
+  const int N_TEC=20;
+  int detids_TEC[N_TEC]={470148196, 470148200, 470148204, 470148228, 470148232, 470148236, 470148240, 470148292, 470148296, 470148300, 470148304, 470148261, 470148262, 470148265, 470148266, 470148324, 470148328, 470148332, 470148336, 470148340};
+  
+   // 2012
+  
+  //ComputeAllDCUOverPSRatios("TEC", "20120405_run190459", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  //ComputeAllDCUOverPSRatios("TEC", "20120510_run193928", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  //ComputeAllDCUOverPSRatios("TEC", "20120812_run200786", "Data/TEC_detids_sorted.txt");
+
+  /*//ComputeDCUOverPSRatios("TEC", "20120405_run190459", detids_TEC, N_TEC, "Steps/bad_periods_20120405_run190459.txt");
+  //ComputeDCUOverPSRatios("TEC", "20120510_run193928", detids_TEC, N_TEC, "Steps/bad_periods_20120510_run193928.txt");
+  ComputeDCUOverPSRatios("TEC", "20120728_run199832", detids_TEC, N_TEC, "Steps/bad_periods_20120728_run199832.txt");
+  //ComputeDCUOverPSRatios("TEC", "20120812_run200786", detids_TEC, N_TEC);
+  ComputeDCUOverPSRatios("TEC", "20120928_run203832", detids_TEC, N_TEC, "Steps/bad_periods_20120928_run203832.txt");
+  ComputeDCUOverPSRatios("TEC", "20121130_run208339", detids_TEC, N_TEC, "Steps/bad_periods_20121130_run208339.txt");
+  ComputeDCUOverPSRatios("TEC", "20130213_run211797", detids_TEC, N_TEC, "");*/
+ 
+  //ComputeAllCorrections("TEC", "20120405_run190459", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
+  //ComputeAllCorrections("TEC", "20120510_run193928", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20120510_run193928.txt");
+  //ComputeAllCorrections("TEC", "20120812_run200786", "Data/TEC_detids_sorted.txt");
+
+  /*//ComputeCorrections("TEC", "20120405_run190459", detids_TEC, N_TEC, "Steps/bad_periods_20120405_run190459.txt");
+  //ComputeCorrections("TEC", "20120510_run193928", detids_TEC, N_TEC, "Steps/bad_periods_20120510_run193928.txt");
+  ComputeCorrections("TEC", "20120728_run199832", detids_TEC, N_TEC, "Steps/bad_periods_20120728_run199832.txt");
+  //ComputeCorrections("TEC", "20120812_run200786", detids_TEC, N_TEC);
+  ComputeCorrections("TEC", "20120928_run203832", detids_TEC, N_TEC, "Steps/bad_periods_20120928_run203832.txt");
+  ComputeCorrections("TEC", "20121130_run208339", detids_TEC, N_TEC, "Steps/bad_periods_20121130_run208339.txt");
+  ComputeCorrections("TEC", "20130213_run211797", detids_TEC, N_TEC, "");*/
+ 
+ 
+  // 2015
+
+  //ComputeAllDCUOverPSRatios("TEC", "20150603_run246963", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+  
+ /* ComputeDCUOverPSRatios("TEC", "20150603_run246963", detids_TEC, N_TEC, "Steps/bad_periods_20150603_run246963.txt"); 
+  ComputeDCUOverPSRatios("TEC", "20150821_run254790", detids_TEC, N_TEC, "");
+  ComputeDCUOverPSRatios("TEC", "20151007_run258443", detids_TEC, N_TEC, "Steps/bad_periods_20151007_run258443.txt");
+  ComputeDCUOverPSRatios("TEC", "20151121_run262254", detids_TEC, N_TEC, "");*/
+
+  //ComputeAllCorrections("TEC", "20150603_run246963", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
+  
+  /*ComputeCorrections("TEC", "20150603_run246963", detids_TEC, N_TEC, "Steps/bad_periods_20150603_run246963.txt"); 
+  ComputeCorrections("TEC", "20150821_run254790", detids_TEC, N_TEC, "");
+  ComputeCorrections("TEC", "20151007_run258443", detids_TEC, N_TEC, "Steps/bad_periods_20151007_run258443.txt");
+  ComputeCorrections("TEC", "20151121_run262254", detids_TEC, N_TEC, "");*/
+
+
+  // 2016
+  //ComputeAllDCUOverPSRatios("TEC", "20160423_run271056", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+
+  /*//ComputeDCUOverPSRatios("TEC", "20160423_run271056", detids_TEC, N_TEC, "");
+  ComputeDCUOverPSRatios("TEC", "20160612_run274969", detids_TEC, N_TEC, "");
+  ComputeDCUOverPSRatios("TEC", "20160706_run276437", detids_TEC, N_TEC, "");
+  ComputeDCUOverPSRatios("TEC", "20160803_run278167", detids_TEC, N_TEC, "Steps/bad_periods_20160803_run278167.txt");
+  ComputeDCUOverPSRatios("TEC", "20160909_run280385", detids_TEC, N_TEC, "");
+  ComputeDCUOverPSRatios("TEC", "20161116_run285371", detids_TEC, N_TEC, "");*/
+
+  //ComputeAllCorrections("TEC", "20160423_run271056", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
+
+  /*//ComputeCorrections("TEC", "20160423_run271056", detids_TEC, N_TEC, "");
+  ComputeCorrections("TEC", "20160612_run274969", detids_TEC, N_TEC, "");
+  ComputeCorrections("TEC", "20160706_run276437", detids_TEC, N_TEC, "");
+  ComputeCorrections("TEC", "20160803_run278167", detids_TEC, N_TEC, "Steps/bad_periods_20160803_run278167.txt");
+  ComputeCorrections("TEC", "20160909_run280385", detids_TEC, N_TEC, "");
+  ComputeCorrections("TEC", "20161116_run285371", detids_TEC, N_TEC, "");*/
 
 }

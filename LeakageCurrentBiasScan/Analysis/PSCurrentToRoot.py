@@ -118,8 +118,12 @@ for row in currents:
 			except ValueError:
 				# try still an other format
 				t = time.strptime(str_time, "%Y-%m-%d %H:%M:%S")
-    # shift to be in UTC
-    entry.TIME = int(time.mktime(t)) - 3600
+    # local time in s
+	time_in_sec = time.mktime(t)
+	# time in UTC
+	t_utc = time.gmtime(time_in_sec)
+    entry.TIME = time_in_sec #int(time.mktime(t_utc))
+    #print 'time shift: ', int(time.mktime(t_utc)), t_utc
     
     # fill one entry per detid
     entry.PS = str_ps
