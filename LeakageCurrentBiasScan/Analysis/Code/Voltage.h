@@ -7,6 +7,7 @@
 #include "TTree.h"
 #include "TGraph.h"
 #include "TH1F.h"
+#include <string>
 
 TString SecUTC(Int_t sec)
 {
@@ -20,7 +21,7 @@ TString SecUTC(Int_t sec)
   s(17, 2);
 }
 
-TGraph* ReadVoltage(char* filename="Data/ConditionBrowser_1343662723590.root")
+TGraph* ReadVoltage(std::string filename="Data/ConditionBrowser_1343662723590.root")
 {
   char NAME[200];
   Int_t NROW;
@@ -28,7 +29,7 @@ TGraph* ReadVoltage(char* filename="Data/ConditionBrowser_1343662723590.root")
   Int_t TIME[20000];
   Double_t VALUE[20000];
   
-  TFile f(filename);
+  TFile f(filename.c_str());
   TTree *t = (TTree*)f.Get("tree");
   if(!t) return 0;
   t->SetBranchAddress("NAME", &NAME);

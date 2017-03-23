@@ -53,14 +53,14 @@ int convertTimestamp( std::string str){
 } 
 
 
-TGraph* ReadSteps(char* filename, bool print=false)
+TGraph* ReadSteps(std::string filename, bool print=false)
 {
   
   //Read file with steps definition
   
   std::string line;
   ifstream fin(filename);
-  if(!fin.is_open()) { std::cout<<"Error : file "<<std::string(filename)<<" not found."<<std::endl; return 0;}
+  if(!fin.is_open()) { std::cout<<"Error : file "<<filename<<" not found."<<std::endl; return 0;}
     
   int step=-1;
   int time=-1;
@@ -99,14 +99,14 @@ TGraph* ReadSteps(char* filename, bool print=false)
 }
 
 
-void ReadBadPeriodsOld(char* filename, vector< int > &bad_periods_start, vector< int > &bad_periods_end)
+void ReadBadPeriodsOld(std::string filename, vector< int > &bad_periods_start, vector< int > &bad_periods_end)
 {
   
   //Read file with bad periods definition
   
   std::string line;
   ifstream fin(filename);
-  if(!fin.is_open()) { std::cout<<"Error : file "<<std::string(filename)<<" not found."<<std::endl; return;}
+  if(!fin.is_open()) { std::cout<<"Error : file "<<filename<<" not found."<<std::endl; return;}
     
   int time_start=-1;
   std::string str_time_start;
