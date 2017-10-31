@@ -9,6 +9,14 @@ HEADERS = ../../../interface/TreeEvent.h
 DEFINES = -DNO_ORCA_CLASSES
 
 
+all:	Dict compile_dict compile link
+
+compile:	$(OBJS)
+
+compile_dict: 	Dict.C
+	$(LD) -c Dict.C $(CXXFLAGS) -o Dict.o
+#Need to compile Dict.C separately (Makefile can't find rule ?)
+
 all:	Dict compile link
 
 compile:	$(OBJS)

@@ -50,7 +50,10 @@ void ClusterWidthAnalysisTreeMaker::Loop()
   t_monitor_start = VSmaker.t_monitor_start;
   t_monitor_end = VSmaker.t_monitor_end;
 
+
+
   int nevent    = 0;
+
   int theVoltage=-1;
   
   if (fChain == 0) return;
@@ -81,7 +84,9 @@ void ClusterWidthAnalysisTreeMaker::Loop()
   Monitors_TEC.insert(std::pair< ULong64_t, TProfile* > (470148196, new TProfile("monitor_470148196", "", (t_monitor_end-t_monitor_start)/30, 0, t_monitor_end-t_monitor_start)));
   Monitors_TEC.insert(std::pair< ULong64_t, TProfile* > (470148300, new TProfile("monitor_470148300", "", (t_monitor_end-t_monitor_start)/30, 0, t_monitor_end-t_monitor_start)));
 
-  Long64_t nentries = fChain->GetEntriesFast();
+
+  Long64_t nentries = fChain->GetEntries();
+
   std::cout << "NUMBER OF ENTRIES = "<< nentries << std::endl; 
 
 
@@ -89,18 +94,29 @@ void ClusterWidthAnalysisTreeMaker::Loop()
   // Loop over events //
   //------------------//
   
+  int nEntries_isPosV = 1;
+  
   for (Long64_t jentry=0; jentry<nentries;jentry++) {
 
     Long64_t ientry = LoadTree(jentry);
     if (ientry < 0) break;
 	fChain->GetEntry(jentry);
     
-	nevent++;
-	if(nevent%1000 == 0) 
+	if(jentry%5000 == 0) 
     { 
-       std::cout << "number of events " << nevent << std::endl;
-       std::cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
+       std::cout << "Number of events : " << jentry <<"/"<<nentries<< std::endl;
+       //cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
     }   
+    
+    if(theVoltage > 0) {nEntries_isPosV++;}    
+    if(nEntries_isPosV % 5000 == 0)
+    {
+    	cout<<"--- "<<nEntries_isPosV<<" entries w/ positive V values"<<endl;
+    }
+
+	nevent++;
+
+
 
     // Get voltage setting for this event
 	theVoltage=-1;
@@ -348,10 +364,55 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
   //if(fabs(angle)<0. || fabs(angle)>0.2) return;
   //if(angle>0 && angle<0.15) return;
 
-  int firstsensor = hit->tsosy<0 ? 1 : 2;
+
+  ULong64_t detid = hit->detId;    
   
-  ULong64_t detid = hit->detId;
-  if(sensors)  detid = detid*10+firstsensor;
+//-------------  
+  //TOB & TEC modules can have 2 sensors --> distinguish them via y coo.
+  //FIXME change sensors range
+
+  int firstsensor = 0;
+  
+  int subdetector = ((detid>>25)&0x7); //extract subdet info
+  
+  if(subdetector==6)
+  {
+  	int TECgeom = ((detid>>5)&0x7); //extract geometry info
+  	
+  	if(TECgeom==5) //exclusion zone width = 6cm (wider bc 2 faces --> angle ->...)
+  	{
+  		if(hit->tsosy > -0.59) {firstsensor = 2;}
+  		else if(hit->tsosy < -1.19) {firstsensor = 1;}
+  		else {return;} //exclusion zone b/w sensors
+  	}  
+  	else if(TECgeom==6) //exclusion zone width = 2cm
+  	{
+  		if(hit->tsosy > -0.46) {firstsensor = 2;}
+  		else if(hit->tsosy < -0.66) {firstsensor = 1;}
+  		else {return;} //exclusion zone b/w sensors
+  	}  
+  	else if(TECgeom==7) //exclusion zone width = 2cm
+  	{
+  		if(hit->tsosy > 0.7) {firstsensor = 2;}
+  		else if(hit->tsosy < 0.5) {firstsensor = 1;}
+  		else {return;} //exclusion zone b/w sensors
+  	}  
+  }
+  
+  if(sensors) //option activated for TOB
+  {
+  	firstsensor = hit->tsosy<0 ? 1 : 2;
+  }
+  
+  
+          
+//--------        
+
+  
+  if(subdetector == 6 || sensors) detid = detid*10+firstsensor; //TEC & TOB -- 2 sensors
+  //NB : for other TEC rings, add a 0 to detid!
+  
+
   //std::cout << "Detid " << detid << " "<< hit->detId <<" "<<firstsensor<< std::endl;
  
   // Create histos and profiles when needed
@@ -397,7 +458,6 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
   if(use_width==2 && hit->width!=2 && usehit) usehit=false;
   if(use_width==3 && hit->width!=3 && usehit) usehit=false;
   if(use_width==4 && hit->width!=4 && usehit) usehit=false;
-  if(use_width==5 && hit->width!=5 && usehit) usehit=false;*/
 
 
   // for TIB
@@ -563,6 +623,14 @@ void ClusterWidthAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<T
 	      // TOB + 4.3.3.8
       detid/10==436281512 || detid/10==436281528 || detid/10==436281508 ||
       detid/10==436281524 || detid/10==436281520 || detid/10==436281516 ||
+
+      	// TOB + 1.3.1.6 //NEW
+      detid/10==436232901 || detid/10==436232902 || detid/10==436232905 ||
+      detid/10==436232906 || detid/10==436232909 || detid/10==436232910 ||
+      detid/10==436232913 || detid/10==436232914 || detid/10==436232917 ||
+      detid/10==436232918 || detid/10==436232921 || detid/10==436232922 ||
+
+
           // others in TOB  
       detid/10==436228249 || detid/10==436232694 || detid/10==436228805 ||
       detid/10==436244722 || detid/10==436245110 || detid/10==436249546 ||
@@ -722,6 +790,14 @@ void ClusterWidthAnalysisTreeMaker::FitProfiles(std::map<ULong64_t , std::vector
 	      // TOB + 4.3.3.8
       detid/10==436281512 || detid/10==436281528 || detid/10==436281508 ||
       detid/10==436281524 || detid/10==436281520 || detid/10==436281516 ||
+
+      	// TOB + 1.3.1.6 //NEW
+      detid/10==436232901 || detid/10==436232902 || detid/10==436232905 ||
+      detid/10==436232906 || detid/10==436232909 || detid/10==436232910 ||
+      detid/10==436232913 || detid/10==436232914 || detid/10==436232917 ||
+      detid/10==436232918 || detid/10==436232921 || detid/10==436232922 ||
+
+
           // others in TOB  
       detid/10==436228249 || detid/10==436232694 || detid/10==436228805 ||
       detid/10==436244722 || detid/10==436245110 || detid/10==436249546 ||
