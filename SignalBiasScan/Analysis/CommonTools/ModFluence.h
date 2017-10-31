@@ -4,32 +4,46 @@
 #include <iostream>
 #include "TFile.h"
 #include "TTree.h"
- 
+
+
 // Fluence in module
 //-------------------
 
 class ModFluence{
   public:
-  
-    ModFluence(){fflu=0; trflu=0;};
-    void loadFile(string filename="modulesFluence.root");
+
+
+    ModFluence();
+	~ModFluence();
+    void loadFile(string filename);
+
 	double GetFluence(ULong64_t modid);
 	double GetR(ULong64_t modid);
 	double GetZ(ULong64_t modid);
 	void GetModFluenceInfos(ULong64_t modid, double & fluence, double & R, double & Z);
-	
+
+
   private:
-  
+
     TFile *fflu;
 	TTree* trflu;
-	
+
+
 	int det;
 	int subdetid;
 	double R;
 	double Z;
 	double fluence;
-	
+
+
 };
+
+ModFluence::ModFluence()
+{
+	fflu=0; trflu=0; det=-999; subdetid=-999; R=0; Z=0; fluence=0;
+}
+
+
 
 void ModFluence::loadFile(string filename)
 {
@@ -46,6 +60,9 @@ void ModFluence::loadFile(string filename)
 
 double ModFluence::GetFluence(ULong64_t modid)
 {
+
+	if(!trflu) {cout<<"Empty tree ! Abort ! "<<endl; return 0;}
+
     UInt_t nentries = trflu->GetEntries();
     UInt_t ie = 0;
 	det = 0;
@@ -54,6 +71,13 @@ double ModFluence::GetFluence(ULong64_t modid)
       trflu->GetEntry(ie);
 	  ie++;
 	}
+
+
+	//cout<<"fluence = "<<fluence<<endl;
+
+	if(ie==nentries-1) {cout<<"Module not found in fluence file"<<endl;}
+
+
     return fluence;
 }
 
@@ -100,4 +124,16 @@ void ModFluence::GetModFluenceInfos(ULong64_t modid, double & tmpfluence, double
 	tmpZ = Z;
     return ;
 }
+
+
+ModFluence::~ModFluence()
+{
+	delete trflu;
+	
+	//if(fflu->IsOpen()) fflu->Close();
+	
+	fflu->Close();
+	delete fflu;
+}
+
 #endif

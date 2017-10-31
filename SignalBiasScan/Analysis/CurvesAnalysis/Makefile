@@ -1,53 +1,63 @@
-ObjSuf        = o
-SrcSuf        = C
-LogSuf        = log
+# $< = name of first dependancy
+# $@ = name of target ("main")
+# -c ask the compiler not to link
+# -o specify target
+#
 
-ROOTCFLAGS    = $(shell root-config --cflags)
-ROOTLIBS      = $(shell root-config --libs)
+#Define variables
+CC=g++ #Compiler used
+DEBUG = -g
+CFLAGS = -c  $(DEBUG) #Compilation options
+# LFLAGS = $(DEBUG) -L/home/nico/root/lib -lTMVA -lTMVAGui
+LFLAGS = $(DEBUG) -lTMVA #-lTMVAGui
+ROOTFLAGS = `root-config --glibs --cflags`
 
-DEFINES       =
+SRCS = $(wildcard *.cc) #Source files are all files with .cc extension
+HDRS = $(wildcard *.h) #Header files are all files with .h extension
+OBJS = $(SRCS:.cc=.o) #Object files are all files with .o extension, which have same names as source files
 
-CXX           = g++
-CXXFLAGS      = -O -Wall -fPIC $(DEFINES) -Wno-unused-result -Wshadow
-CXXFLAGS      += $(ROOTCFLAGS) -I./
+FIT = Fit.exe
+FITALL = FitAll.exe
+COMPARECURVES = CompareCurves.exe
+DRAWKINKVSLUMI = DrawKinkVsLumi.exe
+TRACKERMAP = Tracker_Vfd_Map.exe
 
-LD            = g++
-LDFLAGS       = -g -O -Wall -fPIC -Wl,--no-undefined
-LDFLAGS       += $(ROOTLIBS)  -lEG -lTMVA
+CURVFUNC = ../CommonTools/CurvesFunctions.h
+MODFLU = ../CommonTools/ModFluence.h
+#.PHONY : $(wildcard *.o)  #Force to always recompile object
 
-SOFLAGS       = -shared
-LIBS          =
 
-# Uncomment this line if you want to use a script to parse & colorize gcc output
-# (You can also export this variable from your bashrc)
-#GCCPARSER     = 2>&1 | python ~/littleScripts/colorGcc.py
+#Instructions
+all: $(FIT) $(FITALL) $(COMPARECURVES) $(DRAWKINKVSLUMI) $(TRACKERMAP)
 
-#------------------------------------------------------------------------------
-SOURCES       = $(wildcard *.$(SrcSuf))
-OBJECTS       = $(SOURCES:.$(SrcSuf)=.$(ObjSuf))
-EXECUTABLES   = $(SOURCES:.$(SrcSuf)=)
-LOGS          = $(SOURCES:.$(SrcSuf)=.$(LogSuf))
-#------------------------------------------------------------------------------
-DEFAULT_TARGET = DrawKinkVsLumi
-#DEFAULT_TARGET = FitAll
-#DEFAULT_TARGET = CompareCurves
-#------------------------------------------------------------------------------
+#Obtain executables from object files
 
-all: compile run
+$(FIT): Fit.cc Fit.h $(CURVFUNC)
+	@echo "-- Creating executable ./$(FIT) --"
+	@$(CC) Fit.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
+	@echo "-- Done --"
+	
+$(FITALL): FitAll.cc Fit.h $(CURVFUNC)
+	@echo "-- Creating executable ./$(FITALL) --"
+	@$(CC) FitAll.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
+	@echo "-- Done --"
+	
+$(COMPARECURVES): CompareCurves.cc $(CURVFUNC)
+	@echo "-- Creating executable ./$(COMPARECURVES) --"
+	@$(CC) CompareCurves.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
+	@echo "-- Done --"
+	
+$(DRAWKINKVSLUMI): DrawKinkVsLumi.cc $(CURVFUNC) $(MODFLU)
+	@echo "-- Creating executable ./$(DRAWKINKVSLUMI) --"
+	@$(CC) DrawKinkVsLumi.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
+	@echo "-- Done --"
+	
+$(TRACKERMAP): Tracker_Vfd_Map.cc Fit.h
+	@echo "-- Creating executable ./$(TRACKERMAP) --"
+	@$(CC) Tracker_Vfd_Map.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
+	@echo "-- Done --"
 
-compile: $(DEFAULT_TARGET)
 
-run:
-	./$(DEFAULT_TARGET) | tee $(DEFAULT_TARGET).$(LogSuf)
-
-#browse:
-#       export PLOTS_TO_BROWSE=`ls ../plots/$(shell basename `pwd`)/*.root`; root -l .browse
-
+#Erase all objects and executable
 clean:
-	@echo "Cleaning..."
-	@echo "rm -f" $(OBJECTS) $(EXECUTABLES) $(LOGS)
-
-#------------------------------------------------------------------------------
-
-$(DEFAULT_TARGET): $(DEFAULT_TARGET).$(SrcSuf)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $< $(LIBS) $(GCCPARSER)
+	@-rm -f *.o *.exe

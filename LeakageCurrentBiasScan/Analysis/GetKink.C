@@ -1,4 +1,4 @@
-#include "../../SignalBiasScan/Analysis/CommonTools/CurvesFunctions.C"
+#include "../../SignalBiasScan/Analysis/CommonTools/CurvesFunctions.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"

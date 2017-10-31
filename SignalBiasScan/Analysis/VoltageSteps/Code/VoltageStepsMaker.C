@@ -95,7 +95,14 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
 	{
 	  if(fin.eof()) continue;
 	  std::stringstream ss(line);
+
+	  
 	  ss >> step >> str_time >> evt >> str_orbit >> voltage >> run;
+	  
+	  
+
+	  ss >> step >> str_time >> evt >> str_orbit >> voltage >> run;
+
 	  //std::cout<<"Step "<<step<<" "<<str_time<<" "<<evt<<" "<<str_orbit<<" "<<voltage<<" "<<run<<std::endl;
           //std::cout<<" previous_step : "<<step_previous<<std::endl; 	 
  
@@ -117,7 +124,10 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
 		if(fabs(voltage_previous-voltage)>0.1) 
 		  std::cout<<" >>> ERROR : skip step "<<step<<". voltage_end != voltage_start !"<<std::endl;
 		if(run_previous!=run) 
-		  std::cout<<" >>> ERROR : skip step "<<step<<". run_end != run_start !"<<std::endl;
+
+		  std::cout<<" >>> ERROR : skip step "<<step<<". run_end != run_start ! Make sure the Step file doesn't contain the numbers of events for each step !"<<std::endl;
+
+
 		if(evt_end < evt_start) 
 		  std::cout<<" >>> ERROR : skip step "<<step<<". evt_end < evt_start !"<<std::endl;
 		if(time_end < time_start) 

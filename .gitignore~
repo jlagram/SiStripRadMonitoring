@@ -6,6 +6,7 @@
 *.exe
 *.o
 *.so
+*.pcm
 
 # Packages #
 ############
@@ -40,4 +41,6 @@ Thumbs.db
 *.root
 *.png
 *.jpg
-
+*~
+*.pyc
+Dict.*
