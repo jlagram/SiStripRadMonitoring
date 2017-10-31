@@ -21,15 +21,6 @@
  // #    # ###### ###### #      ###### #    #    #       ####  #    #  ####    #   #  ####  #    #  ####
 //---------------------------------------------
 
-//Convert a ULong64_t into a TString
-TString Convert_Number_To_TString(ULong64_t number)
-{
-	stringstream ss;
-	ss << number;
-	TString ts = ss.str();
-	return ts;
-}
-
 //Evaluate crossing point of 2 lines (for linear fit method)
 double getCrossingPoint ( TF1* function1, TF1* function2)
 {
@@ -58,11 +49,15 @@ void Create_Plot_Directories()
 	mkdir("plots/CW/line",0777);
 	mkdir("plots/signal/kink",0777);
 	mkdir("plots/signal/line",0777);
+	mkdir("plots/CW/kink/simu",0777);
+	mkdir("plots/CW/line/simu",0777);
+	mkdir("plots/signal/kink/simu",0777);
+	mkdir("plots/signal/line/simu",0777);
 	mkdir("plots/signal/compareCurve",0777);
 	mkdir("plots/CW/compareCurve",0777);
 	mkdir("plots/CW/relative",0777);
 	mkdir("plots/signal/relative",0777);
-	mkdir("plots/superpose_CW_signal",0777);
+	mkdir("plots/superimpose_CW_signal",0777);
 }
 
 

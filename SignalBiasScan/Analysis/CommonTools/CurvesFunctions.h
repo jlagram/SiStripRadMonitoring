@@ -38,11 +38,11 @@
 
 using namespace std;
 
-//Convert double into a TString
-TString Convert_Number_To_TString(double number)
+//Convert a ULong64_t into a TString
+TString Convert_Number_To_TString(ULong64_t number)
 {
 	stringstream ss;
-	ss << std::setprecision(11)<< number;
+	ss << number;
 	TString ts = ss.str();
 	return ts;
 }

@@ -162,9 +162,7 @@ bool Is_Scan_Bad(TString subdet, TString run, TString observable, ULong64_t deti
 
 	if(subdet == "TOB" || subdet=="TEC") //low stat, ...
 	{
-		if(run=="170000" || run=="178367" || run=="180076" || run=="193541" || run=="193928" || run=="254790" || run=="258443" || run=="262254" || run=="178367" || run=="180076" ) {isBad = true;} //Scans w/ low stat or else --> remove for TOB
-
-		else if(run == "208339" && subdet == "TEC" ) {isBad = true;} //Cf. TEC curves: this run makes no sense		
+		if(run=="170000" || run=="178367" || run=="180076" || run=="193541" || run=="193928" || run=="254790" || run=="258443" || run=="262254" || run=="178367" || run=="180076" || (run == "208339" && subdet == "TEC") ) {isBad = true;} //Scans w/ low stat or else --> remove for TOB
 	}
 	else if(subdet=="TIB" && run=="302131" && observable=="Signal" && detid==369125862) {isBad=true;} //Line algo failing for this detector
 	
@@ -453,35 +451,52 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	double flu_max = ComputeFluence(h->GetXaxis()->GetXmax(), detid, subdet) / pow(10, 12);
 	
 
-   //NEED TO DRAW 2 X AXIS SIDE TO SIDE ! BECAUSE FLUENCE FILE DIFFER BETWEEN RUN 1 & 2 !! --> not linear
-   TGaxis *axis = new TGaxis(0,h->GetMaximum(),lumi_7TeV,h->GetMaximum(),0,flu_7TeV, 1, "-"); // - : tick marks on negative side ; L : labels on left of tick mark; = : label on same side as marks
-   double axis1_length = (lumi_8TeV) / h->GetXaxis()->GetXmax();
-   axis->SetTickLength(0.06/axis1_length);
+   //Need to draw 3 X-axis for fluence (depends on CME) --> Not linear
+   //Hard-coding axis properties, depend on subdet/layer (to look nice for each case)
+   // - : tick marks on negative side ; L : labels on left of tick mark; = : label on same side as marks
+   TGaxis *axis = 0;
+   //if(subdet == "TIB" || (subdet == "TEC" && olayer==4) ) {axis = new TGaxis(0,h->GetMaximum(),lumi_7TeV,h->GetMaximum(),0,flu_7TeV, 502, "-S");}
+   if(subdet == "TOB" || (subdet == "TEC" && (olayer == 3 || olayer == 5 || olayer == 6 || olayer == 7)) ) 
+   {
+		axis = new TGaxis(0,h->GetMaximum(),lumi_7TeV,h->GetMaximum(),0,flu_7TeV, 500, "-S");
+		TLatex zero;
+		zero.SetNDC();
+		zero.SetTextSize(0.035);
+		zero.DrawLatex(c1->GetLeftMargin(),0.906,"0");
+   }
+   else {axis = new TGaxis(0,h->GetMaximum(),lumi_7TeV,h->GetMaximum(),0,flu_7TeV, 502, "-S");}
+   
+   double axis1_length = (lumi_7TeV) / h->GetXaxis()->GetXmax();
    axis->SetLabelSize(0.035);
+   axis->SetTickLength(0.03/axis1_length);
    axis->SetNoExponent(kTRUE);
-   axis->SetLabelOffset(0.01);
+   axis->SetLabelOffset(-0.008);
    axis->Draw();
 
-   TGaxis *axis2 = new TGaxis(lumi_7TeV,h->GetMaximum(),lumi_Run1,h->GetMaximum(),flu_7TeV,flu_Run1, 503, "-"); // - : tick marks on negative side ; L : labels on left of tick mark; = : label on same side as marks
-   double axis2_length = (lumi_Run1 - lumi_8TeV) / h->GetXaxis()->GetXmax();
-   axis2->SetTickLength(0.06/axis2_length);
+   
+   TGaxis *axis2 = 0;
+   if(subdet == "TEC" && olayer == 3) {axis2 = new TGaxis(lumi_7TeV,h->GetMaximum(),lumi_Run1,h->GetMaximum(),flu_7TeV,flu_Run1, 504, "-S");}
+   else {axis2 = new TGaxis(lumi_7TeV,h->GetMaximum(),lumi_Run1,h->GetMaximum(),flu_7TeV,flu_Run1, 503, "-S");}
+   double axis2_length = (lumi_Run1 - lumi_7TeV) / h->GetXaxis()->GetXmax();
+   axis2->SetTickLength(0.03/axis2_length);
    axis2->SetLabelSize(0.035);
    axis2->SetNoExponent(kTRUE);
-   axis2->SetLabelOffset(0.01);
+   axis2->SetLabelOffset(-0.008);
    axis2->Draw();
    
-   TGaxis *axis3 = new TGaxis(lumi_Run1,h->GetMaximum(),h->GetXaxis()->GetXmax(),h->GetMaximum(),flu_Run1,flu_max, 510, "-"); // - : tick marks on negative side ; L : labels on left of tick mark; = : label on same side as marks
+   TGaxis *axis3 = new TGaxis(lumi_Run1,h->GetMaximum(),h->GetXaxis()->GetXmax(),h->GetMaximum(),flu_Run1,flu_max, 510, "-S");
    double axis3_length = (h->GetXaxis()->GetXmax() - lumi_Run1) / h->GetXaxis()->GetXmax();
-   axis3->SetTitle("Fluence [10^{12} * cm^{-2}]");
-   axis3->SetTitleSize(0.035);
-   axis3->SetTitleOffset(-0.8);
-   axis3->SetTickLength(0.06/axis3_length);
+   axis3->SetTickLength(0.03/axis3_length);
    axis3->SetLabelSize(0.035);
    axis3->SetNoExponent(kTRUE);
-   //axis2->SetLabelOffset(-0.01);
+   axis3->SetLabelOffset(-0.008);
+   axis3->SetTitle("Fluence [10^{12} * cm^{-2}]");
+   axis3->SetTitleSize(0.035);
+   axis3->SetTitleOffset(-0.85);
    axis3->Draw();
 
 
+//--- OBSOLETE : single axis for fluence (wrong)
 /*
    TGaxis *axis = new TGaxis(h->GetXaxis()->GetXmin(),h->GetMaximum(),h->GetXaxis()->GetXmax(),h->GetMaximum(),flu_min,flu_max, 510, "-"); // - : tick marks on negative side ; L : labels on left of tick mark; = : label on same side as marks
    axis->SetLineColor(1);
@@ -491,7 +506,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
    axis->SetTickLength(0.03);
    axis->SetLabelSize(0.03);
    axis->SetLabelOffset(-0.01);
-   axis->Draw(); //FIXME
+   axis->Draw(); 
 */
 
   // Draw Ref measurement (measured in lab.);
@@ -531,8 +546,11 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   	TString output_name = "plots/";
 	if(antype=="Signal") output_name+= "signal/";
 	else output_name+= "CW/";
+	
 	if(use_curvature) {output_name+="kink/";}
   	else {output_name+="line/";}
+  	
+  	if(superimpose_simu) {output_name+= "simu/";}
 		  	
   	output_name+= "KinkVSLumi_"+subdet;
 
@@ -545,20 +563,16 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
     output_name+=+".png";
     //output_name+=+".pdf";
 
-    // c1->Print(output_name.Data()); //FIXME
-    c1->Print("test.png");
-
-    //c1->Print(Form("KinkVsLumi_%s_detid_%llu_%s.eps", subdet.c_str(), detid, antype.c_str()));
-
+    c1->Print(output_name.Data());
   }
 
   //getchar(); //Waits for user to press enter to continue
-  delete axis; delete axis2; delete axis3;
   delete pref; delete latex;
   if(superimpose_simu && g_simu != 0) {delete leg;}
   if(!superimpose_simu && draw_fit) {delete fit;}
   delete g;
   delete c1;
+  delete axis; delete axis2; delete axis3;
 }
 
 void CheckFits(string dirname, string subdet, const int NF, vector<string> runs, ULong64_t detid)
@@ -620,15 +634,18 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   //ULong64_t Detids_TIB[Ndet_TIB] = {369121381, 369121382, 369121385, 369121386, 369121389, 369121390, 369121605, 369121606, 369121609, 369121610, 369121613, 369121614, 369125861, 369125862, 369125866, 369125869, 369125870};
   ULong64_t Detids_TIB[Ndet_TIB] = {369121381, 369121382, 369121385, 369121386, 369125862, 369125866, 369125870};
   double vfd_ref_TIB[Ndet_TIB];
+  for(int i=0; i<Ndet_TIB; i++) {vfd_ref_TIB[i] = 0;}
 
   const int Ndet_TOB=12;
   ULong64_t Detids_TOB[Ndet_TOB] = {4362815121, 4362815122, 4362815281, 4362815282,
   4362815081, 4362815082, 4362815241, 4362815242, 4362815201, 4362815202, 4362815161, 4362815162};
   double vfd_ref_TOB[Ndet_TOB];
+  for(int i=0; i<Ndet_TOB; i++) {vfd_ref_TOB[i] = 0;}
 
   const int Ndet_TEC=31;
   ULong64_t Detids_TEC[Ndet_TEC] = {4701481960, 4701482280, 4701482400, 4701482000, 4701482320, 4701482040, 4701482360, 4701482651, 4701482961, 4701483241, 4701483361, 4701482611, 4701482661, 4701483001, 4701483281, 4701483401, 4701482621, 4701482921, 4701483321, 4701482652, 4701482962, 4701483242, 4701483362, 4701482612, 4701482662, 4701483002, 4701483282, 4701483402, 4701482622, 4701482922, 4701483322};
   double vfd_ref_TEC[Ndet_TEC];
+  for(int i=0; i<Ndet_TEC; i++) {vfd_ref_TEC[i] = 0;}
 
 
   unsigned int Ndet;
@@ -676,7 +693,8 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   tref->SetBranchAddress("CHI2",&ochi2); // significance min
 
   UInt_t nentries = tref->GetEntries();
-  for(UInt_t ie = 0; ie <nentries; ie++)
+  bool dont_repeat_warning = false;
+  for(UInt_t ie = 0; ie <nentries; ie++) //Loop on modules
   {
 
   	tref->GetEntry(ie);
@@ -685,7 +703,7 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   	//NEW -- separate TEC by rings
   	if(subdet=="TEC" && layer!= 0)
   	{
-  		if(olayer != layer) {continue;}
+  		if(olayer != layer) {continue;} //FIXME
   	}
   	
   	
@@ -695,7 +713,12 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
     
     if(remove_badscans)
     {
-    	if( Is_Scan_Bad(subdet, run, antype, odetid) == true) {cout<<FRED("1 Point ignored (Is_Scan_Bad==true for module "<<odetid<<")")<<endl; return 0;}
+    	if( Is_Scan_Bad(subdet, run, antype, odetid) == true) 
+    	{
+    		if(!dont_repeat_warning) {cout<<FRED("Module "<<odetid<<" ignored (Is_Scan_Bad==true for run "<<run<<")")<<" -- Don't print more warnings"<<endl; dont_repeat_warning = true; }
+    		//continue;
+    		return 0; //Skip scan even if only 1 module bad ?
+    	}
     }
     
     
@@ -730,6 +753,14 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 	for(UInt_t ie = 0; ie <nentries; ie++)
 	{
 	  t->GetEntry(ie);
+	  
+	  //NEW -- separate TEC by rings
+  	  if(subdet=="TEC" && layer!= 0)
+  	  {
+  		  if(olayer != layer) {continue;} //FIXME
+  	  }
+  	
+  	
       for(UInt_t idet  = 0; idet < Ndet; idet++)
       {
     	if(odetid==Detids[idet] && odepvolt>=0)
@@ -739,11 +770,6 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 		  //cout<<Detids[idet]<<" "<<odepvolt<<"-"<<vfd_ref[idet]<<"= "<<odepvolt-vfd_ref[idet]<<endl;
 		}
       }
-	}
-	
-	//for(int k=0; k<h->GetNbinsX(); k++)
-	{
-		//cout<<"bin "<<k<<" / "<<h->GetBinContent(k)<<endl;
 	}
 	
 
@@ -757,7 +783,7 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 	for(UInt_t idet = 0; idet < Ndet; idet++)
 	{
       odepvolt = SubdetRef.GetVdepl(Detids[idet]);
-	  if(odepvolt>=0) h->Fill(odepvolt-vfd_ref[idet]);
+	  if(odepvolt>=0) h->Fill(odepvolt-vfd_ref[idet]); 
 	}
   }
 
@@ -781,8 +807,6 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu=false, bool use_curvature=true, int layer=0)
 {
 
-  //if(layer != "inner" && layer != "outer" && layer != "") {cout<<FRED("Wrong argument 'layer' !")<<endl;}
-
   bool useRmsAsErrors=true;
   cout<<"Use RMS error : "<<useRmsAsErrors<<" // Use Mean Error : "<<1-useRmsAsErrors<<endl;
 
@@ -801,7 +825,7 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 
 
   TGraphErrors *g = new TGraphErrors();
-  int ipt=0;
+  int ipt=0; //need independant index, because some runs are skipped
 
   TH1F* href = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, "labref", useflu, use_curvature, layer); //Last arg : TEC layer we consider //FIXME //Verify error bars "manually" to see if correct
   if(!href) {cout<<FRED("hdiff is null! Abort")<<endl; return 0;}
@@ -809,10 +833,7 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   double lumi=0;
   double lumi_Run1=29.46;
   for(int i=0; i<NF; i++)
-  {
-	//if(antype=="ClusterWidth" && runs[i]=="258443") {continue;} //DECO file not available
-	
-    
+  { 
     //------------------
 
     TH1F* hdiff = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, runs[i], useflu, use_curvature, layer);
@@ -822,8 +843,9 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
     lumi = lumis[i];
 
 
-	//cout<<"run "<<runs[i]<<" / hdiff->GetMean() = "<<hdiff->GetMean()<<endl;
-	//cout<<"Entries = "<<hdiff->GetEntries()<<endl;
+	cout<<"--- Run "<<runs[i]<<endl;
+	cout<<"hdiff : "<<hdiff->GetEntries()<<" entries / Mean = "<<hdiff->GetMean()<<" / RMS : "<<hdiff->GetRMS()<<endl;
+	cout<<"href : "<<href->GetEntries()<<" entries / Mean = "<<href->GetMean()<<" / RMS : "<<href->GetRMS()<<endl;
 
 	g->SetPoint(ipt, lumi, hdiff->GetMean());//-href->GetMean());
 
@@ -839,9 +861,9 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
     }
 
 
-	cout<<ipt<<" mean "<<hdiff->GetMean()-href->GetMean();
-	if(useRmsAsErrors) cout<<" / rms = "<<hdiff->GetRMS()<<endl;
-	else cout<<" / Mean error = "<<hdiff->GetMeanError()<<endl;
+	//cout<<ipt<<" mean "<<hdiff->GetMean()-href->GetMean();
+	//if(useRmsAsErrors) cout<<" / rms = "<<hdiff->GetRMS()<<endl;
+	//else cout<<" / Mean error = "<<hdiff->GetMeanError()<<endl;
 
 	ipt++;
   }
@@ -860,7 +882,7 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   TH1F* h = g->GetHistogram();
   if(useflu) h->GetXaxis()->SetTitle("fluence [cm-2]");
   else h->GetXaxis()->SetTitle("L_{int} [fb-1]");
-  h->GetYaxis()->SetTitle("V_{fd} [V]");
+  h->GetYaxis()->SetTitle("V_{FD} [V]");
   g->SetMarkerStyle(20);
   TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
   g->Draw("APL");
@@ -891,6 +913,12 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   
   if(!use_curvature) {name += subdet + "_line_diff"+antype;}
   else {name += subdet + "_kink_diff"+antype;}
+  if(subdet == "TEC")
+  {
+  	if(layer != 0) {name+= "_R"+Convert_Number_To_TString(layer);}
+  	else {name+= "_allRings";}
+  }
+  
   name+=".png";
   //name+=".pdf";
   c1->SaveAs(name.c_str());
@@ -939,7 +967,7 @@ void Superimpose_DrawDiffModules_SmallScan(string dirname, string subdet, string
   
   Create_Plot_Directories();
 
-  TString name = "plots/superpose_CW_signal/superimpose_diff_";
+  TString name = "plots/superimpose_CW_signal/superimpose_diff_";
   if(use_curvature) {name+= "kink";}
   else {name+= "line";}
   name+=".png";
@@ -1238,7 +1266,7 @@ int main(int argc, char *argv[])
 
   bool usefluence = true;
 
-  string dirname="/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_8_0_20_patch1/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/DECO_files";
+  string dirname="./DECO_files";
 
   vector<string> v_analysis;
   //v_analysis.push_back("Signal");
@@ -1251,10 +1279,9 @@ int main(int argc, char *argv[])
   bool draw_fit = true; //Draw linear fit of vfd evolution
 
   vector<string> v_subdet;
-  v_subdet.push_back("TIB");
+  //v_subdet.push_back("TIB");
   //v_subdet.push_back("TOB");
-  //v_subdet.push_back("TEC");
-  //v_subdet.push_back("TID");
+  v_subdet.push_back("TEC");
 
 
 //--- Scans
@@ -1304,14 +1331,22 @@ int main(int argc, char *argv[])
   	  if(v_subdet[j] != "TEC") runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (not enough stat. yet for TEC)
 
 
-  	  DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit); //VFD EVOLUTION, SINGLE MODULES
+  	  //DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit); //VFD EVOLUTION, SINGLE MODULES
   	  
   	  
   	  TString ref = "170000";
-  	  if(v_subdet[j] == "TEC" || v_subdet[j] == "TOB") {ref = "190459";}
-  	  //DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, ""); //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
+  	  if(v_subdet[j] == "TEC" || v_subdet[j] == "TOB") {ref = "190459";} //170000 "bad scan"
   	  
-  	  //Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], ref.Data(), runs.size(), runs, lumis, false, use_curvature); //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
+  	  DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, 0);
+
+  	  	for(int k=3; k<8; k++) //Relative plots for all TEC layers
+  	  	{
+  	  		DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, k); //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
+  	  		//Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], ref.Data(), runs.size(), runs, lumis, false, use_curvature); //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
+  	  		if(v_subdet[j] != "TEC") {break;}
+  	  	}  	  
+  	  
+
 	}
   }
 
@@ -1323,6 +1358,7 @@ int main(int argc, char *argv[])
     cout<<"Lumi = 100 for TEC modid 4701483241 --> fluence = "<<ComputeFluence(100, 4701483241, "TEC")<<endl;   
     cout<<"Fluence 1.20395e+12 --> lumi ) "<<GetLumiFromFluence( 1.20395*pow(10,12), 369121381, "")<<endl;
 */
+
 
   return 0;
 }
