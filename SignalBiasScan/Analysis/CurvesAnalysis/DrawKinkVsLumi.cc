@@ -454,6 +454,9 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
    //Need to draw 3 X-axis for fluence (depends on CME) --> Not linear
    //Hard-coding axis properties, depend on subdet/layer (to look nice for each case)
    // - : tick marks on negative side ; L : labels on left of tick mark; = : label on same side as marks
+   
+//--- Only keep 2 fluence x-axis for now (8 TeV & 13TeV), because 7TeV axis too short (+ draw "0")   
+/*   
    TGaxis *axis = 0;
    //if(subdet == "TIB" || (subdet == "TEC" && olayer==4) ) {axis = new TGaxis(0,h->GetMaximum(),lumi_7TeV,h->GetMaximum(),0,flu_7TeV, 502, "-S");}
    if(subdet == "TOB" || (subdet == "TEC" && (olayer == 3 || olayer == 5 || olayer == 6 || olayer == 7)) ) 
@@ -472,7 +475,12 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
    axis->SetNoExponent(kTRUE);
    axis->SetLabelOffset(-0.008);
    axis->Draw();
+*/
 
+	TLatex zero;
+	zero.SetNDC();
+	zero.SetTextSize(0.035);
+	zero.DrawLatex(c1->GetLeftMargin(),0.906,"0");
    
    TGaxis *axis2 = 0;
    if(subdet == "TEC" && olayer == 3) {axis2 = new TGaxis(lumi_7TeV,h->GetMaximum(),lumi_Run1,h->GetMaximum(),flu_7TeV,flu_Run1, 504, "-S");}
@@ -572,7 +580,8 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   if(!superimpose_simu && draw_fit) {delete fit;}
   delete g;
   delete c1;
-  delete axis; delete axis2; delete axis3;
+  //delete axis; 
+  delete axis2; delete axis3;
 }
 
 void CheckFits(string dirname, string subdet, const int NF, vector<string> runs, ULong64_t detid)
@@ -804,7 +813,7 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 }
 
 
-TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu=false, bool use_curvature=true, int layer=0)
+TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu=false, bool use_curvature=true, int layer=0, bool draw_fit=true)
 {
 
   bool useRmsAsErrors=true;
@@ -886,6 +895,21 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   g->SetMarkerStyle(20);
   TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
   g->Draw("APL");
+  
+  
+  TF1* fit;
+  if(draw_fit)
+  {
+	  //Draw Linear Fit of all scans
+	  fit = new TF1("fit", "pol1", 0, h->GetXaxis()->GetXmax());
+	  fit->SetLineColor(1);
+	  fit->SetLineStyle(2);
+	  fit->SetLineWidth(1);
+	  g->Fit("fit", "rqn");
+	  fit->Draw("same");
+	  
+	  //cout<<"Fit : "<<fit->GetParameter(1)<<".x + "<<fit->GetParameter(0)<<endl; //--- Display the fit parameters (in lumi^-1 units)
+  }
 
 /*
   // Draw Ref measurement;
@@ -897,9 +921,9 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   lref->Draw();
 */
   // Fit with Hamburg model
-  TF1* fit = new TF1("ham", "[3]-([0]*(1-exp(-[1]*x))+[2]*x)", 0, 30);
+  //TF1* fit = new TF1("ham", "[3]-([0]*(1-exp(-[1]*x))+[2]*x)", 0, 30);
   //g->Fit("ham");
-  fit->SetParameters(50, 0.1, 1, 250);
+  //fit->SetParameters(50, 0.1, 1, 250);
   //fit->Draw();
 
   c1->Modified();
@@ -924,16 +948,17 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   c1->SaveAs(name.c_str());
   //getchar();
   
-  delete c1; delete fit; delete href;
+  delete c1; delete href;
+  if(draw_fit) {delete fit;}
 
   return g;
 }
 
 //Superimpose 2 "diff kink" curves (to have Signal & Clusterwidth on same plot)
-void Superimpose_DrawDiffModules_SmallScan(string dirname, string subdet, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu, bool use_curvature)
+void Superimpose_DrawDiffModules_SmallScan(string dirname, string subdet, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu, bool use_curvature, bool draw_fit=true)
 {
-	TGraphErrors* g_sig = DrawDiffModules_SmallScan(dirname, subdet, "Signal", ref, NF, runs, lumis, useflu, use_curvature, 0);
-	TGraphErrors* g_cluster = DrawDiffModules_SmallScan(dirname, subdet, "ClusterWidth", ref, NF, runs, lumis, useflu, use_curvature, 0);
+	TGraphErrors* g_sig = DrawDiffModules_SmallScan(dirname, subdet, "Signal", ref, NF, runs, lumis, useflu, use_curvature, 0, draw_fit);
+	TGraphErrors* g_cluster = DrawDiffModules_SmallScan(dirname, subdet, "ClusterWidth", ref, NF, runs, lumis, useflu, use_curvature, 0, draw_fit);
 
 	if(!g_sig || !g_cluster) {cout<<"Null TGraph ! Abort !"<<endl; return;}
 
@@ -1264,27 +1289,46 @@ int main(int argc, char *argv[])
 {
   //Load_Canvas_Style();i
 
-  bool usefluence = true;
-
   string dirname="./DECO_files";
 
-  vector<string> v_analysis;
-  //v_analysis.push_back("Signal");
-  v_analysis.push_back("ClusterWidth");;
 
   bool use_curvature=false; //true-->kink ; false-->lines
 
-  bool superimpose_simu = false;
+  bool usefluence = true; //Draw fluence axis
+  bool superimpose_simu = false; //Superimpose simulation curves (only TIB for now)
   bool draw_vdep_lab = true; //Draw lab measurement of initial Vfd
   bool draw_fit = true; //Draw linear fit of vfd evolution
 
+
+
+
+//-- ACTIONS --//
+  bool draw_vfd_evolution_plots = true; //Vfd evol plots
+  bool draw_vfd_relative_evolution_plots = true; //Vfd relative evol plots
+  bool draw_vfd_relative_evolution_superimposed_plots = true; //Vfd relative evol plots with both observables drawn
+  
+
+//-- Choose the observables
+  vector<string> v_analysis;
+  v_analysis.push_back("Signal");
+  v_analysis.push_back("ClusterWidth");
+  
+//-- Choose the subdet 
   vector<string> v_subdet;
-  //v_subdet.push_back("TIB");
-  //v_subdet.push_back("TOB");
+  v_subdet.push_back("TIB");
+  v_subdet.push_back("TOB");
   v_subdet.push_back("TEC");
+  
+  
+  
+  
+  
+  
+  
 
 
-//--- Scans
+//--- Automatized from here
+//--- Can remove/add below scans if desired
   std::cout << "Starting DrawKinkVsLumi.C" << std::endl;
 
   for(int i=0; i<v_analysis.size(); i++)
@@ -1331,33 +1375,24 @@ int main(int argc, char *argv[])
   	  if(v_subdet[j] != "TEC") runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (not enough stat. yet for TEC)
 
 
-  	  //DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit); //VFD EVOLUTION, SINGLE MODULES
+  	  if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);} //VFD EVOLUTION, SINGLE MODULES
   	  
   	  
   	  TString ref = "170000";
   	  if(v_subdet[j] == "TEC" || v_subdet[j] == "TOB") {ref = "190459";} //170000 "bad scan"
   	  
-  	  DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, 0);
+  	  if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, 0, draw_fit);}
 
   	  	for(int k=3; k<8; k++) //Relative plots for all TEC layers
   	  	{
-  	  		DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, k); //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
-  	  		//Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], ref.Data(), runs.size(), runs, lumis, false, use_curvature); //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
+  	  		if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, k, draw_fit);} //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
+  	  		if(draw_vfd_relative_evolution_superimposed_plots) {Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], ref.Data(), runs.size(), runs, lumis, false, use_curvature, draw_fit);} //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
   	  		if(v_subdet[j] != "TEC") {break;}
-  	  	}  	  
-  	  
+  	  	}  
 
 	}
   }
 
-
-/*
-    cout<<"Lumi = 5 for TEC modid 4701481960 --> fluence = "<<ComputeFluence(5, 4701481960, "TEC")<<endl;
-    cout<<"Lumi = 5 for TEC modid 4701483241 --> fluence = "<<ComputeFluence(5, 4701483241, "TEC")<<endl;
-    cout<<"Lumi = 100 for TEC modid 4701481960 --> fluence = "<<ComputeFluence(100, 4701481960, "TEC")<<endl;
-    cout<<"Lumi = 100 for TEC modid 4701483241 --> fluence = "<<ComputeFluence(100, 4701483241, "TEC")<<endl;   
-    cout<<"Fluence 1.20395e+12 --> lumi ) "<<GetLumiFromFluence( 1.20395*pow(10,12), 369121381, "")<<endl;
-*/
 
 
   return 0;
