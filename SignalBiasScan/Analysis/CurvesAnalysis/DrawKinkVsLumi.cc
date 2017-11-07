@@ -3,6 +3,7 @@
 #include "../CommonTools/VdeplRef.h"
 #include "../CommonTools/ModFluence.h"
 #include "Fit.h"
+#include "../CommonTools/tdrstyle.C"
 
 #include <sstream>
 #include "TROOT.h"
@@ -75,86 +76,48 @@ double ComputeFluence(double lumi, ULong64_t detid, TString subdet)
 	return fluence; //Implicit calls to destructors of creates instances
 }
 
-/*
-// Un-correct for CME --> needed to get the lumi value from fluence (which has been corrected for CME)
-//Don't consider this for now (minor correction)
-double UncorrectForCME(double lumi)
-{
-	if(lumi>29.46) return lumi;
-	else
-	{
- 		double factor = 74700./73500;
 
- 		return (lumi + 6.12*(factor-1) ) / factor;
-	}
-}
 
-double GetLumiFromFluence(double fluence, ULong64_t detid)
+double GetLumiFromFluence(double fluence, ULong64_t detid, TString subdet)
 {
-	double lumi_Run1 = 29.46;
-	double lumi = -1;
+	if(subdet != "TIB" && subdet != "TOB" && subdet != "TEC" && subdet != "TID") {cout<<"Wrong argument 'subdet' ! Abort"<<endl; return 0;}
+
+	if(subdet == "TOB" || subdet == "TEC") {detid/= 10;}
 
 	// Fluence files
 	ModFluence DetFluenceRun1;
 	DetFluenceRun1.loadFile("../CommonTools/modulesFluence_3500_sigmaTotem.root");
 	ModFluence DetFluenceRun2;
 	DetFluenceRun2.loadFile("../CommonTools/modulesFluence_7000.root");
+	double fluence_per_lumi_7tev = DetFluenceRun1.GetFluence(detid);
+	double fluence_per_lumi_13tev = DetFluenceRun2.GetFluence(detid);
+	
+	
+	double lumi_7tev_total = 6.12;
+	double lumi_run1_total = 29.46;
+	double lumi_8tev_total = lumi_run1_total - lumi_7tev_total;	
+	
+	double fluence_7tev_total = ComputeFluence(lumi_7tev_total, detid, subdet);
+	double fluence_run1_total = ComputeFluence(lumi_run1_total, detid, subdet);
+	double fluence_8tev_total = ComputeFluence(lumi_8tev_total, detid, subdet);
 
-	double fluenceRun1 = DetFluenceRun1.GetFluence(detid);
-	double fluenceRun2 = DetFluenceRun2.GetFluence(detid);
 
-	double fluence_lumiRun1 = ComputeFluence(lumi_Run1, detid);
-
-	if(fluence < fluence_lumiRun1)
+	if(fluence <= fluence_7tev_total)
 	{
-		lumi = fluence / fluenceRun1;
+		return fluence / fluence_per_lumi_7tev;
+	}
+	else if(fluence <= fluence_run1_total)
+	{
+		return (fluence_7tev_total / fluence_per_lumi_7tev) + ( (fluence - fluence_7tev_total) / (fluence_per_lumi_7tev * 74700./73500) );
 	}
 	else
 	{
-		lumi = (fluence + lumi_Run1*fluenceRun2) / (fluenceRun1 + fluenceRun2);
+		return (fluence_7tev_total / fluence_per_lumi_7tev) + (fluence_8tev_total / (fluence_per_lumi_7tev * 74700./73500) ) + ( (fluence - fluence_run1_total) / fluence_per_lumi_13tev );
 	}
-
-	return lumi;
 }
-*/
-
-//Get Luminosity approximate value from fluence
-//NB : not possible to get the exact lumi value, since the relation we use b/w lumi & fluence is not linear (cf. ComputeFluence : need to know fraction of lumi collected @ 8TeV, not possible from fluence value)
-//---> Approximation
-double GetLumiFromFluence(double fluence, ULong64_t detid, TString subdet)
-{
-	double flu_tmp = 0, lumi=0, mindiff=pow(10,15), step=4.; int i_tmp=0;
-	
-	if(subdet != "TIB" && subdet != "TOB" && subdet != "TEC" && subdet != "TID") {cout<<"Wrong argument 'subdet' ! Abort"<<endl; return 0;}
-
-	//First, determine approximate lumi within an interval of width "step"
-	do
-	{
-		lumi+= step;
-		flu_tmp = ComputeFluence(lumi, detid, subdet);
-	}
-	while(flu_tmp < fluence);
 
 
-	lumi-=step; //Go back to beginning of interval, to determine lumi more precisely
 
-	double lumi_tmp=lumi;
-
-	int n_substeps=40; //Divide interval of width "step" into n_substeps intervals
-	//---> Check which interval contains the lumi value associated to input fluence
-	//---> Return beginning value of interval
-	for(int i=0; i<n_substeps; i++)
-	{
-		flu_tmp = ComputeFluence(lumi_tmp, detid, subdet);
-		if(fabs(fluence-flu_tmp) < mindiff) {i_tmp=i; mindiff=fabs(fluence-flu_tmp);}
-		else {break;}
-		lumi_tmp+=step/n_substeps;
-	}
-
-	lumi+= i_tmp*(step/n_substeps);
-
-	return lumi;
-}
 
 bool Is_Scan_Bad(TString subdet, TString run, TString observable, ULong64_t detid)
 {
@@ -170,6 +133,98 @@ bool Is_Scan_Bad(TString subdet, TString run, TString observable, ULong64_t deti
 }
 
 
+
+void Load_Canvas_Style()
+{
+	// For the canvas:
+	gStyle->SetCanvasBorderMode(0);
+	gStyle->SetCanvasColor(0); // must be kWhite but I dunno how to do that in PyROOT
+	gStyle->SetCanvasDefH(600); //Height of canvas
+	gStyle->SetCanvasDefW(600); //Width of canvas
+	gStyle->SetCanvasDefX(0);   //POsition on screen
+	gStyle->SetCanvasDefY(0);
+	gStyle->SetPadBorderMode(0);
+	gStyle->SetPadColor(0); // kWhite
+	gStyle->SetPadGridX(0); //false
+	gStyle->SetPadGridY(0); //false
+	gStyle->SetGridColor(0);
+	gStyle->SetGridStyle(3);
+	gStyle->SetGridWidth(1);
+	gStyle->SetFrameBorderMode(0);
+	gStyle->SetFrameBorderSize(1);
+	gStyle->SetFrameFillColor(0);
+	gStyle->SetFrameFillStyle(0);
+	gStyle->SetFrameLineColor(1);
+	gStyle->SetFrameLineStyle(1);
+	gStyle->SetFrameLineWidth(1);
+	gStyle->SetHistLineColor(1);
+	gStyle->SetHistLineStyle(0);
+	gStyle->SetHistLineWidth(1);
+	gStyle->SetEndErrorSize(2);
+	gStyle->SetOptFit(1011);
+	gStyle->SetFitFormat("5.4g");
+	gStyle->SetFuncColor(2);
+	gStyle->SetFuncStyle(1);
+	gStyle->SetFuncWidth(1);
+	gStyle->SetOptDate(0);
+	gStyle->SetOptFile(0);
+	gStyle->SetOptStat(0); // To display the mean and RMS:   SetOptStat("mr");
+	gStyle->SetStatColor(0); // kWhite
+	gStyle->SetStatFont(42);
+	gStyle->SetStatFontSize(0.04);
+	gStyle->SetStatTextColor(1);
+	gStyle->SetStatFormat("6.4g");
+	gStyle->SetStatBorderSize(1);
+	gStyle->SetStatH(0.1);
+	gStyle->SetStatW(0.15);
+	gStyle->SetPadTopMargin(0.07);
+	gStyle->SetPadBottomMargin(0.13);
+	gStyle->SetPadLeftMargin(0.16);
+	gStyle->SetPadRightMargin(0.03);
+	gStyle->SetOptTitle(0);
+	gStyle->SetTitleFont(42);
+	gStyle->SetTitleColor(1);
+	gStyle->SetTitleTextColor(1);
+	gStyle->SetTitleFillColor(10);
+	gStyle->SetTitleFontSize(0.05);
+	gStyle->SetTitleColor(1, "XYZ");
+	gStyle->SetTitleFont(42, "XYZ");
+	gStyle->SetTitleSize(0.06, "XYZ");
+	gStyle->SetTitleXOffset(0.9);
+	gStyle->SetTitleYOffset(1.25);
+	gStyle->SetLabelColor(1, "XYZ");
+	gStyle->SetLabelFont(42, "XYZ");
+	gStyle->SetLabelOffset(0.007, "XYZ");
+	gStyle->SetLabelSize(0.05, "XYZ");
+	gStyle->SetAxisColor(1, "XYZ");
+	gStyle->SetStripDecimals(1); // kTRUE
+	gStyle->SetTickLength(0.03, "XYZ");
+	gStyle->SetNdivisions(510, "XYZ");
+	gStyle->SetPadTickX(1);  // To get tick marks on the opposite side of the frame
+	gStyle->SetPadTickY(1);
+	gStyle->SetOptLogx(0);
+	gStyle->SetOptLogy(0);
+	gStyle->SetOptLogz(0);
+	gStyle->SetPaperSize(20.,20.);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //----------------------
 
 void DrawOneModule(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, ULong64_t detid, bool useflu=false, bool print=false, bool use_curvature=true, bool superimpose_simu=false, bool draw_vdep_lab=true, bool draw_fit=false)
@@ -180,6 +235,9 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   string filename = "DECO_"+antype+"_"+subdet;
   if(use_curvature) {filename+="_kink";}
   else {filename+="_line";}
+  
+  //setTDRStyle(); //FIXME -- NEW
+  //Load_Canvas_Style();
 
   gStyle->SetOptStat(0);
 
@@ -313,9 +371,9 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   if(superimpose_simu)
   {
-	if(Check_File_Existence(dirname+"/VdepGraphs_TIB.root") )
+	if(Check_File_Existence(dirname+"/simulation/VdepGraphs_TIB_2017.root") )
 	{
-		TFile* f_simu = TFile::Open( (dirname+"/VdepGraphs_TIB.root").c_str() );
+		TFile* f_simu = TFile::Open( (dirname+"/simulation/VdepGraphs_TIB_2017.root").c_str() );
 
 		TString g_simu_name = "graph_" + Convert_Number_To_TString(detid);
 		//cout<<g_simu_name.Data()<<endl;
@@ -336,7 +394,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 		}
 		delete f_simu;
  	}
- 	else {cout<<FRED(""<<dirname<<"/VdepGraphs_TIB.root not found !"<<)<<endl;}
+ 	else {cout<<FRED(""<<dirname<<"/simulation/VdepGraphs_TIB_2017.root not found !"<<)<<endl;}
   }
 
 
@@ -374,13 +432,18 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   {
   	g->SetMaximum(y_max * 1.1);
   }
-
+  
   g->SetMinimum(y_min * 0.85);
+
   g->SetLineWidth(2);
 
   //if(superimpose_simu) h->GetXaxis()->SetTitle("Fluence [cm^{-2}]"); //single fluence axis
   //else h->GetXaxis()->SetTitle("L_{int} [fb^{-1} ]");
-  h->GetXaxis()->SetTitle("L_{int} [fb^{-1} ]");
+  
+  //h->GetXaxis()->SetTitle("L_{int} [fb^{-1} ]");
+  
+  
+  h->GetXaxis()->SetTitle("#scale[0.5]{#int} L [fb^{-1}]");
   h->GetXaxis()->SetTitleSize(.04);
 
   h->GetYaxis()->SetTitle("V_{FD} [V]");
@@ -388,18 +451,56 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   h->GetYaxis()->SetTitleOffset(1.2);
   //h->GetYaxis()->SetLabelOffset(0.02);
 
-  if(subdet == "TEC") h->SetTitle(Form("Detid %llu - %s R%i", detid, subdet.c_str(), olayer));
-  else h->SetTitle(Form("Detid %llu - %s L%i", detid, subdet.c_str(), olayer));
+  //if(subdet == "TEC") h->SetTitle(Form("Detid %llu - %s R%i", detid, subdet.c_str(), olayer));
+  //else h->SetTitle(Form("Detid %llu - %s L%i", detid, subdet.c_str(), olayer));
+  
+  //if(subdet != "TEC") h->SetTitle(subdet + " Layer " + Convert_Number_To_TString(olayer) + " module");
+  //else h->SetTitle("TEC Ring " + Convert_Number_To_TString(olayer) + " module");
 
   g->SetMarkerStyle(20);
-  g->SetMarkerSize(1.6);
+  g->SetMarkerSize(1.2);
   g->Draw("APL");
 
+/*
   TLatex* latex = new TLatex();
   latex->SetNDC(); // draw in NDC coordinates [0,1]
   latex->SetTextSize(0.03);
   latex->SetTextAlign(13);
   latex->DrawLatex(0.15, 0.86, "CMS Preliminary");
+*/
+
+
+
+
+//NEW
+
+
+//----------------
+	// CAPTIONS //
+//----------------
+
+// -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
+
+	TString cmsText     = "CMS";
+	TLatex latex;
+	latex.SetNDC();
+	latex.SetTextAngle(0);
+	latex.SetTextColor(kBlack);
+	latex.SetTextFont(61);
+	latex.SetTextAlign(11);
+	latex.SetTextSize(0.05);
+	latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
+
+	bool writeExtraText = false;
+	TString extraText   = "Preliminary 2017";	
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.04);
+	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.954, extraText);
+
+
+
+
+
 
 
 
@@ -411,7 +512,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   {
  	  g_simu->SetMarkerColor(kRed); g_simu->SetLineColor(kRed);
 	  g_simu->SetLineWidth(2);
-	  g_simu->SetMarkerSize(1.6);
+	  g_simu->SetMarkerSize(1.2);
 	  //g_simu->Draw("APL");
 	  g_simu->Draw("PL");
 
@@ -422,7 +523,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	  leg->Draw("same");
   }
 
-
+  g->Draw("PL"); //Draw again to get data points on top
 
 //----------
 
@@ -498,7 +599,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
    axis3->SetLabelSize(0.035);
    axis3->SetNoExponent(kTRUE);
    axis3->SetLabelOffset(-0.008);
-   axis3->SetTitle("Fluence [10^{12} * cm^{-2}]");
+   axis3->SetTitle("#kern[-0.5]{Fluence #scale[0.9]{[10^{12} . cm^{-2}]}}");
    axis3->SetTitleSize(0.035);
    axis3->SetTitleOffset(-0.85);
    axis3->Draw();
@@ -575,7 +676,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   }
 
   //getchar(); //Waits for user to press enter to continue
-  delete pref; delete latex;
+  delete pref; //delete latex;
   if(superimpose_simu && g_simu != 0) {delete leg;}
   if(!superimpose_simu && draw_fit) {delete fit;}
   delete g;
@@ -712,7 +813,7 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   	//NEW -- separate TEC by rings
   	if(subdet=="TEC" && layer!= 0)
   	{
-  		if(olayer != layer) {continue;} //FIXME
+  		if(olayer != layer) {continue;}
   	}
   	
   	
@@ -766,7 +867,7 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 	  //NEW -- separate TEC by rings
   	  if(subdet=="TEC" && layer!= 0)
   	  {
-  		  if(olayer != layer) {continue;} //FIXME
+  		  if(olayer != layer) {continue;}
   	  }
   	
   	
@@ -836,7 +937,7 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   TGraphErrors *g = new TGraphErrors();
   int ipt=0; //need independant index, because some runs are skipped
 
-  TH1F* href = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, "labref", useflu, use_curvature, layer); //Last arg : TEC layer we consider //FIXME //Verify error bars "manually" to see if correct
+  TH1F* href = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, "labref", useflu, use_curvature, layer); //Last arg : TEC layer we consider
   if(!href) {cout<<FRED("hdiff is null! Abort")<<endl; return 0;}
 
   double lumi=0;
@@ -889,8 +990,10 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 
 
   TH1F* h = g->GetHistogram();
-  if(useflu) h->GetXaxis()->SetTitle("fluence [cm-2]");
-  else h->GetXaxis()->SetTitle("L_{int} [fb-1]");
+  if(useflu) h->GetXaxis()->SetTitle("Fluence [cm-2]");
+  //else h->GetXaxis()->SetTitle("L_{int} [fb-1]");
+  else h->GetXaxis()->SetTitle("#scale[0.6]{#int} L [fb^{-1} ]");
+  
   h->GetYaxis()->SetTitle("V_{FD} [V]");
   g->SetMarkerStyle(20);
   TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
@@ -967,7 +1070,8 @@ void Superimpose_DrawDiffModules_SmallScan(string dirname, string subdet, string
 
   TH1F* h1 = g_cluster->GetHistogram(); //Access g content via TH1F*
   if(useflu) h1->GetXaxis()->SetTitle("Fluence [cm^{-2}]");
-  else h1->GetXaxis()->SetTitle("L_{int} [fb^{-1}]");
+  //else h1->GetXaxis()->SetTitle("L_{int} [fb^{-1}]");
+  else h1->GetXaxis()->SetTitle("#scale[0.6]{#int} L [fb^{-1} ]");
   h1->GetYaxis()->SetTitle("V_{FD} [V]");
   g_cluster->SetMarkerStyle(20); 
   
@@ -1295,7 +1399,7 @@ int main(int argc, char *argv[])
   bool use_curvature=false; //true-->kink ; false-->lines
 
   bool usefluence = true; //Draw fluence axis
-  bool superimpose_simu = false; //Superimpose simulation curves (only TIB for now)
+  bool superimpose_simu = true; //Superimpose simulation curves (only TIB for now)
   bool draw_vdep_lab = true; //Draw lab measurement of initial Vfd
   bool draw_fit = true; //Draw linear fit of vfd evolution
 
@@ -1304,20 +1408,20 @@ int main(int argc, char *argv[])
 
 //-- ACTIONS --//
   bool draw_vfd_evolution_plots = true; //Vfd evol plots
-  bool draw_vfd_relative_evolution_plots = true; //Vfd relative evol plots
-  bool draw_vfd_relative_evolution_superimposed_plots = true; //Vfd relative evol plots with both observables drawn
+  bool draw_vfd_relative_evolution_plots = false; //Vfd relative evol plots
+  bool draw_vfd_relative_evolution_superimposed_plots = false; //Vfd relative evol plots with both observables drawn
   
 
 //-- Choose the observables
   vector<string> v_analysis;
-  v_analysis.push_back("Signal");
+  //v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
   
 //-- Choose the subdet 
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
+  //v_subdet.push_back("TOB");
+  //v_subdet.push_back("TEC");
   
   
   

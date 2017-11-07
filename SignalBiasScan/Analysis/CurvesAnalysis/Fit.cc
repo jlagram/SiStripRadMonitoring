@@ -168,7 +168,7 @@ int main()
 
 
 
-  string dirname = "/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_8_0_20_patch1/src/SiStripRadMonitoring/SignalBiasScan/Analysis/"+type+"Analysis/Code/Outputs";
+  string dirname = "../"+type+"Analysis/Code/Outputs";
 
   for(int irun = 0; irun < runs.size(); irun++)
   {

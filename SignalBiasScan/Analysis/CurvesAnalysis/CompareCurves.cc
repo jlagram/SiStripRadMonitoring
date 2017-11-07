@@ -225,7 +225,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  
  TString hname = "Detid " + Convert_Number_To_TString(modid) + " - "+subdet+" L"+Convert_Number_To_TString((ULong64_t) GetLayer(detid));
  if(subdet=="TEC") hname = "Detid " + Convert_Number_To_TString(modid) + " - "+subdet+" R"+Convert_Number_To_TString((ULong64_t) GetLayer(detid));
-  h->SetTitle(hname.Data() );
+ //h->SetTitle(hname.Data() ); //NEW
+ h->SetTitle("");
   
  if(normalize && type=="Signal") h->SetMaximum(100);
  h->GetXaxis()->SetTitle("V_{Bias} [V]");
@@ -233,7 +234,10 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  h->GetXaxis()->SetLimits(0, 380);
  //h->GetXaxis()->SetLabelSize(0.04);
  
- h->GetYaxis()->SetTitle("[Arbitrary units]");
+ // h->GetYaxis()->SetTitle("[Arbitrary units]");
+ if(type == "ClusterWidth") h->GetYaxis()->SetTitle("Cluster charge #scale[0.9]{[UA]}");
+ else if(type == "Signal") h->GetYaxis()->SetTitle("Cluster Width #scale[0.9]{[UA]}"); 
+ 
  h->GetYaxis()->SetTitleSize(.04);
  h->GetYaxis()->SetTitleOffset(1.15);
  //h->GetYaxis()->SetLabelSize(0.04);
@@ -338,13 +342,44 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	 
 	 }
   }
-  
+
+/*  
   TLatex* latex = new TLatex();
   latex->SetNDC(); // draw in NDC coordinates [0,1]
   latex->SetTextSize(0.03);
   latex->SetTextAlign(13);
   latex->DrawLatex(0.15, 0.88, "CMS Preliminary"); 
+*/
 
+//NEW
+
+
+//----------------
+	// CAPTIONS //
+//----------------
+
+// -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
+
+	TString cmsText     = "CMS";
+	TLatex latex;
+	latex.SetNDC();
+	latex.SetTextAngle(0);
+	latex.SetTextColor(kBlack);
+	latex.SetTextFont(61);
+	latex.SetTextAlign(11);
+	latex.SetTextSize(0.05);
+	latex.DrawLatex(c1->GetLeftMargin(),0.92,cmsText);
+
+	bool writeExtraText = false;
+	TString extraText   = "Preliminary 2017";	
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.04);
+	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.922, extraText);
+	
+	
+	
+	
+	
 
 //-------------------------------
  c1->Modified();
@@ -518,13 +553,13 @@ int main()
  //setTDRStyle(); //needed?
 
  vector<string> v_analysis;
- //v_analysis.push_back("Signal");
+ v_analysis.push_back("Signal");
  v_analysis.push_back("ClusterWidth");
  
   vector<string> v_subdet;
-  //v_subdet.push_back("TIB");
+  v_subdet.push_back("TIB");
   //v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
+  //v_subdet.push_back("TEC");
  
 
  vector<string> runs, dates; 
@@ -542,12 +577,12 @@ int main()
   //runs.push_back("276437");	dates.push_back("20160706");
   //runs.push_back("278167");	dates.push_back("20160803");
   //runs.push_back("280385");	dates.push_back("20160909");
-  //runs.push_back("285371");	dates.push_back("20161116"); 
+  runs.push_back("285371");	dates.push_back("20161116"); 
 //2017
-  //runs.push_back("295324");	dates.push_back("20170527"); //Full
-  //runs.push_back("298996");	dates.push_back("20170714");
+  runs.push_back("295324");	dates.push_back("20170527"); //Full
+  runs.push_back("298996");	dates.push_back("20170714");
   runs.push_back("302131");	dates.push_back("20170831");
-  //runs.push_back("303824");	dates.push_back("20170924");
+  runs.push_back("303824");	dates.push_back("20170924");
 
  
  int NF = runs.size();
@@ -565,7 +600,7 @@ int main()
   for(int i=0; i<v_analysis.size(); i++)
   {
      // directory of root files
-    string dirname = "/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_8_0_20_patch1/src/SiStripRadMonitoring/SignalBiasScan/Analysis/"+v_analysis[i]+"Analysis/Code/Outputs";
+    string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs";
  
  	for(int j=0; j<v_subdet.size(); j++)
  	{

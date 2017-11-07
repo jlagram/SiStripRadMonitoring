@@ -126,7 +126,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   if(!nentries) {cout<<BOLD(FRED("WARNING : NO ENTRY FOUND !!"))<<endl<<endl;}
 
   //string leakcurfilename="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/LeakCurCorr_"+SubDet+Run+".root";  
-  string leakcurfilename="/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_8_0_20_patch1/src/SiStripRadMonitoring/LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
+  string leakcurfilename="../LeakCurCorr_files/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
   
   TFile* leakcurfile = 0;
   if(Check_File_Existence(leakcurfilename) ) leakcurfile = new TFile(leakcurfilename.c_str(), "read");
@@ -360,7 +360,7 @@ int main()
  	  	if(v_subdet[j]=="TOB" && v_analysis[i]=="Signal" && runs[irun]=="203832") {continue;} 
  	  	else if(v_subdet[j]=="TEC" && v_analysis[i]=="Signal" && runs[irun]=="160497") {continue;} 
  	  
- 	    string dirname = "/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_8_0_20_patch1/src/SiStripRadMonitoring/SignalBiasScan/Analysis/"+v_analysis[i]+"Analysis/Code/Outputs/";  
+ 	    string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";  
   	    FitAllCurves(dirname, v_subdet[j], dates[irun], runs[irun], v_analysis[i], use_curvature, smallScan_modules_only);
 	  }
 	}

@@ -28,7 +28,7 @@ void Write_Vfd_FullScan_Allmodules()
 
 	ULong64_t modid=-99; Double_t vfd=-99;
 
-	TString dirname = "/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_8_0_20_patch1/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/DECO_files/all_modules";
+	TString dirname = "./DECO_files/all_modules";
 
 	TString filename = dirname + "/DECO_allModules_ClusterWidth_TIB_line_295324.root";
 	if(!Check_File_Existence(filename) ) {cout<<BOLD(FRED("File "<<filename<<" not found ! Abort"))<<endl; return;}
