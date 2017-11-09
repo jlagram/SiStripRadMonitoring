@@ -894,8 +894,11 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   TH1F* href = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, "labref", useflu, use_curvature, layer); //Last arg : TEC layer we consider
   if(!href) {cout<<FRED("hdiff is null! Abort")<<endl; return 0;}
 
-  double lumi=0;
-  double lumi_Run1=29.46;
+	double lumi_7TeV=6.12;
+	double lumi_8TeV=29.46 - 6.12;
+	double lumi_Run1=29.46;
+	double lumi=0;
+
   for(int i=0; i<NF; i++)
   { 
     //------------------
@@ -951,12 +954,15 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   h->GetXaxis()->SetTitleSize(.04);
   h->GetXaxis()->SetTitleOffset(1.18);
 
-  h->GetYaxis()->SetTitle("Relative full depletion voltage [V]");
+  h->GetYaxis()->SetTitle("Full depletion voltage [V]");
   h->GetYaxis()->SetTitleSize(.04);
   h->GetYaxis()->SetTitleOffset(1.4);
   
   g->SetMarkerStyle(20);
+  
+  
   TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
+  c1->SetTopMargin(0.1);
   g->Draw("APL");
   
   
@@ -988,6 +994,89 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   //g->Fit("ham");
   //fit->SetParameters(50, 0.1, 1, 250);
   //fit->Draw();
+  
+  
+  
+  
+
+//----------------
+	// CAPTIONS //
+//----------------
+
+// -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
+
+	TString cmsText     = "CMS";
+	TLatex latex;
+	latex.SetNDC();
+	latex.SetTextAngle(0);
+	latex.SetTextColor(kBlack);
+	latex.SetTextFont(61);
+	latex.SetTextAlign(11);
+	latex.SetTextSize(0.05);
+	latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
+
+	bool writeExtraText = false;
+	TString extraText   = "Preliminary 2017";	
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.04);
+	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
+	
+	TString fluence_label = "Fluence #scale[0.9]{[10^{12} . cm^{-2}]}";	
+	latex.SetTextFont(42);
+	latex.SetTextSize(0.035);
+	latex.DrawLatex(0.72, 0.83, fluence_label);
+	
+	//Draw separate X-axis for each CME energy (different equivalence between lumi and fluence) -- divide by 10^12 to remove exponent  
+	//---- ADD ONLY FLUENCE AXIS FOR TIB MODULES, SINCE TOB/TEC HAVE DIFFERENT FLUENCES IN MODULES !!
+
+	double flu_7TeV = ComputeFluence(lumi_7TeV, 369121381, subdet) / pow(10,12);
+  		
+	double flu_Run1 = ComputeFluence(lumi_Run1, 369121381, subdet) / pow(10,12);
+
+	double flu_max = ComputeFluence(h->GetXaxis()->GetXmax(), 369121381, subdet) / pow(10, 12);
+	
+   TGaxis *axis2 = 0;
+   //if(subdet == "TEC" && olayer == 3) {axis2 = new TGaxis(lumi_7TeV,h->GetMaximum(),lumi_Run1,h->GetMaximum(),flu_7TeV,flu_Run1, 504, "-S");}
+   //else {axis2 = new TGaxis(lumi_7TeV,h->GetMaximum(),lumi_Run1,h->GetMaximum(),flu_7TeV,flu_Run1, 503, "-S");}
+   axis2 = new TGaxis(lumi_7TeV,h->GetMaximum(),lumi_Run1,h->GetMaximum(),flu_7TeV,flu_Run1, 503, "-S");
+   double axis2_length = (lumi_Run1 - lumi_7TeV) / h->GetXaxis()->GetXmax();
+   axis2->SetTickLength(0.03/axis2_length);
+   axis2->SetLabelSize(0.035);
+   axis2->SetLabelFont(42);
+   axis2->SetNoExponent(kTRUE);
+   axis2->SetLabelOffset(-0.008);
+   //axis2->Draw();
+   
+   TGaxis *axis3 = new TGaxis(lumi_Run1,h->GetMaximum(),h->GetXaxis()->GetXmax(),h->GetMaximum(),flu_Run1,flu_max, 510, "-S");
+   double axis3_length = (h->GetXaxis()->GetXmax() - lumi_Run1) / h->GetXaxis()->GetXmax();
+   axis3->SetTickLength(0.03/axis3_length);
+   axis3->SetLabelSize(0.035);
+   axis3->SetLabelFont(42);
+   axis3->SetNoExponent(kTRUE);
+   axis3->SetLabelOffset(-0.008);
+   //axis3->SetTitle("Fluence #scale[0.9]{[10^{12} . cm^{-2}]}");
+   axis3->SetTitleSize(0.035);
+   axis3->SetTitleOffset(-0.85);
+   //axis3->Draw();
+	
+
+	if(subdet == "TIB")
+	{
+		TLatex zero;
+		zero.SetNDC();
+		zero.SetTextSize(0.035);
+		zero.SetTextFont(42);
+		zero.DrawLatex(c1->GetLeftMargin(),0.906,"0");
+		
+		TLatex subdetinfo;
+		subdetinfo.SetNDC();
+		subdetinfo.SetTextSize(0.045);
+		subdetinfo.SetTextFont(42);
+		subdetinfo.DrawLatex(0.72,0.60,"TIB Layer 1");
+		
+		axis2->Draw();
+		axis3->Draw();
+	}
 
   c1->Modified();
   c1->Update();
@@ -1013,6 +1102,7 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   
   delete c1; delete href;
   if(draw_fit) {delete fit;}
+  delete axis2; delete axis3;
 
   return g;
 }
@@ -1370,8 +1460,8 @@ int main(int argc, char *argv[])
 
 
 //-- ACTIONS --//
-  bool draw_vfd_evolution_plots = false; //Vfd evol plots
-  bool draw_vfd_relative_evolution_plots = true; //Vfd relative evol plots
+  bool draw_vfd_evolution_plots = true; //Vfd evol plots
+  bool draw_vfd_relative_evolution_plots = false; //Vfd relative evol plots
   bool draw_vfd_relative_evolution_superimposed_plots = false; //Vfd relative evol plots with both observables drawn
   
 

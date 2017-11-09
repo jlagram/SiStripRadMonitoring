@@ -7,7 +7,7 @@ void FitTIBSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(369121385);
+	v_modids.push_back(369121381);
 
 /*
 	//TIBminus_1_2_2_1
@@ -166,7 +166,7 @@ int main()
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
-  //runs.push_back("303824");	dates.push_back("20170924");
+  runs.push_back("303824");	dates.push_back("20170924");
 
 
 

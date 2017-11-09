@@ -126,7 +126,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   if(!nentries) {cout<<BOLD(FRED("WARNING : NO ENTRY FOUND !!"))<<endl<<endl;}
 
   //string leakcurfilename="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/LeakCurCorr_"+SubDet+Run+".root";  
-  string leakcurfilename="../LeakCurCorr_files/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
+  string leakcurfilename="../../../LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
   
   TFile* leakcurfile = 0;
   if(Check_File_Existence(leakcurfilename) ) leakcurfile = new TFile(leakcurfilename.c_str(), "read");
@@ -298,11 +298,11 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  //v_analysis.push_back("Signal");
+  v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
   
   vector<string> v_subdet;
-  //v_subdet.push_back("TIB");
+  v_subdet.push_back("TIB");
   //v_subdet.push_back("TOB");
   //v_subdet.push_back("TEC");
   //v_subdet.push_back("TID");
@@ -343,10 +343,10 @@ int main()
   runs.push_back("285371");	dates.push_back("20161116");*/
   
 //2017  
-  runs.push_back("295324");	dates.push_back("20170527"); //Full
+  //runs.push_back("295324");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
-  //runs.push_back("303824");	dates.push_back("20170924"); //Full
+  runs.push_back("303824");	dates.push_back("20170924"); //Full
 
  
   
