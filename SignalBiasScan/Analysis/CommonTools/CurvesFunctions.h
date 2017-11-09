@@ -498,9 +498,10 @@ TGraphErrors* GetDerivativeGraph(TGraphErrors* g)
   return gderivative;
 }
 
+
+//Use first & second derivatives graphs gd and gd2 to compute curvature : k = y'' / ( (1 + y'^2)^3/2 )
 TGraphErrors* GetCurvatureGraph(TGraphErrors* gd, TGraphErrors* gd2)
-{
-  
+{  
   TGraphErrors* gcurv = new TGraphErrors();
   double x1=0, y1=0, x2=0, y2=0, curv=0;
   double xmin=-1;
@@ -1178,10 +1179,10 @@ int CorrectGraphForLeakageCurrent(TGraph* g, double detid, string output_name)
   //string filepath="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/"+filename;
   
  
-  string filepath="/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_8_0_20_patch1/src/SiStripRadMonitoring/LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/"+filename;
+  string filepath="../../../LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/"+filename;
   
   if (filename.find("170000") != std::string::npos) {return 0;} //No leakage correction for this old run, neglected
-  if(!Check_File_Existence(filepath)) {cout<<BOLD(FRED("No leakage current correction file : "))<<filename<<endl; return 0;}
+  if(!Check_File_Existence(filepath)) {cout<<BOLD(FRED("No leakage current correction file : "))<<filepath<<endl; return 0;}
   
   TFile* f = new TFile(filepath.c_str(), "read");
 

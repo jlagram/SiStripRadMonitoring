@@ -7,7 +7,7 @@ void FitTIBSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(369121381);
+	v_modids.push_back(369121385);
 
 /*
 	//TIBminus_1_2_2_1
@@ -118,10 +118,13 @@ void FitTECSmallScan(string dirname, string date, string run, string type)
 
 int main()
 {
-
+  Modified_tdr_style();
+  gStyle->SetOptFit(0);
+  
+  
 //--- Choose the observable
-  string type = "Signal";
-  //string type = "ClusterWidth";
+  //string type = "Signal";
+  string type = "ClusterWidth";
 
 //--- Choose the subdetector (modules are selected above)
   string subdet = "TIB";
@@ -162,7 +165,7 @@ int main()
   //2017
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
-  runs.push_back("302131");	dates.push_back("20170831");
+  //runs.push_back("302131");	dates.push_back("20170831");
   //runs.push_back("303824");	dates.push_back("20170924");
 
 

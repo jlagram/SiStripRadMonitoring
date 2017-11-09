@@ -3,6 +3,7 @@
 
 //Contains functions to get TGraphs, Leakage corrections, perform curve smoothing, etc.
 #include "../CommonTools/CurvesFunctions.h"
+#include "../CommonTools/tdrstyle.C"
 
 #include "TROOT.h"
 #include "TRint.h"
@@ -108,7 +109,7 @@ void Create_Plot_Directories()
  * @param  verbose       [verbosity of function]
  * @return               [Vfd value extracted]
  */
-double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false, bool use_curvature=true, bool draw_plots=true, bool verbose=true)
+double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false, bool use_curvature=true, bool draw_plots=true, bool verbose=true, TString observable = "")
 {
 	if(!g) {cout<<BOLD(FRED("Input graph is null -- Abort"))<<endl; return -1; }
 
@@ -992,16 +993,28 @@ if(verbose) cout<<"* Linear Fits Method :";
 	TCanvas *c2;
 	//--- Curvature Graph
 	c2 = new TCanvas;
+	
 	gscurv->SetTitle("");
 	gscurv->Draw("AP");
-	gscurv->GetYaxis()->SetTitleOffset(1.4);
-	gscurv->GetXaxis()->SetTitle("V_{bias} [V]");
-	gscurv->GetYaxis()->SetTitle("Curvature");
+	//gscurv->GetXaxis()->SetTitle("V_{bias} [V]");
+	gscurv->GetXaxis()->SetTitle("Bias voltage [V]");
+	gscurv->GetYaxis()->SetTitle("Curvature [U.A.]");
+	gscurv->GetXaxis()->SetTitleSize(.04);
+	gscurv->GetYaxis()->SetTitleSize(.04);
+	gscurv->GetYaxis()->SetLabelSize(.0);
+	gscurv->GetXaxis()->SetTitleOffset(1.18);
+	gscurv->GetYaxis()->SetTitleOffset(1.);
 	g3pts->Draw("P");
 	g3pts->Fit("pol2", "q");
 	c2->Modified();
 	c2->Update();
-
+	
+	//---- Rather use these parameters, if do want to display labels for curvature (even if they are useless)
+	//c2->SetLeftMargin(0.2);
+	//gscurv->GetYaxis()->SetTitleOffset(2.0);
+	
+	
+	
 	//--- Lines Method Graph
 	c1 = new TCanvas();
 
@@ -1009,8 +1022,15 @@ if(verbose) cout<<"* Linear Fits Method :";
 	if(!is_low_vfd) g->Draw("AP"); //"P" = marker, "A" = draw axis, "X" = no errors
 	else {g_nosmooth->Draw("AP");}
 	//g->SetMarkerColor(15);
-	g->GetXaxis()->SetTitle("V_{bias} [V]");
+	//g->GetXaxis()->SetTitle("V_{bias} [V]");
+	g->GetXaxis()->SetTitle("Bias voltage [V]");
 	//g->GetYaxis()->SetTitle("ClusterWidth [#strips]");
+	if(observable == "Signal") g->GetYaxis()->SetTitle("Cluster charge [U.A.]");
+	else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [U.A.]"); 
+	g->GetXaxis()->SetTitleSize(.04);
+	g->GetYaxis()->SetTitleSize(.04);
+	g->GetXaxis()->SetTitleOffset(1.18);
+	g->GetYaxis()->SetTitleOffset(1.4);
 
 	TLine *l = new TLine(vdep_kink, ymin, vdep_kink, ymax+0.1);
 	l->SetLineStyle(3);
@@ -1160,7 +1180,7 @@ void FitOneCurve(string dirname, string subdet, string run, ULong64_t modid, str
 	cout<<endl<<"Run = "<<run<<endl;
 	cout<<"DetID "<<modid<<endl; cout<<"------"<<endl;
 
-	FitCurve(g, debug, false, false, true, false);
+	FitCurve(g, debug, false, false, true, false, type);
 }
 
 

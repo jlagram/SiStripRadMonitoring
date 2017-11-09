@@ -24,6 +24,7 @@ TRACKERMAP = Tracker_Vfd_Map.exe
 
 CURVFUNC = ../CommonTools/CurvesFunctions.h
 MODFLU = ../CommonTools/ModFluence.h
+STYLE = ../CommonTools/tdrstyle.C
 #.PHONY : $(wildcard *.o)  #Force to always recompile object
 
 
@@ -32,27 +33,27 @@ all: $(FIT) $(FITALL) $(COMPARECURVES) $(DRAWKINKVSLUMI) $(TRACKERMAP)
 
 #Obtain executables from object files
 
-$(FIT): Fit.cc Fit.h $(CURVFUNC)
+$(FIT): Fit.cc Fit.h  $(CURVFUNC) $(STYLE)
 	@echo "-- Creating executable ./$(FIT) --"
 	@$(CC) Fit.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
 	@echo "-- Done --"
 	
-$(FITALL): FitAll.cc Fit.h $(CURVFUNC)
+$(FITALL): FitAll.cc Fit.h $(CURVFUNC) $(STYLE)
 	@echo "-- Creating executable ./$(FITALL) --"
 	@$(CC) FitAll.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
 	@echo "-- Done --"
 	
-$(COMPARECURVES): CompareCurves.cc $(CURVFUNC)
+$(COMPARECURVES): CompareCurves.cc $(CURVFUNC) $(STYLE)
 	@echo "-- Creating executable ./$(COMPARECURVES) --"
 	@$(CC) CompareCurves.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
 	@echo "-- Done --"
 	
-$(DRAWKINKVSLUMI): DrawKinkVsLumi.cc $(CURVFUNC) $(MODFLU)
+$(DRAWKINKVSLUMI): DrawKinkVsLumi.cc $(CURVFUNC) $(MODFLU) $(STYLE)
 	@echo "-- Creating executable ./$(DRAWKINKVSLUMI) --"
 	@$(CC) DrawKinkVsLumi.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
 	@echo "-- Done --"
 	
-$(TRACKERMAP): Tracker_Vfd_Map.cc Fit.h
+$(TRACKERMAP): Tracker_Vfd_Map.cc Fit.h $(STYLE)
 	@echo "-- Creating executable ./$(TRACKERMAP) --"
 	@$(CC) Tracker_Vfd_Map.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
 	@echo "-- Done --"

@@ -1,5 +1,4 @@
 #include "../CommonTools/CurvesFunctions.h"
-#include "../CommonTools/tdrstyle.C"
 #include "Fit.h"
 
 #include "TCanvas.h"
@@ -200,6 +199,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
   
  TCanvas* c1 = new TCanvas("c1","c1", 1000, 800);
+ c1->SetTopMargin(0.10); //NEW
+ c1->SetBottomMargin(0.1); //NEW
   
  if(!g[ifirst]) return;
  TH1F* h = g[ifirst]->GetHistogram();
@@ -229,17 +230,19 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  h->SetTitle("");
   
  if(normalize && type=="Signal") h->SetMaximum(100);
- h->GetXaxis()->SetTitle("V_{Bias} [V]");
- h->GetXaxis()->SetTitleSize(.04);
+ //h->GetXaxis()->SetTitle("V_{Bias} [V]");
+ h->GetXaxis()->SetTitle("Bias voltage [V]");
+ h->GetXaxis()->SetTitleSize(.05);
  h->GetXaxis()->SetLimits(0, 380);
+ //h->GetXaxis()->SetTitleOffset(1.18);
  //h->GetXaxis()->SetLabelSize(0.04);
  
  // h->GetYaxis()->SetTitle("[Arbitrary units]");
- if(type == "ClusterWidth") h->GetYaxis()->SetTitle("Cluster charge #scale[0.9]{[UA]}");
- else if(type == "Signal") h->GetYaxis()->SetTitle("Cluster Width #scale[0.9]{[UA]}"); 
+ if(type == "Signal") h->GetYaxis()->SetTitle("Cluster charge [U.A.]");
+ else if(type == "ClusterWidth") h->GetYaxis()->SetTitle("Cluster width [U.A.]"); 
  
- h->GetYaxis()->SetTitleSize(.04);
- h->GetYaxis()->SetTitleOffset(1.15);
+ h->GetYaxis()->SetTitleSize(.05);
+ h->GetYaxis()->SetTitleOffset(0.95);
  //h->GetYaxis()->SetLabelSize(0.04);
  
  //if(type=="Signal") h->GetYaxis()->SetTitle("[ADC Counts]");
@@ -260,8 +263,9 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  float x = 0; int color_vdep_line=1; TString run_vdep = "";
  if(showfit) x = func[ifirst]->GetParameter(0);
 
- //TLegend *leg = new TLegend(0.15, 0.65, 0.35, 0.85);
- TLegend *leg = new TLegend(0.65, 0.2, 0.85, 0.5);
+
+ //TLegend *leg = new TLegend(0.65, 0.2, 0.85, 0.5);
+ TLegend *leg = new TLegend(0.60, 0.15, 0.85, 0.5);
  leg->SetHeader("Bias voltage scans");
 
  for(int i=ifirst; i<NF; i++)
@@ -351,6 +355,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
   latex->DrawLatex(0.15, 0.88, "CMS Preliminary"); 
 */
 
+
+
 //NEW
 
 
@@ -368,13 +374,20 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	latex.SetTextFont(61);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	latex.DrawLatex(c1->GetLeftMargin(),0.92,cmsText);
+	latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
 
 	bool writeExtraText = false;
 	TString extraText   = "Preliminary 2017";	
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
-	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.922, extraText);
+	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
+	
+	TString energy_text   = "#sqrt{s}=13 TeV (25 ns)";	
+	latex.SetTextFont(42);
+	latex.SetTextSize(0.04);
+	//latex.DrawLatex(0.74, 0.935, energy_text);
+
+
 	
 	
 	
@@ -551,7 +564,10 @@ int main()
 {
  //cout<<"entering CompareCurves()"<<endl;
  //setTDRStyle(); //needed?
-
+ Modified_tdr_style();
+ 
+ 
+ 
  vector<string> v_analysis;
  v_analysis.push_back("Signal");
  v_analysis.push_back("ClusterWidth");
@@ -591,7 +607,7 @@ int main()
  bool print=true;
  bool showfit=false;
  bool draw_plots = false;
- bool draw_vdep = true; //Draw vertical line which rpz the Vfd value obtained with lines method for "run_vdep"
+ bool draw_vdep = false; //Draw vertical line which rpz the Vfd value obtained with lines method for "run_vdep"
  
  // suffix for plot file name
  string suffix = "";
