@@ -9,6 +9,7 @@
 #include "TRint.h"
 #include "TLine.h"
 #include "TCanvas.h"
+#include "TLatex.h"
 #include "TGraphSmooth.h"
 #include <sstream>
 #include <sys/stat.h> // to be able to check file existence
@@ -109,7 +110,7 @@ void Create_Plot_Directories()
  * @param  verbose       [verbosity of function]
  * @return               [Vfd value extracted]
  */
-double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false, bool use_curvature=true, bool draw_plots=true, bool verbose=true, TString observable = "")
+double FitCurve(TGraphErrors* g, int debug, bool filter_twice, bool use_curvature, bool verbose=true, TString observable = "")
 {
 	if(!g) {cout<<BOLD(FRED("Input graph is null -- Abort"))<<endl; return -1; }
 
@@ -124,8 +125,6 @@ double FitCurve(TGraphErrors* g, int debug=0, bool filter_twice=false, bool use_
 	debug = 0; //Can force here the verbosity for debugging
 
 	bool SGSmooth=false; //if True, SavitzkyGolaySmoother is applied on curve
-
-
 
 //--------------
  // # #    # # ##### #   ##   #      # ###### ######
@@ -993,6 +992,7 @@ if(verbose) cout<<"* Linear Fits Method :";
 	TCanvas *c2;
 	//--- Curvature Graph
 	c2 = new TCanvas;
+	c2->SetTopMargin(0.1);
 	
 	gscurv->SetTitle("");
 	gscurv->Draw("AP");
@@ -1001,23 +1001,41 @@ if(verbose) cout<<"* Linear Fits Method :";
 	gscurv->GetYaxis()->SetTitle("Curvature [U.A.]");
 	gscurv->GetXaxis()->SetTitleSize(.04);
 	gscurv->GetYaxis()->SetTitleSize(.04);
-	gscurv->GetYaxis()->SetLabelSize(.0);
 	gscurv->GetXaxis()->SetTitleOffset(1.18);
-	gscurv->GetYaxis()->SetTitleOffset(1.);
+	gscurv->GetYaxis()->SetTitleOffset(1.4);
+	
 	g3pts->Draw("P");
 	g3pts->Fit("pol2", "q");
+	
+	TString cmsText     = "CMS";
+	TLatex latex;
+	latex.SetNDC();
+	latex.SetTextAngle(0);
+	latex.SetTextColor(kBlack);
+	latex.SetTextFont(61);
+	latex.SetTextAlign(11);
+	latex.SetTextSize(0.05);
+	latex.DrawLatex(0.58,0.93,cmsText);
+
+	TString extraText   = "Preliminary 2017";	
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.04);
+	latex.DrawLatex(0.70, 0.932, extraText);
+	
 	c2->Modified();
 	c2->Update();
+
 	
-	//---- Rather use these parameters, if do want to display labels for curvature (even if they are useless)
-	//c2->SetLeftMargin(0.2);
-	//gscurv->GetYaxis()->SetTitleOffset(2.0);
+	//---- Rather use these parameters, if don't want to display y-axis numbers
+	//gscurv->GetYaxis()->SetTitleOffset(1.);
+	//gscurv->GetYaxis()->SetLabelSize(.0);
 	
 	
 	
 	//--- Lines Method Graph
 	c1 = new TCanvas();
-
+	c1->SetTopMargin(0.1);
+	
 	g->SetTitle("");
 	if(!is_low_vfd) g->Draw("AP"); //"P" = marker, "A" = draw axis, "X" = no errors
 	else {g_nosmooth->Draw("AP");}
@@ -1026,11 +1044,37 @@ if(verbose) cout<<"* Linear Fits Method :";
 	g->GetXaxis()->SetTitle("Bias voltage [V]");
 	//g->GetYaxis()->SetTitle("ClusterWidth [#strips]");
 	if(observable == "Signal") g->GetYaxis()->SetTitle("Cluster charge [U.A.]");
-	else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [U.A.]"); 
+	//else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [U.A.]"); 
+	else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [number of strips]"); 
 	g->GetXaxis()->SetTitleSize(.04);
 	g->GetYaxis()->SetTitleSize(.04);
 	g->GetXaxis()->SetTitleOffset(1.18);
 	g->GetYaxis()->SetTitleOffset(1.4);
+	
+	//----------------
+	// CAPTIONS //
+	//----------------
+
+// -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
+
+	
+	latex.SetNDC();
+	latex.SetTextAngle(0);
+	latex.SetTextColor(kBlack);
+	latex.SetTextFont(61);
+	latex.SetTextAlign(11);
+	latex.SetTextSize(0.05);
+	latex.DrawLatex(0.58,0.93,cmsText);
+	
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.04);
+	latex.DrawLatex(0.70, 0.932, extraText);
+	
+	
+	
+	
+	
+	
 
 	TLine *l = new TLine(vdep_kink, ymin, vdep_kink, ymax+0.1);
 	l->SetLineStyle(3);
@@ -1066,11 +1110,9 @@ if(verbose) cout<<"* Linear Fits Method :";
 	c1->Update();
 
 	//Save canvas in temporary files (erased each time --> need to abort root if want to keep particules plots)
-	if(draw_plots)
-	{
-		c1->SaveAs("Fit_line.png");
-		c2->SaveAs("Fit_curv.png");
-	}
+
+	c1->SaveAs("Fit_line.png");
+	c2->SaveAs("Fit_curv.png");
 
 	//getchar(); //Waits for user to press enter to continue
 	c1->Close();
@@ -1150,9 +1192,8 @@ if(verbose) cout<<"* Linear Fits Method :";
  * @param type       [signal or cluster width observable]
  * @param debug      [verbosity]
  * @param date       [date of run]
- * @param draw_plots [useless ?] //FIXME
  */
-void FitOneCurve(string dirname, string subdet, string run, ULong64_t modid, string type, int debug=0, string date="", bool draw_plots=true)
+void FitOneCurve(string dirname, string subdet, string run, ULong64_t modid, string type, int debug, string date, bool use_curvature)
 {
 	if(type!="ClusterWidth" && type!="Signal")
 	{cout<<"Error in FitOneCurve() : curve type "<<type<<" is not allowed."<<endl; return;}
@@ -1179,11 +1220,11 @@ void FitOneCurve(string dirname, string subdet, string run, ULong64_t modid, str
 
 	cout<<endl<<"Run = "<<run<<endl;
 	cout<<"DetID "<<modid<<endl; cout<<"------"<<endl;
+	
+	TString tmp_type = type;
 
-	FitCurve(g, debug, false, false, true, false, type);
+	FitCurve(g, debug, false, use_curvature, false, tmp_type);
 }
-
-
 
 
 

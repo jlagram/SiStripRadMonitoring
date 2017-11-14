@@ -54,7 +54,7 @@ TString Change_Data_Format(TString ts)
 //-----------------
 
 
-void CompareCurve(string dirname, string subdet, const int NF, vector<string> dates, vector<string> runs, ULong64_t modid, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw=true, bool draw_vdep = false)
+void CompareCurve(string dirname, string subdet, const int NF, vector<string> dates, vector<string> runs, vector<float> lumis, ULong64_t modid, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw=true, bool draw_vdep = false)
 {
 
  //cout<<"entering CompareCurve(...)"<<endl;
@@ -265,7 +265,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
 
  //TLegend *leg = new TLegend(0.65, 0.2, 0.85, 0.5);
- TLegend *leg = new TLegend(0.60, 0.15, 0.85, 0.5);
+ TLegend *leg = new TLegend(0.60, 0.15, 0.92, 0.55);
  leg->SetHeader("Bias voltage scans");
 
  for(int i=ifirst; i<NF; i++)
@@ -288,7 +288,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
    color_vdep_line = colors[i-nof_aborted_iterations]; run_vdep = runs[i];
    
-   leg->AddEntry(g[i], Form("%s", Change_Data_Format(dates[i]).Data()), "l");
+   TString legend = Change_Data_Format(dates[i]) + ", " + Convert_Number_To_TString(lumis[i]) + " fb^{-1}  ";
+   leg->AddEntry(g[i], legend, "l");
  } 
  
  leg->Draw();
@@ -382,12 +383,6 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
 	
-	TString energy_text   = "#sqrt{s}=13 TeV (25 ns)";	
-	latex.SetTextFont(42);
-	latex.SetTextSize(0.04);
-	//latex.DrawLatex(0.74, 0.935, energy_text);
-
-
 	
 	
 	
@@ -458,54 +453,54 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
 //-------------------------------
 //-------------------------------
-void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector<string> runs, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw_plots=true, bool draw_vdep=false)
+void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector<string> runs, vector<float> lumis, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw_plots=true, bool draw_vdep=false)
 {
  string subdet = "TIB";
 
  //TIBminus_1_2_2_1
- CompareCurve(dirname, subdet, NF, dates, runs, 369121381, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, subdet, NF, dates, runs, 369121382, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, subdet, NF, dates, runs, 369121385, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, subdet, NF, dates, runs, 369121386, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121381, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis,  369121382, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121385, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121386, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  
  //TIBminus_1_4_2_5
- //CompareCurve(dirname, subdet, NF, dates, runs, 369121605, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, 369121606, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, 369121609, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, 369121610, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, 369121613, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, 369121614, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121605, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121606, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121609, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121610, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121613, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121614, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
  
  //TIBplus_1_6_2_5
- //CompareCurve(dirname, subdet, NF, dates, runs, 369125861, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
- CompareCurve(dirname, subdet, NF, dates, runs, 369125862, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, subdet, NF, dates, runs, 369125866, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- //CompareCurve(dirname, subdet, NF, dates, runs, 369125869, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
- CompareCurve(dirname, subdet, NF, dates, runs, 369125870, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125861, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125862, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125866, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125869, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125870, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 }
 
 //-------------------------------
-void CompareTOBCurves(string dirname, const int NF, vector<string> dates, vector<string> runs, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw_plots=false, bool draw_vdep=false, TString run_vdep="")
+void CompareTOBCurves(string dirname, const int NF, vector<string> dates, vector<string> runs, vector<float> lumis, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw_plots=false, bool draw_vdep=false, TString run_vdep="")
 {
 //NB : "1 & 2" at the end of detif --> sensor number
 
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815081, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815082, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815121, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815122, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815161, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815162, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815201, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815202, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815241, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815242, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815281, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, "TOB", NF, dates, runs, 4362815282, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815081, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815082, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815121, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815122, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815161, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815162, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815201, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815202, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815241, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815242, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815281, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815282, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 }
 
 
 //-------------------------------
-void CompareTECCurves(string dirname, const int NF, vector<string> dates, vector<string> runs, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw_plots=false, bool draw_vdep=false, TString run_vdep="")
+void CompareTECCurves(string dirname, const int NF, vector<string> dates, vector<string> runs, vector<float> lumis, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw_plots=false, bool draw_vdep=false, TString run_vdep="")
 {
 //NB : "1 & 2" at the end of detif --> sensor number
 
@@ -550,7 +545,7 @@ void CompareTECCurves(string dirname, const int NF, vector<string> dates, vector
 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
-  	CompareCurve(dirname, "TEC", NF, dates, runs, v_modids[i_modid], type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+  	CompareCurve(dirname, "TEC", NF, dates, runs, lumis, v_modids[i_modid], type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
   }
 
 }
@@ -578,27 +573,28 @@ int main()
   //v_subdet.push_back("TEC");
  
 
- vector<string> runs, dates; 
+ vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
 //--- RUN 2 
 //2015 (4)
   
-  //runs.push_back("246963");	dates.push_back("20150603");
-  //runs.push_back("254790");	dates.push_back("20150821");  
-  //runs.push_back("258443");	dates.push_back("20151007");
-  //runs.push_back("262254");	dates.push_back("20151121");  
+  //runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
+  //runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
+  //runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
+  //runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
   
 //2016 (6)
- //runs.push_back("271056");	dates.push_back("20160423");
-  //runs.push_back("274969");	dates.push_back("20160612");
-  //runs.push_back("276437");	dates.push_back("20160706");
-  //runs.push_back("278167");	dates.push_back("20160803");
-  //runs.push_back("280385");	dates.push_back("20160909");
-  runs.push_back("285371");	dates.push_back("20161116"); 
+ //runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
+  //runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
+  //runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
+  //runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
+  runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
+  //runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
 //2017
-  runs.push_back("295324");	dates.push_back("20170527"); //Full
-  runs.push_back("298996");	dates.push_back("20170714");
-  runs.push_back("302131");	dates.push_back("20170831");
-  runs.push_back("303824");	dates.push_back("20170924");
+  runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
+  runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
+  runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
+  runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46);
+  //runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(75+29.46);
 
  
  int NF = runs.size();
@@ -620,9 +616,9 @@ int main()
  
  	for(int j=0; j<v_subdet.size(); j++)
  	{
- 		if(v_subdet[j]=="TIB") CompareTIBCurves(dirname, NF, dates, runs, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
-    	if(v_subdet[j]=="TOB") CompareTOBCurves(dirname, NF, dates, runs, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
-    	if(v_subdet[j]=="TEC") CompareTECCurves(dirname, NF, dates, runs, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ 		if(v_subdet[j]=="TIB") CompareTIBCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
+    	if(v_subdet[j]=="TOB") CompareTOBCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
+    	if(v_subdet[j]=="TEC") CompareTECCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
  	}
     
   }

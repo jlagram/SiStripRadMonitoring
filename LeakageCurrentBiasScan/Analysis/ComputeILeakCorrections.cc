@@ -55,7 +55,7 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
 {
 
   // Read files with voltage infos
-  gsteps = ReadSteps(Form("Steps/Steps_%s.txt", run),false);
+  gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
   if(!gsteps) {std::cout<<" No voltage steps info. Exit."<<std::endl; return;}
   gvolt = 0;//ReadVoltage(Form("Data/ConditionBrowser_%s.root", run));
   //if(!gvolt) std::cout<<" ConditionBrowser file does not exist, but it is not a problem."<<std::endl;
@@ -658,9 +658,9 @@ int main()
 //NB : leakage info files must be stored in Data/
 
 //--- FUNCTION CALLS
-	ComputeAllCorrections("TEC", "20150603_run246963", "Data/detid_lists/TIB_detid_list.txt");
-	ComputeAllCorrections("TEC", "20150821_run254790", "Data/detid_lists/TOB_detid_list.txt");
-	ComputeAllCorrections("TEC", "20151007_run258443", "Data/detid_lists/TEC_detid_list.txt");
+	ComputeAllCorrections("TIB", "20171030_run305862", "Data/detid_lists/TIB_detid_list.txt");
+	ComputeAllCorrections("TOB", "20171030_run305862", "Data/detid_lists/TOB_detid_list.txt");
+	ComputeAllCorrections("TEC", "20171030_run305862", "Data/detid_lists/TEC_detid_list.txt");
 
 
 /*

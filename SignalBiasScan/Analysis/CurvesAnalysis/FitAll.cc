@@ -226,9 +226,9 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
       
 	  if( (isGoodCurve(thegraph, type) && !small_rms))
 	  {
-	    Vdep = FitCurve( thegraph, 0, filter_twice , use_curvature, false, false);
+	    Vdep = FitCurve( thegraph, 0, filter_twice , use_curvature, false, "");
       }
-      
+
       
       else 
       { 
@@ -298,18 +298,18 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  v_analysis.push_back("Signal");
+  //v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
   
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  //v_subdet.push_back("TOB");
-  //v_subdet.push_back("TEC");
+  v_subdet.push_back("TOB");
+  v_subdet.push_back("TEC");
   //v_subdet.push_back("TID");
   
-  bool use_curvature = false; //true-->kink ; false-->lines  
+  bool use_curvature = true; //true-->kink ; false-->lines  
   
-  bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
+  bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
    
   
   vector<string> runs; vector<string> dates; /*
@@ -346,7 +346,8 @@ int main()
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
-  runs.push_back("303824");	dates.push_back("20170924"); //Full
+  //runs.push_back("303824");	dates.push_back("20170924"); //Full
+  runs.push_back("305862");	dates.push_back("20171030");
 
  
   

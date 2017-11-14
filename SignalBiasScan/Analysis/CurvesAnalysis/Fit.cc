@@ -7,7 +7,7 @@ void FitTIBSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(369121381);
+	v_modids.push_back(369125866);
 
 /*
 	//TIBminus_1_2_2_1
@@ -31,7 +31,7 @@ void FitTIBSmallScan(string dirname, string date, string run, string type)
 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
-  	FitOneCurve(dirname, "TIB", run, v_modids[i_modid], type, 1, date);
+  	FitOneCurve(dirname, "TIB", run, v_modids[i_modid], type, 1, date, 0);
   }
 }
 
@@ -60,7 +60,7 @@ void FitTOBSmallScan(string dirname, string date, string run, string type)
 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
-  	FitOneCurve(dirname, "TOB", run, v_modids[i_modid], type, 1, date);
+  	FitOneCurve(dirname, "TOB", run, v_modids[i_modid], type, 1, date, 0);
   }
 }
 
@@ -111,7 +111,7 @@ void FitTECSmallScan(string dirname, string date, string run, string type)
 */
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
-  	FitOneCurve(dirname, "TEC", run, v_modids[i_modid], type, 1, date);
+  	FitOneCurve(dirname, "TEC", run, v_modids[i_modid], type, 1, date, 0);
   }
 }
 
@@ -141,10 +141,10 @@ int main()
   //runs.push_back("170000");	dates.push_back("20110715");
   //runs.push_back("190459");	dates.push_back("20120405");
   //runs.push_back("193541");	dates.push_back("20120506");
-  //runs.push_back("193928");	dates.push_back("20120510");
+ // runs.push_back("193928");	dates.push_back("20120510");
   //runs.push_back("199832");	dates.push_back("20120728");
   //runs.push_back("200786");	dates.push_back("20120812");
-  //runs.push_back("203832");	dates.push_back("20120928");
+  //runs.push_back("203832");	dates.push_back("20120928"); //--
   //runs.push_back("208339");	dates.push_back("20121130");
   //runs.push_back("211797");	dates.push_back("20130213");
   
@@ -167,6 +167,7 @@ int main()
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
   runs.push_back("303824");	dates.push_back("20170924");
+  //runs.push_back("305862");	dates.push_back("20171030");
 
 
 
@@ -182,7 +183,7 @@ int main()
   }
 
   
-  system("eog Fit_line.png &");
+  //system("eog Fit_line.png &");
   //system("eog Fit_curv.png &");
 }
 

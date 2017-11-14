@@ -427,10 +427,11 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	latex.SetTextSize(0.04);
 	//latex.DrawLatex(0.75, 0.954, energy_text);
 	
-	TString fluence_label = "Fluence #scale[0.9]{[10^{12} . cm^{-2}]}";	
+	//TString fluence_label = "Fluence #scale[0.9]{[10^{12} . cm^{-2}]}";	
+	TString fluence_label = "Simulated fluence [1 MeV neutron equivalent . cm^{-2} . 10^{12}]";	
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.035);
-	latex.DrawLatex(0.72, 0.83, fluence_label);
+	latex.DrawLatex(0.30, 0.83, fluence_label);
 
 
 
@@ -954,9 +955,10 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
   h->GetXaxis()->SetTitleSize(.04);
   h->GetXaxis()->SetTitleOffset(1.18);
 
-  h->GetYaxis()->SetTitle("Full depletion voltage [V]");
-  h->GetYaxis()->SetTitleSize(.04);
-  h->GetYaxis()->SetTitleOffset(1.4);
+  //h->GetYaxis()->SetTitle("Full depletion voltage [V]");
+  h->GetYaxis()->SetTitle("#DeltaV_{FD} [V]");
+  h->GetYaxis()->SetTitleSize(.05);
+  h->GetYaxis()->SetTitleOffset(0.9);
   
   g->SetMarkerStyle(20);
   
@@ -1021,10 +1023,12 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
 	
-	TString fluence_label = "Fluence #scale[0.9]{[10^{12} . cm^{-2}]}";	
+	
+	//TString fluence_label = "Fluence #scale[0.9]{[10^{12} . cm^{-2}]}";	
+	TString fluence_label = "Simulated fluence [1 MeV neutron equivalent . cm^{-2} . 10^{12}]";	
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.035);
-	latex.DrawLatex(0.72, 0.83, fluence_label);
+	latex.DrawLatex(0.30, 0.83, fluence_label);
 	
 	//Draw separate X-axis for each CME energy (different equivalence between lumi and fluence) -- divide by 10^12 to remove exponent  
 	//---- ADD ONLY FLUENCE AXIS FOR TIB MODULES, SINCE TOB/TEC HAVE DIFFERENT FLUENCES IN MODULES !!
@@ -1523,14 +1527,16 @@ int main(int argc, char *argv[])
 	  runs.push_back("276437");lumis.push_back(14.48+29.46);
 	  runs.push_back("278167");lumis.push_back(23.64+29.46);
 	  runs.push_back("280385");lumis.push_back(35.06+29.46);
-	  runs.push_back("285371");lumis.push_back(45.70+29.46);
+	  //runs.push_back("285371");lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
 
 	  //2017 (2)
 	  runs.push_back("295324");lumis.push_back(45.71+29.46); //-- FULL
 	  runs.push_back("298996");lumis.push_back(52.18+29.46);
   	  runs.push_back("302131");lumis.push_back(65.84+29.46);
   	  if(v_subdet[j] != "TEC") runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (not enough stat. yet for TEC)
-
+	  runs.push_back("305862");lumis.push_back(75+29.46);
+	  
+	  
 
   	  if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);} //VFD EVOLUTION, SINGLE MODULES
   	  
