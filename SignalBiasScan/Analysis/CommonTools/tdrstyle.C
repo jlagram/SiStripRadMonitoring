@@ -297,6 +297,12 @@ TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
   // tdrStyle->SetTimeOffset(Double_t toffset);
   // tdrStyle->SetHistMinimumZero(kTRUE);
 
+
+//-- NEW
+	tdrStyle->SetLegendBorderSize(1);
+	tdrStyle->SetLegendFillColor(0);
+
+
   tdrStyle->cd();
 
 }

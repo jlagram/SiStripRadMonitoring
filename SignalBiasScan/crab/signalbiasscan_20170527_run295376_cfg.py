@@ -4,10 +4,11 @@ process = cms.Process("Tree")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-
  # Conditions (Global Tag is used here):
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
-process.GlobalTag.globaltag = '92X_dataRun2_Prompt_v10'
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag.globaltag = '94X_dataRun2_ReReco_EOY17_v2' #?
+
 
 process.load('Configuration.StandardSequences.Services_cff')
 
@@ -15,19 +16,18 @@ process.load('Configuration.StandardSequences.Services_cff')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load("Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff")
 
+process.load('RecoVertex.BeamSpotProducer.BeamSpot_cff')
 process.load("RecoTracker.TrackProducer.TrackRefitters_cff")
+process.TrackRefitter.src = 'ALCARECOSiStripCalMinBias'
 
 
 # reduce verbosity
-process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10)
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(1000)
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
 process.source = cms.Source("PoolSource",
-    # replace 'myfile.root' with the source file you want to use
-    fileNames = cms.untracked.vstring(
-    '/store/data/Run2017F/ZeroBias0/RECO/PromptReco-v1/000/305/742/00000/366A6F90-02BF-E711-91FA-02163E01A364.root')
-)
+    fileNames = cms.untracked.vstring('/store/data/Run2017A/ZeroBias3/ALCARECO/SiStripCalMinBias-30Mar2018-v1/30000/0093758B-E938-E811-8FB9-0242AC1C0501.root'))
 
 
 #name of the output file containing the tree
@@ -35,20 +35,19 @@ process.TFileService = cms.Service("TFileService", fileName = cms.string("cluste
 
 process.TrackRefitter.NavigationSchool = cms.string("")
 
-
 process.demo = cms.EDAnalyzer('SignalBiasScan',
-    trackLabel       = cms.InputTag('generalTracks'),
+    trackLabel       = cms.InputTag('ALCARECOSiStripCalMinBias'), #generalTracks
     tkTraj           = cms.InputTag('TrackRefitter'),
     labelTrajToTrack = cms.InputTag('TrackRefitter'),
-#    siStripClusters  = cms.InputTag('TrackRefitter'),
+#   siStripClusters  = cms.InputTag('TrackRefitter'),
     primaryVertexColl= cms.InputTag('offlinePrimaryVertices'),
-    fullHitInfo_TIB       = cms.bool(True),
-    fullHitInfo_TOB       = cms.bool(True),
-    fullHitInfo_TID       = cms.bool(True),
-    fullHitInfo_TEC       = cms.bool(True),
-    isSmallBiasScan       = cms.untracked.bool(True)
+    fullHitInfo_TIB       = cms.bool(False),
+    fullHitInfo_TOB       = cms.bool(False),
+    fullHitInfo_TID       = cms.bool(False),
+    fullHitInfo_TEC       = cms.bool(False),
+    isSmallBiasScan       = cms.untracked.bool(False)
 )
 
+process.p = cms.Path(process.MeasurementTrackerEvent*process.offlineBeamSpot*process.TrackRefitter*process.demo)
 
-process.p = cms.Path(process.TrackRefitter*process.demo)
 

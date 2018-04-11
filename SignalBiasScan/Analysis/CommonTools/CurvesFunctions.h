@@ -47,6 +47,39 @@ TString Convert_Number_To_TString(ULong64_t number)
 	return ts;
 }
 
+//Convert a TString into a float
+float Convert_TString_To_Number(TString ts)
+{
+	float number = 0;
+	string s = ts.Data();
+	stringstream ss(s);
+	ss >> number;
+	return number;
+}
+
+//Find a number into a TString, and returns it as a float
+float Find_Number_In_TString(TString ts)
+{
+	TString tmp = ""; int number = 0;
+	string s = ts.Data(); int ts_size = s.size(); //Only to get TString size
+
+	for (int i=0; i < ts_size; i++)
+	{
+		if( isdigit(ts[i]) )
+		{
+			do
+			{
+				tmp += ts[i];
+				i++;
+			} while(isdigit(ts[i]) || ts[i] == '.'); //NB : Pay attention to quotes : "a" creates a 2-char array (letter+terminator) -> string. 'a' identifies a single character !
+
+		  break;
+		}
+	}
+
+	return Convert_TString_To_Number(tmp);
+}
+
 //Use stat function (from library sys/stat) to check if a file exists
 bool Check_File_Existence(const TString& name)
 {

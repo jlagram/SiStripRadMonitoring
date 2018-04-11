@@ -7,7 +7,7 @@ void FitTIBSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(369125866);
+	v_modids.push_back(369121385);
 
 /*
 	//TIBminus_1_2_2_1
@@ -40,10 +40,9 @@ void FitTOBSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(4362815122);
+	v_modids.push_back(4362815121);
 
 /*
-//-------- FULL LIST
 	v_modids.push_back(4362815081);
 	v_modids.push_back(4362815082);
 	v_modids.push_back(4362815121);
@@ -69,7 +68,7 @@ void FitTECSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(4701483241);
+	v_modids.push_back(4701482622);
 
 
 /*
@@ -120,16 +119,16 @@ int main()
 {
   Modified_tdr_style();
   gStyle->SetOptFit(0);
-  
-  
+
+
 //--- Choose the observable
   //string type = "Signal";
   string type = "ClusterWidth";
 
 //--- Choose the subdetector (modules are selected above)
-  string subdet = "TIB";
+  // string subdet = "TIB";
   //string subdet = "TOB";
-  //string subdet = "TEC";
+  string subdet = "TEC";
 
 
   vector<string> runs; vector<string> dates;
@@ -147,13 +146,13 @@ int main()
   //runs.push_back("203832");	dates.push_back("20120928"); //--
   //runs.push_back("208339");	dates.push_back("20121130");
   //runs.push_back("211797");	dates.push_back("20130213");
-  
+
 //2015 (4)
   //runs.push_back("246963");	dates.push_back("20150603");
-  //runs.push_back("254790");	dates.push_back("20150821");  
+  //runs.push_back("254790");	dates.push_back("20150821");
   //runs.push_back("258443");	dates.push_back("20151007");
   //runs.push_back("262254");	dates.push_back("20151121");
-  
+
 //2016 (5)
   //runs.push_back("271056");	dates.push_back("20160423");
   //runs.push_back("274969");	dates.push_back("20160612");
@@ -161,13 +160,13 @@ int main()
   //runs.push_back("278167");	dates.push_back("20160803");
   //runs.push_back("280385");	dates.push_back("20160909");
   //runs.push_back("285371");	dates.push_back("20161116");
-  
+
   //2017
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
-  runs.push_back("303824");	dates.push_back("20170924");
-  //runs.push_back("305862");	dates.push_back("20171030");
+  //runs.push_back("303824");	dates.push_back("20170924");
+  runs.push_back("305862");	dates.push_back("20171030");
 
 
 
@@ -182,7 +181,7 @@ int main()
   	else {cout<<" Wrong subdet !"<<endl; return 0;}
   }
 
-  
+
   //system("eog Fit_line.png &");
   //system("eog Fit_curv.png &");
 }

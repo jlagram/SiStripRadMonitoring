@@ -108,9 +108,11 @@ void Create_Plot_Directories()
  * @param  use_curvature [if true, return value from kink method ; else from 'lines' method]
  * @param  showplots     [useless] //FIXME
  * @param  verbose       [verbosity of function]
+ * @param  observable    [signal or CW]
+ * @param  draw_plot     [to avoid drawing in FitAll.exe (only interested in Vfd values)]
  * @return               [Vfd value extracted]
  */
-double FitCurve(TGraphErrors* g, int debug, bool filter_twice, bool use_curvature, bool verbose=true, TString observable = "")
+double FitCurve(TGraphErrors* g, int debug, bool filter_twice, bool use_curvature, bool verbose=true, TString observable = "", bool draw_plot=true)
 {
 	if(!g) {cout<<BOLD(FRED("Input graph is null -- Abort"))<<endl; return -1; }
 
@@ -998,7 +1000,7 @@ if(verbose) cout<<"* Linear Fits Method :";
 	gscurv->Draw("AP");
 	//gscurv->GetXaxis()->SetTitle("V_{bias} [V]");
 	gscurv->GetXaxis()->SetTitle("Bias voltage [V]");
-	gscurv->GetYaxis()->SetTitle("Curvature [U.A.]");
+	gscurv->GetYaxis()->SetTitle("Curvature [a.u.]");
 	gscurv->GetXaxis()->SetTitleSize(.04);
 	gscurv->GetYaxis()->SetTitleSize(.04);
 	gscurv->GetXaxis()->SetTitleOffset(1.18);
@@ -1043,8 +1045,8 @@ if(verbose) cout<<"* Linear Fits Method :";
 	//g->GetXaxis()->SetTitle("V_{bias} [V]");
 	g->GetXaxis()->SetTitle("Bias voltage [V]");
 	//g->GetYaxis()->SetTitle("ClusterWidth [#strips]");
-	if(observable == "Signal") g->GetYaxis()->SetTitle("Cluster charge [U.A.]");
-	//else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [U.A.]"); 
+	if(observable == "Signal") g->GetYaxis()->SetTitle("Cluster charge [a.u.]");
+	//else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [a.u.]"); 
 	else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [number of strips]"); 
 	g->GetXaxis()->SetTitleSize(.04);
 	g->GetYaxis()->SetTitleSize(.04);
@@ -1110,9 +1112,11 @@ if(verbose) cout<<"* Linear Fits Method :";
 	c1->Update();
 
 	//Save canvas in temporary files (erased each time --> need to abort root if want to keep particules plots)
-
-	c1->SaveAs("Fit_line.png");
-	c2->SaveAs("Fit_curv.png");
+	if(draw_plot) //For FitAll.exe, don't want to save plots!
+	{
+		c1->SaveAs("Fit_line.png");
+		c2->SaveAs("Fit_curv.png");
+	}
 
 	//getchar(); //Waits for user to press enter to continue
 	c1->Close();

@@ -53,17 +53,19 @@ void Scale(TGraph *& g, double scale)
 void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph *&gvolt, 
                    char* subdet, char* run, int detid=369121605, char* bad_periods="")
 {
-
   // Read files with voltage infos
-  gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
+  //gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
+  gsteps = ReadSteps(Form("./Steps/Steps_%s.txt", run),false);
   if(!gsteps) {std::cout<<" No voltage steps info. Exit."<<std::endl; return;}
   gvolt = 0;//ReadVoltage(Form("Data/ConditionBrowser_%s.root", run));
   //if(!gvolt) std::cout<<" ConditionBrowser file does not exist, but it is not a problem."<<std::endl;
+ 
   
   int nmodforchannel=1;
   // Read files with current infos
   gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
   gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
+  
   
   if(!gcur_PS) {std::cout<<" No PS current info. Exit."<<std::endl; return;}
   //gcur_DCU = 0; // force to not use DCU
@@ -93,6 +95,7 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
     const int N_TOB=6;
     int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
     float dcu_fractions_TOB[N_TOB]={0.296, 0.320, 0.327, 0.336, 0.365, 0.334};
+   
 
     
 	if(!strcmp(subdet,"TIB"))
@@ -341,6 +344,7 @@ int ComputeCorrection(char* subdet, char* run, double detid, TGraph*& gvdrop, TF
   // Loop over modules
   cout.precision(10);
   cout<<endl<<" DetID "<<detid<<endl;
+  
 
   // Get currents and voltage
   TGraph* gsteps;
@@ -348,6 +352,7 @@ int ComputeCorrection(char* subdet, char* run, double detid, TGraph*& gvdrop, TF
   TGraph* gcur_PS;
   TGraph* gvolt;
   GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
+
 
   // scale graphs for drawing
   double Steps_max = GetMaximum(gsteps);
@@ -359,6 +364,7 @@ int ComputeCorrection(char* subdet, char* run, double detid, TGraph*& gvdrop, TF
   double scale_DCU = 0.45*Steps_max/DCU_max;
   TGraph* gcur_DCU_clone = (TGraph*) gcur_DCU->Clone();
   Scale( gcur_DCU_clone, scale_DCU);
+  
 
   // Draw conditions for monitoring
   TCanvas* c1;
@@ -391,7 +397,6 @@ int ComputeCorrection(char* subdet, char* run, double detid, TGraph*& gvdrop, TF
   gvdrop->SetMarkerStyle(20);
   if(show) gvdrop->Draw("AP");
   
-  //cout<<__LINE__<<endl;
 
   int fit_status=-999;
   // Fit voltage drop
@@ -531,8 +536,13 @@ void ComputeCorrections(char* subdet, char* run, vector<double> detids, char* ba
   
 }
 
-void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_periods="")
+void ComputeAllCorrections(char* subdet, char* run, bool fullscan, char* bad_periods="")
 {
+  std::string string_subdet(subdet);
+
+  TString filename = "Data/detid_lists/"+string_subdet+"_detid_list";
+  if(fullscan) filename+= "_full";
+  filename+= ".txt";
   
   // Histos and output file
   TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
@@ -553,7 +563,7 @@ void ComputeAllCorrections(char* subdet, char* run, char* filename, char* bad_pe
 
   // input file with list of detids
   std::string line;
-  ifstream fin(filename);
+  ifstream fin(filename.Data() );
   double detid=0; //can't use int, since INT_MAX=2147483647, not enough
   bool show=false;
 
@@ -657,37 +667,13 @@ int main()
 //NB : detids lists in Data/detid_lists/
 //NB : leakage info files must be stored in Data/
 
+	bool fullscan = true; //If small scan, compute corrections only for dew detids !
+
 //--- FUNCTION CALLS
-	ComputeAllCorrections("TIB", "20171030_run305862", "Data/detid_lists/TIB_detid_list.txt");
-	ComputeAllCorrections("TOB", "20171030_run305862", "Data/detid_lists/TOB_detid_list.txt");
-	ComputeAllCorrections("TEC", "20171030_run305862", "Data/detid_lists/TEC_detid_list.txt");
+	//ComputeAllCorrections("TIB", "20120921_run203243", fullscan);
+	ComputeAllCorrections("TOB", "20120921_run203243", fullscan);
+	//ComputeAllCorrections("TEC", "20170919_run303272", fullscan);
 
-
-/*
-//TIB  
-  ComputeAllCorrections("TIB", "20151121_run262254", "Data/detid_lists/TIB_detid_list.txt");
-  ComputeAllCorrections("TIB", "20160423_run271056", "Data/detid_lists/TIB_detid_list.txt");  
-  ComputeAllCorrections("TIB", "20160612_run274969", "Data/detid_lists/TIB_detid_list.txt");
-  ComputeAllCorrections("TIB", "20160706_run276437", "Data/detid_lists/TIB_detid_list.txt");
-  ComputeAllCorrections("TIB", "20160803_run278167", "Data/detid_lists/TIB_detid_list.txt");
-  ComputeAllCorrections("TIB", "20160909_run280385", "Data/detid_lists/TIB_detid_list.txt");
-  
-//TOB   
-  ComputeAllCorrections("TOB", "20151121_run262254", "Data/detid_lists/TOB_detid_list.txt");
-  ComputeAllCorrections("TOB", "20160423_run271056", "Data/detid_lists/TOB_detid_list.txt");
-  ComputeAllCorrections("TOB", "20160612_run274969", "Data/detid_lists/TOB_detid_list.txt");
-  ComputeAllCorrections("TOB", "20160706_run276437", "Data/detid_lists/TOB_detid_list.txt");
-  ComputeAllCorrections("TOB", "20160803_run278167", "Data/detid_lists/TOB_detid_list.txt");
-  ComputeAllCorrections("TOB", "20160909_run280385", "Data/detid_lists/TOB_detid_list.txt");
-  
-//TEC   
-  ComputeAllCorrections("TEC", "20151121_run262254", "Data/detid_lists/TEC_detid_list.txt");
-  ComputeAllCorrections("TEC", "20160423_run271056", "Data/detid_lists/TEC_detid_list.txt");
-  ComputeAllCorrections("TEC", "20160612_run274969", "Data/detid_lists/TEC_detid_list.txt");
-  ComputeAllCorrections("TEC", "20160706_run276437", "Data/detid_lists/TEC_detid_list.txt");
-  ComputeAllCorrections("TEC", "20160803_run278167", "Data/detid_lists/TEC_detid_list.txt");
-  ComputeAllCorrections("TEC", "20160909_run280385", "Data/detid_lists/TEC_detid_list.txt");
-*/  
 
 	return 0;
 }

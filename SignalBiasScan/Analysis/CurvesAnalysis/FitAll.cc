@@ -28,7 +28,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 {
   gROOT->SetBatch(kTRUE); //doesn't work ? Else execute interactively with option -b (batch mode)
 
-  if(type!="ClusterWidth" && type!="Signal") 
+  if(type!="ClusterWidth" && type!="Signal")
   {cout<<"Error in FitAllCurves() : curve type "<<type<<" is not allowed."<<endl; return;}
 
   int err_type=0;
@@ -39,9 +39,9 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   if(!smallScan_modules_only) Output+= "allModules_";
   Output+= type+"_"+SubDet;
   if(use_curvature) Output+="_kink"; //Add suffix for method
-  else Output+="_line";  	
+  else Output+="_line";
   Output+=+"_"+Run+".root";
-  
+
   if(!Check_File_Existence(FileToOpen)) {cout<<BOLD(FRED("File not found : "))<<FileToOpen<<endl; return;}
 
   std::cout << FGRN("Opening input file ") <<FileToOpen<< std::endl;
@@ -49,7 +49,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   TFile* myFile = TFile::Open(FileToOpen.c_str());
   TTree* tr = (TTree*)myFile->FindObjectAny("T");
   //std::cout << "tree opened" << std::endl;
-  
+
   //Int_t detid; // Int_t for old files
   ULong64_t detid; // Int_t for old files
   Double_t volt;
@@ -59,7 +59,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   Double_t empv;
   ULong64_t tempdetid;
   //Double_t chi2overndf;
-  
+
   tr->SetBranchAddress("DetID",&detid);
   tr->SetBranchAddress("Voltage",&volt);
   tr->SetBranchAddress("Index",&id);
@@ -116,18 +116,18 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   double ampv[step];
   double aempv[step];
   UInt_t k=0;
-  
+
   Int_t layer = 0;
   float mean, rms;
-  TH1F* hrms = new TH1F("hrms", "yrms", 50, 0, 10);  
+  TH1F* hrms = new TH1F("hrms", "yrms", 50, 0, 10);
 
   //std::cout <<"nentries = "<< nentries << std::endl;
-  
+
   if(!nentries) {cout<<BOLD(FRED("WARNING : NO ENTRY FOUND !!"))<<endl<<endl;}
 
-  //string leakcurfilename="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/LeakCurCorr_"+SubDet+Run+".root";  
+  //string leakcurfilename="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/LeakCurCorr_"+SubDet+Run+".root";
   string leakcurfilename="../../../LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
-  
+
   TFile* leakcurfile = 0;
   if(Check_File_Existence(leakcurfilename) ) leakcurfile = new TFile(leakcurfilename.c_str(), "read");
   else {cout<<BOLD(FRED("No leakage current correction file : "))<<leakcurfilename<<endl<<"-----------------------------------------------"<<endl; }
@@ -138,28 +138,29 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   for(UInt_t i = 0; i <nentries; i++)
   {
    	if(i%1000==0) {cout<<i<<" / "<<nentries<<" entries done"<<endl;}
-  
-    tr->GetEntry(i);
-    
+
+   	tr->GetEntry(i);
+
     TString tmp_ts_detid = Convert_Number_To_TString(detid);
     //cout<<"detid = "<<detid<<" / tmp_ts_detid="<<tmp_ts_detid<<endl;
- 
+
 
 	if(smallScan_modules_only)
-	{   
-    	if(SubDet == "TOB" && !tmp_ts_detid.Contains("4362815") ) {continue;}
+	{
+    	if(SubDet == "TOB" && !tmp_ts_detid.Contains("4362815") && !tmp_ts_detid.Contains("4362329") ) {continue;}
 
-    	else if(SubDet == "TIB" && !tmp_ts_detid.Contains("36912138") && !tmp_ts_detid.Contains("369121390") && !tmp_ts_detid.Contains("36912160") && !tmp_ts_detid.Contains("36912161") && !tmp_ts_detid.Contains("36912586") && !tmp_ts_detid.Contains("369125870")) {continue;} 
+    	else if(SubDet == "TIB" && !tmp_ts_detid.Contains("36912138") && !tmp_ts_detid.Contains("369121390") && !tmp_ts_detid.Contains("36912160") && !tmp_ts_detid.Contains("36912161") && !tmp_ts_detid.Contains("36912586") && !tmp_ts_detid.Contains("369125870")) {continue;}
 
-    	else if(SubDet == "TEC" && !tmp_ts_detid.Contains("470148") ) {continue;} 
+    	else if(SubDet == "TEC" && !tmp_ts_detid.Contains("470148") ) {continue;}
 	}
-       
+
     tempdetid= (ULong64_t) detid;
-	
+
     mapping::iterator iter = DetID_Vdep.find(tempdetid);
     if(iter == DetID_Vdep.end() )
     {
       k=0;
+
       for(UInt_t j = i; j< nentries; j++)
       {
 	    tr->GetEntry(j);
@@ -176,20 +177,23 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 	        //cout<<volt<<" "<<mpv<<endl;
 	    	k++;
 		  }
-		}	  
+		}
+
 	  }//for(UInt_t j = i; j< nentries; j++)
 
 	  if(k<3) continue; // Need enought points to compute 2nd derivative.
-	  
+
 	  if(k) lastpty = ampv[k-1];
 	  if(k>2) lastpty = (ampv[k-1]+ampv[k-2]+ampv[k-3])/3.;
 
       TString canvasname = "CW_" + Convert_Number_To_TString(tempdetid);
-      TCanvas *c1;   
+      TCanvas *c1;
       c1 = new TCanvas(canvasname.Data() );
       c1->cd();
       TGraphErrors * thegraph = new TGraphErrors(k, avolt, ampv, aevolt, aempv);
       string corr_name="_"+SubDet+Run;
+
+
       int corrected = 0;
       if(SubDet == "TEC" || SubDet == "TOB") {corrected = CorrectGraphForLeakageCurrent(thegraph, tempdetid/10, leakcurfile);} //Added digit bc of double sensors !
       else {corrected = CorrectGraphForLeakageCurrent(thegraph, tempdetid, leakcurfile);}
@@ -203,18 +207,18 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
       thegraph->SetLineColor(2);
       thegraph->SetMarkerColor(1);
       thegraph->SetMarkerStyle(20);
-	  
+
 	  layer = GetLayer(tempdetid);
-	  
+
       //std::cout << tempdetid <<" layer "<< layer << std::endl;
-	  
+
 	  int debug = 0;
 	  bool filter_twice = false;
 	  //if(SubDet=="TID" && (Run=="_170000" || Run=="_193928") ) filter_twice=true;
 
       bool small_rms=false;
-/*      
-      //FIXME - removed protection 
+/*
+      //FIXME - removed protection
       if(SubDet != "TEC" && ((type=="Signal" && rms<1.) || (type=="ClusterWidth" && rms<0.3)) )
       {
       	small_rms=true;
@@ -222,25 +226,26 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
       }
       // Check if module was in the Vbias scan
       //if((isGoodCurve(thegraph, type) && !small_rms) || (tempdetid==369121389 && Run=="_258443")) //exception
-*/      
-      
+*/
+
 	  if( (isGoodCurve(thegraph, type) && !small_rms))
 	  {
-	    Vdep = FitCurve( thegraph, 0, filter_twice , use_curvature, false, "");
+	    Vdep = FitCurve( thegraph, 0, filter_twice , use_curvature, false, "", 0);
       }
 
-      
-      else 
-      { 
+
+      else
+      {
         Vdep=-1;
         if(small_rms) cerr<<" small yrms: "<<rms<<endl;
         else {cout<<FRED("isGoodCurve = false");}
         cerr<<" ---> module "<<tempdetid<<" is skipped."<<endl<<endl<<endl;
       }
 
-	  
 	  tempdepvolt.clear();
-      tempdepvolt.push_back(layer);
+	  // cout<<__LINE__<<endl;
+      tempdepvolt.push_back(layer); //-- possible segfault here ?
+      // cout<<__LINE__<<endl;
       tempdepvolt.push_back(Vdep);
       tempdepvolt.push_back(errVdep);
 	  tempdepvolt.push_back(0);
@@ -250,12 +255,12 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 	  tempdepvolt.push_back(0);
       DetID_Vdep.insert(std::pair< ULong64_t , std::vector<double> >(tempdetid,tempdepvolt));
       // gDirectory->Append(c1);
-      
+
       delete c1;
 
       delete thegraph;
     }//if(iter == DetID_Vdep.end() )
-  
+
   }//end entries loop
 
   for(mapping::iterator iter = DetID_Vdep.begin(); iter != DetID_Vdep.end(); ++iter)
@@ -269,24 +274,24 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 	olastpty = iter->second.at(6);
 	ochi2 = iter->second.at(7);
     odetid = iter->first;
-    
+
     //cout<<"DETID = "<<odetid<<" -- VDEP = "<<odepvolt<<endl;
-	
+
 	if(odepvolt==-1) continue;
-	
+
     tout->Fill();
   }
-  
+
   //std::cout<<nbadfit<<" bad fits over "<<nfit<<std::endl;
-  
+
   output->cd();
   hrms->Write();
   tout->Write();
   gDirectory->Write();
-  
-  delete hrms; 
+
+  delete hrms;
   if(leakcurfile) delete leakcurfile;
-  delete tout; 
+  delete tout;
   delete output;
 
   //std::cout << "Closing input file " << FileToOpen << std::endl;
@@ -298,24 +303,24 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  //v_analysis.push_back("Signal");
+  // v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
-  
+
   vector<string> v_subdet;
-  v_subdet.push_back("TIB");
+  //v_subdet.push_back("TIB");
   v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
+  //v_subdet.push_back("TEC");
   //v_subdet.push_back("TID");
-  
-  bool use_curvature = true; //true-->kink ; false-->lines  
-  
-  bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
-   
-  
+
+  bool use_curvature = false; //true-->kink ; false-->lines
+
+  bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
+
+
   vector<string> runs; vector<string> dates; /*
   runs.push_back("160497");	dates.push_back("20110315");
- 
-  
+
+
 //Old (10)
   runs.push_back("160497");	dates.push_back("20110315");
   runs.push_back("170000");	dates.push_back("20110715");
@@ -327,45 +332,45 @@ int main()
   runs.push_back("203832");	dates.push_back("20120928");
   runs.push_back("208339");	dates.push_back("20121130");
   runs.push_back("211797");	dates.push_back("20130213");
-  
+
 //2015 (4)
   runs.push_back("246963"); dates.push_back("20150603");
-  runs.push_back("254790");	dates.push_back("20150821");    
+  runs.push_back("254790");	dates.push_back("20150821");
   runs.push_back("258443"); dates.push_back("20151007");
   runs.push_back("262254");	dates.push_back("20151121");
-  
+
 //2016 (5)
   runs.push_back("271056");	dates.push_back("20160423");
   runs.push_back("274969");	dates.push_back("20160612");
   runs.push_back("276437");	dates.push_back("20160706");
   runs.push_back("278167");	dates.push_back("20160803");
-  runs.push_back("280385");	dates.push_back("20160909");  
+  runs.push_back("280385");	dates.push_back("20160909");
   runs.push_back("285371");	dates.push_back("20161116");*/
-  
-//2017  
+
+//2017
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
-  //runs.push_back("302131");	dates.push_back("20170831");
-  //runs.push_back("303824");	dates.push_back("20170924"); //Full
-  runs.push_back("305862");	dates.push_back("20171030");
+  // runs.push_back("302131");	dates.push_back("20170831");
+  runs.push_back("303824");	dates.push_back("20170924"); //Full
+  //runs.push_back("305862");	dates.push_back("20171030");
 
- 
-  
-  
+
+
+
   for(int i=0; i<v_analysis.size(); i++)
   {
   	for(int j=0; j<v_subdet.size(); j++)
   	{
  	  for(int irun = 0; irun < runs.size(); irun++)
  	  {
- 	  	if(v_subdet[j]=="TOB" && v_analysis[i]=="Signal" && runs[irun]=="203832") {continue;} 
- 	  	else if(v_subdet[j]=="TEC" && v_analysis[i]=="Signal" && runs[irun]=="160497") {continue;} 
- 	  
- 	    string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";  
+ 	  	if(v_subdet[j]=="TOB" && v_analysis[i]=="Signal" && runs[irun]=="203832") {continue;}
+ 	  	else if(v_subdet[j]=="TEC" && v_analysis[i]=="Signal" && runs[irun]=="160497") {continue;}
+
+ 	    string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";
   	    FitAllCurves(dirname, v_subdet[j], dates[irun], runs[irun], v_analysis[i], use_curvature, smallScan_modules_only);
 	  }
 	}
   }
-  
+
 }
 
