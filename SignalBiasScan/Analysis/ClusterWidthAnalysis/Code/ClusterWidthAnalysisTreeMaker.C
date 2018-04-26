@@ -514,6 +514,10 @@ void ClusterWidthAnalysisTreeMaker::FillHistos(std::map<ULong64_t , std::vector<
   std::map<ULong64_t, TProfile* >::iterator itMon;
   for(unsigned int i=0; i<Hits.size(); i++)
   {
+  	//cout<<"event->ev_timestamp - t_monitor_start = "<<event->ev_timestamp - t_monitor_start<<endl;
+  	//cout<<"Hits[i].width = "<<Hits[i].width<<endl;
+  
+  
     FillHitInfo(HistSoN, ProfVsAngle, &(Hits[i]), thePointNumber, sensors, commonHistos);
 	for(itMon=Monitors.begin(); itMon!=Monitors.end(); itMon++)
 	  if(itMon->first==Hits[i].detId) itMon->second->Fill(event->ev_timestamp - t_monitor_start, Hits[i].width);
@@ -528,6 +532,9 @@ void ClusterWidthAnalysisTreeMaker::FillHistos(std::map<ULong64_t , std::vector<
   std::map<ULong64_t, TProfile* >::iterator itMon;
   for(unsigned int i=0; i<Hits.size(); i++)
   {
+  	//cout<<"event->ev_timestamp - t_monitor_start = "<<event->ev_timestamp - t_monitor_start<<endl;
+  	//cout<<"Hits[i].width = "<<Hits[i].width<<endl;
+  	
     FillHitInfo(HistSoN, ProfVsAngle, &(Hits[i]), thePointNumber, sensors, commonHistos);
 	for(itMon=Monitors.begin(); itMon!=Monitors.end(); itMon++)
 	  if(itMon->first==Hits[i].detId) itMon->second->Fill(event->ev_timestamp - t_monitor_start, Hits[i].width);
@@ -673,6 +680,10 @@ void ClusterWidthAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<T
 	  errRMS = Histo->GetRMSError();
 	  nhits = (int) Histo->Integral();
 	  tree->Fill();
+	  
+	  //PRINTOUT
+	  cout<<"detid "<<detid<<endl;
+	  cout<<"voltage =  "<<voltage<<endl;
 	    
 	  i++;
 
@@ -840,6 +851,11 @@ void ClusterWidthAnalysisTreeMaker::FitProfiles(std::map<ULong64_t , std::vector
 	  errOrigin = pol->GetParError(0);
 	  Chi2 = chi2;
 	  tree->Fill();
+	  
+	  //PRINTOUT
+	  //cout<<"detid "<<detid<<endl;
+	  //cout<<"voltage =  "<<voltage<<endl;
+
 	    
 	  i++;
 

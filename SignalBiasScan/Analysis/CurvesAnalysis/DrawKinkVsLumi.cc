@@ -14,7 +14,7 @@
 #include "TMarker.h"
 #include "TLine.h"
 #include "TString.h"
-#include<vector>
+#include <vector>
 #include "TGaxis.h"
 #include "TROOT.h"
 #include "TLegend.h"
@@ -154,7 +154,7 @@ bool Is_Scan_Bad(TString subdet, TString run, TString observable, ULong64_t deti
 
 void DrawOneModule(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, ULong64_t detid, bool useflu=false, bool print=false, bool use_curvature=true, bool superimpose_simu=false, bool draw_vdep_lab=true, bool draw_fit=false)
 {
-	bool draw_vs_fluence = true; //If true, main axis is fluence ; else, main axis is lumi
+	bool draw_vs_fluence = false; //If true, main axis is fluence ; else, main axis is lumi
 
   if(subdet!="TIB" && subdet!="TOB" && subdet!="TID" && subdet!="TEC")
   {cout<<__LINE__<<" : Subdet '"<<subdet<<"' not allowed."<<endl; return;}
@@ -1472,7 +1472,7 @@ int main(int argc, char *argv[])
 
   string dirname="./DECO_files";
 
-  bool use_curvature=false; //true-->kink ; false-->lines
+  bool use_curvature = false; //true-->kink ; false-->lines
 
   bool usefluence = true; //Draw fluence axis
   bool superimpose_simu = false; //Superimpose simulation curves (only TIB for now)
@@ -1496,8 +1496,8 @@ int main(int argc, char *argv[])
 //-- Choose the subdet
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  // v_subdet.push_back("TOB");
-  //v_subdet.push_back("TEC");
+  v_subdet.push_back("TOB");
+  v_subdet.push_back("TEC");
 
 
 
@@ -1547,11 +1547,11 @@ int main(int argc, char *argv[])
 
 	  //2017 (2)
 	  // runs.push_back("295324");lumis.push_back(45.71+29.46); //-- FULL
-	  // runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
+	  runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
 	  runs.push_back("298996");lumis.push_back(52.18+29.46);
   	  runs.push_back("302131");lumis.push_back(65.84+29.46);
-  	  runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (not enough stat. yet for TEC)
-	  if(v_subdet[j] != "TOB") {runs.push_back("305862");lumis.push_back(91.65+29.46);} //check
+  	  runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL
+	  runs.push_back("305862");lumis.push_back(91.65+29.46);
 
 
 

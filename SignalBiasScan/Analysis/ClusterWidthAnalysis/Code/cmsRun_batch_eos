@@ -1,0 +1,103 @@
+#!/bin/bash
+
+
+# $1 : CMSSW version
+if [ "$1" = "" ]
+then
+    echo " Need a CMSSW version. exit."
+    echo " Syntax : cmsRun_batch configfile.cfg proxyfile outputfilename"
+    exit
+fi
+
+# CMSSW directory -- no '/' at the end
+CMSSWDIR=/afs/cern.ch/work/n/ntonon/public/CMSSW_9_2_10/src
+
+#Relative path from CMSSW directory
+RELPATH=SiStripRadMonitoring/SignalBiasScan/Analysis/ClusterWidthAnalysis/Code
+
+# Castor storage directory -- no '/' at the end
+STOREDIR=
+# $4 : storedir path
+if [ "$4" != "" ]
+  then STOREDIR=$4
+  
+  else 
+  	echo "Missing outDir"
+ 	 exit
+fi
+
+#starting directory
+echo "You are working here : "
+pwd
+export SCRATCH=`pwd`
+echo "Your CMSSW directory is :"
+echo $CMSSWDIR
+echo
+
+cd $CMSSWDIR
+eval `scramv1 runtime -sh`
+cd -
+
+
+# $1 : config file
+if [ "$1" != "" ]
+  then
+    echo "cp $CMSSWDIR/$RELPATH/$1 ."
+    cp $CMSSWDIR/$RELPATH/$1 .
+  else
+    echo " Need a configuration file. exit."
+    echo " Syntax : cmsRun_batch configfile.cfg proxyfile outputfilename"c
+    exit
+fi
+
+# $1 can be a path, so get only the filename here
+configfile=`echo $1 | awk -F/ '{print $NF}' | awk -F. '{print $1}'`
+
+cat ${configfile}.py > ${configfile}_temp.py
+
+
+# set proxy to read files on the grid
+if [ "$2" != "" ] ; then
+    echo " setting proxy: $2"
+    export X509_USER_PROXY=/afs/cern.ch/user/n/ntonon/$2
+fi
+
+
+# name for output file
+if [ "$3" != "" ] ; then
+    echo " output file will be renamed: $3"
+    OUTPUT_FILE_NAME=$3
+fi
+
+echo "cmsRun ${configfile}_temp.py"
+cmsRun ${configfile}_temp.py
+
+echo
+ls -lhrt
+echo
+
+OUTPUT_FILE=`ls -rt | grep .root | tail -1`
+echo "copy $OUTPUT_FILE to $OUTPUT_FILE_NAME"
+cp $OUTPUT_FILE $OUTPUT_FILE_NAME
+
+echo
+ls -lhrt
+echo
+
+
+# copy the 1 last root files in eos
+for OUTPUT_FILE in `ls -rt | grep .root | tail -1`
+do
+    echo "copy $OUTPUT_FILE to $STOREDIR/$OUTPUT_FILE"
+    xrdcp $OUTPUT_FILE root://eoscms.cern.ch/$STOREDIR/$OUTPUT_FILE &> cp_output
+    cat cp_output
+    noerror=`cat cp_output`
+    # if copy to eos failed
+    #if [ "$noerror" != "" ] # may no more be right
+    #then
+    #  cp $OUTPUT_FILE /afs/cern.ch/user/j/jlagram/work/$OUTPUT_FILE
+    #fi
+done
+
+exit
+

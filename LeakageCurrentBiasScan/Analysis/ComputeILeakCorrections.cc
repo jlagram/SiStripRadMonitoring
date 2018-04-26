@@ -54,8 +54,8 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
                    char* subdet, char* run, int detid=369121605, char* bad_periods="")
 {
   // Read files with voltage infos
-  //gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
-  gsteps = ReadSteps(Form("./Steps/Steps_%s.txt", run),false);
+  gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
+  //gsteps = ReadSteps(Form("./Steps/Steps_%s.txt", run),false);
   if(!gsteps) {std::cout<<" No voltage steps info. Exit."<<std::endl; return;}
   gvolt = 0;//ReadVoltage(Form("Data/ConditionBrowser_%s.root", run));
   //if(!gvolt) std::cout<<" ConditionBrowser file does not exist, but it is not a problem."<<std::endl;
@@ -670,10 +670,24 @@ int main()
 	bool fullscan = true; //If small scan, compute corrections only for dew detids !
 
 //--- FUNCTION CALLS
-	//ComputeAllCorrections("TIB", "20120921_run203243", fullscan);
-	ComputeAllCorrections("TOB", "20120921_run203243", fullscan);
-	//ComputeAllCorrections("TEC", "20170919_run303272", fullscan);
 
+	ComputeAllCorrections("TEC", "20180418_run314574", fullscan);
+/*
+	ComputeAllCorrections("TIB", "20180418_run314574", fullscan);
+	ComputeAllCorrections("TOB", "20180418_run314574", fullscan);
+	ComputeAllCorrections("TEC", "20180418_run314574", fullscan);
+	ComputeAllCorrections("TID", "20180418_run314574", fullscan);
+	
+	ComputeAllCorrections("TIB", "20180420_run314755", fullscan);
+	ComputeAllCorrections("TOB", "20180420_run314755", fullscan);
+	ComputeAllCorrections("TEC", "20180420_run314755", fullscan);
+	ComputeAllCorrections("TID", "20180420_run314755", fullscan);
+		
+	ComputeAllCorrections("TIB", "20180420_run314756", fullscan);
+	ComputeAllCorrections("TOB", "20180420_run314756", fullscan);
+	ComputeAllCorrections("TEC", "20180420_run314756", fullscan);
+	ComputeAllCorrections("TID", "20180420_run314756", fullscan);
+	*/
 
 	return 0;
 }

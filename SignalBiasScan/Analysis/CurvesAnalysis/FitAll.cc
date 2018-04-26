@@ -64,11 +64,13 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   tr->SetBranchAddress("Voltage",&volt);
   tr->SetBranchAddress("Index",&id);
   tr->SetBranchAddress("errVoltage",&evolt);
-  if(type=="Signal") {
+  if(type=="Signal")
+  {
     tr->SetBranchAddress("MPV",&mpv);
     tr->SetBranchAddress("errMPV",&empv);
   }
-  else if(type=="ClusterWidth"){
+  else if(type=="ClusterWidth")
+  {
     tr->SetBranchAddress("Mean",&mpv);
     tr->SetBranchAddress("errMean",&empv);
   }
@@ -108,7 +110,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   double errVdep;
 
   typedef std::map< ULong64_t, std::vector<double> > mapping;
-  std::vector< double > tempdepvolt;
+  // std::vector< double > tempdepvolt;
   mapping DetID_Vdep;
 
   double avolt[step];
@@ -145,46 +147,46 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
     //cout<<"detid = "<<detid<<" / tmp_ts_detid="<<tmp_ts_detid<<endl;
 
 
-	if(smallScan_modules_only)
-	{
-    	if(SubDet == "TOB" && !tmp_ts_detid.Contains("4362815") && !tmp_ts_detid.Contains("4362329") ) {continue;}
+  	if(smallScan_modules_only)
+  	{
+      if(SubDet == "TOB" && !tmp_ts_detid.Contains("4362815") && !tmp_ts_detid.Contains("4362329") ) {continue;}
 
-    	else if(SubDet == "TIB" && !tmp_ts_detid.Contains("36912138") && !tmp_ts_detid.Contains("369121390") && !tmp_ts_detid.Contains("36912160") && !tmp_ts_detid.Contains("36912161") && !tmp_ts_detid.Contains("36912586") && !tmp_ts_detid.Contains("369125870")) {continue;}
+      else if(SubDet == "TIB" && !tmp_ts_detid.Contains("36912138") && !tmp_ts_detid.Contains("369121390") && !tmp_ts_detid.Contains("36912160") && !tmp_ts_detid.Contains("36912161") && !tmp_ts_detid.Contains("36912586") && !tmp_ts_detid.Contains("369125870")) {continue;}
 
-    	else if(SubDet == "TEC" && !tmp_ts_detid.Contains("470148") ) {continue;}
-	}
+      else if(SubDet == "TEC" && !tmp_ts_detid.Contains("470148") ) {continue;}
+  	}
 
-    tempdetid= (ULong64_t) detid;
+    tempdetid = (ULong64_t) detid;
 
     mapping::iterator iter = DetID_Vdep.find(tempdetid);
-    if(iter == DetID_Vdep.end() )
+    if(iter == DetID_Vdep.end() ) //If detid was not already found in map
     {
+      // cout<<"map size 0 = "<<DetID_Vdep.size()<<endl;
+
       k=0;
 
       for(UInt_t j = i; j< nentries; j++)
       {
-	    tr->GetEntry(j);
+  	    tr->GetEntry(j);
 
-		if(tempdetid==(ULong64_t) detid)
-		{
-		  if(empv<5)
-		  {
-	    	avolt[k]=volt;
-	    	aevolt[k]=evolt;
-	    	ampv[k]=mpv;
-	    	aempv[k]=empv;
-			if(err_type==1) aempv[k]=2.5; //Default error
-	        //cout<<volt<<" "<<mpv<<endl;
-	    	k++;
-		  }
-		}
+    		if(tempdetid==(ULong64_t) detid)
+    		{
+    		  if(empv<5)
+    		  {
+    	    	avolt[k]=volt;
+    	    	aevolt[k]=evolt;
+    	    	ampv[k]=mpv;
+    	    	aempv[k]=empv;
+    		    if(err_type==1) {aempv[k]=2.5;} //Default error
+    	        //cout<<volt<<" "<<mpv<<endl;
+    	    	k++;
+    		  }
+    		}
+	    }//for(UInt_t j = i; j< nentries; j++)
 
-	  }//for(UInt_t j = i; j< nentries; j++)
-
-	  if(k<3) continue; // Need enought points to compute 2nd derivative.
-
-	  if(k) lastpty = ampv[k-1];
-	  if(k>2) lastpty = (ampv[k-1]+ampv[k-2]+ampv[k-3])/3.;
+  	  if(k<3) {continue;} // Need enought points to compute 2nd derivative.
+  	  if(k) {lastpty = ampv[k-1];}
+  	  if(k>2) {lastpty = (ampv[k-1]+ampv[k-2]+ampv[k-3])/3.;}
 
       TString canvasname = "CW_" + Convert_Number_To_TString(tempdetid);
       TCanvas *c1;
@@ -208,16 +210,16 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
       thegraph->SetMarkerColor(1);
       thegraph->SetMarkerStyle(20);
 
-	  layer = GetLayer(tempdetid);
+      layer = GetLayer(tempdetid);
 
-      //std::cout << tempdetid <<" layer "<< layer << std::endl;
+      // std::cout << tempdetid <<" layer "<< layer << std::endl;
 
-	  int debug = 0;
-	  bool filter_twice = false;
-	  //if(SubDet=="TID" && (Run=="_170000" || Run=="_193928") ) filter_twice=true;
+  	  int debug = 0;
+  	  bool filter_twice = false;
+  	  //if(SubDet=="TID" && (Run=="_170000" || Run=="_193928") ) filter_twice=true;
 
       bool small_rms=false;
-/*
+      /*
       //FIXME - removed protection
       if(SubDet != "TEC" && ((type=="Signal" && rms<1.) || (type=="ClusterWidth" && rms<0.3)) )
       {
@@ -226,11 +228,11 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
       }
       // Check if module was in the Vbias scan
       //if((isGoodCurve(thegraph, type) && !small_rms) || (tempdetid==369121389 && Run=="_258443")) //exception
-*/
+      */
 
-	  if( (isGoodCurve(thegraph, type) && !small_rms))
-	  {
-	    Vdep = FitCurve( thegraph, 0, filter_twice , use_curvature, false, "", 0);
+  	  if( (isGoodCurve(thegraph, type) && !small_rms))
+  	  {
+  	    Vdep = FitCurve( thegraph, 0, filter_twice , use_curvature, false, "", 0);
       }
 
 
@@ -242,42 +244,51 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
         cerr<<" ---> module "<<tempdetid<<" is skipped."<<endl<<endl<<endl;
       }
 
-	  tempdepvolt.clear();
-	  // cout<<__LINE__<<endl;
+      std::vector< double > tempdepvolt;
+      // tempdepvolt.clear();
+
+      // cout<<"layer = "<<layer<<endl;
+      // cout<<__LINE__<<endl;
       tempdepvolt.push_back(layer); //-- possible segfault here ?
       // cout<<__LINE__<<endl;
+
       tempdepvolt.push_back(Vdep);
       tempdepvolt.push_back(errVdep);
-	  tempdepvolt.push_back(0);
       tempdepvolt.push_back(0);
-	  tempdepvolt.push_back(0);
-	  tempdepvolt.push_back(lastpty);
-	  tempdepvolt.push_back(0);
-      DetID_Vdep.insert(std::pair< ULong64_t , std::vector<double> >(tempdetid,tempdepvolt));
-      // gDirectory->Append(c1);
+      tempdepvolt.push_back(0);
+      tempdepvolt.push_back(0);
+      tempdepvolt.push_back(lastpty);
+      tempdepvolt.push_back(0);
+
+      // cout<<__LINE__<<endl;
+      // cout<<"DetID_Vdep = "<<&DetID_Vdep<<endl;
+      // cout<<"map size 1 = "<<DetID_Vdep.size()<<endl;
+
+      DetID_Vdep.insert(pair<ULong64_t,vector<double> > (tempdetid,tempdepvolt) );
+      // DetID_Vdep.insert( std::make_pair(tempdetid,tempdepvolt) );
 
       delete c1;
-
       delete thegraph;
-    }//if(iter == DetID_Vdep.end() )
+    } //end : if(iter == DetID_Vdep.end() )
 
-  }//end entries loop
+  }//end : entries loop
+
 
   for(mapping::iterator iter = DetID_Vdep.begin(); iter != DetID_Vdep.end(); ++iter)
   {
     olayer = iter->second.at(0);
     odepvolt = iter->second.at(1);
     oerrdepvolt = iter->second.at(2);
-	oplateau = iter->second.at(3);
+    oplateau = iter->second.at(3);
     ofitchisquare = iter->second.at(4);
-	ofitstatus = iter->second.at(5);
-	olastpty = iter->second.at(6);
-	ochi2 = iter->second.at(7);
+    ofitstatus = iter->second.at(5);
+    olastpty = iter->second.at(6);
+    ochi2 = iter->second.at(7);
     odetid = iter->first;
 
     //cout<<"DETID = "<<odetid<<" -- VDEP = "<<odepvolt<<endl;
 
-	if(odepvolt==-1) continue;
+	  if(odepvolt==-1) {continue;}
 
     tout->Fill();
   }
@@ -291,7 +302,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 
   delete hrms;
   if(leakcurfile) delete leakcurfile;
-  delete tout;
+  // delete tout;
   delete output;
 
   //std::cout << "Closing input file " << FileToOpen << std::endl;
@@ -303,18 +314,18 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  // v_analysis.push_back("Signal");
-  v_analysis.push_back("ClusterWidth");
+  v_analysis.push_back("Signal");
+  // v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
-  //v_subdet.push_back("TIB");
+  v_subdet.push_back("TIB");
   v_subdet.push_back("TOB");
-  //v_subdet.push_back("TEC");
-  //v_subdet.push_back("TID");
+  v_subdet.push_back("TEC");
+  v_subdet.push_back("TID");
 
   bool use_curvature = false; //true-->kink ; false-->lines
 
-  bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
+  bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
 
   vector<string> runs; vector<string> dates; /*
@@ -348,12 +359,16 @@ int main()
   runs.push_back("285371");	dates.push_back("20161116");*/
 
 //2017
-  //runs.push_back("295324");	dates.push_back("20170527"); //Full
+  // runs.push_back("295324");	dates.push_back("20170527"); //Full
+  // runs.push_back("295376");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   // runs.push_back("302131");	dates.push_back("20170831");
   runs.push_back("303824");	dates.push_back("20170924"); //Full
-  //runs.push_back("305862");	dates.push_back("20171030");
+  // runs.push_back("305862");	dates.push_back("20171030");
 
+//2018
+	// runs.push_back("314574");	dates.push_back("20180418");
+	// runs.push_back("314755");	dates.push_back("20180420");
 
 
 

@@ -1190,7 +1190,11 @@ int CorrectGraphForLeakageCurrent(TGraph* g, double detid, TFile* f)
         if(detid == id || detid/10 == id || detid == id/10) {isInList = true;}
   	}
   
-  	if(isInList) {cout<<FRED("No leakage current correction for detid : ")<<std::setprecision(11)<<detid<<endl;}
+  	//if(isInList) 
+  	{
+  		cout<<FRED("No leakage current correction for detid : ")<<std::setprecision(11)<<detid<<endl;
+  	}
+  	
   	return 0;
   }
 

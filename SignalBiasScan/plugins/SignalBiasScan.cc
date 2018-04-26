@@ -49,10 +49,14 @@
 #include "DataFormats/GeometryVector/interface/LocalVector.h"
 #include <DataFormats/TrackerRecHit2D/interface/SiPixelRecHit.h>
 #include <DataFormats/SiStripDetId/interface/SiStripDetId.h>
+
+//-- Not available in newer CMSSW version -- to comment
 #include <DataFormats/SiStripDetId/interface/TIBDetId.h>
 #include <DataFormats/SiStripDetId/interface/TIDDetId.h>
 #include <DataFormats/SiStripDetId/interface/TOBDetId.h>
 #include <DataFormats/SiStripDetId/interface/TECDetId.h>
+
+
 #include "DataFormats/DetId/interface/DetId.h"
 #include <DataFormats/SiPixelCluster/interface/SiPixelCluster.h>
 #include <DataFormats/TrackReco/interface/TrackFwd.h>
@@ -136,6 +140,21 @@ bool isUsedInSmallBiasScan ( int detid ) {
      detid==436281524 || 
      detid==436281520 || 
      detid==436281516 ) return true;
+     
+  // TOB + 1.3.1.6 //CHANGED
+  if(detid==436232901 || 
+     detid==436232902 || 
+     detid==436232905 || 
+     detid==436232906 || 
+     detid==436232909 ||
+     detid==436232910 ||
+     detid==436232913 ||
+     detid==436232914 ||
+     detid==436232917 ||
+     detid==436232918 ||
+     detid==436232921 ||
+     detid==436232922 ) return true;
+
   
   // TEC
   if(detid==470148196 || 
@@ -298,7 +317,10 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
  
 
   // Check there is at least one good primary vertex
+  //--CHANGED : must disactivate this collection for ALCARECO
   bool foundGoodVertex = true;
+  
+  /*
   hnPV->Fill(primaryVertex->size()); 
   for(unsigned int i = 0; i< primaryVertex->size() ; i++){
     if(!(*primaryVertex)[i].isFake() && (*primaryVertex)[i].tracksSize()>2){
@@ -306,7 +328,7 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       hPVr->Fill((*primaryVertex)[i].position().rho());
       if( fabs( (*primaryVertex)[i].z()) <= 24 && fabs( (*primaryVertex)[i].position().rho()) <= 2) foundGoodVertex = true; 
     }
-  }
+  }*/
  
 
  

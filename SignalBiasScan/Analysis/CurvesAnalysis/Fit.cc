@@ -7,9 +7,9 @@ void FitTIBSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(369121385);
+	// v_modids.push_back(369121385);
 
-/*
+
 	//TIBminus_1_2_2_1
 	v_modids.push_back(369121381);
 	v_modids.push_back(369121382);
@@ -27,12 +27,13 @@ void FitTIBSmallScan(string dirname, string date, string run, string type)
 	v_modids.push_back(369125862);
 	v_modids.push_back(369125866);
 	v_modids.push_back(369125870);
-*/
+
 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
   	FitOneCurve(dirname, "TIB", run, v_modids[i_modid], type, 1, date, 0);
-  }
+    system( ("mv Fit_line.png Fit_line_"+Convert_Number_To_TString(v_modids[i_modid])+".png").Data() );
+}
 }
 
 //-- CHOOSE HERE THE TOB MODULE(S) FOR WHICH YOU WANT TO PLOT THE SCAN CURVE
@@ -40,9 +41,9 @@ void FitTOBSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(4362815121);
+	// v_modids.push_back(4362815241);
 
-/*
+
 	v_modids.push_back(4362815081);
 	v_modids.push_back(4362815082);
 	v_modids.push_back(4362815121);
@@ -55,12 +56,13 @@ void FitTOBSmallScan(string dirname, string date, string run, string type)
 	v_modids.push_back(4362815242);
 	v_modids.push_back(4362815281);
 	v_modids.push_back(4362815282);
-*/
+
 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
   	FitOneCurve(dirname, "TOB", run, v_modids[i_modid], type, 1, date, 0);
-  }
+    system( ("mv Fit_line.png Fit_line_"+Convert_Number_To_TString(v_modids[i_modid])+".png").Data() );
+}
 }
 
 //-- CHOOSE HERE THE TEC MODULE(S) FOR WHICH YOU WANT TO PLOT THE SCAN CURVE
@@ -68,7 +70,7 @@ void FitTECSmallScan(string dirname, string date, string run, string type)
 {
 	vector<ULong64_t> v_modids;
 
-	v_modids.push_back(4701482622);
+	v_modids.push_back(4701481960);
 
 
 /*
@@ -107,10 +109,12 @@ void FitTECSmallScan(string dirname, string date, string run, string type)
 	v_modids.push_back(4701482622);
 	v_modids.push_back(4701482922);
 	v_modids.push_back(4701483322);
-*/
+*/	
+
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
   	FitOneCurve(dirname, "TEC", run, v_modids[i_modid], type, 1, date, 0);
+    system( ("mv Fit_line.png Fit_line_"+Convert_Number_To_TString(v_modids[i_modid])+".png").Data() );
   }
 }
 
@@ -122,11 +126,11 @@ int main()
 
 
 //--- Choose the observable
-  //string type = "Signal";
+  // string type = "Signal";
   string type = "ClusterWidth";
 
 //--- Choose the subdetector (modules are selected above)
-  // string subdet = "TIB";
+  //string subdet = "TIB";
   //string subdet = "TOB";
   string subdet = "TEC";
 
@@ -163,10 +167,16 @@ int main()
 
   //2017
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
+  // runs.push_back("295376");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
   //runs.push_back("303824");	dates.push_back("20170924");
   runs.push_back("305862");	dates.push_back("20171030");
+
+  //2018
+  //runs.push_back("314574");	dates.push_back("20180418");
+  // runs.push_back("314755");	dates.push_back("20180420");
+
 
 
 
