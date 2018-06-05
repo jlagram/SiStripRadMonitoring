@@ -5,7 +5,7 @@ $LSB_RCP1
 $LSB_RCP2
 $LSB_RCP3
 # LSBATCH: User input
-/usr/local/lsf/etc/job_starter 'script_runTreeMaker_batch.sh test303824'
+/usr/local/lsf/etc/job_starter 'script_runTreeMaker_batch.sh 314574_allDatasets'
 ExitStat=$?
 wait
 # LSBATCH: End user input

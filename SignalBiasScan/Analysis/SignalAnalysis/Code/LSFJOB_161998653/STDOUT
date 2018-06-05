@@ -1,0 +1,3704 @@
+@(#)CERN job starter $Date: 2010/06/23 14:22:16 $
+Working directory is </pool/lsf/ntonon/161998653> on <b6aad83086.cern.ch>
+
+You are working here : 
+/pool/lsf/ntonon/161998653
+Your CMSSW directory is :
+/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_9_2_10/src
+
+/pool/lsf/ntonon/161998653
+Will execute script from : 
+/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_9_2_10/src/SiStripRadMonitoring/SignalBiasScan/Analysis/SignalAnalysis/Code
+Generating dictionary Dict.C ...
+rootcint -f Dict.C -c -DNO_ORCA_CLASSES ../../../interface/TreeEvent.h LinkDef.h
+g++ -c Dict.C -pthread -std=c++1y -m64 -I/cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_9_2_10/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.08.07/include  -o Dict.o
+Linking object files ...
+g++ ../../VoltageSteps/Code/VoltageStepsMaker.o ../../Clustering/Code/ClustersMaker.o SignalAnalysisTreeMaker.o Run_TreeMaker_compiled.o  -L/cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_9_2_10/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.08.07/lib -lCore -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lMultiProc -pthread -lm -ldl -rdynamic -o Run_TreeMaker_compiled
+Compiling source files ...
+Initializing
+Setting Deco Voltage vector : 
+ using timestamp step definition 
+ Step : 10 1524017916-1524018045  start : Wed Apr 18 04:18:36 2018
+ Step : 15 1524018194-1524018322  start : Wed Apr 18 04:23:14 2018
+ Step : 20 1524018487-1524018616  start : Wed Apr 18 04:28:07 2018
+ Step : 25 1524018741-1524018870  start : Wed Apr 18 04:32:21 2018
+ Step : 30 1524019079-1524019208  start : Wed Apr 18 04:37:59 2018
+ Step : 35 1524019330-1524019459  start : Wed Apr 18 04:42:10 2018
+ Step : 40 1524019580-1524019708  start : Wed Apr 18 04:46:20 2018
+ Step : 50 1524019788-1524019917  start : Wed Apr 18 04:49:48 2018
+ Step : 60 1524020018-1524020147  start : Wed Apr 18 04:53:38 2018
+ Step : 70 1524020230-1524020359  start : Wed Apr 18 04:57:10 2018
+ Step : 80 1524020462-1524020590  start : Wed Apr 18 05:01:02 2018
+ Step : 90 1524020690-1524020819  start : Wed Apr 18 05:04:50 2018
+ Step : 105 1524020933-1524021062  start : Wed Apr 18 05:08:53 2018
+ Step : 120 1524021216-1524021344  start : Wed Apr 18 05:13:36 2018
+ Step : 135 1524021585-1524021714  start : Wed Apr 18 05:19:45 2018
+ Step : 150 1524021872-1524022000  start : Wed Apr 18 05:24:32 2018
+ Step : 165 1524022133-1524022261  start : Wed Apr 18 05:28:53 2018
+ Step : 180 1524022388-1524022517  start : Wed Apr 18 05:33:08 2018
+ Step : 200 1524022617-1524022746  start : Wed Apr 18 05:36:57 2018
+ Step : 225 1524022916-1524023045  start : Wed Apr 18 05:41:56 2018
+ Step : 250 1524023204-1524023332  start : Wed Apr 18 05:46:44 2018
+ Step : 275 1524023450-1524023578  start : Wed Apr 18 05:50:50 2018
+ Step : 300 1524023735-1524023863  start : Wed Apr 18 05:55:35 2018
+ Step : 300 1524023736-1524023863  start : Wed Apr 18 05:55:36 2018
+ Monitor : t_start 1524017580  t_end 1524024180
+ done
+ found 23 steps 
+NUMBER OF ENTRIES = 15291516
+Number of events : 0/15291516
+Number of events : 5000/15291516
+Number of events : 10000/15291516
+Number of events : 15000/15291516
+Number of events : 20000/15291516
+Number of events : 25000/15291516
+Number of events : 30000/15291516
+Number of events : 35000/15291516
+Number of events : 40000/15291516
+Number of events : 45000/15291516
+Number of events : 50000/15291516
+Number of events : 55000/15291516
+Number of events : 60000/15291516
+Number of events : 65000/15291516
+Number of events : 70000/15291516
+Number of events : 75000/15291516
+Number of events : 80000/15291516
+Number of events : 85000/15291516
+Number of events : 90000/15291516
+Number of events : 95000/15291516
+Number of events : 100000/15291516
+Number of events : 105000/15291516
+Number of events : 110000/15291516
+Number of events : 115000/15291516
+Number of events : 120000/15291516
+Number of events : 125000/15291516
+Number of events : 130000/15291516
+Number of events : 135000/15291516
+Number of events : 140000/15291516
+--- 5000 entries w/ positive V values
+Number of events : 145000/15291516
+--- 10000 entries w/ positive V values
+Number of events : 150000/15291516
+--- 15000 entries w/ positive V values
+Number of events : 155000/15291516
+--- 20000 entries w/ positive V values
+Number of events : 160000/15291516
+--- 25000 entries w/ positive V values
+Number of events : 165000/15291516
+--- 30000 entries w/ positive V values
+Number of events : 170000/15291516
+--- 35000 entries w/ positive V values
+Number of events : 175000/15291516
+--- 40000 entries w/ positive V values
+Number of events : 180000/15291516
+--- 45000 entries w/ positive V values
+Number of events : 185000/15291516
+--- 50000 entries w/ positive V values
+Number of events : 190000/15291516
+--- 55000 entries w/ positive V values
+Number of events : 195000/15291516
+--- 60000 entries w/ positive V values
+Number of events : 200000/15291516
+--- 65000 entries w/ positive V values
+Number of events : 205000/15291516
+Number of events : 210000/15291516
+Number of events : 215000/15291516
+Number of events : 220000/15291516
+Number of events : 225000/15291516
+Number of events : 230000/15291516
+Number of events : 235000/15291516
+Number of events : 240000/15291516
+--- 70000 entries w/ positive V values
+Number of events : 245000/15291516
+--- 75000 entries w/ positive V values
+Number of events : 250000/15291516
+--- 80000 entries w/ positive V values
+Number of events : 255000/15291516
+--- 85000 entries w/ positive V values
+Number of events : 260000/15291516
+--- 90000 entries w/ positive V values
+Number of events : 265000/15291516
+--- 95000 entries w/ positive V values
+Number of events : 270000/15291516
+--- 100000 entries w/ positive V values
+Number of events : 275000/15291516
+--- 105000 entries w/ positive V values
+Number of events : 280000/15291516
+--- 110000 entries w/ positive V values
+Number of events : 285000/15291516
+--- 115000 entries w/ positive V values
+Number of events : 290000/15291516
+--- 120000 entries w/ positive V values
+Number of events : 295000/15291516
+--- 125000 entries w/ positive V values
+Number of events : 300000/15291516
+Number of events : 305000/15291516
+--- 130000 entries w/ positive V values
+Number of events : 310000/15291516
+Number of events : 315000/15291516
+Number of events : 320000/15291516
+Number of events : 325000/15291516
+Number of events : 330000/15291516
+Number of events : 335000/15291516
+Number of events : 340000/15291516
+Number of events : 345000/15291516
+Number of events : 350000/15291516
+--- 135000 entries w/ positive V values
+Number of events : 355000/15291516
+--- 140000 entries w/ positive V values
+Number of events : 360000/15291516
+--- 145000 entries w/ positive V values
+Number of events : 365000/15291516
+--- 150000 entries w/ positive V values
+Number of events : 370000/15291516
+--- 155000 entries w/ positive V values
+Number of events : 375000/15291516
+--- 160000 entries w/ positive V values
+Number of events : 380000/15291516
+--- 165000 entries w/ positive V values
+Number of events : 385000/15291516
+--- 170000 entries w/ positive V values
+Number of events : 390000/15291516
+--- 175000 entries w/ positive V values
+Number of events : 395000/15291516
+--- 180000 entries w/ positive V values
+Number of events : 400000/15291516
+--- 185000 entries w/ positive V values
+Number of events : 405000/15291516
+--- 190000 entries w/ positive V values
+Number of events : 410000/15291516
+--- 195000 entries w/ positive V values
+Number of events : 415000/15291516
+Number of events : 420000/15291516
+Number of events : 425000/15291516
+Number of events : 430000/15291516
+Number of events : 435000/15291516
+Number of events : 440000/15291516
+Number of events : 445000/15291516
+Number of events : 450000/15291516
+Number of events : 455000/15291516
+Number of events : 460000/15291516
+Number of events : 465000/15291516
+--- 200000 entries w/ positive V values
+Number of events : 470000/15291516
+--- 205000 entries w/ positive V values
+Number of events : 475000/15291516
+--- 210000 entries w/ positive V values
+Number of events : 480000/15291516
+--- 215000 entries w/ positive V values
+Number of events : 485000/15291516
+--- 220000 entries w/ positive V values
+Number of events : 490000/15291516
+--- 225000 entries w/ positive V values
+Number of events : 495000/15291516
+--- 230000 entries w/ positive V values
+Number of events : 500000/15291516
+--- 235000 entries w/ positive V values
+Number of events : 505000/15291516
+--- 240000 entries w/ positive V values
+Number of events : 510000/15291516
+--- 245000 entries w/ positive V values
+Number of events : 515000/15291516
+--- 250000 entries w/ positive V values
+Number of events : 520000/15291516
+--- 255000 entries w/ positive V values
+--- 255000 entries w/ positive V values
+--- 255000 entries w/ positive V values
+--- 255000 entries w/ positive V values
+Number of events : 525000/15291516
+Number of events : 530000/15291516
+Number of events : 535000/15291516
+Number of events : 540000/15291516
+Number of events : 545000/15291516
+Number of events : 550000/15291516
+Number of events : 555000/15291516
+Number of events : 560000/15291516
+Number of events : 565000/15291516
+--- 260000 entries w/ positive V values
+--- 260000 entries w/ positive V values
+Number of events : 570000/15291516
+Number of events : 575000/15291516
+Number of events : 580000/15291516
+--- 265000 entries w/ positive V values
+Number of events : 585000/15291516
+--- 270000 entries w/ positive V values
+Number of events : 590000/15291516
+--- 275000 entries w/ positive V values
+Number of events : 595000/15291516
+--- 280000 entries w/ positive V values
+Number of events : 600000/15291516
+--- 285000 entries w/ positive V values
+Number of events : 605000/15291516
+--- 290000 entries w/ positive V values
+Number of events : 610000/15291516
+--- 295000 entries w/ positive V values
+Number of events : 615000/15291516
+--- 300000 entries w/ positive V values
+Number of events : 620000/15291516
+--- 305000 entries w/ positive V values
+Number of events : 625000/15291516
+--- 310000 entries w/ positive V values
+Number of events : 630000/15291516
+--- 315000 entries w/ positive V values
+Number of events : 635000/15291516
+--- 320000 entries w/ positive V values
+--- 320000 entries w/ positive V values
+--- 320000 entries w/ positive V values
+--- 320000 entries w/ positive V values
+Number of events : 640000/15291516
+Number of events : 645000/15291516
+Number of events : 650000/15291516
+Number of events : 655000/15291516
+Number of events : 660000/15291516
+Number of events : 665000/15291516
+Number of events : 670000/15291516
+Number of events : 675000/15291516
+Number of events : 680000/15291516
+Number of events : 685000/15291516
+Number of events : 690000/15291516
+--- 325000 entries w/ positive V values
+Number of events : 695000/15291516
+Number of events : 700000/15291516
+--- 330000 entries w/ positive V values
+--- 330000 entries w/ positive V values
+Number of events : 705000/15291516
+--- 335000 entries w/ positive V values
+Number of events : 710000/15291516
+--- 340000 entries w/ positive V values
+Number of events : 715000/15291516
+--- 345000 entries w/ positive V values
+Number of events : 720000/15291516
+--- 350000 entries w/ positive V values
+Number of events : 725000/15291516
+--- 355000 entries w/ positive V values
+Number of events : 730000/15291516
+--- 360000 entries w/ positive V values
+Number of events : 735000/15291516
+--- 365000 entries w/ positive V values
+Number of events : 740000/15291516
+--- 370000 entries w/ positive V values
+Number of events : 745000/15291516
+--- 375000 entries w/ positive V values
+Number of events : 750000/15291516
+--- 380000 entries w/ positive V values
+--- 380000 entries w/ positive V values
+--- 380000 entries w/ positive V values
+--- 380000 entries w/ positive V values
+--- 380000 entries w/ positive V values
+Number of events : 755000/15291516
+--- 385000 entries w/ positive V values
+Number of events : 760000/15291516
+Number of events : 765000/15291516
+Number of events : 770000/15291516
+Number of events : 775000/15291516
+Number of events : 780000/15291516
+Number of events : 785000/15291516
+Number of events : 790000/15291516
+Number of events : 795000/15291516
+Number of events : 800000/15291516
+Number of events : 805000/15291516
+Number of events : 810000/15291516
+Number of events : 815000/15291516
+Number of events : 820000/15291516
+Number of events : 825000/15291516
+Number of events : 830000/15291516
+--- 390000 entries w/ positive V values
+Number of events : 835000/15291516
+Number of events : 840000/15291516
+--- 395000 entries w/ positive V values
+--- 395000 entries w/ positive V values
+--- 395000 entries w/ positive V values
+--- 395000 entries w/ positive V values
+Number of events : 845000/15291516
+--- 400000 entries w/ positive V values
+Number of events : 850000/15291516
+--- 405000 entries w/ positive V values
+Number of events : 855000/15291516
+--- 410000 entries w/ positive V values
+Number of events : 860000/15291516
+--- 415000 entries w/ positive V values
+Number of events : 865000/15291516
+--- 420000 entries w/ positive V values
+Number of events : 870000/15291516
+--- 425000 entries w/ positive V values
+Number of events : 875000/15291516
+--- 430000 entries w/ positive V values
+Number of events : 880000/15291516
+--- 435000 entries w/ positive V values
+Number of events : 885000/15291516
+--- 440000 entries w/ positive V values
+Number of events : 890000/15291516
+--- 445000 entries w/ positive V values
+Number of events : 895000/15291516
+--- 450000 entries w/ positive V values
+Number of events : 900000/15291516
+Number of events : 905000/15291516
+Number of events : 910000/15291516
+Number of events : 915000/15291516
+Number of events : 920000/15291516
+Number of events : 925000/15291516
+Number of events : 930000/15291516
+Number of events : 935000/15291516
+Number of events : 940000/15291516
+Number of events : 945000/15291516
+Number of events : 950000/15291516
+Number of events : 955000/15291516
+Number of events : 960000/15291516
+Number of events : 965000/15291516
+Number of events : 970000/15291516
+Number of events : 975000/15291516
+Number of events : 980000/15291516
+Number of events : 985000/15291516
+Number of events : 990000/15291516
+Number of events : 995000/15291516
+Number of events : 1000000/15291516
+Number of events : 1005000/15291516
+Number of events : 1010000/15291516
+Number of events : 1015000/15291516
+--- 455000 entries w/ positive V values
+Number of events : 1020000/15291516
+--- 460000 entries w/ positive V values
+Number of events : 1025000/15291516
+Number of events : 1030000/15291516
+--- 465000 entries w/ positive V values
+Number of events : 1035000/15291516
+--- 470000 entries w/ positive V values
+Number of events : 1040000/15291516
+--- 475000 entries w/ positive V values
+Number of events : 1045000/15291516
+--- 480000 entries w/ positive V values
+Number of events : 1050000/15291516
+--- 485000 entries w/ positive V values
+Number of events : 1055000/15291516
+--- 490000 entries w/ positive V values
+Number of events : 1060000/15291516
+--- 495000 entries w/ positive V values
+Number of events : 1065000/15291516
+--- 500000 entries w/ positive V values
+Number of events : 1070000/15291516
+--- 505000 entries w/ positive V values
+Number of events : 1075000/15291516
+--- 510000 entries w/ positive V values
+--- 510000 entries w/ positive V values
+--- 510000 entries w/ positive V values
+Number of events : 1080000/15291516
+--- 515000 entries w/ positive V values
+Number of events : 1085000/15291516
+Number of events : 1090000/15291516
+Number of events : 1095000/15291516
+Number of events : 1100000/15291516
+Number of events : 1105000/15291516
+Number of events : 1110000/15291516
+Number of events : 1115000/15291516
+Number of events : 1120000/15291516
+Number of events : 1125000/15291516
+Number of events : 1130000/15291516
+Number of events : 1135000/15291516
+Number of events : 1140000/15291516
+Number of events : 1145000/15291516
+Number of events : 1150000/15291516
+Number of events : 1155000/15291516
+Number of events : 1160000/15291516
+--- 520000 entries w/ positive V values
+Number of events : 1165000/15291516
+--- 525000 entries w/ positive V values
+Number of events : 1170000/15291516
+--- 530000 entries w/ positive V values
+Number of events : 1175000/15291516
+--- 535000 entries w/ positive V values
+Number of events : 1180000/15291516
+--- 540000 entries w/ positive V values
+Number of events : 1185000/15291516
+--- 545000 entries w/ positive V values
+Number of events : 1190000/15291516
+--- 550000 entries w/ positive V values
+Number of events : 1195000/15291516
+--- 555000 entries w/ positive V values
+Number of events : 1200000/15291516
+--- 560000 entries w/ positive V values
+Number of events : 1205000/15291516
+--- 565000 entries w/ positive V values
+Number of events : 1210000/15291516
+--- 570000 entries w/ positive V values
+Number of events : 1215000/15291516
+--- 575000 entries w/ positive V values
+Number of events : 1220000/15291516
+Number of events : 1225000/15291516
+Number of events : 1230000/15291516
+Number of events : 1235000/15291516
+Number of events : 1240000/15291516
+Number of events : 1245000/15291516
+Number of events : 1250000/15291516
+Number of events : 1255000/15291516
+--- 580000 entries w/ positive V values
+Number of events : 1260000/15291516
+--- 585000 entries w/ positive V values
+Number of events : 1265000/15291516
+--- 590000 entries w/ positive V values
+Number of events : 1270000/15291516
+--- 595000 entries w/ positive V values
+Number of events : 1275000/15291516
+--- 600000 entries w/ positive V values
+Number of events : 1280000/15291516
+--- 605000 entries w/ positive V values
+Number of events : 1285000/15291516
+--- 610000 entries w/ positive V values
+Number of events : 1290000/15291516
+--- 615000 entries w/ positive V values
+Number of events : 1295000/15291516
+--- 620000 entries w/ positive V values
+Number of events : 1300000/15291516
+--- 625000 entries w/ positive V values
+Number of events : 1305000/15291516
+--- 630000 entries w/ positive V values
+Number of events : 1310000/15291516
+--- 635000 entries w/ positive V values
+Number of events : 1315000/15291516
+Number of events : 1320000/15291516
+--- 640000 entries w/ positive V values
+Number of events : 1325000/15291516
+Number of events : 1330000/15291516
+Number of events : 1335000/15291516
+Number of events : 1340000/15291516
+Number of events : 1345000/15291516
+Number of events : 1350000/15291516
+Number of events : 1355000/15291516
+Number of events : 1360000/15291516
+Number of events : 1365000/15291516
+Number of events : 1370000/15291516
+Number of events : 1375000/15291516
+Number of events : 1380000/15291516
+Number of events : 1385000/15291516
+Number of events : 1390000/15291516
+Number of events : 1395000/15291516
+Number of events : 1400000/15291516
+Number of events : 1405000/15291516
+--- 645000 entries w/ positive V values
+Number of events : 1410000/15291516
+--- 650000 entries w/ positive V values
+Number of events : 1415000/15291516
+--- 655000 entries w/ positive V values
+Number of events : 1420000/15291516
+--- 660000 entries w/ positive V values
+Number of events : 1425000/15291516
+--- 665000 entries w/ positive V values
+Number of events : 1430000/15291516
+--- 670000 entries w/ positive V values
+Number of events : 1435000/15291516
+--- 675000 entries w/ positive V values
+Number of events : 1440000/15291516
+--- 680000 entries w/ positive V values
+Number of events : 1445000/15291516
+--- 685000 entries w/ positive V values
+Number of events : 1450000/15291516
+--- 690000 entries w/ positive V values
+Number of events : 1455000/15291516
+--- 695000 entries w/ positive V values
+Number of events : 1460000/15291516
+--- 700000 entries w/ positive V values
+Number of events : 1465000/15291516
+Number of events : 1470000/15291516
+Number of events : 1475000/15291516
+Number of events : 1480000/15291516
+Number of events : 1485000/15291516
+Number of events : 1490000/15291516
+Number of events : 1495000/15291516
+Number of events : 1500000/15291516
+Number of events : 1505000/15291516
+Number of events : 1510000/15291516
+Number of events : 1515000/15291516
+Number of events : 1520000/15291516
+--- 705000 entries w/ positive V values
+--- 705000 entries w/ positive V values
+Number of events : 1525000/15291516
+Number of events : 1530000/15291516
+--- 710000 entries w/ positive V values
+Number of events : 1535000/15291516
+--- 715000 entries w/ positive V values
+Number of events : 1540000/15291516
+--- 720000 entries w/ positive V values
+Number of events : 1545000/15291516
+--- 725000 entries w/ positive V values
+Number of events : 1550000/15291516
+--- 730000 entries w/ positive V values
+Number of events : 1555000/15291516
+--- 735000 entries w/ positive V values
+Number of events : 1560000/15291516
+--- 740000 entries w/ positive V values
+Number of events : 1565000/15291516
+--- 745000 entries w/ positive V values
+Number of events : 1570000/15291516
+--- 750000 entries w/ positive V values
+Number of events : 1575000/15291516
+--- 755000 entries w/ positive V values
+Number of events : 1580000/15291516
+--- 760000 entries w/ positive V values
+Number of events : 1585000/15291516
+--- 765000 entries w/ positive V values
+Number of events : 1590000/15291516
+Number of events : 1595000/15291516
+Number of events : 1600000/15291516
+Number of events : 1605000/15291516
+Number of events : 1610000/15291516
+Number of events : 1615000/15291516
+Number of events : 1620000/15291516
+Number of events : 1625000/15291516
+Number of events : 1630000/15291516
+Number of events : 1635000/15291516
+--- 770000 entries w/ positive V values
+Number of events : 1640000/15291516
+Number of events : 1645000/15291516
+--- 775000 entries w/ positive V values
+Number of events : 1650000/15291516
+--- 780000 entries w/ positive V values
+Number of events : 1655000/15291516
+--- 785000 entries w/ positive V values
+Number of events : 1660000/15291516
+--- 790000 entries w/ positive V values
+Number of events : 1665000/15291516
+--- 795000 entries w/ positive V values
+Number of events : 1670000/15291516
+--- 800000 entries w/ positive V values
+Number of events : 1675000/15291516
+--- 805000 entries w/ positive V values
+Number of events : 1680000/15291516
+--- 810000 entries w/ positive V values
+Number of events : 1685000/15291516
+--- 815000 entries w/ positive V values
+Number of events : 1690000/15291516
+--- 820000 entries w/ positive V values
+Number of events : 1695000/15291516
+--- 825000 entries w/ positive V values
+Number of events : 1700000/15291516
+--- 830000 entries w/ positive V values
+Number of events : 1705000/15291516
+Number of events : 1710000/15291516
+Number of events : 1715000/15291516
+Number of events : 1720000/15291516
+Number of events : 1725000/15291516
+Number of events : 1730000/15291516
+Number of events : 1735000/15291516
+Number of events : 1740000/15291516
+Number of events : 1745000/15291516
+Number of events : 1750000/15291516
+Number of events : 1755000/15291516
+Number of events : 1760000/15291516
+Number of events : 1765000/15291516
+Number of events : 1770000/15291516
+Number of events : 1775000/15291516
+Number of events : 1780000/15291516
+Number of events : 1785000/15291516
+--- 835000 entries w/ positive V values
+Number of events : 1790000/15291516
+Number of events : 1795000/15291516
+--- 840000 entries w/ positive V values
+Number of events : 1800000/15291516
+--- 845000 entries w/ positive V values
+Number of events : 1805000/15291516
+--- 850000 entries w/ positive V values
+Number of events : 1810000/15291516
+--- 855000 entries w/ positive V values
+Number of events : 1815000/15291516
+--- 860000 entries w/ positive V values
+Number of events : 1820000/15291516
+--- 865000 entries w/ positive V values
+Number of events : 1825000/15291516
+--- 870000 entries w/ positive V values
+Number of events : 1830000/15291516
+--- 875000 entries w/ positive V values
+Number of events : 1835000/15291516
+--- 880000 entries w/ positive V values
+Number of events : 1840000/15291516
+--- 885000 entries w/ positive V values
+Number of events : 1845000/15291516
+--- 890000 entries w/ positive V values
+Number of events : 1850000/15291516
+--- 895000 entries w/ positive V values
+Number of events : 1855000/15291516
+Number of events : 1860000/15291516
+Number of events : 1865000/15291516
+Number of events : 1870000/15291516
+Number of events : 1875000/15291516
+Number of events : 1880000/15291516
+Number of events : 1885000/15291516
+Number of events : 1890000/15291516
+Number of events : 1895000/15291516
+Number of events : 1900000/15291516
+Number of events : 1905000/15291516
+Number of events : 1910000/15291516
+Number of events : 1915000/15291516
+Number of events : 1920000/15291516
+Number of events : 1925000/15291516
+Number of events : 1930000/15291516
+--- 900000 entries w/ positive V values
+--- 900000 entries w/ positive V values
+Number of events : 1935000/15291516
+--- 905000 entries w/ positive V values
+Number of events : 1940000/15291516
+--- 910000 entries w/ positive V values
+Number of events : 1945000/15291516
+--- 915000 entries w/ positive V values
+Number of events : 1950000/15291516
+--- 920000 entries w/ positive V values
+Number of events : 1955000/15291516
+--- 925000 entries w/ positive V values
+Number of events : 1960000/15291516
+--- 930000 entries w/ positive V values
+Number of events : 1965000/15291516
+--- 935000 entries w/ positive V values
+Number of events : 1970000/15291516
+--- 940000 entries w/ positive V values
+Number of events : 1975000/15291516
+--- 945000 entries w/ positive V values
+Number of events : 1980000/15291516
+--- 950000 entries w/ positive V values
+Number of events : 1985000/15291516
+--- 955000 entries w/ positive V values
+Number of events : 1990000/15291516
+Number of events : 1995000/15291516
+--- 960000 entries w/ positive V values
+--- 960000 entries w/ positive V values
+--- 960000 entries w/ positive V values
+--- 960000 entries w/ positive V values
+Number of events : 2000000/15291516
+Number of events : 2005000/15291516
+Number of events : 2010000/15291516
+Number of events : 2015000/15291516
+Number of events : 2020000/15291516
+Number of events : 2025000/15291516
+Number of events : 2030000/15291516
+Number of events : 2035000/15291516
+Number of events : 2040000/15291516
+Number of events : 2045000/15291516
+Number of events : 2050000/15291516
+Number of events : 2055000/15291516
+--- 965000 entries w/ positive V values
+Number of events : 2060000/15291516
+--- 970000 entries w/ positive V values
+--- 970000 entries w/ positive V values
+--- 970000 entries w/ positive V values
+Number of events : 2065000/15291516
+--- 975000 entries w/ positive V values
+Number of events : 2070000/15291516
+--- 980000 entries w/ positive V values
+Number of events : 2075000/15291516
+--- 985000 entries w/ positive V values
+Number of events : 2080000/15291516
+--- 990000 entries w/ positive V values
+Number of events : 2085000/15291516
+--- 995000 entries w/ positive V values
+Number of events : 2090000/15291516
+--- 1000000 entries w/ positive V values
+Number of events : 2095000/15291516
+--- 1005000 entries w/ positive V values
+Number of events : 2100000/15291516
+--- 1010000 entries w/ positive V values
+Number of events : 2105000/15291516
+--- 1015000 entries w/ positive V values
+Number of events : 2110000/15291516
+--- 1020000 entries w/ positive V values
+Number of events : 2115000/15291516
+Number of events : 2120000/15291516
+Number of events : 2125000/15291516
+Number of events : 2130000/15291516
+Number of events : 2135000/15291516
+Number of events : 2140000/15291516
+Number of events : 2145000/15291516
+Number of events : 2150000/15291516
+Number of events : 2155000/15291516
+Number of events : 2160000/15291516
+Number of events : 2165000/15291516
+Number of events : 2170000/15291516
+Number of events : 2175000/15291516
+Number of events : 2180000/15291516
+Number of events : 2185000/15291516
+--- 1025000 entries w/ positive V values
+--- 1025000 entries w/ positive V values
+Number of events : 2190000/15291516
+Number of events : 2195000/15291516
+--- 1030000 entries w/ positive V values
+Number of events : 2200000/15291516
+--- 1035000 entries w/ positive V values
+Number of events : 2205000/15291516
+--- 1040000 entries w/ positive V values
+Number of events : 2210000/15291516
+--- 1045000 entries w/ positive V values
+Number of events : 2215000/15291516
+--- 1050000 entries w/ positive V values
+Number of events : 2220000/15291516
+--- 1055000 entries w/ positive V values
+Number of events : 2225000/15291516
+--- 1060000 entries w/ positive V values
+Number of events : 2230000/15291516
+--- 1065000 entries w/ positive V values
+Number of events : 2235000/15291516
+--- 1070000 entries w/ positive V values
+Number of events : 2240000/15291516
+--- 1075000 entries w/ positive V values
+Number of events : 2245000/15291516
+--- 1080000 entries w/ positive V values
+Number of events : 2250000/15291516
+--- 1085000 entries w/ positive V values
+Number of events : 2255000/15291516
+Number of events : 2260000/15291516
+Number of events : 2265000/15291516
+Number of events : 2270000/15291516
+Number of events : 2275000/15291516
+Number of events : 2280000/15291516
+Number of events : 2285000/15291516
+Number of events : 2290000/15291516
+Number of events : 2295000/15291516
+Number of events : 2300000/15291516
+Number of events : 2305000/15291516
+Number of events : 2310000/15291516
+Number of events : 2315000/15291516
+Number of events : 2320000/15291516
+Number of events : 2325000/15291516
+Number of events : 2330000/15291516
+Number of events : 2335000/15291516
+Number of events : 2340000/15291516
+Number of events : 2345000/15291516
+Number of events : 2350000/15291516
+Number of events : 2355000/15291516
+Number of events : 2360000/15291516
+Number of events : 2365000/15291516
+Number of events : 2370000/15291516
+Number of events : 2375000/15291516
+Number of events : 2380000/15291516
+Number of events : 2385000/15291516
+Number of events : 2390000/15291516
+Number of events : 2395000/15291516
+Number of events : 2400000/15291516
+Number of events : 2405000/15291516
+Number of events : 2410000/15291516
+Number of events : 2415000/15291516
+Number of events : 2420000/15291516
+Number of events : 2425000/15291516
+Number of events : 2430000/15291516
+Number of events : 2435000/15291516
+Number of events : 2440000/15291516
+Number of events : 2445000/15291516
+Number of events : 2450000/15291516
+Number of events : 2455000/15291516
+Number of events : 2460000/15291516
+Number of events : 2465000/15291516
+Number of events : 2470000/15291516
+Number of events : 2475000/15291516
+Number of events : 2480000/15291516
+Number of events : 2485000/15291516
+Number of events : 2490000/15291516
+Number of events : 2495000/15291516
+Number of events : 2500000/15291516
+Number of events : 2505000/15291516
+Number of events : 2510000/15291516
+Number of events : 2515000/15291516
+Number of events : 2520000/15291516
+Number of events : 2525000/15291516
+Number of events : 2530000/15291516
+Number of events : 2535000/15291516
+Number of events : 2540000/15291516
+Number of events : 2545000/15291516
+Number of events : 2550000/15291516
+--- 1090000 entries w/ positive V values
+Number of events : 2555000/15291516
+Number of events : 2560000/15291516
+--- 1095000 entries w/ positive V values
+Number of events : 2565000/15291516
+--- 1100000 entries w/ positive V values
+Number of events : 2570000/15291516
+--- 1105000 entries w/ positive V values
+Number of events : 2575000/15291516
+--- 1110000 entries w/ positive V values
+Number of events : 2580000/15291516
+--- 1115000 entries w/ positive V values
+Number of events : 2585000/15291516
+--- 1120000 entries w/ positive V values
+Number of events : 2590000/15291516
+--- 1125000 entries w/ positive V values
+Number of events : 2595000/15291516
+--- 1130000 entries w/ positive V values
+Number of events : 2600000/15291516
+--- 1135000 entries w/ positive V values
+Number of events : 2605000/15291516
+--- 1140000 entries w/ positive V values
+Number of events : 2610000/15291516
+--- 1145000 entries w/ positive V values
+Number of events : 2615000/15291516
+--- 1150000 entries w/ positive V values
+--- 1150000 entries w/ positive V values
+--- 1150000 entries w/ positive V values
+--- 1150000 entries w/ positive V values
+--- 1150000 entries w/ positive V values
+--- 1150000 entries w/ positive V values
+--- 1150000 entries w/ positive V values
+--- 1150000 entries w/ positive V values
+Number of events : 2620000/15291516
+Number of events : 2625000/15291516
+Number of events : 2630000/15291516
+Number of events : 2635000/15291516
+Number of events : 2640000/15291516
+Number of events : 2645000/15291516
+Number of events : 2650000/15291516
+Number of events : 2655000/15291516
+Number of events : 2660000/15291516
+Number of events : 2665000/15291516
+Number of events : 2670000/15291516
+Number of events : 2675000/15291516
+Number of events : 2680000/15291516
+Number of events : 2685000/15291516
+Number of events : 2690000/15291516
+Number of events : 2695000/15291516
+Number of events : 2700000/15291516
+Number of events : 2705000/15291516
+Number of events : 2710000/15291516
+Number of events : 2715000/15291516
+Number of events : 2720000/15291516
+Number of events : 2725000/15291516
+Number of events : 2730000/15291516
+Number of events : 2735000/15291516
+Number of events : 2740000/15291516
+Number of events : 2745000/15291516
+Number of events : 2750000/15291516
+Number of events : 2755000/15291516
+Number of events : 2760000/15291516
+Number of events : 2765000/15291516
+Number of events : 2770000/15291516
+Number of events : 2775000/15291516
+Number of events : 2780000/15291516
+Number of events : 2785000/15291516
+Number of events : 2790000/15291516
+Number of events : 2795000/15291516
+Number of events : 2800000/15291516
+Number of events : 2805000/15291516
+Number of events : 2810000/15291516
+Number of events : 2815000/15291516
+Number of events : 2820000/15291516
+Number of events : 2825000/15291516
+Number of events : 2830000/15291516
+Number of events : 2835000/15291516
+Number of events : 2840000/15291516
+Number of events : 2845000/15291516
+Number of events : 2850000/15291516
+Number of events : 2855000/15291516
+Number of events : 2860000/15291516
+Number of events : 2865000/15291516
+Number of events : 2870000/15291516
+Number of events : 2875000/15291516
+Number of events : 2880000/15291516
+Number of events : 2885000/15291516
+Number of events : 2890000/15291516
+Number of events : 2895000/15291516
+Number of events : 2900000/15291516
+Number of events : 2905000/15291516
+Number of events : 2910000/15291516
+Number of events : 2915000/15291516
+Number of events : 2920000/15291516
+Number of events : 2925000/15291516
+Number of events : 2930000/15291516
+Number of events : 2935000/15291516
+Number of events : 2940000/15291516
+Number of events : 2945000/15291516
+Number of events : 2950000/15291516
+Number of events : 2955000/15291516
+Number of events : 2960000/15291516
+Number of events : 2965000/15291516
+Number of events : 2970000/15291516
+Number of events : 2975000/15291516
+Number of events : 2980000/15291516
+Number of events : 2985000/15291516
+Number of events : 2990000/15291516
+Number of events : 2995000/15291516
+Number of events : 3000000/15291516
+Number of events : 3005000/15291516
+Number of events : 3010000/15291516
+Number of events : 3015000/15291516
+Number of events : 3020000/15291516
+Number of events : 3025000/15291516
+Number of events : 3030000/15291516
+Number of events : 3035000/15291516
+Number of events : 3040000/15291516
+Number of events : 3045000/15291516
+Number of events : 3050000/15291516
+Number of events : 3055000/15291516
+Number of events : 3060000/15291516
+Number of events : 3065000/15291516
+Number of events : 3070000/15291516
+Number of events : 3075000/15291516
+Number of events : 3080000/15291516
+Number of events : 3085000/15291516
+Number of events : 3090000/15291516
+Number of events : 3095000/15291516
+Number of events : 3100000/15291516
+Number of events : 3105000/15291516
+Number of events : 3110000/15291516
+Number of events : 3115000/15291516
+Number of events : 3120000/15291516
+Number of events : 3125000/15291516
+Number of events : 3130000/15291516
+Number of events : 3135000/15291516
+Number of events : 3140000/15291516
+Number of events : 3145000/15291516
+Number of events : 3150000/15291516
+Number of events : 3155000/15291516
+Number of events : 3160000/15291516
+Number of events : 3165000/15291516
+Number of events : 3170000/15291516
+Number of events : 3175000/15291516
+Number of events : 3180000/15291516
+Number of events : 3185000/15291516
+Number of events : 3190000/15291516
+Number of events : 3195000/15291516
+Number of events : 3200000/15291516
+Number of events : 3205000/15291516
+Number of events : 3210000/15291516
+Number of events : 3215000/15291516
+Number of events : 3220000/15291516
+Number of events : 3225000/15291516
+Number of events : 3230000/15291516
+--- 1155000 entries w/ positive V values
+Number of events : 3235000/15291516
+Number of events : 3240000/15291516
+--- 1160000 entries w/ positive V values
+Number of events : 3245000/15291516
+--- 1165000 entries w/ positive V values
+Number of events : 3250000/15291516
+--- 1170000 entries w/ positive V values
+Number of events : 3255000/15291516
+--- 1175000 entries w/ positive V values
+Number of events : 3260000/15291516
+--- 1180000 entries w/ positive V values
+Number of events : 3265000/15291516
+--- 1185000 entries w/ positive V values
+Number of events : 3270000/15291516
+--- 1190000 entries w/ positive V values
+Number of events : 3275000/15291516
+--- 1195000 entries w/ positive V values
+Number of events : 3280000/15291516
+--- 1200000 entries w/ positive V values
+Number of events : 3285000/15291516
+--- 1205000 entries w/ positive V values
+Number of events : 3290000/15291516
+--- 1210000 entries w/ positive V values
+Number of events : 3295000/15291516
+--- 1215000 entries w/ positive V values
+Number of events : 3300000/15291516
+Number of events : 3305000/15291516
+Number of events : 3310000/15291516
+Number of events : 3315000/15291516
+Number of events : 3320000/15291516
+Number of events : 3325000/15291516
+Number of events : 3330000/15291516
+Number of events : 3335000/15291516
+Number of events : 3340000/15291516
+Number of events : 3345000/15291516
+Number of events : 3350000/15291516
+Number of events : 3355000/15291516
+Number of events : 3360000/15291516
+--- 1220000 entries w/ positive V values
+Number of events : 3365000/15291516
+--- 1225000 entries w/ positive V values
+Number of events : 3370000/15291516
+--- 1230000 entries w/ positive V values
+Number of events : 3375000/15291516
+--- 1235000 entries w/ positive V values
+Number of events : 3380000/15291516
+--- 1240000 entries w/ positive V values
+Number of events : 3385000/15291516
+--- 1245000 entries w/ positive V values
+Number of events : 3390000/15291516
+--- 1250000 entries w/ positive V values
+Number of events : 3395000/15291516
+--- 1255000 entries w/ positive V values
+Number of events : 3400000/15291516
+--- 1260000 entries w/ positive V values
+Number of events : 3405000/15291516
+--- 1265000 entries w/ positive V values
+Number of events : 3410000/15291516
+--- 1270000 entries w/ positive V values
+Number of events : 3415000/15291516
+--- 1275000 entries w/ positive V values
+Number of events : 3420000/15291516
+--- 1280000 entries w/ positive V values
+Number of events : 3425000/15291516
+Number of events : 3430000/15291516
+Number of events : 3435000/15291516
+Number of events : 3440000/15291516
+Number of events : 3445000/15291516
+Number of events : 3450000/15291516
+Number of events : 3455000/15291516
+Number of events : 3460000/15291516
+Number of events : 3465000/15291516
+Number of events : 3470000/15291516
+Number of events : 3475000/15291516
+Number of events : 3480000/15291516
+Number of events : 3485000/15291516
+Number of events : 3490000/15291516
+Number of events : 3495000/15291516
+Number of events : 3500000/15291516
+Number of events : 3505000/15291516
+Number of events : 3510000/15291516
+Number of events : 3515000/15291516
+Number of events : 3520000/15291516
+Number of events : 3525000/15291516
+--- 1285000 entries w/ positive V values
+Number of events : 3530000/15291516
+--- 1290000 entries w/ positive V values
+Number of events : 3535000/15291516
+--- 1295000 entries w/ positive V values
+Number of events : 3540000/15291516
+--- 1300000 entries w/ positive V values
+Number of events : 3545000/15291516
+--- 1305000 entries w/ positive V values
+Number of events : 3550000/15291516
+--- 1310000 entries w/ positive V values
+Number of events : 3555000/15291516
+--- 1315000 entries w/ positive V values
+Number of events : 3560000/15291516
+--- 1320000 entries w/ positive V values
+Number of events : 3565000/15291516
+--- 1325000 entries w/ positive V values
+Number of events : 3570000/15291516
+--- 1330000 entries w/ positive V values
+Number of events : 3575000/15291516
+--- 1335000 entries w/ positive V values
+Number of events : 3580000/15291516
+--- 1340000 entries w/ positive V values
+Number of events : 3585000/15291516
+Number of events : 3590000/15291516
+Number of events : 3595000/15291516
+Number of events : 3600000/15291516
+Number of events : 3605000/15291516
+Number of events : 3610000/15291516
+Number of events : 3615000/15291516
+Number of events : 3620000/15291516
+Number of events : 3625000/15291516
+Number of events : 3630000/15291516
+Number of events : 3635000/15291516
+Number of events : 3640000/15291516
+Number of events : 3645000/15291516
+--- 1345000 entries w/ positive V values
+Number of events : 3650000/15291516
+--- 1350000 entries w/ positive V values
+Number of events : 3655000/15291516
+--- 1355000 entries w/ positive V values
+Number of events : 3660000/15291516
+--- 1360000 entries w/ positive V values
+Number of events : 3665000/15291516
+--- 1365000 entries w/ positive V values
+Number of events : 3670000/15291516
+--- 1370000 entries w/ positive V values
+Number of events : 3675000/15291516
+--- 1375000 entries w/ positive V values
+Number of events : 3680000/15291516
+--- 1380000 entries w/ positive V values
+Number of events : 3685000/15291516
+--- 1385000 entries w/ positive V values
+Number of events : 3690000/15291516
+--- 1390000 entries w/ positive V values
+Number of events : 3695000/15291516
+--- 1395000 entries w/ positive V values
+Number of events : 3700000/15291516
+--- 1400000 entries w/ positive V values
+Number of events : 3705000/15291516
+--- 1405000 entries w/ positive V values
+Number of events : 3710000/15291516
+Number of events : 3715000/15291516
+Number of events : 3720000/15291516
+Number of events : 3725000/15291516
+Number of events : 3730000/15291516
+Number of events : 3735000/15291516
+Number of events : 3740000/15291516
+Number of events : 3745000/15291516
+Number of events : 3750000/15291516
+Number of events : 3755000/15291516
+Number of events : 3760000/15291516
+Number of events : 3765000/15291516
+Number of events : 3770000/15291516
+--- 1410000 entries w/ positive V values
+Number of events : 3775000/15291516
+--- 1415000 entries w/ positive V values
+Number of events : 3780000/15291516
+--- 1420000 entries w/ positive V values
+Number of events : 3785000/15291516
+--- 1425000 entries w/ positive V values
+Number of events : 3790000/15291516
+--- 1430000 entries w/ positive V values
+Number of events : 3795000/15291516
+--- 1435000 entries w/ positive V values
+Number of events : 3800000/15291516
+--- 1440000 entries w/ positive V values
+Number of events : 3805000/15291516
+--- 1445000 entries w/ positive V values
+Number of events : 3810000/15291516
+--- 1450000 entries w/ positive V values
+Number of events : 3815000/15291516
+--- 1455000 entries w/ positive V values
+Number of events : 3820000/15291516
+--- 1460000 entries w/ positive V values
+Number of events : 3825000/15291516
+--- 1465000 entries w/ positive V values
+Number of events : 3830000/15291516
+Number of events : 3835000/15291516
+--- 1470000 entries w/ positive V values
+Number of events : 3840000/15291516
+Number of events : 3845000/15291516
+Number of events : 3850000/15291516
+Number of events : 3855000/15291516
+Number of events : 3860000/15291516
+Number of events : 3865000/15291516
+Number of events : 3870000/15291516
+Number of events : 3875000/15291516
+Number of events : 3880000/15291516
+Number of events : 3885000/15291516
+Number of events : 3890000/15291516
+Number of events : 3895000/15291516
+Number of events : 3900000/15291516
+Number of events : 3905000/15291516
+Number of events : 3910000/15291516
+Number of events : 3915000/15291516
+Number of events : 3920000/15291516
+Number of events : 3925000/15291516
+Number of events : 3930000/15291516
+Number of events : 3935000/15291516
+Number of events : 3940000/15291516
+Number of events : 3945000/15291516
+Number of events : 3950000/15291516
+Number of events : 3955000/15291516
+Number of events : 3960000/15291516
+Number of events : 3965000/15291516
+Number of events : 3970000/15291516
+Number of events : 3975000/15291516
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+--- 1475000 entries w/ positive V values
+Number of events : 3980000/15291516
+Number of events : 3985000/15291516
+Number of events : 3990000/15291516
+--- 1480000 entries w/ positive V values
+Number of events : 3995000/15291516
+--- 1485000 entries w/ positive V values
+Number of events : 4000000/15291516
+--- 1490000 entries w/ positive V values
+Number of events : 4005000/15291516
+--- 1495000 entries w/ positive V values
+Number of events : 4010000/15291516
+--- 1500000 entries w/ positive V values
+Number of events : 4015000/15291516
+--- 1505000 entries w/ positive V values
+Number of events : 4020000/15291516
+--- 1510000 entries w/ positive V values
+Number of events : 4025000/15291516
+--- 1515000 entries w/ positive V values
+Number of events : 4030000/15291516
+--- 1520000 entries w/ positive V values
+Number of events : 4035000/15291516
+--- 1525000 entries w/ positive V values
+Number of events : 4040000/15291516
+--- 1530000 entries w/ positive V values
+Number of events : 4045000/15291516
+--- 1535000 entries w/ positive V values
+Number of events : 4050000/15291516
+Number of events : 4055000/15291516
+Number of events : 4060000/15291516
+Number of events : 4065000/15291516
+Number of events : 4070000/15291516
+Number of events : 4075000/15291516
+Number of events : 4080000/15291516
+Number of events : 4085000/15291516
+Number of events : 4090000/15291516
+--- 1540000 entries w/ positive V values
+Number of events : 4095000/15291516
+--- 1545000 entries w/ positive V values
+Number of events : 4100000/15291516
+--- 1550000 entries w/ positive V values
+Number of events : 4105000/15291516
+--- 1555000 entries w/ positive V values
+Number of events : 4110000/15291516
+--- 1560000 entries w/ positive V values
+Number of events : 4115000/15291516
+--- 1565000 entries w/ positive V values
+Number of events : 4120000/15291516
+--- 1570000 entries w/ positive V values
+Number of events : 4125000/15291516
+--- 1575000 entries w/ positive V values
+Number of events : 4130000/15291516
+--- 1580000 entries w/ positive V values
+Number of events : 4135000/15291516
+--- 1585000 entries w/ positive V values
+Number of events : 4140000/15291516
+--- 1590000 entries w/ positive V values
+Number of events : 4145000/15291516
+--- 1595000 entries w/ positive V values
+Number of events : 4150000/15291516
+--- 1600000 entries w/ positive V values
+Number of events : 4155000/15291516
+Number of events : 4160000/15291516
+Number of events : 4165000/15291516
+Number of events : 4170000/15291516
+Number of events : 4175000/15291516
+Number of events : 4180000/15291516
+Number of events : 4185000/15291516
+Number of events : 4190000/15291516
+Number of events : 4195000/15291516
+Number of events : 4200000/15291516
+Number of events : 4205000/15291516
+--- 1605000 entries w/ positive V values
+Number of events : 4210000/15291516
+--- 1610000 entries w/ positive V values
+Number of events : 4215000/15291516
+--- 1615000 entries w/ positive V values
+Number of events : 4220000/15291516
+--- 1620000 entries w/ positive V values
+Number of events : 4225000/15291516
+--- 1625000 entries w/ positive V values
+Number of events : 4230000/15291516
+--- 1630000 entries w/ positive V values
+Number of events : 4235000/15291516
+--- 1635000 entries w/ positive V values
+Number of events : 4240000/15291516
+--- 1640000 entries w/ positive V values
+Number of events : 4245000/15291516
+--- 1645000 entries w/ positive V values
+Number of events : 4250000/15291516
+--- 1650000 entries w/ positive V values
+Number of events : 4255000/15291516
+--- 1655000 entries w/ positive V values
+Number of events : 4260000/15291516
+--- 1660000 entries w/ positive V values
+Number of events : 4265000/15291516
+Number of events : 4270000/15291516
+--- 1665000 entries w/ positive V values
+--- 1665000 entries w/ positive V values
+Number of events : 4275000/15291516
+Number of events : 4280000/15291516
+Number of events : 4285000/15291516
+Number of events : 4290000/15291516
+Number of events : 4295000/15291516
+Number of events : 4300000/15291516
+Number of events : 4305000/15291516
+Number of events : 4310000/15291516
+Number of events : 4315000/15291516
+Number of events : 4320000/15291516
+--- 1670000 entries w/ positive V values
+Number of events : 4325000/15291516
+--- 1675000 entries w/ positive V values
+Number of events : 4330000/15291516
+--- 1680000 entries w/ positive V values
+Number of events : 4335000/15291516
+--- 1685000 entries w/ positive V values
+Number of events : 4340000/15291516
+--- 1690000 entries w/ positive V values
+Number of events : 4345000/15291516
+--- 1695000 entries w/ positive V values
+Number of events : 4350000/15291516
+--- 1700000 entries w/ positive V values
+Number of events : 4355000/15291516
+--- 1705000 entries w/ positive V values
+Number of events : 4360000/15291516
+--- 1710000 entries w/ positive V values
+Number of events : 4365000/15291516
+--- 1715000 entries w/ positive V values
+Number of events : 4370000/15291516
+--- 1720000 entries w/ positive V values
+Number of events : 4375000/15291516
+--- 1725000 entries w/ positive V values
+Number of events : 4380000/15291516
+Number of events : 4385000/15291516
+--- 1730000 entries w/ positive V values
+Number of events : 4390000/15291516
+Number of events : 4395000/15291516
+Number of events : 4400000/15291516
+Number of events : 4405000/15291516
+Number of events : 4410000/15291516
+Number of events : 4415000/15291516
+Number of events : 4420000/15291516
+Number of events : 4425000/15291516
+Number of events : 4430000/15291516
+Number of events : 4435000/15291516
+Number of events : 4440000/15291516
+--- 1735000 entries w/ positive V values
+Number of events : 4445000/15291516
+--- 1740000 entries w/ positive V values
+Number of events : 4450000/15291516
+--- 1745000 entries w/ positive V values
+Number of events : 4455000/15291516
+--- 1750000 entries w/ positive V values
+Number of events : 4460000/15291516
+--- 1755000 entries w/ positive V values
+Number of events : 4465000/15291516
+--- 1760000 entries w/ positive V values
+Number of events : 4470000/15291516
+--- 1765000 entries w/ positive V values
+Number of events : 4475000/15291516
+--- 1770000 entries w/ positive V values
+Number of events : 4480000/15291516
+--- 1775000 entries w/ positive V values
+Number of events : 4485000/15291516
+--- 1780000 entries w/ positive V values
+Number of events : 4490000/15291516
+--- 1785000 entries w/ positive V values
+Number of events : 4495000/15291516
+--- 1790000 entries w/ positive V values
+Number of events : 4500000/15291516
+--- 1795000 entries w/ positive V values
+Number of events : 4505000/15291516
+Number of events : 4510000/15291516
+Number of events : 4515000/15291516
+Number of events : 4520000/15291516
+Number of events : 4525000/15291516
+Number of events : 4530000/15291516
+Number of events : 4535000/15291516
+Number of events : 4540000/15291516
+Number of events : 4545000/15291516
+Number of events : 4550000/15291516
+Number of events : 4555000/15291516
+Number of events : 4560000/15291516
+Number of events : 4565000/15291516
+Number of events : 4570000/15291516
+Number of events : 4575000/15291516
+Number of events : 4580000/15291516
+--- 1800000 entries w/ positive V values
+--- 1800000 entries w/ positive V values
+Number of events : 4585000/15291516
+--- 1805000 entries w/ positive V values
+Number of events : 4590000/15291516
+--- 1810000 entries w/ positive V values
+Number of events : 4595000/15291516
+--- 1815000 entries w/ positive V values
+Number of events : 4600000/15291516
+--- 1820000 entries w/ positive V values
+Number of events : 4605000/15291516
+--- 1825000 entries w/ positive V values
+Number of events : 4610000/15291516
+--- 1830000 entries w/ positive V values
+Number of events : 4615000/15291516
+--- 1835000 entries w/ positive V values
+Number of events : 4620000/15291516
+--- 1840000 entries w/ positive V values
+Number of events : 4625000/15291516
+--- 1845000 entries w/ positive V values
+Number of events : 4630000/15291516
+--- 1850000 entries w/ positive V values
+Number of events : 4635000/15291516
+--- 1855000 entries w/ positive V values
+Number of events : 4640000/15291516
+Number of events : 4645000/15291516
+Number of events : 4650000/15291516
+Number of events : 4655000/15291516
+Number of events : 4660000/15291516
+Number of events : 4665000/15291516
+Number of events : 4670000/15291516
+Number of events : 4675000/15291516
+Number of events : 4680000/15291516
+Number of events : 4685000/15291516
+Number of events : 4690000/15291516
+Number of events : 4695000/15291516
+Number of events : 4700000/15291516
+Number of events : 4705000/15291516
+Number of events : 4710000/15291516
+Number of events : 4715000/15291516
+Number of events : 4720000/15291516
+Number of events : 4725000/15291516
+Number of events : 4730000/15291516
+Number of events : 4735000/15291516
+Number of events : 4740000/15291516
+Number of events : 4745000/15291516
+Number of events : 4750000/15291516
+Number of events : 4755000/15291516
+Number of events : 4760000/15291516
+--- 1860000 entries w/ positive V values
+Number of events : 4765000/15291516
+--- 1865000 entries w/ positive V values
+Number of events : 4770000/15291516
+--- 1870000 entries w/ positive V values
+Number of events : 4775000/15291516
+--- 1875000 entries w/ positive V values
+Number of events : 4780000/15291516
+--- 1880000 entries w/ positive V values
+Number of events : 4785000/15291516
+--- 1885000 entries w/ positive V values
+Number of events : 4790000/15291516
+--- 1890000 entries w/ positive V values
+Number of events : 4795000/15291516
+--- 1895000 entries w/ positive V values
+Number of events : 4800000/15291516
+--- 1900000 entries w/ positive V values
+Number of events : 4805000/15291516
+--- 1905000 entries w/ positive V values
+Number of events : 4810000/15291516
+--- 1910000 entries w/ positive V values
+Number of events : 4815000/15291516
+--- 1915000 entries w/ positive V values
+Number of events : 4820000/15291516
+--- 1920000 entries w/ positive V values
+Number of events : 4825000/15291516
+Number of events : 4830000/15291516
+Number of events : 4835000/15291516
+Number of events : 4840000/15291516
+Number of events : 4845000/15291516
+Number of events : 4850000/15291516
+Number of events : 4855000/15291516
+Number of events : 4860000/15291516
+Number of events : 4865000/15291516
+Number of events : 4870000/15291516
+Number of events : 4875000/15291516
+Number of events : 4880000/15291516
+Number of events : 4885000/15291516
+Number of events : 4890000/15291516
+Number of events : 4895000/15291516
+Number of events : 4900000/15291516
+--- 1925000 entries w/ positive V values
+Number of events : 4905000/15291516
+--- 1930000 entries w/ positive V values
+Number of events : 4910000/15291516
+--- 1935000 entries w/ positive V values
+Number of events : 4915000/15291516
+--- 1940000 entries w/ positive V values
+Number of events : 4920000/15291516
+--- 1945000 entries w/ positive V values
+Number of events : 4925000/15291516
+--- 1950000 entries w/ positive V values
+Number of events : 4930000/15291516
+--- 1955000 entries w/ positive V values
+Number of events : 4935000/15291516
+--- 1960000 entries w/ positive V values
+Number of events : 4940000/15291516
+--- 1965000 entries w/ positive V values
+Number of events : 4945000/15291516
+--- 1970000 entries w/ positive V values
+Number of events : 4950000/15291516
+--- 1975000 entries w/ positive V values
+Number of events : 4955000/15291516
+--- 1980000 entries w/ positive V values
+Number of events : 4960000/15291516
+--- 1985000 entries w/ positive V values
+Number of events : 4965000/15291516
+Number of events : 4970000/15291516
+Number of events : 4975000/15291516
+Number of events : 4980000/15291516
+Number of events : 4985000/15291516
+Number of events : 4990000/15291516
+Number of events : 4995000/15291516
+Number of events : 5000000/15291516
+Number of events : 5005000/15291516
+Number of events : 5010000/15291516
+Number of events : 5015000/15291516
+Number of events : 5020000/15291516
+Number of events : 5025000/15291516
+Number of events : 5030000/15291516
+--- 1990000 entries w/ positive V values
+Number of events : 5035000/15291516
+--- 1995000 entries w/ positive V values
+Number of events : 5040000/15291516
+--- 2000000 entries w/ positive V values
+Number of events : 5045000/15291516
+--- 2005000 entries w/ positive V values
+Number of events : 5050000/15291516
+--- 2010000 entries w/ positive V values
+Number of events : 5055000/15291516
+--- 2015000 entries w/ positive V values
+Number of events : 5060000/15291516
+--- 2020000 entries w/ positive V values
+Number of events : 5065000/15291516
+--- 2025000 entries w/ positive V values
+Number of events : 5070000/15291516
+--- 2030000 entries w/ positive V values
+Number of events : 5075000/15291516
+--- 2035000 entries w/ positive V values
+Number of events : 5080000/15291516
+--- 2040000 entries w/ positive V values
+Number of events : 5085000/15291516
+--- 2045000 entries w/ positive V values
+Number of events : 5090000/15291516
+Number of events : 5095000/15291516
+Number of events : 5100000/15291516
+--- 2050000 entries w/ positive V values
+Number of events : 5105000/15291516
+Number of events : 5110000/15291516
+Number of events : 5115000/15291516
+Number of events : 5120000/15291516
+--- 2055000 entries w/ positive V values
+Number of events : 5125000/15291516
+--- 2060000 entries w/ positive V values
+Number of events : 5130000/15291516
+Number of events : 5135000/15291516
+--- 2065000 entries w/ positive V values
+--- 2065000 entries w/ positive V values
+Number of events : 5140000/15291516
+Number of events : 5145000/15291516
+Number of events : 5150000/15291516
+Number of events : 5155000/15291516
+Number of events : 5160000/15291516
+Number of events : 5165000/15291516
+Number of events : 5170000/15291516
+Number of events : 5175000/15291516
+Number of events : 5180000/15291516
+Number of events : 5185000/15291516
+Number of events : 5190000/15291516
+Number of events : 5195000/15291516
+Number of events : 5200000/15291516
+Number of events : 5205000/15291516
+--- 2070000 entries w/ positive V values
+Number of events : 5210000/15291516
+--- 2075000 entries w/ positive V values
+Number of events : 5215000/15291516
+--- 2080000 entries w/ positive V values
+Number of events : 5220000/15291516
+--- 2085000 entries w/ positive V values
+Number of events : 5225000/15291516
+--- 2090000 entries w/ positive V values
+Number of events : 5230000/15291516
+Number of events : 5235000/15291516
+Number of events : 5240000/15291516
+Number of events : 5245000/15291516
+Number of events : 5250000/15291516
+Number of events : 5255000/15291516
+Number of events : 5260000/15291516
+Number of events : 5265000/15291516
+Number of events : 5270000/15291516
+--- 2095000 entries w/ positive V values
+Number of events : 5275000/15291516
+--- 2100000 entries w/ positive V values
+Number of events : 5280000/15291516
+--- 2105000 entries w/ positive V values
+Number of events : 5285000/15291516
+--- 2110000 entries w/ positive V values
+Number of events : 5290000/15291516
+--- 2115000 entries w/ positive V values
+Number of events : 5295000/15291516
+--- 2120000 entries w/ positive V values
+Number of events : 5300000/15291516
+--- 2125000 entries w/ positive V values
+Number of events : 5305000/15291516
+--- 2130000 entries w/ positive V values
+Number of events : 5310000/15291516
+--- 2135000 entries w/ positive V values
+Number of events : 5315000/15291516
+--- 2140000 entries w/ positive V values
+Number of events : 5320000/15291516
+--- 2145000 entries w/ positive V values
+Number of events : 5325000/15291516
+--- 2150000 entries w/ positive V values
+Number of events : 5330000/15291516
+Number of events : 5335000/15291516
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+--- 2155000 entries w/ positive V values
+Number of events : 5340000/15291516
+Number of events : 5345000/15291516
+Number of events : 5350000/15291516
+Number of events : 5355000/15291516
+Number of events : 5360000/15291516
+Number of events : 5365000/15291516
+Number of events : 5370000/15291516
+Number of events : 5375000/15291516
+Number of events : 5380000/15291516
+Number of events : 5385000/15291516
+--- 2160000 entries w/ positive V values
+Number of events : 5390000/15291516
+--- 2165000 entries w/ positive V values
+Number of events : 5395000/15291516
+--- 2170000 entries w/ positive V values
+Number of events : 5400000/15291516
+--- 2175000 entries w/ positive V values
+Number of events : 5405000/15291516
+--- 2180000 entries w/ positive V values
+Number of events : 5410000/15291516
+--- 2185000 entries w/ positive V values
+Number of events : 5415000/15291516
+--- 2190000 entries w/ positive V values
+Number of events : 5420000/15291516
+--- 2195000 entries w/ positive V values
+Number of events : 5425000/15291516
+--- 2200000 entries w/ positive V values
+Number of events : 5430000/15291516
+--- 2205000 entries w/ positive V values
+Number of events : 5435000/15291516
+--- 2210000 entries w/ positive V values
+Number of events : 5440000/15291516
+--- 2215000 entries w/ positive V values
+Number of events : 5445000/15291516
+--- 2220000 entries w/ positive V values
+Number of events : 5450000/15291516
+Number of events : 5455000/15291516
+Number of events : 5460000/15291516
+Number of events : 5465000/15291516
+Number of events : 5470000/15291516
+Number of events : 5475000/15291516
+Number of events : 5480000/15291516
+Number of events : 5485000/15291516
+Number of events : 5490000/15291516
+Number of events : 5495000/15291516
+Number of events : 5500000/15291516
+Number of events : 5505000/15291516
+Number of events : 5510000/15291516
+Number of events : 5515000/15291516
+Number of events : 5520000/15291516
+Number of events : 5525000/15291516
+Number of events : 5530000/15291516
+Number of events : 5535000/15291516
+--- 2225000 entries w/ positive V values
+Number of events : 5540000/15291516
+--- 2230000 entries w/ positive V values
+Number of events : 5545000/15291516
+--- 2235000 entries w/ positive V values
+Number of events : 5550000/15291516
+--- 2240000 entries w/ positive V values
+Number of events : 5555000/15291516
+--- 2245000 entries w/ positive V values
+Number of events : 5560000/15291516
+--- 2250000 entries w/ positive V values
+Number of events : 5565000/15291516
+--- 2255000 entries w/ positive V values
+Number of events : 5570000/15291516
+--- 2260000 entries w/ positive V values
+Number of events : 5575000/15291516
+--- 2265000 entries w/ positive V values
+Number of events : 5580000/15291516
+--- 2270000 entries w/ positive V values
+Number of events : 5585000/15291516
+--- 2275000 entries w/ positive V values
+Number of events : 5590000/15291516
+--- 2280000 entries w/ positive V values
+Number of events : 5595000/15291516
+--- 2285000 entries w/ positive V values
+Number of events : 5600000/15291516
+Number of events : 5605000/15291516
+Number of events : 5610000/15291516
+Number of events : 5615000/15291516
+Number of events : 5620000/15291516
+Number of events : 5625000/15291516
+Number of events : 5630000/15291516
+Number of events : 5635000/15291516
+Number of events : 5640000/15291516
+Number of events : 5645000/15291516
+Number of events : 5650000/15291516
+Number of events : 5655000/15291516
+Number of events : 5660000/15291516
+Number of events : 5665000/15291516
+Number of events : 5670000/15291516
+Number of events : 5675000/15291516
+Number of events : 5680000/15291516
+--- 2290000 entries w/ positive V values
+Number of events : 5685000/15291516
+--- 2295000 entries w/ positive V values
+Number of events : 5690000/15291516
+--- 2300000 entries w/ positive V values
+Number of events : 5695000/15291516
+--- 2305000 entries w/ positive V values
+Number of events : 5700000/15291516
+--- 2310000 entries w/ positive V values
+Number of events : 5705000/15291516
+--- 2315000 entries w/ positive V values
+Number of events : 5710000/15291516
+--- 2320000 entries w/ positive V values
+Number of events : 5715000/15291516
+--- 2325000 entries w/ positive V values
+Number of events : 5720000/15291516
+--- 2330000 entries w/ positive V values
+Number of events : 5725000/15291516
+--- 2335000 entries w/ positive V values
+Number of events : 5730000/15291516
+--- 2340000 entries w/ positive V values
+Number of events : 5735000/15291516
+--- 2345000 entries w/ positive V values
+Number of events : 5740000/15291516
+Number of events : 5745000/15291516
+Number of events : 5750000/15291516
+Number of events : 5755000/15291516
+Number of events : 5760000/15291516
+Number of events : 5765000/15291516
+Number of events : 5770000/15291516
+Number of events : 5775000/15291516
+Number of events : 5780000/15291516
+Number of events : 5785000/15291516
+Number of events : 5790000/15291516
+Number of events : 5795000/15291516
+--- 2350000 entries w/ positive V values
+Number of events : 5800000/15291516
+--- 2355000 entries w/ positive V values
+--- 2355000 entries w/ positive V values
+--- 2355000 entries w/ positive V values
+Number of events : 5805000/15291516
+--- 2360000 entries w/ positive V values
+Number of events : 5810000/15291516
+--- 2365000 entries w/ positive V values
+Number of events : 5815000/15291516
+--- 2370000 entries w/ positive V values
+Number of events : 5820000/15291516
+--- 2375000 entries w/ positive V values
+Number of events : 5825000/15291516
+--- 2380000 entries w/ positive V values
+Number of events : 5830000/15291516
+--- 2385000 entries w/ positive V values
+Number of events : 5835000/15291516
+--- 2390000 entries w/ positive V values
+Number of events : 5840000/15291516
+--- 2395000 entries w/ positive V values
+Number of events : 5845000/15291516
+--- 2400000 entries w/ positive V values
+Number of events : 5850000/15291516
+--- 2405000 entries w/ positive V values
+Number of events : 5855000/15291516
+Number of events : 5860000/15291516
+--- 2410000 entries w/ positive V values
+Number of events : 5865000/15291516
+Number of events : 5870000/15291516
+Number of events : 5875000/15291516
+Number of events : 5880000/15291516
+Number of events : 5885000/15291516
+Number of events : 5890000/15291516
+Number of events : 5895000/15291516
+Number of events : 5900000/15291516
+Number of events : 5905000/15291516
+Number of events : 5910000/15291516
+Number of events : 5915000/15291516
+Number of events : 5920000/15291516
+Number of events : 5925000/15291516
+Number of events : 5930000/15291516
+Number of events : 5935000/15291516
+--- 2415000 entries w/ positive V values
+Number of events : 5940000/15291516
+--- 2420000 entries w/ positive V values
+Number of events : 5945000/15291516
+--- 2425000 entries w/ positive V values
+Number of events : 5950000/15291516
+--- 2430000 entries w/ positive V values
+Number of events : 5955000/15291516
+--- 2435000 entries w/ positive V values
+Number of events : 5960000/15291516
+--- 2440000 entries w/ positive V values
+Number of events : 5965000/15291516
+--- 2445000 entries w/ positive V values
+Number of events : 5970000/15291516
+--- 2450000 entries w/ positive V values
+Number of events : 5975000/15291516
+--- 2455000 entries w/ positive V values
+Number of events : 5980000/15291516
+--- 2460000 entries w/ positive V values
+Number of events : 5985000/15291516
+--- 2465000 entries w/ positive V values
+Number of events : 5990000/15291516
+Number of events : 5995000/15291516
+--- 2470000 entries w/ positive V values
+Number of events : 6000000/15291516
+--- 2475000 entries w/ positive V values
+Number of events : 6005000/15291516
+Number of events : 6010000/15291516
+Number of events : 6015000/15291516
+Number of events : 6020000/15291516
+Number of events : 6025000/15291516
+Number of events : 6030000/15291516
+Number of events : 6035000/15291516
+Number of events : 6040000/15291516
+Number of events : 6045000/15291516
+Number of events : 6050000/15291516
+Number of events : 6055000/15291516
+Number of events : 6060000/15291516
+Number of events : 6065000/15291516
+Number of events : 6070000/15291516
+Number of events : 6075000/15291516
+Number of events : 6080000/15291516
+Number of events : 6085000/15291516
+Number of events : 6090000/15291516
+Number of events : 6095000/15291516
+Number of events : 6100000/15291516
+Number of events : 6105000/15291516
+Number of events : 6110000/15291516
+Number of events : 6115000/15291516
+Number of events : 6120000/15291516
+Number of events : 6125000/15291516
+Number of events : 6130000/15291516
+Number of events : 6135000/15291516
+Number of events : 6140000/15291516
+Number of events : 6145000/15291516
+Number of events : 6150000/15291516
+Number of events : 6155000/15291516
+Number of events : 6160000/15291516
+Number of events : 6165000/15291516
+Number of events : 6170000/15291516
+Number of events : 6175000/15291516
+Number of events : 6180000/15291516
+Number of events : 6185000/15291516
+Number of events : 6190000/15291516
+Number of events : 6195000/15291516
+Number of events : 6200000/15291516
+Number of events : 6205000/15291516
+Number of events : 6210000/15291516
+Number of events : 6215000/15291516
+Number of events : 6220000/15291516
+Number of events : 6225000/15291516
+Number of events : 6230000/15291516
+Number of events : 6235000/15291516
+Number of events : 6240000/15291516
+Number of events : 6245000/15291516
+Number of events : 6250000/15291516
+Number of events : 6255000/15291516
+Number of events : 6260000/15291516
+Number of events : 6265000/15291516
+Number of events : 6270000/15291516
+Number of events : 6275000/15291516
+Number of events : 6280000/15291516
+Number of events : 6285000/15291516
+Number of events : 6290000/15291516
+Number of events : 6295000/15291516
+Number of events : 6300000/15291516
+Number of events : 6305000/15291516
+Number of events : 6310000/15291516
+Number of events : 6315000/15291516
+Number of events : 6320000/15291516
+Number of events : 6325000/15291516
+Number of events : 6330000/15291516
+Number of events : 6335000/15291516
+Number of events : 6340000/15291516
+Number of events : 6345000/15291516
+Number of events : 6350000/15291516
+Number of events : 6355000/15291516
+Number of events : 6360000/15291516
+Number of events : 6365000/15291516
+Number of events : 6370000/15291516
+Number of events : 6375000/15291516
+Number of events : 6380000/15291516
+Number of events : 6385000/15291516
+--- 2480000 entries w/ positive V values
+Number of events : 6390000/15291516
+--- 2485000 entries w/ positive V values
+Number of events : 6395000/15291516
+--- 2490000 entries w/ positive V values
+Number of events : 6400000/15291516
+--- 2495000 entries w/ positive V values
+Number of events : 6405000/15291516
+--- 2500000 entries w/ positive V values
+Number of events : 6410000/15291516
+--- 2505000 entries w/ positive V values
+Number of events : 6415000/15291516
+--- 2510000 entries w/ positive V values
+Number of events : 6420000/15291516
+Number of events : 6425000/15291516
+Number of events : 6430000/15291516
+Number of events : 6435000/15291516
+Number of events : 6440000/15291516
+Number of events : 6445000/15291516
+Number of events : 6450000/15291516
+Number of events : 6455000/15291516
+Number of events : 6460000/15291516
+Number of events : 6465000/15291516
+Number of events : 6470000/15291516
+Number of events : 6475000/15291516
+Number of events : 6480000/15291516
+Number of events : 6485000/15291516
+Number of events : 6490000/15291516
+Number of events : 6495000/15291516
+Number of events : 6500000/15291516
+Number of events : 6505000/15291516
+Number of events : 6510000/15291516
+Number of events : 6515000/15291516
+Number of events : 6520000/15291516
+Number of events : 6525000/15291516
+Number of events : 6530000/15291516
+Number of events : 6535000/15291516
+Number of events : 6540000/15291516
+Number of events : 6545000/15291516
+Number of events : 6550000/15291516
+Number of events : 6555000/15291516
+Number of events : 6560000/15291516
+Number of events : 6565000/15291516
+Number of events : 6570000/15291516
+Number of events : 6575000/15291516
+Number of events : 6580000/15291516
+Number of events : 6585000/15291516
+Number of events : 6590000/15291516
+Number of events : 6595000/15291516
+Number of events : 6600000/15291516
+Number of events : 6605000/15291516
+Number of events : 6610000/15291516
+Number of events : 6615000/15291516
+Number of events : 6620000/15291516
+Number of events : 6625000/15291516
+Number of events : 6630000/15291516
+Number of events : 6635000/15291516
+Number of events : 6640000/15291516
+Number of events : 6645000/15291516
+Number of events : 6650000/15291516
+Number of events : 6655000/15291516
+Number of events : 6660000/15291516
+Number of events : 6665000/15291516
+Number of events : 6670000/15291516
+Number of events : 6675000/15291516
+Number of events : 6680000/15291516
+Number of events : 6685000/15291516
+Number of events : 6690000/15291516
+Number of events : 6695000/15291516
+Number of events : 6700000/15291516
+Number of events : 6705000/15291516
+Number of events : 6710000/15291516
+Number of events : 6715000/15291516
+Number of events : 6720000/15291516
+Number of events : 6725000/15291516
+Number of events : 6730000/15291516
+Number of events : 6735000/15291516
+Number of events : 6740000/15291516
+Number of events : 6745000/15291516
+Number of events : 6750000/15291516
+Number of events : 6755000/15291516
+Number of events : 6760000/15291516
+Number of events : 6765000/15291516
+Number of events : 6770000/15291516
+Number of events : 6775000/15291516
+Number of events : 6780000/15291516
+Number of events : 6785000/15291516
+Number of events : 6790000/15291516
+Number of events : 6795000/15291516
+Number of events : 6800000/15291516
+Number of events : 6805000/15291516
+Number of events : 6810000/15291516
+Number of events : 6815000/15291516
+Number of events : 6820000/15291516
+Number of events : 6825000/15291516
+Number of events : 6830000/15291516
+Number of events : 6835000/15291516
+Number of events : 6840000/15291516
+Number of events : 6845000/15291516
+Number of events : 6850000/15291516
+Number of events : 6855000/15291516
+Number of events : 6860000/15291516
+Number of events : 6865000/15291516
+Number of events : 6870000/15291516
+Number of events : 6875000/15291516
+Number of events : 6880000/15291516
+Number of events : 6885000/15291516
+Number of events : 6890000/15291516
+Number of events : 6895000/15291516
+Number of events : 6900000/15291516
+Number of events : 6905000/15291516
+Number of events : 6910000/15291516
+--- 2515000 entries w/ positive V values
+Number of events : 6915000/15291516
+--- 2520000 entries w/ positive V values
+Number of events : 6920000/15291516
+--- 2525000 entries w/ positive V values
+Number of events : 6925000/15291516
+--- 2530000 entries w/ positive V values
+Number of events : 6930000/15291516
+--- 2535000 entries w/ positive V values
+Number of events : 6935000/15291516
+--- 2540000 entries w/ positive V values
+Number of events : 6940000/15291516
+--- 2545000 entries w/ positive V values
+Number of events : 6945000/15291516
+--- 2550000 entries w/ positive V values
+Number of events : 6950000/15291516
+--- 2555000 entries w/ positive V values
+Number of events : 6955000/15291516
+--- 2560000 entries w/ positive V values
+Number of events : 6960000/15291516
+Number of events : 6965000/15291516
+--- 2565000 entries w/ positive V values
+Number of events : 6970000/15291516
+Number of events : 6975000/15291516
+Number of events : 6980000/15291516
+Number of events : 6985000/15291516
+Number of events : 6990000/15291516
+Number of events : 6995000/15291516
+Number of events : 7000000/15291516
+Number of events : 7005000/15291516
+Number of events : 7010000/15291516
+Number of events : 7015000/15291516
+Number of events : 7020000/15291516
+Number of events : 7025000/15291516
+--- 2570000 entries w/ positive V values
+Number of events : 7030000/15291516
+Number of events : 7035000/15291516
+--- 2575000 entries w/ positive V values
+Number of events : 7040000/15291516
+--- 2580000 entries w/ positive V values
+Number of events : 7045000/15291516
+--- 2585000 entries w/ positive V values
+Number of events : 7050000/15291516
+--- 2590000 entries w/ positive V values
+Number of events : 7055000/15291516
+--- 2595000 entries w/ positive V values
+Number of events : 7060000/15291516
+--- 2600000 entries w/ positive V values
+Number of events : 7065000/15291516
+--- 2605000 entries w/ positive V values
+Number of events : 7070000/15291516
+--- 2610000 entries w/ positive V values
+Number of events : 7075000/15291516
+--- 2615000 entries w/ positive V values
+Number of events : 7080000/15291516
+--- 2620000 entries w/ positive V values
+Number of events : 7085000/15291516
+--- 2625000 entries w/ positive V values
+Number of events : 7090000/15291516
+--- 2630000 entries w/ positive V values
+Number of events : 7095000/15291516
+Number of events : 7100000/15291516
+Number of events : 7105000/15291516
+Number of events : 7110000/15291516
+Number of events : 7115000/15291516
+Number of events : 7120000/15291516
+Number of events : 7125000/15291516
+Number of events : 7130000/15291516
+Number of events : 7135000/15291516
+Number of events : 7140000/15291516
+Number of events : 7145000/15291516
+Number of events : 7150000/15291516
+Number of events : 7155000/15291516
+Number of events : 7160000/15291516
+Number of events : 7165000/15291516
+Number of events : 7170000/15291516
+Number of events : 7175000/15291516
+Number of events : 7180000/15291516
+Number of events : 7185000/15291516
+Number of events : 7190000/15291516
+Number of events : 7195000/15291516
+--- 2635000 entries w/ positive V values
+Number of events : 7200000/15291516
+--- 2640000 entries w/ positive V values
+Number of events : 7205000/15291516
+--- 2645000 entries w/ positive V values
+Number of events : 7210000/15291516
+--- 2650000 entries w/ positive V values
+Number of events : 7215000/15291516
+--- 2655000 entries w/ positive V values
+Number of events : 7220000/15291516
+--- 2660000 entries w/ positive V values
+Number of events : 7225000/15291516
+--- 2665000 entries w/ positive V values
+Number of events : 7230000/15291516
+--- 2670000 entries w/ positive V values
+Number of events : 7235000/15291516
+--- 2675000 entries w/ positive V values
+Number of events : 7240000/15291516
+--- 2680000 entries w/ positive V values
+Number of events : 7245000/15291516
+Number of events : 7250000/15291516
+Number of events : 7255000/15291516
+Number of events : 7260000/15291516
+Number of events : 7265000/15291516
+Number of events : 7270000/15291516
+Number of events : 7275000/15291516
+Number of events : 7280000/15291516
+Number of events : 7285000/15291516
+Number of events : 7290000/15291516
+Number of events : 7295000/15291516
+Number of events : 7300000/15291516
+Number of events : 7305000/15291516
+--- 2685000 entries w/ positive V values
+--- 2685000 entries w/ positive V values
+--- 2685000 entries w/ positive V values
+--- 2685000 entries w/ positive V values
+--- 2685000 entries w/ positive V values
+--- 2685000 entries w/ positive V values
+Number of events : 7310000/15291516
+--- 2690000 entries w/ positive V values
+Number of events : 7315000/15291516
+--- 2695000 entries w/ positive V values
+Number of events : 7320000/15291516
+--- 2700000 entries w/ positive V values
+Number of events : 7325000/15291516
+--- 2705000 entries w/ positive V values
+Number of events : 7330000/15291516
+--- 2710000 entries w/ positive V values
+Number of events : 7335000/15291516
+--- 2715000 entries w/ positive V values
+Number of events : 7340000/15291516
+--- 2720000 entries w/ positive V values
+Number of events : 7345000/15291516
+--- 2725000 entries w/ positive V values
+Number of events : 7350000/15291516
+--- 2730000 entries w/ positive V values
+Number of events : 7355000/15291516
+--- 2735000 entries w/ positive V values
+Number of events : 7360000/15291516
+--- 2740000 entries w/ positive V values
+Number of events : 7365000/15291516
+--- 2745000 entries w/ positive V values
+Number of events : 7370000/15291516
+Number of events : 7375000/15291516
+Number of events : 7380000/15291516
+Number of events : 7385000/15291516
+Number of events : 7390000/15291516
+Number of events : 7395000/15291516
+Number of events : 7400000/15291516
+Number of events : 7405000/15291516
+Number of events : 7410000/15291516
+Number of events : 7415000/15291516
+Number of events : 7420000/15291516
+Number of events : 7425000/15291516
+Number of events : 7430000/15291516
+--- 2750000 entries w/ positive V values
+--- 2750000 entries w/ positive V values
+--- 2750000 entries w/ positive V values
+Number of events : 7435000/15291516
+--- 2755000 entries w/ positive V values
+Number of events : 7440000/15291516
+--- 2760000 entries w/ positive V values
+Number of events : 7445000/15291516
+--- 2765000 entries w/ positive V values
+Number of events : 7450000/15291516
+--- 2770000 entries w/ positive V values
+Number of events : 7455000/15291516
+--- 2775000 entries w/ positive V values
+Number of events : 7460000/15291516
+--- 2780000 entries w/ positive V values
+Number of events : 7465000/15291516
+--- 2785000 entries w/ positive V values
+Number of events : 7470000/15291516
+--- 2790000 entries w/ positive V values
+Number of events : 7475000/15291516
+--- 2795000 entries w/ positive V values
+Number of events : 7480000/15291516
+--- 2800000 entries w/ positive V values
+Number of events : 7485000/15291516
+--- 2805000 entries w/ positive V values
+--- 2805000 entries w/ positive V values
+Number of events : 7490000/15291516
+Number of events : 7495000/15291516
+--- 2810000 entries w/ positive V values
+Number of events : 7500000/15291516
+Number of events : 7505000/15291516
+Number of events : 7510000/15291516
+Number of events : 7515000/15291516
+Number of events : 7520000/15291516
+Number of events : 7525000/15291516
+Number of events : 7530000/15291516
+Number of events : 7535000/15291516
+--- 2815000 entries w/ positive V values
+Number of events : 7540000/15291516
+--- 2820000 entries w/ positive V values
+Number of events : 7545000/15291516
+--- 2825000 entries w/ positive V values
+Number of events : 7550000/15291516
+--- 2830000 entries w/ positive V values
+Number of events : 7555000/15291516
+--- 2835000 entries w/ positive V values
+Number of events : 7560000/15291516
+--- 2840000 entries w/ positive V values
+Number of events : 7565000/15291516
+--- 2845000 entries w/ positive V values
+Number of events : 7570000/15291516
+--- 2850000 entries w/ positive V values
+Number of events : 7575000/15291516
+--- 2855000 entries w/ positive V values
+Number of events : 7580000/15291516
+--- 2860000 entries w/ positive V values
+Number of events : 7585000/15291516
+--- 2865000 entries w/ positive V values
+Number of events : 7590000/15291516
+Number of events : 7595000/15291516
+Number of events : 7600000/15291516
+Number of events : 7605000/15291516
+Number of events : 7610000/15291516
+Number of events : 7615000/15291516
+Number of events : 7620000/15291516
+Number of events : 7625000/15291516
+Number of events : 7630000/15291516
+Number of events : 7635000/15291516
+Number of events : 7640000/15291516
+Number of events : 7645000/15291516
+Number of events : 7650000/15291516
+Number of events : 7655000/15291516
+Number of events : 7660000/15291516
+Number of events : 7665000/15291516
+Number of events : 7670000/15291516
+Number of events : 7675000/15291516
+Number of events : 7680000/15291516
+Number of events : 7685000/15291516
+Number of events : 7690000/15291516
+Number of events : 7695000/15291516
+--- 2870000 entries w/ positive V values
+Number of events : 7700000/15291516
+--- 2875000 entries w/ positive V values
+Number of events : 7705000/15291516
+--- 2880000 entries w/ positive V values
+Number of events : 7710000/15291516
+--- 2885000 entries w/ positive V values
+--- 2885000 entries w/ positive V values
+Number of events : 7715000/15291516
+--- 2890000 entries w/ positive V values
+Number of events : 7720000/15291516
+--- 2895000 entries w/ positive V values
+Number of events : 7725000/15291516
+--- 2900000 entries w/ positive V values
+Number of events : 7730000/15291516
+--- 2905000 entries w/ positive V values
+Number of events : 7735000/15291516
+--- 2910000 entries w/ positive V values
+Number of events : 7740000/15291516
+--- 2915000 entries w/ positive V values
+Number of events : 7745000/15291516
+--- 2920000 entries w/ positive V values
+Number of events : 7750000/15291516
+--- 2925000 entries w/ positive V values
+Number of events : 7755000/15291516
+--- 2930000 entries w/ positive V values
+Number of events : 7760000/15291516
+--- 2935000 entries w/ positive V values
+Number of events : 7765000/15291516
+--- 2940000 entries w/ positive V values
+--- 2940000 entries w/ positive V values
+Number of events : 7770000/15291516
+Number of events : 7775000/15291516
+Number of events : 7780000/15291516
+Number of events : 7785000/15291516
+Number of events : 7790000/15291516
+Number of events : 7795000/15291516
+Number of events : 7800000/15291516
+Number of events : 7805000/15291516
+--- 2945000 entries w/ positive V values
+Number of events : 7810000/15291516
+--- 2950000 entries w/ positive V values
+Number of events : 7815000/15291516
+--- 2955000 entries w/ positive V values
+Number of events : 7820000/15291516
+--- 2960000 entries w/ positive V values
+Number of events : 7825000/15291516
+--- 2965000 entries w/ positive V values
+Number of events : 7830000/15291516
+--- 2970000 entries w/ positive V values
+Number of events : 7835000/15291516
+--- 2975000 entries w/ positive V values
+Number of events : 7840000/15291516
+--- 2980000 entries w/ positive V values
+Number of events : 7845000/15291516
+--- 2985000 entries w/ positive V values
+Number of events : 7850000/15291516
+--- 2990000 entries w/ positive V values
+Number of events : 7855000/15291516
+--- 2995000 entries w/ positive V values
+Number of events : 7860000/15291516
+--- 3000000 entries w/ positive V values
+Number of events : 7865000/15291516
+Number of events : 7870000/15291516
+--- 3005000 entries w/ positive V values
+--- 3005000 entries w/ positive V values
+--- 3005000 entries w/ positive V values
+Number of events : 7875000/15291516
+Number of events : 7880000/15291516
+Number of events : 7885000/15291516
+Number of events : 7890000/15291516
+Number of events : 7895000/15291516
+Number of events : 7900000/15291516
+Number of events : 7905000/15291516
+Number of events : 7910000/15291516
+Number of events : 7915000/15291516
+--- 3010000 entries w/ positive V values
+Number of events : 7920000/15291516
+--- 3015000 entries w/ positive V values
+Number of events : 7925000/15291516
+--- 3020000 entries w/ positive V values
+Number of events : 7930000/15291516
+--- 3025000 entries w/ positive V values
+Number of events : 7935000/15291516
+--- 3030000 entries w/ positive V values
+Number of events : 7940000/15291516
+--- 3035000 entries w/ positive V values
+Number of events : 7945000/15291516
+--- 3040000 entries w/ positive V values
+Number of events : 7950000/15291516
+--- 3045000 entries w/ positive V values
+Number of events : 7955000/15291516
+--- 3050000 entries w/ positive V values
+Number of events : 7960000/15291516
+--- 3055000 entries w/ positive V values
+Number of events : 7965000/15291516
+--- 3060000 entries w/ positive V values
+Number of events : 7970000/15291516
+--- 3065000 entries w/ positive V values
+--- 3065000 entries w/ positive V values
+Number of events : 7975000/15291516
+--- 3070000 entries w/ positive V values
+Number of events : 7980000/15291516
+Number of events : 7985000/15291516
+Number of events : 7990000/15291516
+Number of events : 7995000/15291516
+Number of events : 8000000/15291516
+Number of events : 8005000/15291516
+Number of events : 8010000/15291516
+Number of events : 8015000/15291516
+Number of events : 8020000/15291516
+Number of events : 8025000/15291516
+Number of events : 8030000/15291516
+--- 3075000 entries w/ positive V values
+Number of events : 8035000/15291516
+--- 3080000 entries w/ positive V values
+Number of events : 8040000/15291516
+--- 3085000 entries w/ positive V values
+Number of events : 8045000/15291516
+--- 3090000 entries w/ positive V values
+Number of events : 8050000/15291516
+--- 3095000 entries w/ positive V values
+Number of events : 8055000/15291516
+--- 3100000 entries w/ positive V values
+Number of events : 8060000/15291516
+--- 3105000 entries w/ positive V values
+Number of events : 8065000/15291516
+--- 3110000 entries w/ positive V values
+Number of events : 8070000/15291516
+--- 3115000 entries w/ positive V values
+Number of events : 8075000/15291516
+--- 3120000 entries w/ positive V values
+Number of events : 8080000/15291516
+--- 3125000 entries w/ positive V values
+Number of events : 8085000/15291516
+--- 3130000 entries w/ positive V values
+Number of events : 8090000/15291516
+Number of events : 8095000/15291516
+--- 3135000 entries w/ positive V values
+Number of events : 8100000/15291516
+Number of events : 8105000/15291516
+Number of events : 8110000/15291516
+Number of events : 8115000/15291516
+Number of events : 8120000/15291516
+Number of events : 8125000/15291516
+Number of events : 8130000/15291516
+Number of events : 8135000/15291516
+Number of events : 8140000/15291516
+--- 3140000 entries w/ positive V values
+Number of events : 8145000/15291516
+--- 3145000 entries w/ positive V values
+Number of events : 8150000/15291516
+--- 3150000 entries w/ positive V values
+Number of events : 8155000/15291516
+--- 3155000 entries w/ positive V values
+Number of events : 8160000/15291516
+--- 3160000 entries w/ positive V values
+Number of events : 8165000/15291516
+--- 3165000 entries w/ positive V values
+Number of events : 8170000/15291516
+--- 3170000 entries w/ positive V values
+Number of events : 8175000/15291516
+--- 3175000 entries w/ positive V values
+Number of events : 8180000/15291516
+--- 3180000 entries w/ positive V values
+Number of events : 8185000/15291516
+--- 3185000 entries w/ positive V values
+Number of events : 8190000/15291516
+--- 3190000 entries w/ positive V values
+Number of events : 8195000/15291516
+--- 3195000 entries w/ positive V values
+Number of events : 8200000/15291516
+Number of events : 8205000/15291516
+Number of events : 8210000/15291516
+Number of events : 8215000/15291516
+Number of events : 8220000/15291516
+Number of events : 8225000/15291516
+Number of events : 8230000/15291516
+Number of events : 8235000/15291516
+Number of events : 8240000/15291516
+Number of events : 8245000/15291516
+Number of events : 8250000/15291516
+Number of events : 8255000/15291516
+--- 3200000 entries w/ positive V values
+Number of events : 8260000/15291516
+--- 3205000 entries w/ positive V values
+Number of events : 8265000/15291516
+Number of events : 8270000/15291516
+--- 3210000 entries w/ positive V values
+Number of events : 8275000/15291516
+--- 3215000 entries w/ positive V values
+Number of events : 8280000/15291516
+--- 3220000 entries w/ positive V values
+Number of events : 8285000/15291516
+--- 3225000 entries w/ positive V values
+Number of events : 8290000/15291516
+--- 3230000 entries w/ positive V values
+Number of events : 8295000/15291516
+--- 3235000 entries w/ positive V values
+Number of events : 8300000/15291516
+--- 3240000 entries w/ positive V values
+Number of events : 8305000/15291516
+--- 3245000 entries w/ positive V values
+Number of events : 8310000/15291516
+--- 3250000 entries w/ positive V values
+Number of events : 8315000/15291516
+--- 3255000 entries w/ positive V values
+--- 3255000 entries w/ positive V values
+Number of events : 8320000/15291516
+--- 3260000 entries w/ positive V values
+Number of events : 8325000/15291516
+Number of events : 8330000/15291516
+Number of events : 8335000/15291516
+Number of events : 8340000/15291516
+Number of events : 8345000/15291516
+Number of events : 8350000/15291516
+Number of events : 8355000/15291516
+Number of events : 8360000/15291516
+Number of events : 8365000/15291516
+Number of events : 8370000/15291516
+Number of events : 8375000/15291516
+Number of events : 8380000/15291516
+Number of events : 8385000/15291516
+Number of events : 8390000/15291516
+Number of events : 8395000/15291516
+--- 3265000 entries w/ positive V values
+Number of events : 8400000/15291516
+Number of events : 8405000/15291516
+--- 3270000 entries w/ positive V values
+--- 3270000 entries w/ positive V values
+Number of events : 8410000/15291516
+--- 3275000 entries w/ positive V values
+Number of events : 8415000/15291516
+--- 3280000 entries w/ positive V values
+Number of events : 8420000/15291516
+--- 3285000 entries w/ positive V values
+Number of events : 8425000/15291516
+--- 3290000 entries w/ positive V values
+Number of events : 8430000/15291516
+--- 3295000 entries w/ positive V values
+Number of events : 8435000/15291516
+--- 3300000 entries w/ positive V values
+Number of events : 8440000/15291516
+--- 3305000 entries w/ positive V values
+Number of events : 8445000/15291516
+--- 3310000 entries w/ positive V values
+Number of events : 8450000/15291516
+--- 3315000 entries w/ positive V values
+Number of events : 8455000/15291516
+--- 3320000 entries w/ positive V values
+Number of events : 8460000/15291516
+--- 3325000 entries w/ positive V values
+Number of events : 8465000/15291516
+Number of events : 8470000/15291516
+Number of events : 8475000/15291516
+Number of events : 8480000/15291516
+Number of events : 8485000/15291516
+Number of events : 8490000/15291516
+Number of events : 8495000/15291516
+Number of events : 8500000/15291516
+Number of events : 8505000/15291516
+Number of events : 8510000/15291516
+Number of events : 8515000/15291516
+Number of events : 8520000/15291516
+Number of events : 8525000/15291516
+Number of events : 8530000/15291516
+Number of events : 8535000/15291516
+Number of events : 8540000/15291516
+Number of events : 8545000/15291516
+Number of events : 8550000/15291516
+Number of events : 8555000/15291516
+Number of events : 8560000/15291516
+Number of events : 8565000/15291516
+Number of events : 8570000/15291516
+Number of events : 8575000/15291516
+Number of events : 8580000/15291516
+--- 3330000 entries w/ positive V values
+Number of events : 8585000/15291516
+--- 3335000 entries w/ positive V values
+--- 3335000 entries w/ positive V values
+Number of events : 8590000/15291516
+--- 3340000 entries w/ positive V values
+Number of events : 8595000/15291516
+--- 3345000 entries w/ positive V values
+Number of events : 8600000/15291516
+--- 3350000 entries w/ positive V values
+Number of events : 8605000/15291516
+--- 3355000 entries w/ positive V values
+Number of events : 8610000/15291516
+--- 3360000 entries w/ positive V values
+Number of events : 8615000/15291516
+--- 3365000 entries w/ positive V values
+Number of events : 8620000/15291516
+--- 3370000 entries w/ positive V values
+Number of events : 8625000/15291516
+--- 3375000 entries w/ positive V values
+Number of events : 8630000/15291516
+--- 3380000 entries w/ positive V values
+Number of events : 8635000/15291516
+Number of events : 8640000/15291516
+--- 3385000 entries w/ positive V values
+--- 3385000 entries w/ positive V values
+Number of events : 8645000/15291516
+--- 3390000 entries w/ positive V values
+--- 3390000 entries w/ positive V values
+Number of events : 8650000/15291516
+Number of events : 8655000/15291516
+Number of events : 8660000/15291516
+Number of events : 8665000/15291516
+Number of events : 8670000/15291516
+Number of events : 8675000/15291516
+Number of events : 8680000/15291516
+Number of events : 8685000/15291516
+Number of events : 8690000/15291516
+Number of events : 8695000/15291516
+Number of events : 8700000/15291516
+Number of events : 8705000/15291516
+Number of events : 8710000/15291516
+Number of events : 8715000/15291516
+Number of events : 8720000/15291516
+--- 3395000 entries w/ positive V values
+Number of events : 8725000/15291516
+Number of events : 8730000/15291516
+--- 3400000 entries w/ positive V values
+Number of events : 8735000/15291516
+--- 3405000 entries w/ positive V values
+Number of events : 8740000/15291516
+--- 3410000 entries w/ positive V values
+Number of events : 8745000/15291516
+--- 3415000 entries w/ positive V values
+Number of events : 8750000/15291516
+--- 3420000 entries w/ positive V values
+Number of events : 8755000/15291516
+--- 3425000 entries w/ positive V values
+Number of events : 8760000/15291516
+--- 3430000 entries w/ positive V values
+Number of events : 8765000/15291516
+--- 3435000 entries w/ positive V values
+Number of events : 8770000/15291516
+--- 3440000 entries w/ positive V values
+Number of events : 8775000/15291516
+--- 3445000 entries w/ positive V values
+Number of events : 8780000/15291516
+--- 3450000 entries w/ positive V values
+Number of events : 8785000/15291516
+--- 3455000 entries w/ positive V values
+Number of events : 8790000/15291516
+Number of events : 8795000/15291516
+Number of events : 8800000/15291516
+Number of events : 8805000/15291516
+Number of events : 8810000/15291516
+Number of events : 8815000/15291516
+Number of events : 8820000/15291516
+Number of events : 8825000/15291516
+Number of events : 8830000/15291516
+Number of events : 8835000/15291516
+Number of events : 8840000/15291516
+Number of events : 8845000/15291516
+Number of events : 8850000/15291516
+Number of events : 8855000/15291516
+--- 3460000 entries w/ positive V values
+Number of events : 8860000/15291516
+--- 3465000 entries w/ positive V values
+Number of events : 8865000/15291516
+--- 3470000 entries w/ positive V values
+Number of events : 8870000/15291516
+--- 3475000 entries w/ positive V values
+Number of events : 8875000/15291516
+--- 3480000 entries w/ positive V values
+Number of events : 8880000/15291516
+--- 3485000 entries w/ positive V values
+Number of events : 8885000/15291516
+--- 3490000 entries w/ positive V values
+Number of events : 8890000/15291516
+--- 3495000 entries w/ positive V values
+Number of events : 8895000/15291516
+--- 3500000 entries w/ positive V values
+Number of events : 8900000/15291516
+Number of events : 8905000/15291516
+Number of events : 8910000/15291516
+Number of events : 8915000/15291516
+--- 3505000 entries w/ positive V values
+Number of events : 8920000/15291516
+Number of events : 8925000/15291516
+Number of events : 8930000/15291516
+Number of events : 8935000/15291516
+Number of events : 8940000/15291516
+Number of events : 8945000/15291516
+Number of events : 8950000/15291516
+Number of events : 8955000/15291516
+Number of events : 8960000/15291516
+Number of events : 8965000/15291516
+--- 3510000 entries w/ positive V values
+--- 3510000 entries w/ positive V values
+--- 3510000 entries w/ positive V values
+Number of events : 8970000/15291516
+--- 3515000 entries w/ positive V values
+Number of events : 8975000/15291516
+--- 3520000 entries w/ positive V values
+Number of events : 8980000/15291516
+--- 3525000 entries w/ positive V values
+Number of events : 8985000/15291516
+--- 3530000 entries w/ positive V values
+Number of events : 8990000/15291516
+--- 3535000 entries w/ positive V values
+Number of events : 8995000/15291516
+--- 3540000 entries w/ positive V values
+Number of events : 9000000/15291516
+--- 3545000 entries w/ positive V values
+Number of events : 9005000/15291516
+--- 3550000 entries w/ positive V values
+Number of events : 9010000/15291516
+--- 3555000 entries w/ positive V values
+Number of events : 9015000/15291516
+--- 3560000 entries w/ positive V values
+Number of events : 9020000/15291516
+--- 3565000 entries w/ positive V values
+Number of events : 9025000/15291516
+Number of events : 9030000/15291516
+--- 3570000 entries w/ positive V values
+Number of events : 9035000/15291516
+Number of events : 9040000/15291516
+Number of events : 9045000/15291516
+Number of events : 9050000/15291516
+Number of events : 9055000/15291516
+Number of events : 9060000/15291516
+Number of events : 9065000/15291516
+Number of events : 9070000/15291516
+Number of events : 9075000/15291516
+Number of events : 9080000/15291516
+Number of events : 9085000/15291516
+Number of events : 9090000/15291516
+--- 3575000 entries w/ positive V values
+Number of events : 9095000/15291516
+Number of events : 9100000/15291516
+--- 3580000 entries w/ positive V values
+Number of events : 9105000/15291516
+--- 3585000 entries w/ positive V values
+Number of events : 9110000/15291516
+--- 3590000 entries w/ positive V values
+Number of events : 9115000/15291516
+--- 3595000 entries w/ positive V values
+Number of events : 9120000/15291516
+--- 3600000 entries w/ positive V values
+Number of events : 9125000/15291516
+--- 3605000 entries w/ positive V values
+Number of events : 9130000/15291516
+--- 3610000 entries w/ positive V values
+Number of events : 9135000/15291516
+--- 3615000 entries w/ positive V values
+Number of events : 9140000/15291516
+--- 3620000 entries w/ positive V values
+Number of events : 9145000/15291516
+--- 3625000 entries w/ positive V values
+Number of events : 9150000/15291516
+--- 3630000 entries w/ positive V values
+Number of events : 9155000/15291516
+Number of events : 9160000/15291516
+--- 3635000 entries w/ positive V values
+--- 3635000 entries w/ positive V values
+--- 3635000 entries w/ positive V values
+--- 3635000 entries w/ positive V values
+--- 3635000 entries w/ positive V values
+--- 3635000 entries w/ positive V values
+--- 3635000 entries w/ positive V values
+Number of events : 9165000/15291516
+Number of events : 9170000/15291516
+Number of events : 9175000/15291516
+Number of events : 9180000/15291516
+Number of events : 9185000/15291516
+Number of events : 9190000/15291516
+Number of events : 9195000/15291516
+Number of events : 9200000/15291516
+Number of events : 9205000/15291516
+--- 3640000 entries w/ positive V values
+Number of events : 9210000/15291516
+Number of events : 9215000/15291516
+--- 3645000 entries w/ positive V values
+Number of events : 9220000/15291516
+--- 3650000 entries w/ positive V values
+Number of events : 9225000/15291516
+--- 3655000 entries w/ positive V values
+Number of events : 9230000/15291516
+--- 3660000 entries w/ positive V values
+Number of events : 9235000/15291516
+--- 3665000 entries w/ positive V values
+Number of events : 9240000/15291516
+--- 3670000 entries w/ positive V values
+Number of events : 9245000/15291516
+--- 3675000 entries w/ positive V values
+Number of events : 9250000/15291516
+--- 3680000 entries w/ positive V values
+Number of events : 9255000/15291516
+--- 3685000 entries w/ positive V values
+Number of events : 9260000/15291516
+--- 3690000 entries w/ positive V values
+Number of events : 9265000/15291516
+--- 3695000 entries w/ positive V values
+Number of events : 9270000/15291516
+--- 3700000 entries w/ positive V values
+Number of events : 9275000/15291516
+Number of events : 9280000/15291516
+Number of events : 9285000/15291516
+Number of events : 9290000/15291516
+Number of events : 9295000/15291516
+Number of events : 9300000/15291516
+Number of events : 9305000/15291516
+Number of events : 9310000/15291516
+Number of events : 9315000/15291516
+Number of events : 9320000/15291516
+Number of events : 9325000/15291516
+Number of events : 9330000/15291516
+Number of events : 9335000/15291516
+Number of events : 9340000/15291516
+Number of events : 9345000/15291516
+Number of events : 9350000/15291516
+Number of events : 9355000/15291516
+--- 3705000 entries w/ positive V values
+Number of events : 9360000/15291516
+--- 3710000 entries w/ positive V values
+Number of events : 9365000/15291516
+--- 3715000 entries w/ positive V values
+Number of events : 9370000/15291516
+--- 3720000 entries w/ positive V values
+Number of events : 9375000/15291516
+--- 3725000 entries w/ positive V values
+Number of events : 9380000/15291516
+--- 3730000 entries w/ positive V values
+Number of events : 9385000/15291516
+--- 3735000 entries w/ positive V values
+Number of events : 9390000/15291516
+--- 3740000 entries w/ positive V values
+Number of events : 9395000/15291516
+--- 3745000 entries w/ positive V values
+Number of events : 9400000/15291516
+--- 3750000 entries w/ positive V values
+Number of events : 9405000/15291516
+--- 3755000 entries w/ positive V values
+Number of events : 9410000/15291516
+Number of events : 9415000/15291516
+--- 3760000 entries w/ positive V values
+Number of events : 9420000/15291516
+Number of events : 9425000/15291516
+Number of events : 9430000/15291516
+Number of events : 9435000/15291516
+Number of events : 9440000/15291516
+Number of events : 9445000/15291516
+Number of events : 9450000/15291516
+Number of events : 9455000/15291516
+Number of events : 9460000/15291516
+Number of events : 9465000/15291516
+Number of events : 9470000/15291516
+Number of events : 9475000/15291516
+Number of events : 9480000/15291516
+Number of events : 9485000/15291516
+Number of events : 9490000/15291516
+--- 3765000 entries w/ positive V values
+--- 3765000 entries w/ positive V values
+Number of events : 9495000/15291516
+Number of events : 9500000/15291516
+--- 3770000 entries w/ positive V values
+Number of events : 9505000/15291516
+--- 3775000 entries w/ positive V values
+Number of events : 9510000/15291516
+--- 3780000 entries w/ positive V values
+Number of events : 9515000/15291516
+--- 3785000 entries w/ positive V values
+Number of events : 9520000/15291516
+--- 3790000 entries w/ positive V values
+Number of events : 9525000/15291516
+--- 3795000 entries w/ positive V values
+Number of events : 9530000/15291516
+--- 3800000 entries w/ positive V values
+Number of events : 9535000/15291516
+--- 3805000 entries w/ positive V values
+Number of events : 9540000/15291516
+--- 3810000 entries w/ positive V values
+Number of events : 9545000/15291516
+--- 3815000 entries w/ positive V values
+Number of events : 9550000/15291516
+--- 3820000 entries w/ positive V values
+Number of events : 9555000/15291516
+--- 3825000 entries w/ positive V values
+Number of events : 9560000/15291516
+Number of events : 9565000/15291516
+Number of events : 9570000/15291516
+Number of events : 9575000/15291516
+Number of events : 9580000/15291516
+Number of events : 9585000/15291516
+Number of events : 9590000/15291516
+Number of events : 9595000/15291516
+Number of events : 9600000/15291516
+Number of events : 9605000/15291516
+Number of events : 9610000/15291516
+Number of events : 9615000/15291516
+--- 3830000 entries w/ positive V values
+Number of events : 9620000/15291516
+--- 3835000 entries w/ positive V values
+Number of events : 9625000/15291516
+--- 3840000 entries w/ positive V values
+Number of events : 9630000/15291516
+--- 3845000 entries w/ positive V values
+Number of events : 9635000/15291516
+--- 3850000 entries w/ positive V values
+Number of events : 9640000/15291516
+--- 3855000 entries w/ positive V values
+Number of events : 9645000/15291516
+--- 3860000 entries w/ positive V values
+Number of events : 9650000/15291516
+--- 3865000 entries w/ positive V values
+Number of events : 9655000/15291516
+--- 3870000 entries w/ positive V values
+Number of events : 9660000/15291516
+--- 3875000 entries w/ positive V values
+Number of events : 9665000/15291516
+--- 3880000 entries w/ positive V values
+Number of events : 9670000/15291516
+Number of events : 9675000/15291516
+--- 3885000 entries w/ positive V values
+Number of events : 9680000/15291516
+--- 3890000 entries w/ positive V values
+--- 3890000 entries w/ positive V values
+--- 3890000 entries w/ positive V values
+Number of events : 9685000/15291516
+Number of events : 9690000/15291516
+Number of events : 9695000/15291516
+Number of events : 9700000/15291516
+Number of events : 9705000/15291516
+Number of events : 9710000/15291516
+Number of events : 9715000/15291516
+Number of events : 9720000/15291516
+Number of events : 9725000/15291516
+Number of events : 9730000/15291516
+Number of events : 9735000/15291516
+Number of events : 9740000/15291516
+Number of events : 9745000/15291516
+Number of events : 9750000/15291516
+Number of events : 9755000/15291516
+--- 3895000 entries w/ positive V values
+Number of events : 9760000/15291516
+Number of events : 9765000/15291516
+--- 3900000 entries w/ positive V values
+Number of events : 9770000/15291516
+--- 3905000 entries w/ positive V values
+Number of events : 9775000/15291516
+--- 3910000 entries w/ positive V values
+Number of events : 9780000/15291516
+--- 3915000 entries w/ positive V values
+Number of events : 9785000/15291516
+--- 3920000 entries w/ positive V values
+Number of events : 9790000/15291516
+--- 3925000 entries w/ positive V values
+Number of events : 9795000/15291516
+--- 3930000 entries w/ positive V values
+Number of events : 9800000/15291516
+--- 3935000 entries w/ positive V values
+Number of events : 9805000/15291516
+--- 3940000 entries w/ positive V values
+Number of events : 9810000/15291516
+--- 3945000 entries w/ positive V values
+Number of events : 9815000/15291516
+--- 3950000 entries w/ positive V values
+Number of events : 9820000/15291516
+--- 3955000 entries w/ positive V values
+Number of events : 9825000/15291516
+Number of events : 9830000/15291516
+Number of events : 9835000/15291516
+Number of events : 9840000/15291516
+Number of events : 9845000/15291516
+Number of events : 9850000/15291516
+Number of events : 9855000/15291516
+Number of events : 9860000/15291516
+Number of events : 9865000/15291516
+Number of events : 9870000/15291516
+Number of events : 9875000/15291516
+Number of events : 9880000/15291516
+Number of events : 9885000/15291516
+Number of events : 9890000/15291516
+Number of events : 9895000/15291516
+Number of events : 9900000/15291516
+Number of events : 9905000/15291516
+Number of events : 9910000/15291516
+Number of events : 9915000/15291516
+Number of events : 9920000/15291516
+Number of events : 9925000/15291516
+Number of events : 9930000/15291516
+Number of events : 9935000/15291516
+Number of events : 9940000/15291516
+Number of events : 9945000/15291516
+Number of events : 9950000/15291516
+Number of events : 9955000/15291516
+Number of events : 9960000/15291516
+Number of events : 9965000/15291516
+Number of events : 9970000/15291516
+Number of events : 9975000/15291516
+Number of events : 9980000/15291516
+Number of events : 9985000/15291516
+Number of events : 9990000/15291516
+Number of events : 9995000/15291516
+Number of events : 10000000/15291516
+Number of events : 10005000/15291516
+Number of events : 10010000/15291516
+Number of events : 10015000/15291516
+Number of events : 10020000/15291516
+Number of events : 10025000/15291516
+Number of events : 10030000/15291516
+Number of events : 10035000/15291516
+Number of events : 10040000/15291516
+Number of events : 10045000/15291516
+Number of events : 10050000/15291516
+Number of events : 10055000/15291516
+Number of events : 10060000/15291516
+Number of events : 10065000/15291516
+Number of events : 10070000/15291516
+Number of events : 10075000/15291516
+Number of events : 10080000/15291516
+Number of events : 10085000/15291516
+Number of events : 10090000/15291516
+Number of events : 10095000/15291516
+Number of events : 10100000/15291516
+Number of events : 10105000/15291516
+Number of events : 10110000/15291516
+Number of events : 10115000/15291516
+Number of events : 10120000/15291516
+Number of events : 10125000/15291516
+Number of events : 10130000/15291516
+Number of events : 10135000/15291516
+--- 3960000 entries w/ positive V values
+Number of events : 10140000/15291516
+--- 3965000 entries w/ positive V values
+Number of events : 10145000/15291516
+--- 3970000 entries w/ positive V values
+Number of events : 10150000/15291516
+--- 3975000 entries w/ positive V values
+Number of events : 10155000/15291516
+--- 3980000 entries w/ positive V values
+Number of events : 10160000/15291516
+--- 3985000 entries w/ positive V values
+Number of events : 10165000/15291516
+--- 3990000 entries w/ positive V values
+Number of events : 10170000/15291516
+--- 3995000 entries w/ positive V values
+Number of events : 10175000/15291516
+--- 4000000 entries w/ positive V values
+Number of events : 10180000/15291516
+--- 4005000 entries w/ positive V values
+Number of events : 10185000/15291516
+--- 4010000 entries w/ positive V values
+Number of events : 10190000/15291516
+--- 4015000 entries w/ positive V values
+Number of events : 10195000/15291516
+Number of events : 10200000/15291516
+Number of events : 10205000/15291516
+Number of events : 10210000/15291516
+Number of events : 10215000/15291516
+Number of events : 10220000/15291516
+Number of events : 10225000/15291516
+Number of events : 10230000/15291516
+Number of events : 10235000/15291516
+Number of events : 10240000/15291516
+Number of events : 10245000/15291516
+Number of events : 10250000/15291516
+Number of events : 10255000/15291516
+Number of events : 10260000/15291516
+Number of events : 10265000/15291516
+Number of events : 10270000/15291516
+Number of events : 10275000/15291516
+Number of events : 10280000/15291516
+Number of events : 10285000/15291516
+Number of events : 10290000/15291516
+Number of events : 10295000/15291516
+Number of events : 10300000/15291516
+Number of events : 10305000/15291516
+Number of events : 10310000/15291516
+Number of events : 10315000/15291516
+Number of events : 10320000/15291516
+Number of events : 10325000/15291516
+Number of events : 10330000/15291516
+Number of events : 10335000/15291516
+Number of events : 10340000/15291516
+Number of events : 10345000/15291516
+Number of events : 10350000/15291516
+Number of events : 10355000/15291516
+Number of events : 10360000/15291516
+Number of events : 10365000/15291516
+Number of events : 10370000/15291516
+Number of events : 10375000/15291516
+Number of events : 10380000/15291516
+Number of events : 10385000/15291516
+Number of events : 10390000/15291516
+Number of events : 10395000/15291516
+Number of events : 10400000/15291516
+Number of events : 10405000/15291516
+Number of events : 10410000/15291516
+Number of events : 10415000/15291516
+Number of events : 10420000/15291516
+Number of events : 10425000/15291516
+Number of events : 10430000/15291516
+Number of events : 10435000/15291516
+Number of events : 10440000/15291516
+Number of events : 10445000/15291516
+Number of events : 10450000/15291516
+Number of events : 10455000/15291516
+Number of events : 10460000/15291516
+Number of events : 10465000/15291516
+Number of events : 10470000/15291516
+Number of events : 10475000/15291516
+Number of events : 10480000/15291516
+Number of events : 10485000/15291516
+Number of events : 10490000/15291516
+Number of events : 10495000/15291516
+Number of events : 10500000/15291516
+Number of events : 10505000/15291516
+Number of events : 10510000/15291516
+Number of events : 10515000/15291516
+Number of events : 10520000/15291516
+Number of events : 10525000/15291516
+Number of events : 10530000/15291516
+Number of events : 10535000/15291516
+Number of events : 10540000/15291516
+Number of events : 10545000/15291516
+Number of events : 10550000/15291516
+Number of events : 10555000/15291516
+Number of events : 10560000/15291516
+Number of events : 10565000/15291516
+Number of events : 10570000/15291516
+Number of events : 10575000/15291516
+Number of events : 10580000/15291516
+Number of events : 10585000/15291516
+Number of events : 10590000/15291516
+Number of events : 10595000/15291516
+Number of events : 10600000/15291516
+Number of events : 10605000/15291516
+Number of events : 10610000/15291516
+Number of events : 10615000/15291516
+Number of events : 10620000/15291516
+Number of events : 10625000/15291516
+Number of events : 10630000/15291516
+Number of events : 10635000/15291516
+Number of events : 10640000/15291516
+Number of events : 10645000/15291516
+Number of events : 10650000/15291516
+Number of events : 10655000/15291516
+Number of events : 10660000/15291516
+Number of events : 10665000/15291516
+Number of events : 10670000/15291516
+Number of events : 10675000/15291516
+Number of events : 10680000/15291516
+Number of events : 10685000/15291516
+Number of events : 10690000/15291516
+Number of events : 10695000/15291516
+Number of events : 10700000/15291516
+Number of events : 10705000/15291516
+Number of events : 10710000/15291516
+Number of events : 10715000/15291516
+Number of events : 10720000/15291516
+Number of events : 10725000/15291516
+Number of events : 10730000/15291516
+Number of events : 10735000/15291516
+Number of events : 10740000/15291516
+Number of events : 10745000/15291516
+Number of events : 10750000/15291516
+Number of events : 10755000/15291516
+Number of events : 10760000/15291516
+Number of events : 10765000/15291516
+Number of events : 10770000/15291516
+Number of events : 10775000/15291516
+Number of events : 10780000/15291516
+Number of events : 10785000/15291516
+Number of events : 10790000/15291516
+Number of events : 10795000/15291516
+--- 4020000 entries w/ positive V values
+--- 4020000 entries w/ positive V values
+Number of events : 10800000/15291516
+--- 4025000 entries w/ positive V values
+Number of events : 10805000/15291516
+--- 4030000 entries w/ positive V values
+Number of events : 10810000/15291516
+--- 4035000 entries w/ positive V values
+Number of events : 10815000/15291516
+--- 4040000 entries w/ positive V values
+Number of events : 10820000/15291516
+--- 4045000 entries w/ positive V values
+Number of events : 10825000/15291516
+--- 4050000 entries w/ positive V values
+Number of events : 10830000/15291516
+--- 4055000 entries w/ positive V values
+Number of events : 10835000/15291516
+--- 4060000 entries w/ positive V values
+Number of events : 10840000/15291516
+--- 4065000 entries w/ positive V values
+Number of events : 10845000/15291516
+--- 4070000 entries w/ positive V values
+Number of events : 10850000/15291516
+Number of events : 10855000/15291516
+--- 4075000 entries w/ positive V values
+Number of events : 10860000/15291516
+--- 4080000 entries w/ positive V values
+Number of events : 10865000/15291516
+Number of events : 10870000/15291516
+Number of events : 10875000/15291516
+Number of events : 10880000/15291516
+Number of events : 10885000/15291516
+Number of events : 10890000/15291516
+Number of events : 10895000/15291516
+Number of events : 10900000/15291516
+Number of events : 10905000/15291516
+Number of events : 10910000/15291516
+Number of events : 10915000/15291516
+Number of events : 10920000/15291516
+--- 4085000 entries w/ positive V values
+Number of events : 10925000/15291516
+Number of events : 10930000/15291516
+--- 4090000 entries w/ positive V values
+Number of events : 10935000/15291516
+--- 4095000 entries w/ positive V values
+Number of events : 10940000/15291516
+--- 4100000 entries w/ positive V values
+Number of events : 10945000/15291516
+--- 4105000 entries w/ positive V values
+Number of events : 10950000/15291516
+--- 4110000 entries w/ positive V values
+Number of events : 10955000/15291516
+--- 4115000 entries w/ positive V values
+Number of events : 10960000/15291516
+--- 4120000 entries w/ positive V values
+Number of events : 10965000/15291516
+--- 4125000 entries w/ positive V values
+Number of events : 10970000/15291516
+--- 4130000 entries w/ positive V values
+Number of events : 10975000/15291516
+--- 4135000 entries w/ positive V values
+Number of events : 10980000/15291516
+--- 4140000 entries w/ positive V values
+Number of events : 10985000/15291516
+--- 4145000 entries w/ positive V values
+--- 4145000 entries w/ positive V values
+Number of events : 10990000/15291516
+Number of events : 10995000/15291516
+Number of events : 11000000/15291516
+Number of events : 11005000/15291516
+Number of events : 11010000/15291516
+Number of events : 11015000/15291516
+Number of events : 11020000/15291516
+Number of events : 11025000/15291516
+Number of events : 11030000/15291516
+Number of events : 11035000/15291516
+Number of events : 11040000/15291516
+Number of events : 11045000/15291516
+Number of events : 11050000/15291516
+Number of events : 11055000/15291516
+Number of events : 11060000/15291516
+Number of events : 11065000/15291516
+Number of events : 11070000/15291516
+Number of events : 11075000/15291516
+Number of events : 11080000/15291516
+Number of events : 11085000/15291516
+Number of events : 11090000/15291516
+--- 4150000 entries w/ positive V values
+--- 4150000 entries w/ positive V values
+--- 4150000 entries w/ positive V values
+Number of events : 11095000/15291516
+--- 4155000 entries w/ positive V values
+Number of events : 11100000/15291516
+--- 4160000 entries w/ positive V values
+Number of events : 11105000/15291516
+--- 4165000 entries w/ positive V values
+Number of events : 11110000/15291516
+--- 4170000 entries w/ positive V values
+Number of events : 11115000/15291516
+--- 4175000 entries w/ positive V values
+Number of events : 11120000/15291516
+--- 4180000 entries w/ positive V values
+Number of events : 11125000/15291516
+--- 4185000 entries w/ positive V values
+Number of events : 11130000/15291516
+--- 4190000 entries w/ positive V values
+Number of events : 11135000/15291516
+--- 4195000 entries w/ positive V values
+Number of events : 11140000/15291516
+--- 4200000 entries w/ positive V values
+Number of events : 11145000/15291516
+--- 4205000 entries w/ positive V values
+Number of events : 11150000/15291516
+Number of events : 11155000/15291516
+--- 4210000 entries w/ positive V values
+--- 4210000 entries w/ positive V values
+Number of events : 11160000/15291516
+Number of events : 11165000/15291516
+Number of events : 11170000/15291516
+Number of events : 11175000/15291516
+Number of events : 11180000/15291516
+Number of events : 11185000/15291516
+Number of events : 11190000/15291516
+Number of events : 11195000/15291516
+Number of events : 11200000/15291516
+Number of events : 11205000/15291516
+Number of events : 11210000/15291516
+Number of events : 11215000/15291516
+--- 4215000 entries w/ positive V values
+Number of events : 11220000/15291516
+--- 4220000 entries w/ positive V values
+Number of events : 11225000/15291516
+--- 4225000 entries w/ positive V values
+Number of events : 11230000/15291516
+--- 4230000 entries w/ positive V values
+Number of events : 11235000/15291516
+--- 4235000 entries w/ positive V values
+Number of events : 11240000/15291516
+--- 4240000 entries w/ positive V values
+Number of events : 11245000/15291516
+--- 4245000 entries w/ positive V values
+Number of events : 11250000/15291516
+--- 4250000 entries w/ positive V values
+Number of events : 11255000/15291516
+--- 4255000 entries w/ positive V values
+Number of events : 11260000/15291516
+--- 4260000 entries w/ positive V values
+Number of events : 11265000/15291516
+--- 4265000 entries w/ positive V values
+Number of events : 11270000/15291516
+--- 4270000 entries w/ positive V values
+Number of events : 11275000/15291516
+--- 4275000 entries w/ positive V values
+Number of events : 11280000/15291516
+Number of events : 11285000/15291516
+Number of events : 11290000/15291516
+Number of events : 11295000/15291516
+Number of events : 11300000/15291516
+Number of events : 11305000/15291516
+Number of events : 11310000/15291516
+Number of events : 11315000/15291516
+Number of events : 11320000/15291516
+Number of events : 11325000/15291516
+Number of events : 11330000/15291516
+Number of events : 11335000/15291516
+Number of events : 11340000/15291516
+--- 4280000 entries w/ positive V values
+Number of events : 11345000/15291516
+--- 4285000 entries w/ positive V values
+Number of events : 11350000/15291516
+--- 4290000 entries w/ positive V values
+Number of events : 11355000/15291516
+--- 4295000 entries w/ positive V values
+Number of events : 11360000/15291516
+--- 4300000 entries w/ positive V values
+Number of events : 11365000/15291516
+--- 4305000 entries w/ positive V values
+Number of events : 11370000/15291516
+--- 4310000 entries w/ positive V values
+Number of events : 11375000/15291516
+--- 4315000 entries w/ positive V values
+Number of events : 11380000/15291516
+--- 4320000 entries w/ positive V values
+Number of events : 11385000/15291516
+--- 4325000 entries w/ positive V values
+Number of events : 11390000/15291516
+--- 4330000 entries w/ positive V values
+Number of events : 11395000/15291516
+--- 4335000 entries w/ positive V values
+Number of events : 11400000/15291516
+Number of events : 11405000/15291516
+Number of events : 11410000/15291516
+Number of events : 11415000/15291516
+Number of events : 11420000/15291516
+Number of events : 11425000/15291516
+Number of events : 11430000/15291516
+Number of events : 11435000/15291516
+Number of events : 11440000/15291516
+Number of events : 11445000/15291516
+Number of events : 11450000/15291516
+Number of events : 11455000/15291516
+Number of events : 11460000/15291516
+Number of events : 11465000/15291516
+Number of events : 11470000/15291516
+Number of events : 11475000/15291516
+Number of events : 11480000/15291516
+Number of events : 11485000/15291516
+Number of events : 11490000/15291516
+Number of events : 11495000/15291516
+Number of events : 11500000/15291516
+Number of events : 11505000/15291516
+Number of events : 11510000/15291516
+Number of events : 11515000/15291516
+Number of events : 11520000/15291516
+Number of events : 11525000/15291516
+Number of events : 11530000/15291516
+Number of events : 11535000/15291516
+Number of events : 11540000/15291516
+Number of events : 11545000/15291516
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+--- 4340000 entries w/ positive V values
+Number of events : 11550000/15291516
+Number of events : 11555000/15291516
+--- 4345000 entries w/ positive V values
+Number of events : 11560000/15291516
+--- 4350000 entries w/ positive V values
+Number of events : 11565000/15291516
+--- 4355000 entries w/ positive V values
+Number of events : 11570000/15291516
+--- 4360000 entries w/ positive V values
+Number of events : 11575000/15291516
+--- 4365000 entries w/ positive V values
+Number of events : 11580000/15291516
+--- 4370000 entries w/ positive V values
+Number of events : 11585000/15291516
+--- 4375000 entries w/ positive V values
+Number of events : 11590000/15291516
+--- 4380000 entries w/ positive V values
+Number of events : 11595000/15291516
+--- 4385000 entries w/ positive V values
+Number of events : 11600000/15291516
+--- 4390000 entries w/ positive V values
+Number of events : 11605000/15291516
+--- 4395000 entries w/ positive V values
+Number of events : 11610000/15291516
+Number of events : 11615000/15291516
+--- 4400000 entries w/ positive V values
+--- 4400000 entries w/ positive V values
+--- 4400000 entries w/ positive V values
+--- 4400000 entries w/ positive V values
+--- 4400000 entries w/ positive V values
+Number of events : 11620000/15291516
+--- 4405000 entries w/ positive V values
+Number of events : 11625000/15291516
+Number of events : 11630000/15291516
+Number of events : 11635000/15291516
+Number of events : 11640000/15291516
+Number of events : 11645000/15291516
+Number of events : 11650000/15291516
+Number of events : 11655000/15291516
+Number of events : 11660000/15291516
+--- 4410000 entries w/ positive V values
+Number of events : 11665000/15291516
+--- 4415000 entries w/ positive V values
+Number of events : 11670000/15291516
+--- 4420000 entries w/ positive V values
+Number of events : 11675000/15291516
+--- 4425000 entries w/ positive V values
+Number of events : 11680000/15291516
+--- 4430000 entries w/ positive V values
+Number of events : 11685000/15291516
+--- 4435000 entries w/ positive V values
+Number of events : 11690000/15291516
+--- 4440000 entries w/ positive V values
+Number of events : 11695000/15291516
+--- 4445000 entries w/ positive V values
+Number of events : 11700000/15291516
+--- 4450000 entries w/ positive V values
+Number of events : 11705000/15291516
+--- 4455000 entries w/ positive V values
+Number of events : 11710000/15291516
+--- 4460000 entries w/ positive V values
+Number of events : 11715000/15291516
+--- 4465000 entries w/ positive V values
+Number of events : 11720000/15291516
+Number of events : 11725000/15291516
+--- 4470000 entries w/ positive V values
+Number of events : 11730000/15291516
+Number of events : 11735000/15291516
+Number of events : 11740000/15291516
+Number of events : 11745000/15291516
+Number of events : 11750000/15291516
+Number of events : 11755000/15291516
+Number of events : 11760000/15291516
+Number of events : 11765000/15291516
+--- 4475000 entries w/ positive V values
+Number of events : 11770000/15291516
+--- 4480000 entries w/ positive V values
+Number of events : 11775000/15291516
+--- 4485000 entries w/ positive V values
+Number of events : 11780000/15291516
+--- 4490000 entries w/ positive V values
+Number of events : 11785000/15291516
+--- 4495000 entries w/ positive V values
+Number of events : 11790000/15291516
+--- 4500000 entries w/ positive V values
+Number of events : 11795000/15291516
+--- 4505000 entries w/ positive V values
+Number of events : 11800000/15291516
+--- 4510000 entries w/ positive V values
+Number of events : 11805000/15291516
+--- 4515000 entries w/ positive V values
+Number of events : 11810000/15291516
+--- 4520000 entries w/ positive V values
+Number of events : 11815000/15291516
+--- 4525000 entries w/ positive V values
+Number of events : 11820000/15291516
+Number of events : 11825000/15291516
+--- 4530000 entries w/ positive V values
+Number of events : 11830000/15291516
+Number of events : 11835000/15291516
+Number of events : 11840000/15291516
+Number of events : 11845000/15291516
+Number of events : 11850000/15291516
+Number of events : 11855000/15291516
+Number of events : 11860000/15291516
+Number of events : 11865000/15291516
+Number of events : 11870000/15291516
+Number of events : 11875000/15291516
+--- 4535000 entries w/ positive V values
+Number of events : 11880000/15291516
+--- 4540000 entries w/ positive V values
+Number of events : 11885000/15291516
+--- 4545000 entries w/ positive V values
+Number of events : 11890000/15291516
+--- 4550000 entries w/ positive V values
+Number of events : 11895000/15291516
+--- 4555000 entries w/ positive V values
+Number of events : 11900000/15291516
+--- 4560000 entries w/ positive V values
+Number of events : 11905000/15291516
+--- 4565000 entries w/ positive V values
+Number of events : 11910000/15291516
+--- 4570000 entries w/ positive V values
+Number of events : 11915000/15291516
+--- 4575000 entries w/ positive V values
+Number of events : 11920000/15291516
+--- 4580000 entries w/ positive V values
+Number of events : 11925000/15291516
+--- 4585000 entries w/ positive V values
+Number of events : 11930000/15291516
+--- 4590000 entries w/ positive V values
+Number of events : 11935000/15291516
+Number of events : 11940000/15291516
+--- 4595000 entries w/ positive V values
+Number of events : 11945000/15291516
+Number of events : 11950000/15291516
+Number of events : 11955000/15291516
+Number of events : 11960000/15291516
+Number of events : 11965000/15291516
+Number of events : 11970000/15291516
+Number of events : 11975000/15291516
+Number of events : 11980000/15291516
+Number of events : 11985000/15291516
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+--- 4600000 entries w/ positive V values
+Number of events : 11990000/15291516
+Number of events : 11995000/15291516
+--- 4605000 entries w/ positive V values
+Number of events : 12000000/15291516
+--- 4610000 entries w/ positive V values
+Number of events : 12005000/15291516
+--- 4615000 entries w/ positive V values
+Number of events : 12010000/15291516
+--- 4620000 entries w/ positive V values
+Number of events : 12015000/15291516
+--- 4625000 entries w/ positive V values
+Number of events : 12020000/15291516
+--- 4630000 entries w/ positive V values
+Number of events : 12025000/15291516
+--- 4635000 entries w/ positive V values
+Number of events : 12030000/15291516
+--- 4640000 entries w/ positive V values
+Number of events : 12035000/15291516
+--- 4645000 entries w/ positive V values
+Number of events : 12040000/15291516
+--- 4650000 entries w/ positive V values
+Number of events : 12045000/15291516
+--- 4655000 entries w/ positive V values
+Number of events : 12050000/15291516
+Number of events : 12055000/15291516
+--- 4660000 entries w/ positive V values
+--- 4660000 entries w/ positive V values
+--- 4660000 entries w/ positive V values
+--- 4660000 entries w/ positive V values
+--- 4660000 entries w/ positive V values
+--- 4660000 entries w/ positive V values
+Number of events : 12060000/15291516
+Number of events : 12065000/15291516
+Number of events : 12070000/15291516
+Number of events : 12075000/15291516
+Number of events : 12080000/15291516
+Number of events : 12085000/15291516
+Number of events : 12090000/15291516
+Number of events : 12095000/15291516
+Number of events : 12100000/15291516
+Number of events : 12105000/15291516
+Number of events : 12110000/15291516
+--- 4665000 entries w/ positive V values
+Number of events : 12115000/15291516
+--- 4670000 entries w/ positive V values
+Number of events : 12120000/15291516
+--- 4675000 entries w/ positive V values
+Number of events : 12125000/15291516
+--- 4680000 entries w/ positive V values
+Number of events : 12130000/15291516
+--- 4685000 entries w/ positive V values
+Number of events : 12135000/15291516
+--- 4690000 entries w/ positive V values
+Number of events : 12140000/15291516
+--- 4695000 entries w/ positive V values
+Number of events : 12145000/15291516
+--- 4700000 entries w/ positive V values
+Number of events : 12150000/15291516
+--- 4705000 entries w/ positive V values
+Number of events : 12155000/15291516
+--- 4710000 entries w/ positive V values
+Number of events : 12160000/15291516
+--- 4715000 entries w/ positive V values
+Number of events : 12165000/15291516
+--- 4720000 entries w/ positive V values
+Number of events : 12170000/15291516
+Number of events : 12175000/15291516
+--- 4725000 entries w/ positive V values
+Number of events : 12180000/15291516
+Number of events : 12185000/15291516
+Number of events : 12190000/15291516
+Number of events : 12195000/15291516
+Number of events : 12200000/15291516
+Number of events : 12205000/15291516
+Number of events : 12210000/15291516
+Number of events : 12215000/15291516
+Number of events : 12220000/15291516
+Number of events : 12225000/15291516
+Number of events : 12230000/15291516
+Number of events : 12235000/15291516
+Number of events : 12240000/15291516
+Number of events : 12245000/15291516
+Number of events : 12250000/15291516
+--- 4730000 entries w/ positive V values
+Number of events : 12255000/15291516
+--- 4735000 entries w/ positive V values
+Number of events : 12260000/15291516
+--- 4740000 entries w/ positive V values
+Number of events : 12265000/15291516
+--- 4745000 entries w/ positive V values
+Number of events : 12270000/15291516
+--- 4750000 entries w/ positive V values
+Number of events : 12275000/15291516
+--- 4755000 entries w/ positive V values
+Number of events : 12280000/15291516
+--- 4760000 entries w/ positive V values
+Number of events : 12285000/15291516
+--- 4765000 entries w/ positive V values
+Number of events : 12290000/15291516
+--- 4770000 entries w/ positive V values
+Number of events : 12295000/15291516
+--- 4775000 entries w/ positive V values
+Number of events : 12300000/15291516
+--- 4780000 entries w/ positive V values
+Number of events : 12305000/15291516
+Number of events : 12310000/15291516
+--- 4785000 entries w/ positive V values
+Number of events : 12315000/15291516
+--- 4790000 entries w/ positive V values
+Number of events : 12320000/15291516
+Number of events : 12325000/15291516
+Number of events : 12330000/15291516
+Number of events : 12335000/15291516
+Number of events : 12340000/15291516
+Number of events : 12345000/15291516
+Number of events : 12350000/15291516
+Number of events : 12355000/15291516
+Number of events : 12360000/15291516
+Number of events : 12365000/15291516
+Number of events : 12370000/15291516
+Number of events : 12375000/15291516
+Number of events : 12380000/15291516
+Number of events : 12385000/15291516
+Number of events : 12390000/15291516
+Number of events : 12395000/15291516
+Number of events : 12400000/15291516
+Number of events : 12405000/15291516
+Number of events : 12410000/15291516
+Number of events : 12415000/15291516
+Number of events : 12420000/15291516
+Number of events : 12425000/15291516
+Number of events : 12430000/15291516
+Number of events : 12435000/15291516
+--- 4795000 entries w/ positive V values
+Number of events : 12440000/15291516
+--- 4800000 entries w/ positive V values
+Number of events : 12445000/15291516
+--- 4805000 entries w/ positive V values
+Number of events : 12450000/15291516
+--- 4810000 entries w/ positive V values
+Number of events : 12455000/15291516
+--- 4815000 entries w/ positive V values
+Number of events : 12460000/15291516
+--- 4820000 entries w/ positive V values
+Number of events : 12465000/15291516
+--- 4825000 entries w/ positive V values
+Number of events : 12470000/15291516
+--- 4830000 entries w/ positive V values
+Number of events : 12475000/15291516
+--- 4835000 entries w/ positive V values
+Number of events : 12480000/15291516
+--- 4840000 entries w/ positive V values
+Number of events : 12485000/15291516
+--- 4845000 entries w/ positive V values
+Number of events : 12490000/15291516
+--- 4850000 entries w/ positive V values
+Number of events : 12495000/15291516
+Number of events : 12500000/15291516
+Number of events : 12505000/15291516
+Number of events : 12510000/15291516
+Number of events : 12515000/15291516
+Number of events : 12520000/15291516
+Number of events : 12525000/15291516
+Number of events : 12530000/15291516
+Number of events : 12535000/15291516
+Number of events : 12540000/15291516
+Number of events : 12545000/15291516
+Number of events : 12550000/15291516
+Number of events : 12555000/15291516
+Number of events : 12560000/15291516
+Number of events : 12565000/15291516
+Number of events : 12570000/15291516
+--- 4855000 entries w/ positive V values
+Number of events : 12575000/15291516
+Number of events : 12580000/15291516
+--- 4860000 entries w/ positive V values
+--- 4860000 entries w/ positive V values
+/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_9_2_10/src/SiStripRadMonitoring/SignalBiasScan/Analysis/SignalAnalysis/Code/script_runTreeMaker_batch.sh: line 37:  6022 Bus error               (core dumped) ./Run_TreeMaker_compiled
+
+Job finished at Sat Apr 28 12:37:35 CEST 2018 on node 
+ under linux version Scientific Linux CERN SLC release 6.9 (Carbon)
+
+CERN statistics: This process used approximately : 14:14:09 KSI2K hours (51249 KSI2K seconds)
+                 This process corresponds to     : 55:31:11 HS06  hours (199871 HS06  seconds)

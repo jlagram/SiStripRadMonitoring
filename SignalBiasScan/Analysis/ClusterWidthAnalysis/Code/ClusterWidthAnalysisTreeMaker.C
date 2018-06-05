@@ -26,6 +26,10 @@ enum SubDet { All, TIB, TOB, TID, TEC};
 
 using namespace std;
 
+//FIXME
+//int counter = 0;
+
+
 
 // Main method //
 //-------------//
@@ -102,7 +106,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
     if (ientry < 0) break;
 	fChain->GetEntry(jentry);
     
-	if(jentry%5000 == 0) 
+	if(jentry%10000 == 0) 
     { 
        std::cout << "Number of events : " << jentry <<"/"<<nentries<< std::endl;
        //cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
@@ -114,8 +118,8 @@ void ClusterWidthAnalysisTreeMaker::Loop()
     	cout<<"--- "<<nEntries_isPosV<<" entries w/ positive V values"<<endl;
     }
 
-	nevent++;
 
+	nevent++;
 
 
     // Get voltage setting for this event
@@ -123,6 +127,10 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	if(usetimestamp) theVoltage = VSmaker.getVoltage_timestamp(event->ev_timestamp);
 	else theVoltage = VSmaker.getVoltage_evtnumber(event->run_nr, event->ev_nr, event->ev_timestamp);
 	if(theVoltage<0) continue; // skip event if not on a voltage step
+	
+	//FIXME
+	//if(theVoltage != 20) {continue;} 
+	//cout<<theVoltage<<endl;
 
 	int thePointNumber = VSmaker.getIndex(theVoltage);
 
@@ -139,11 +147,18 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	  commonHistos[idet][0]->Fill(event->Ntracks); // adapted to v1.1 data format
 	  commonHistos[idet][4]->Fill(theVoltage);
 	}
+	
+	
+	cout<<"event->tracks.size() = "<<event->tracks.size()<<endl;
+	
  
     // Loop over tracks
     for(unsigned int itr=0; itr<event->tracks.size(); itr++)
 	{
 	  TreeTrack *track = &(event->tracks[itr]);
+	  
+	  cout<<"track chi2 ="<<track->chi2<<endl;
+	  
 	  if(track->chi2>5) continue; // adapted to v1.2 data format
 	  //if(track->pT<5) continue;
 
@@ -161,8 +176,13 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 
       // int nHitsTotal = nTIBhits + nTOBhits + nTIDhits + nTEChits;
       int nHitsTotal = track->Nhits; // adapted to v1.1 data format
+      
+      cout<<"nHitsTotal = "<<nHitsTotal<<endl;
+      
       if(nHitsTotal < 5) continue; // remove tracks with less than 5 hits
 
+
+	cout<<__LINE__<<endl;
 
 	  // Fill histos
 	  
@@ -215,9 +235,12 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	    if(track->TEC_hits.size()) FillHistos(HistSoN_TEC, ProfVsAngle_TEC, track->TEC_hits, thePointNumber, false, commonHistos[3], Monitors_TEC);
 	    else if(track->TEC_fullHits.size()) FillHistos(HistSoN_TEC, ProfVsAngle_TEC, track->TEC_fullHits, thePointNumber, false, commonHistos[3], Monitors_TEC);
       }
+      
+      cout<<__LINE__<<endl;
 	  
 
     } // End of loop over tracks
+
   } // End of loop over events
  
   
@@ -367,6 +390,10 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
 
   ULong64_t detid = hit->detId;    
   
+
+  //if(detid != 369120677) {return;}
+  
+
 //-------------  
   //TOB & TEC modules can have 2 sensors --> distinguish them via y coo.
   //FIXME change sensors range
@@ -487,6 +514,11 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
   if(use_onstrip==3 && abs(clus_onStrip)!=3 && usehit) usehit=false;
   if(use_onstrip==4 && clus_onStrip!=4 && usehit) usehit=false;
   if(use_onstrip==-4 && clus_onStrip!=-4 && usehit) usehit=false;
+  
+  //FIXME
+  //cout<<"**Good Hit"<<endl;
+  //counter++;
+  //cout<<"counter = "<<counter<<endl;
 
 
   if(hit->chargeAngleCorr > 0 && usehit)
@@ -603,8 +635,9 @@ void ClusterWidthAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<T
       if(Histo->GetEntries()) hNhits->Fill(Histo->Integral());
 	  
 	  if(Histo->Integral()<20) //0.1
-	   { //std::cout<<" Not enought entries for histo "<<thestring.Data()<<std::endl;
-	    i++; continue;}
+	   { std::cout<<" Not enough entries (<20) for histo "<<thestring.Data()<<std::endl;
+	     i++; continue;  //FIXME -- keep this cut ? remove low stat points too !
+	   }
  
 	  
 	  detid = iter->first;
@@ -682,8 +715,8 @@ void ClusterWidthAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<T
 	  tree->Fill();
 	  
 	  //PRINTOUT
-	  cout<<"detid "<<detid<<endl;
-	  cout<<"voltage =  "<<voltage<<endl;
+	  //cout<<"detid "<<detid<<endl;
+	  //cout<<"voltage =  "<<voltage<<endl;
 	    
 	  i++;
 

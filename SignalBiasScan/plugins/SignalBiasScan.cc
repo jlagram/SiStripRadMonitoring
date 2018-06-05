@@ -141,7 +141,7 @@ bool isUsedInSmallBiasScan ( int detid ) {
      detid==436281520 || 
      detid==436281516 ) return true;
      
-  // TOB + 1.3.1.6 //CHANGED
+  // TOB + 1.3.1.6 //NEW -- ADDED 04/2018
   if(detid==436232901 || 
      detid==436232902 || 
      detid==436232905 || 

@@ -10,123 +10,71 @@ using namespace std;
  * Output file to be given as input to ./TrackerMapMaker executable to produce Tk map
  * Can also use automatic script "Produce_Tracker_Map.sh"
  */
-void Write_Vfd_FullScan_Allmodules()
+void Write_Vfd_FullScan_Allmodules(TString run, TString observable, TString method)
 {
-	bool write_relative_vfd_initial = false;
-
-	TString run = "295324"; //run
-	TString observable = "ClusterWidth"; //observable
-	TString method = "line"; //method
+	bool write_relative_vfd_initial = false; //Tk Map values relatively to initial depletion values
 
 	VdeplRef SubdetRef;
 
-	//Output text files, modid vs Vfd
-	ofstream file_out_TIB("tracker_vfd_map_TIB.txt");
-	ofstream file_out_TOB("tracker_vfd_map_TOB.txt");
-	ofstream file_out_TEC("tracker_vfd_map_TEC.txt");
-	ofstream file_out_TID("tracker_vfd_map_TID.txt");
+	vector<TString> v_subdet;
+	v_subdet.push_back("TIB");
+	v_subdet.push_back("TOB");
+	v_subdet.push_back("TEC");
+	v_subdet.push_back("TID");
 
 	ULong64_t modid=-99; Double_t vfd=-99;
 
 	TString dirname = "./DECO_files/all_modules";
 
-	TString filename = dirname + "/DECO_allModules_ClusterWidth_TIB_line_295324.root";
-	if(!Check_File_Existence(filename) ) {cout<<BOLD(FRED("File "<<filename<<" not found ! Abort"))<<endl; return;}
-	TFile* f = TFile::Open(filename);
-	TTree* t = (TTree*) f->FindObjectAny("tout");
-	int nentries = t->GetEntries();
-	t->SetBranchAddress("DETID",&modid);
-	t->SetBranchAddress("DEPVOLT",&vfd);
-
-	SubdetRef.loadFile("TIB");
-
-	for(int ientry=0; ientry<nentries; ientry++)
+	for(int isubdet=0; isubdet<v_subdet.size(); isubdet++)
 	{
-		t->GetEntry(ientry);
-
-		if(write_relative_vfd_initial) file_out_TIB<<modid<<" "<<SubdetRef.GetVdepl(modid) - vfd<<endl;
-		else file_out_TIB<<modid<<" "<<vfd<<endl;
-	}
-
-	delete t;
-	f->Close();
+		cout<<"Subdet = "<<v_subdet[isubdet]<<endl;
 
 
-	filename = dirname + "/DECO_allModules_ClusterWidth_TOB_line_295324.root";
-	if(!Check_File_Existence(filename) ) {cout<<BOLD(FRED("File "<<filename<<" not found ! Abort"))<<endl; return;}
-	f = TFile::Open(filename);
-	t = (TTree*) f->FindObjectAny("tout");
-	nentries = t->GetEntries();
-	t->SetBranchAddress("DETID",&modid);
-	t->SetBranchAddress("DEPVOLT",&vfd);
+		ofstream file_out_tmp("tracker_vfd_map_tmp.txt");
 
-	SubdetRef.loadFile("TOB");
+		TString filename = dirname + "/DECO_allModules_"+observable+"_"+v_subdet[isubdet]+"_"+method+"_"+run+".root";
+		if(!Check_File_Existence(filename) ) {cout<<BOLD(FRED("File "<<filename<<" not found ! Abort"))<<endl; return;}
 
-	for(int ientry=0; ientry<nentries; ientry++)
-	{
-		t->GetEntry(ientry);
+		TFile* f = TFile::Open(filename);
+		TTree* t = (TTree*) f->FindObjectAny("tout");
+		int nentries = t->GetEntries();
 
-		if(write_relative_vfd_initial) file_out_TOB<<modid/10<<" "<<SubdetRef.GetVdepl(modid/10) - vfd<<endl;
-		else file_out_TOB<<modid/10<<" "<<vfd<<endl;
-	}
+		t->SetBranchAddress("DETID",&modid);
+		t->SetBranchAddress("DEPVOLT",&vfd);
 
+		SubdetRef.loadFile(v_subdet[isubdet].Data());
 
-	delete t;
-	f->Close();
+		for(int ientry=0; ientry<nentries; ientry++)
+		{
+			modid=-99; vfd=-99;
+			t->GetEntry(ientry);
 
+			if(v_subdet[isubdet] == "TOB" || v_subdet[isubdet] == "TEC") {modid/=10;} //Remove sensor identifier
 
-	filename = dirname + "/DECO_allModules_ClusterWidth_TEC_line_295324.root";
-	if(!Check_File_Existence(filename) ) {cout<<BOLD(FRED("File "<<filename<<" not found ! Abort"))<<endl; return;}
-	f = TFile::Open(filename);
-	t = (TTree*) f->FindObjectAny("tout");
-	nentries = t->GetEntries();
-	t->SetBranchAddress("DETID",&modid);
-	t->SetBranchAddress("DEPVOLT",&vfd);
+			if(write_relative_vfd_initial) file_out_tmp<<modid<<" "<<SubdetRef.GetVdepl(modid) - vfd<<endl;
+			else file_out_tmp<<modid<<" "<<vfd<<endl;
+		}
 
-	SubdetRef.loadFile("TEC");
+		f->Close();
+		file_out_tmp.close();
 
-	for(int ientry=0; ientry<nentries; ientry++)
-	{
-		t->GetEntry(ientry);
+		//Output text files, modid vs Vfd
+		if(v_subdet[isubdet] == "TIB") {system("mv tracker_vfd_map_tmp.txt tracker_vfd_map_TIB.txt");}
+		else if(v_subdet[isubdet] == "TOB") {system("mv tracker_vfd_map_tmp.txt tracker_vfd_map_TOB.txt");}
+		else if(v_subdet[isubdet] == "TEC") {system("mv tracker_vfd_map_tmp.txt tracker_vfd_map_TEC.txt");}
+		else if(v_subdet[isubdet] == "TID") {system("mv tracker_vfd_map_tmp.txt tracker_vfd_map_TID.txt");}
 
-		if(write_relative_vfd_initial) file_out_TEC<<modid/10<<" "<<SubdetRef.GetVdepl(modid/10) - vfd<<endl;
-		else file_out_TEC<<modid/10<<" "<<vfd<<endl;
+		cout<<"--- Done"<<endl;
 	}
 
 
-
-	delete t;
-	f->Close();
-
-
-	filename = dirname + "/DECO_allModules_ClusterWidth_TID_line_295324.root";
-	if(!Check_File_Existence(filename) ) {cout<<BOLD(FRED("File "<<filename<<" not found ! Abort"))<<endl; return;}
-	f = TFile::Open(filename);
-	t = (TTree*) f->FindObjectAny("tout");
-	nentries = t->GetEntries();
-	t->SetBranchAddress("DETID",&modid);
-	t->SetBranchAddress("DEPVOLT",&vfd);
-
-	SubdetRef.loadFile("TID");
-
-	for(int ientry=0; ientry<nentries; ientry++)
-	{
-		t->GetEntry(ientry);
-
-		if(write_relative_vfd_initial) file_out_TID<<modid<<" "<<SubdetRef.GetVdepl(modid) - vfd<<endl;
-		else file_out_TID<<modid/10<<" "<<vfd<<endl;
-	}
-
-
-
-	delete t;
-	f->Close();
-
+	//Concatenate all partitions in 1 single file
+	system("rm tracker_vfd_allModules.txt");
 	system("cat tracker_vfd_map_TIB.txt >> tracker_vfd_allModules.txt");
 	system("cat tracker_vfd_map_TOB.txt >> tracker_vfd_allModules.txt");
 	system("cat tracker_vfd_map_TEC.txt >> tracker_vfd_allModules.txt");
 	system("cat tracker_vfd_map_TID.txt >> tracker_vfd_allModules.txt");
-
 
 	return;
 }
@@ -134,7 +82,11 @@ void Write_Vfd_FullScan_Allmodules()
 
 int main()
 {
-	Write_Vfd_FullScan_Allmodules();
+	TString run = "295376"; //run
+	TString observable = "ClusterWidth"; //observable
+	TString method = "line"; //method
+
+	Write_Vfd_FullScan_Allmodules(run, observable, method);
 
 	return 0;
 }

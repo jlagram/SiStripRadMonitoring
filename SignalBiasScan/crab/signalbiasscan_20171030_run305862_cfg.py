@@ -26,9 +26,10 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 process.source = cms.Source("PoolSource",
     # replace 'myfile.root' with the source file you want to use
     fileNames = cms.untracked.vstring(
-    '/store/data/Run2017F/ZeroBias0/RECO/PromptReco-v1/000/305/742/00000/366A6F90-02BF-E711-91FA-02163E01A364.root')
+    '/store/data/Run2017F/ZeroBias/RECO/PromptReco-v1/000/305/033/00000/509C546A-D2B1-E711-AF17-02163E01A449.root')
 )
-
+#/store/data/Run2017F/ZeroBias0/RECO/PromptReco-v1/000/305/742/00000/366A6F90-02BF-E711-91FA-02163E01A364.root
+#/store/data/Run2017F/ZeroBias/RECO/PromptReco-v1/000/305/033/00000/509C546A-D2B1-E711-AF17-02163E01A449.root
 
 #name of the output file containing the tree
 process.TFileService = cms.Service("TFileService", fileName = cms.string("clustersTree.root") )

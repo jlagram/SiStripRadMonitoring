@@ -1,3 +1,11 @@
+/*Idea of the code :
+- Loop over events > tracks > Hits
+- Each detid is associated with a vector of TH1F*, and each TH1F* corresponds to 1 voltage step
+- For a given event, for each good track of the event, for each good hit of the track : fill the hit.charge() value into the corresponding histogram (depending on detid, Vstep)
+- At the end, fit all histograms (all detids, all Vsteps) ==> Obtain charge estimate for each detid/Vstep !
+
+*/
+
 #define SignalAnalysisTreeMaker_cxx
 
 #include "SignalAnalysisTreeMaker.h"
@@ -23,6 +31,9 @@
 #include <TH2F.h>
 #include <TMath.h>
 #include <TRint.h>
+
+//FIXME
+//int counter = 0;
 
 
 // 1 = TIB // 2 = TOB // 3 = TID // 4 = TEC
@@ -113,7 +124,9 @@ void SignalAnalysisTreeMaker::Loop()
   int nEntries_isPosV = 1;
   
 
-  for (Long64_t jentry=0; jentry<nentries;jentry++) {
+  //MAIN LOOP
+  for (Long64_t jentry=0; jentry<nentries;jentry++) 
+  {
 
     Long64_t ientry = LoadTree(jentry);
     if (ientry < 0) break;
@@ -139,7 +152,18 @@ void SignalAnalysisTreeMaker::Loop()
 	theVoltage=-1;
 	if(usetimestamp) theVoltage = VSmaker.getVoltage_timestamp(event->ev_timestamp);
 	else theVoltage = VSmaker.getVoltage_evtnumber(event->run_nr, event->ev_nr, event->ev_timestamp);
-	if(theVoltage<0) continue; // skip event if not on a voltage step
+	
+	//cout<<"V = "<<theVoltage<<" -- Run : "<<event->run_nr<<" / Event : "<<event->ev_nr<<" / Timestamp : "<<event->ev_timestamp<<endl;
+	//if(theVoltage != 20) {continue;} //FIXME
+	
+	if(theVoltage<0) 
+	{
+		//cout<<"Voltage step < 0 / Continue"<<endl; 
+		
+		continue; // skip event if not on a voltage step
+	} 
+	
+    //cout<<endl<<"Voltage step = "<<theVoltage<<endl;
 
 	int thePointNumber = VSmaker.getIndex(theVoltage);
 
@@ -156,12 +180,20 @@ void SignalAnalysisTreeMaker::Loop()
 	  commonHistos[idet][0]->Fill(event->Ntracks); // adapted to v1.1 data format
 	  commonHistos[idet][4]->Fill(theVoltage);
 	}
+	
+	//cout<<event->tracks.size()<<" tracks"<<endl; //FIXME
 
     // Loop over tracks
     for(unsigned int itr=0; itr<event->tracks.size(); itr++)
 	{
+	  //cout<<"itr "<<itr<<endl; //FIXME
+	
 	  TreeTrack *track = &(event->tracks[itr]);
-	  if(track->chi2>5) continue;
+	  if(track->chi2>5) 
+	  {
+	  	//cout<<"Track "<<itr<<" : track->chi2>5 !! Skip track"<<endl;
+	  	continue;	
+	  }
 	  //if(track->pT<5) continue;
 
 	  // Get number of hits
@@ -178,10 +210,16 @@ void SignalAnalysisTreeMaker::Loop()
 
       // int nHitsTotal = nTIBhits + nTOBhits + nTIDhits + nTEChits;
       int nHitsTotal = track->Nhits; // adapted to v1.1 data format
-      if(nHitsTotal < 5) continue; // remove tracks with less than 5 hits
+      if(nHitsTotal < 5) 
+      {
+      	//cout<<"nHitsTotal < 5 !! Skip track"<<endl;
+      	continue;
+      } // remove tracks with less than 5 hits
 
 
 	  // Fill histos
+	  
+	  //cout<<"---- Track "<<itr<<", Hits : "<<track->TIB_hits.size()<<" TIB / "<<track->TOB_hits.size()<<" TOB / "<<track->TEC_hits.size()<<" TEC / "<<track->TID_hits.size()<<" TID / "<<nHitsTotal<<" Total"<<endl; //FIXME
 	  
 	  // TIB
 	  if((part==TIB || part==All) && !use_onstrip)
@@ -235,6 +273,8 @@ void SignalAnalysisTreeMaker::Loop()
 	  
 
     } // End of loop over tracks
+
+    
   } // End of loop over events
 
   
@@ -318,8 +358,6 @@ void SignalAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*
 void SignalAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector<TH1F*> > &HistSoN, TreeHit *hit, int thePointNumber, bool sensors, std::vector< TH1F* > commonHistos, float
 barycenter, float seed, float seedChargeAngleCorr)
 {
-
-
   if(thePointNumber<0) return;
 
   std::map<ULong64_t , std::vector<TH1F*> >::iterator iter;
@@ -327,6 +365,9 @@ barycenter, float seed, float seedChargeAngleCorr)
 
 
   ULong64_t detid = hit->detId;
+  
+  //FIXME -- test
+  //if(detid != 369120677) {return;}
 
   
 //-------------  
@@ -406,8 +447,13 @@ barycenter, float seed, float seedChargeAngleCorr)
 
   if(commonHistos.size()>2) commonHistos[2]->Fill(hit->tsosx-hit->clusx);
   // before using angle info, check that traj measurement close to cluster position
-  if(use_angle && abs(hit->tsosx-hit->clusx)>0.001) return; // a verifier
-  // cut choisi pour TIB
+  if(use_angle && abs(hit->tsosx-hit->clusx)>0.001) 
+  {
+  	cout<<"hit->tsosx-hit->clusx)>0.001 !! Skip hit"<<endl;
+  	return; // a verifier 
+  }
+  
+  // cut choisi pour TIB //FIXME
 
 
   bool usehit=false;
@@ -460,8 +506,13 @@ barycenter, float seed, float seedChargeAngleCorr)
   if(use_onstrip==-4 && clus_onStrip!=-4 && usehit) usehit=false;
 
 
-  if(hit->chargeAngleCorr > 0 && usehit)
-    iter->second.at(thePointNumber)->Fill(hit->chargeAngleCorr);
+  //FIXME
+  //cout<<"**Good Hit"<<endl;
+  //counter++;
+  //cout<<"counter = "<<counter<<endl;
+
+  if(hit->chargeAngleCorr > 0 && usehit) {iter->second.at(thePointNumber)->Fill(hit->chargeAngleCorr);}
+  //if(seedChargeAngleCorr > 0 && usehit) {iter->second.at(thePointNumber)->Fill(seedChargeAngleCorr);} //--- USE SEED CHARGE INSTEAD OF TOTAL CHARGE	 !!
 
 
 }
@@ -542,12 +593,14 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
   unsigned int nnegpar1=0;
   unsigned int nfitrm=0;
 
-  for(std::map<ULong64_t , std::vector<TH1F*> >::iterator iter = HistSoN.begin(); iter != HistSoN.end(); ++iter){
+  for(std::map<ULong64_t , std::vector<TH1F*> >::iterator iter = HistSoN.begin(); iter != HistSoN.end(); ++iter)
+  {
     
 	unsigned int i=0; // voltage index    
     std::set< int >::iterator itVolt;
 	std::set< int > Voltage = VSmaker.getVoltageList();
-    for( itVolt=Voltage.begin(); itVolt!=Voltage.end(); itVolt++){
+    for( itVolt=Voltage.begin(); itVolt!=Voltage.end(); itVolt++)
+    {
       
       //std::cout<<"going through the measurement: " << i << std::endl;
       
@@ -571,8 +624,9 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
       if(SoNHisto->GetEntries()) hNhits->Fill(SoNHisto->Integral());
 	  
 	  if(SoNHisto->Integral()<20) //0.1
-	   { //std::cout<<" Not enought entries for histo "<<thestring.Data()<<std::endl;
-	    i++; continue;}
+	   { std::cout<<" Not enought entries for histo "<<thestring.Data()<<std::endl;
+	     i++; continue;
+	   }
  
 	  //fitFunc->SetParameter(0, SoNHisto->Integral("w")); //JLA
 	  //fitFunc->SetParameter(1, 10); //JLA
@@ -693,9 +747,9 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
 	    
 	  i++;
 
-    }  
+    }   //iter voltage
 
-  }
+  } //iter histos
   
   tree->Write();
   hNhits->Write();

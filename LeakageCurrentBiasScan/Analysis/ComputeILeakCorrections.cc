@@ -573,7 +573,8 @@ void ComputeAllCorrections(char* subdet, char* run, bool fullscan, char* bad_per
   // Loop on detids
   if(fin.is_open())  
   {
-    while( getline ( fin, line) && idet < 6000)
+    //while( getline ( fin, line) && idet < 6000)
+    while( getline ( fin, line))
     {
       if(fin.eof()) continue;
       std::istringstream iss(line);
@@ -640,7 +641,7 @@ void ComputeAllCorrections(char* subdet, char* run, bool fullscan, char* bad_per
 
 }
 
-//------------------------------------------------------------------------
+//----------------------------------------------------l--------------------
 
 void ComputeDCUFractions(vector<double> detids, char* subdet="TIB", char* run="20120506_run193541", char* bad_periods="")
 {
@@ -671,23 +672,16 @@ int main()
 
 //--- FUNCTION CALLS
 
-	ComputeAllCorrections("TEC", "20180418_run314574", fullscan);
-/*
-	ComputeAllCorrections("TIB", "20180418_run314574", fullscan);
-	ComputeAllCorrections("TOB", "20180418_run314574", fullscan);
-	ComputeAllCorrections("TEC", "20180418_run314574", fullscan);
-	ComputeAllCorrections("TID", "20180418_run314574", fullscan);
-	
-	ComputeAllCorrections("TIB", "20180420_run314755", fullscan);
-	ComputeAllCorrections("TOB", "20180420_run314755", fullscan);
-	ComputeAllCorrections("TEC", "20180420_run314755", fullscan);
-	ComputeAllCorrections("TID", "20180420_run314755", fullscan);
-		
-	ComputeAllCorrections("TIB", "20180420_run314756", fullscan);
-	ComputeAllCorrections("TOB", "20180420_run314756", fullscan);
-	ComputeAllCorrections("TEC", "20180420_run314756", fullscan);
-	ComputeAllCorrections("TID", "20180420_run314756", fullscan);
-	*/
+
+
+	ComputeAllCorrections("TEC", "20170924_run303824", fullscan);
+	/*
+	ComputeAllCorrections("TIB", "20170527_run295376", fullscan);
+	ComputeAllCorrections("TOB", "20170527_run295376", fullscan);
+	ComputeAllCorrections("TEC", "20170527_run295376", fullscan);
+	ComputeAllCorrections("TID", "20170527_run295376", fullscan);
+	*/		
+
 
 	return 0;
 }
