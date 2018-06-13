@@ -47,14 +47,14 @@ Double_t fitLandauGauss(Double_t *x, Double_t *par){
 
   Double_t value =  (1-par[3])*TMath::Landau(x[0], par[0], par[1]) + par[3]*TMath::Gaus(x[0], par[0], par[2]);
   return value;
-  
 }
 
+  
 // Main method //
 //-------------//
 void SignalAnalysisTreeMaker::Loop()
 {
-  
+ 
   std::cout<<"Initializing"<<std::endl;
   
   std::string output_file;
@@ -138,6 +138,8 @@ void SignalAnalysisTreeMaker::Loop()
     }   
     
     //if(event->run_nr != 295324) 
+    
+
     //cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
     
     if(theVoltage > 0) {nEntries_isPosV++;}    
@@ -622,6 +624,7 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
        { std::cout<<" Histo "<<thestring.Data()<<"_"<<i<<" not found."<<std::endl; i++; continue;}
  
       if(SoNHisto->GetEntries()) hNhits->Fill(SoNHisto->Integral());
+      
 	  
 	  if(SoNHisto->Integral()<20) //0.1
 	   { std::cout<<" Not enought entries for histo "<<thestring.Data()<<std::endl;
@@ -652,10 +655,12 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
 	  hChi2OverNDF->Fill(chi2overndf);
 	  hChi2OverNDFvsstep->Fill( i, chi2overndf);
 	  detid = iter->first;
+	  
 
 	  bool rmfit=false;
 	  if(fitStatus!=0 || fitFunc->GetParameter(0)<0 || fitFunc->GetParameter(1)<0 ||
 	   fitFunc->GetParameter(1)>200 || chi2overndf > 100) rmfit=true;
+	   
 
       //if(MPV<0 || (MPV>25 && k<15) || errMPV>1 || detid==369169740)
       //if(errMPV>5)

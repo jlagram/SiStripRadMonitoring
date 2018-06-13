@@ -11,6 +11,7 @@ process.GlobalTag.globaltag = '100X_dataRun2_Prompt_v2'
 #100X_dataRun2_Express_v2
 #100X_dataRun2_Prompt_v2
 
+
 process.load('Configuration.StandardSequences.Services_cff')
 
 #Geometry and field
@@ -28,7 +29,7 @@ process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(1000)
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('/store/data/Commissioning2018/ZeroBias1/ALCARECO/SiStripCalZeroBias-PromptReco-v1/000/314/755/00000/F853AC69-A946-E811-8BFB-FA163EFA8687.root'))
+    fileNames = cms.untracked.vstring('/store/data/Commissioning2018/ZeroBias1/ALCARECO/SiStripCalMinBias-PromptReco-v1/000/314/755/00000/006C649C-C146-E811-A86B-02163E019FA5.root'))
     
 
 

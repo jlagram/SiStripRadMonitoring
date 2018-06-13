@@ -170,9 +170,10 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
 
  // Scale graphs
- ymin = 1000; ymax = -1; //if normalize, need to recompute min & max
  if(normalize)
  {
+	 ymin = 1000; ymax = -1; //if normalize, need to recompute min & max
+
 	 for(int i=0; i<NF; i++)
 	 {
 	   if(!g[i]) continue;
@@ -502,6 +503,34 @@ void CompareTOBCurves(string dirname, const int NF, vector<string> dates, vector
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815242, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815281, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362815282, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+ // TOB + 1.3.1.6 //NEW -- ADDED 04/2018
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329011, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329021, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329051, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329061, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329091, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329101, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329131, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329141, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329171, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329181, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329211, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329221, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329012, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329022, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329052, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329062, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329092, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329102, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329132, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329142, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329172, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329182, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329212, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329222, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+ return;
 }
 
 
@@ -563,61 +592,62 @@ void CompareTECCurves(string dirname, const int NF, vector<string> dates, vector
 //-------------------------------
 int main()
 {
- //cout<<"entering CompareCurves()"<<endl;
- //setTDRStyle(); //needed?
- Modified_tdr_style();
+	//cout<<"entering CompareCurves()"<<endl;
+	//setTDRStyle(); //needed?
+	Modified_tdr_style();
 
 
 
- vector<string> v_analysis;
- //v_analysis.push_back("Signal");
- v_analysis.push_back("ClusterWidth");
+	vector<string> v_analysis;
+	//v_analysis.push_back("Signal");
+	v_analysis.push_back("ClusterWidth");
 
-  vector<string> v_subdet;
-  v_subdet.push_back("TIB");
-  v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
-
-
- vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
-//--- RUN 2
-//2015 (4)
-
-  //runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
-  //runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
-  //runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
-  //runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
-
-//2016 (6)
- //runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
-  //runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
-  //runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
-  //runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
-  //runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
-  //-- runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
-//2017 (5)
-  // runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
-  //runs.push_back("295376");	dates.push_back("20170527"); lumis.push_back(45.71+29.46); //Full
-  runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
-  runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
-  runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46); //Full
-  runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
-
-  //2018
-  runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(95+29.46); //FIXME lumi
-  runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(95+29.46);
+	vector<string> v_subdet;
+	v_subdet.push_back("TIB");
+	v_subdet.push_back("TOB");
+	v_subdet.push_back("TEC");
 
 
- int NF = runs.size();
+	vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
+	//--- RUN 2
+	//2015 (4)
 
- bool normalize=false;
- bool print=true;
- bool showfit=false;
- bool draw_plots = false;
- bool draw_vdep = false; //Draw vertical line which rpz the Vfd value obtained with lines method for "run_vdep"
+	//runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
+	//runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
+	//runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
+	//runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
 
- // suffix for plot file name
- string suffix = "";
+	//2016 (6)
+	//runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
+	//runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
+	//runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
+	//runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
+	//runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
+	//-- runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
+	//2017 (5)
+	// runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
+	//runs.push_back("295376");	dates.push_back("20170527"); lumis.push_back(45.71+29.46); //Full
+	// runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
+	// runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
+	runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46); //Full
+	runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
+
+	//2018 //FIXME lumi
+	runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(0+29.46); //Full -20°
+	runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(0+29.46); //Full -10°
+	runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(0+29.46);
+
+
+	int NF = runs.size();
+
+	bool normalize=true;
+	bool print=true;
+	bool showfit=false;
+	bool draw_plots = false;
+	bool draw_vdep = false; //Draw vertical line which rpz the Vfd value obtained with lines method for "run_vdep"
+
+	// suffix for plot file name
+	string suffix = "";
 
 
   for(int i=0; i<v_analysis.size(); i++)

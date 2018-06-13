@@ -128,6 +128,7 @@ for row in currents:
     entry.NMODFORCHANNEL = len(modules)
     for mod in modules:
         entry.DETID=int(mod)
+        print int(mod)
         tree.Fill()
 
 tree.Write()

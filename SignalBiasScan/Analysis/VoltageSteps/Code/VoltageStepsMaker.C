@@ -313,7 +313,8 @@ int VoltageStepsMaker::getVoltage_evtnumber(int run, int evt, int timestamp){
 
 
 // Returns voltage from timestamp
-int VoltageStepsMaker::getVoltage_timestamp(int timestamp){
+int VoltageStepsMaker::getVoltage_timestamp(double timestamp){ //changed
+//int VoltageStepsMaker::getVoltage_timestamp(int timestamp){ //FIXME 
 
   std::multimap< int, std::pair< int,int > >::iterator itVStep_t;
   int theVoltage=-1;

@@ -7,7 +7,7 @@ int main()
   //TChain c("ttree");
   TChain c("demo/ttree");
   
-  c.Add("root://eoscms//eos/cms/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/DecoHVScan_20180530_run317182_v1/Commissioning/crab_HVscan_20180530_run317182_v1/180604_152951/0000/clustersTree*.root/demo/ttree");
+  c.Add("root://eoscms//eos/cms/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/DecoHVScan_20180530_run317182_v2/ZeroBias/crab_HVscan_20180530_run317182_v2/180605_175057/0000/clustersTree*.root/demo/ttree");
   
   int subdet=0; // 0 all subdet, 1 TIB, 2 TOB, 3 TID, 4 TEC
   bool usetimestamp=true; // true if input file uses timestamps

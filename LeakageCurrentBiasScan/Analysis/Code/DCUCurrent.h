@@ -74,13 +74,13 @@ Long64_t convertDate( std::string str_date, std::string str_time){
 
 } 
 
-void ReadBadPeriods(char* filename, vector< int > &bad_periods_start, vector< int > &bad_periods_end)
+void ReadBadPeriods(string filename, vector< int > &bad_periods_start, vector< int > &bad_periods_end)
 {
   
   //Read file with bad periods definition
   
   std::string line;
-  ifstream fin(filename);
+  ifstream fin(filename.c_str());
   if(!fin.is_open()) { std::cout<<"Error : file "<<std::string(filename)<<" not found."<<std::endl; return;}
     
   int time_start=-1;
@@ -110,13 +110,15 @@ void ReadBadPeriods(char* filename, vector< int > &bad_periods_start, vector< in
 }
 
 
-TGraph* ReadDCUCurrentTxt(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.txt", int detid=369121605, char* bad_periods="")
+TGraph* ReadDCUCurrentTxt(string filename="Data/DCU_I_TIB_L1_20120405_run190459.txt", int detid=369121605, string bad_periods="")
 {
   
   // Read bad periods
   vector< int > bad_periods_start;
   vector< int > bad_periods_end;
-  if(strcmp(bad_periods, ""))
+
+  //if(strcmp(bad_periods, ""))
+  if(bad_periods != "")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
@@ -127,7 +129,7 @@ TGraph* ReadDCUCurrentTxt(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.t
   }
 
   std::string line;
-  ifstream fin(filename);
+  ifstream fin(filename.c_str());
   std::string ps;
   int modid=-1;
   std::string str_date;
@@ -148,7 +150,9 @@ TGraph* ReadDCUCurrentTxt(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.t
           time = convertDate( str_date , str_time);
 
           // Remove points during bad periods
-          if(strcmp(bad_periods, ""))
+          
+          //if(strcmp(bad_periods, ""))
+		  if(bad_periods!="")
 		  {
 		     for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
 			   if(time>=bad_periods_start[ip] && time<=bad_periods_end[ip]) continue;
@@ -173,7 +177,7 @@ TGraph* ReadDCUCurrentTxt(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.t
 
 }
 
-void ConvertDCUCurrentTxtToRoot(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.txt")
+void ConvertDCUCurrentTxtToRoot(string filename="Data/DCU_I_TIB_L1_20120405_run190459.txt")
 {
   
   cout<<"Converting file "<<filename<<" to root format."<<endl;
@@ -197,7 +201,7 @@ void ConvertDCUCurrentTxtToRoot(char* filename="Data/DCU_I_TIB_L1_20120405_run19
 
   // Read input file
   std::string line;
-  ifstream fin(filename);
+  ifstream fin(filename.c_str());
   std::string str_ps;
   std::string str_date;
   std::string str_time;
@@ -226,15 +230,17 @@ void ConvertDCUCurrentTxtToRoot(char* filename="Data/DCU_I_TIB_L1_20120405_run19
   
 }
 
-TGraph* ReadCurrentRoot(char* filename, int modid, int &nmodforchannel, 
-// char* filename="Data/DCU_I_TIB_L1_20120405_run190459.root", int modid=369121605
- char* treename="dcu", char* bad_periods="", bool print=false)
+TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel, 
+// string filename="Data/DCU_I_TIB_L1_20120405_run190459.root", int modid=369121605
+ string treename="dcu", string bad_periods="", bool print=false)
 {
 
   // Read bad periods
   vector< int > bad_periods_start;
   vector< int > bad_periods_end;
-  if(strcmp(bad_periods, ""))
+  
+  //if(strcmp(bad_periods, ""))
+  if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
@@ -247,7 +253,7 @@ TGraph* ReadCurrentRoot(char* filename, int modid, int &nmodforchannel,
   }
 
   // Open file and set tree
-  TFile* fin = TFile::Open(filename);
+  TFile* fin = TFile::Open(filename.c_str());
   if(!fin) {std::cout<<"Error : file '"<<std::string(filename)<<"' not found."<<std::endl; return 0;}
   
   char ps[50];
@@ -256,13 +262,14 @@ TGraph* ReadCurrentRoot(char* filename, int modid, int &nmodforchannel,
   float current=-1;
   int nmod=1;
 
-  TTree* tree = (TTree*) fin->Get(treename);
+  TTree* tree = (TTree*) fin->Get(treename.c_str());
   if(!tree) {std::cout<<"Error : tree not found."<<std::endl; return 0;}
   tree->SetBranchAddress("PS", &ps);
   tree->SetBranchAddress("DETID", &detid);
   tree->SetBranchAddress("TIME", &time);
   tree->SetBranchAddress("CURRENT", &current);
-  if(!strcmp(treename, "ps"))  tree->SetBranchAddress("NMODFORCHANNEL", &nmod);
+  //if(!strcmp(treename, "ps"))  tree->SetBranchAddress("NMODFORCHANNEL", &nmod);
+  if(treename == "ps")  {tree->SetBranchAddress("NMODFORCHANNEL", &nmod);}
 
   // Create graph
   TGraph *g = new TGraph();
@@ -277,7 +284,9 @@ TGraph* ReadCurrentRoot(char* filename, int modid, int &nmodforchannel,
     tree->GetEntry(i);
 
     // Remove points during bad periods
-	if(strcmp(bad_periods, ""))
+
+	//if(strcmp(bad_periods, ""))
+	if(bad_periods != "")
 	{
        remove_point=false;
 	   for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
@@ -287,6 +296,8 @@ TGraph* ReadCurrentRoot(char* filename, int modid, int &nmodforchannel,
 	   }
 	}
 	if(remove_point) continue;
+	
+	cout<<"DetID = "<<detid<<endl;
 
     if(detid==modid) 
 	{ 
@@ -303,12 +314,14 @@ TGraph* ReadCurrentRoot(char* filename, int modid, int &nmodforchannel,
   h->GetXaxis()->SetTimeFormat("%H:%M");
 
   fin->Close();
+  
+  if(g->GetN() == 0) {cout<<"Warning : g->GetN() == 0 ! (in DCUCurrent.h)"<<endl;}
  
   return g;
 
 }
 
-TGraph* ReadDCUCurrentRoot(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.root", int modid=369121605, char* bad_periods="")
+TGraph* ReadDCUCurrentRoot(string filename="Data/DCU_I_TIB_L1_20120405_run190459.root", int modid=369121605, string bad_periods="")
 {
 
   int nmodforchannel;
@@ -322,14 +335,15 @@ TGraph* ReadDCUCurrentRoot(char* filename="Data/DCU_I_TIB_L1_20120405_run190459.
   
 }
 
-TGraph* ReadDCUCurrentFromGB(char* filename="~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", int modid=369121606,
- char* bad_periods="", bool print=false, TGraph* gtemp=0)
+TGraph* ReadDCUCurrentFromGB(string filename="~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", int modid=369121606,
+ string bad_periods="", bool print=false, TGraph* gtemp=0)
 {
 
   // Read bad periods
   vector< int > bad_periods_start;
   vector< int > bad_periods_end;
-  if(strcmp(bad_periods, ""))
+  //if(strcmp(bad_periods, ""))
+  if(bad_periods != "")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
@@ -342,7 +356,7 @@ TGraph* ReadDCUCurrentFromGB(char* filename="~/work/DCU_TIBD_TOB_from_1348837200
   }
 
   // Open file and set tree
-  TFile* fin = TFile::Open(filename);
+  TFile* fin = TFile::Open(filename.c_str());
   if(!fin) {std::cout<<"Error : file '"<<std::string(filename)<<"' not found."<<std::endl; return 0;}
   
   double Detid;
@@ -373,7 +387,8 @@ TGraph* ReadDCUCurrentFromGB(char* filename="~/work/DCU_TIBD_TOB_from_1348837200
 	time_t print_time = time;
 
     // Remove points during bad periods
-	if(strcmp(bad_periods, ""))
+	//if(strcmp(bad_periods, ""))
+	if(bad_periods != "")
 	{
        remove_point=false;
 	   for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)

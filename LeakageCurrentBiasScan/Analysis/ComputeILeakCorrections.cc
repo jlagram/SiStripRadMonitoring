@@ -51,20 +51,25 @@ void Scale(TGraph *& g, double scale)
 
 
 void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph *&gvolt, 
-                   char* subdet, char* run, int detid=369121605, char* bad_periods="")
+                   string subdet, string run, int detid=369121605, string bad_periods="")
 {
   // Read files with voltage infos
-  gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
+  //gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
+  gsteps = ReadSteps( ("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_"+run+".txt").c_str(),false);
+  
   //gsteps = ReadSteps(Form("./Steps/Steps_%s.txt", run),false);
   if(!gsteps) {std::cout<<" No voltage steps info. Exit."<<std::endl; return;}
   gvolt = 0;//ReadVoltage(Form("Data/ConditionBrowser_%s.root", run));
   //if(!gvolt) std::cout<<" ConditionBrowser file does not exist, but it is not a problem."<<std::endl;
- 
+  
+  //cout<<__LINE__<<endl; 
   
   int nmodforchannel=1;
   // Read files with current infos
-  gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
-  gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
+  gcur_DCU = ReadDCUCurrentRoot( ("Data/DCU_I_"+subdet+"_"+run+".root").c_str(), detid, bad_periods);
+  gcur_PS = ReadPSCurrentRoot( ("Data/PS_I_"+subdet+"_"+run+".root").c_str(), detid, nmodforchannel, bad_periods, false); // last argument for prints
+  //gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
+  //gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
   
   
   if(!gcur_PS) {std::cout<<" No PS current info. Exit."<<std::endl; return;}
@@ -79,6 +84,7 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
     std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl;  
     gcur_DCU = (TGraph*) gcur_PS->Clone();
     if(!gcur_DCU) {std::cout<<" No PS info neither. Exit."<<std::endl; return;}
+    if(gcur_PS->GetN()==0) {cout<<"Warning : gcur_PS->GetN()==0 !"<<endl;}
     
     scale = 1./nmodforchannel; // Approximation of an equal sharing among sensors and over Vbias
 
@@ -98,13 +104,23 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
    
 
     
-	if(!strcmp(subdet,"TIB"))
-	for(int idet=0; idet<N_TIB_L1_2012; idet++)
-	  if(detid==detids_TIB_L1_2012[idet]) scale = dcu_fractions_TIB_L1_2012[idet];
-	if(!strcmp(subdet,"TOB"))
-	for(int idet=0; idet<N_TOB; idet++)
-	  if(detid==detids_TOB[idet]) scale = dcu_fractions_TOB[idet];
-
+	//if(!strcmp(subdet,"TIB"))
+	if(subdet == "TIB")
+	{
+		for(int idet=0; idet<N_TIB_L1_2012; idet++)
+	  	{
+	  		if(detid==detids_TIB_L1_2012[idet]) scale = dcu_fractions_TIB_L1_2012[idet];
+	  	}
+	}
+	
+	//if(!strcmp(subdet,"TOB"))
+	else if(subdet == "TOB")
+	{
+		for(int idet=0; idet<N_TOB; idet++)
+	  	{
+	  		if(detid==detids_TOB[idet]) scale = dcu_fractions_TOB[idet];
+		}
+	}
 	cout<<"dcu/ps fraction = "<<scale<<endl;
 	
 	//cout<<"gcur_DCU->GetN() = "<<gcur_DCU->GetN()<<endl;
@@ -238,8 +254,8 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
 
 //----------------------------------------------------------------------------
 
-void DrawConditions(char* subdet, char* run, int detid=369121381, 
-                    char* bad_periods="Steps/bad_periods_20120928_run203832.txt")
+void DrawConditions(string subdet, string run, int detid=369121381, 
+                    string bad_periods="Steps/bad_periods_20120928_run203832.txt")
 {
     cout<<" DetID "<<detid<<endl;
 
@@ -285,7 +301,7 @@ void DrawConditions(char* subdet, char* run, int detid=369121381,
    } 
 }
 
-double DrawDCUOverPSRatio(char* subdet, char* run, int detid=369121381, char* bad_periods="", bool print=false)
+double DrawDCUOverPSRatio(string subdet, string run, int detid=369121381, string bad_periods="", bool print=false)
 {
     cout<<" DetID "<<detid<<endl;
 
@@ -338,7 +354,7 @@ Double_t fitvdrop(Double_t *x, Double_t *par)
 }
 
 
-int ComputeCorrection(char* subdet, char* run, double detid, TGraph*& gvdrop, TF1*& fit, char* bad_periods="", bool show=true)
+int ComputeCorrection(string subdet, string run, double detid, TGraph*& gvdrop, TF1*& fit, string bad_periods="", bool show=true)
 {
   
   // Loop over modules
@@ -468,12 +484,14 @@ int ComputeCorrection(char* subdet, char* run, double detid, TGraph*& gvdrop, TF
   
 }
 
-void ComputeCorrections(char* subdet, char* run, vector<double> detids, char* bad_periods="", bool show=true)
+void ComputeCorrections(string subdet, string run, vector<double> detids, string bad_periods="", bool show=true)
 {
   int N = detids.size();
   
   // Histos and output file
-  TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
+  //TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
+  TFile* fout = new TFile( ("LeakCurCorr_"+subdet+"_"+run+".root").c_str(),"recreate");
+  
   //TFile* fout = new TFile(Form("LeakCurCorr_files/LeakCurCorr_%s_%s.root", subdet, run),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);
   TGraph* g2param = new TGraph();
@@ -511,7 +529,7 @@ void ComputeCorrections(char* subdet, char* run, vector<double> detids, char* ba
       ifit++;
     }
     
-    getchar();
+    getchar(); //to wait for user ?
     
 //    delete c1;
 //    delete c2;
@@ -536,7 +554,7 @@ void ComputeCorrections(char* subdet, char* run, vector<double> detids, char* ba
   
 }
 
-void ComputeAllCorrections(char* subdet, char* run, bool fullscan, char* bad_periods="")
+void ComputeAllCorrections(string subdet, string run, bool fullscan, string bad_periods="")
 {
   std::string string_subdet(subdet);
 
@@ -545,7 +563,9 @@ void ComputeAllCorrections(char* subdet, char* run, bool fullscan, char* bad_per
   filename+= ".txt";
   
   // Histos and output file
-  TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
+  //TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
+  TFile* fout = new TFile( ("LeakCurCorr_"+subdet+"_"+run+".root").c_str(),"recreate");
+  
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);
   TGraph* g2param = new TGraph();
   TH1F* hparam0 = new TH1F("hparam0", "param0", 100, -1, 1);
@@ -643,7 +663,7 @@ void ComputeAllCorrections(char* subdet, char* run, bool fullscan, char* bad_per
 
 //----------------------------------------------------l--------------------
 
-void ComputeDCUFractions(vector<double> detids, char* subdet="TIB", char* run="20120506_run193541", char* bad_periods="")
+void ComputeDCUFractions(vector<double> detids, string subdet="TIB", string run="20120506_run193541", string bad_periods="")
 {
   int N = detids.size();
   
@@ -668,19 +688,20 @@ int main()
 //NB : detids lists in Data/detid_lists/
 //NB : leakage info files must be stored in Data/
 
-	bool fullscan = true; //If small scan, compute corrections only for dew detids !
+	bool fullscan = false; //If small scan, compute corrections only for dew detids !
 
 //--- FUNCTION CALLS
 
 
 
-	ComputeAllCorrections("TEC", "20170924_run303824", fullscan);
+	ComputeAllCorrections("TOB", "20180530_run317182", fullscan);
+
 	/*
-	ComputeAllCorrections("TIB", "20170527_run295376", fullscan);
-	ComputeAllCorrections("TOB", "20170527_run295376", fullscan);
-	ComputeAllCorrections("TEC", "20170527_run295376", fullscan);
-	ComputeAllCorrections("TID", "20170527_run295376", fullscan);
-	*/		
+	ComputeAllCorrections("TIB", "20180530_run317182", fullscan);
+	ComputeAllCorrections("TOB", "20180530_run317182", fullscan);
+	ComputeAllCorrections("TEC", "20180530_run317182", fullscan);
+	ComputeAllCorrections("TID", "20180530_run317182", fullscan);
+	*/
 
 
 	return 0;

@@ -1178,6 +1178,7 @@ int CorrectGraphForLeakageCurrent(TGraph* g, double detid, TFile* f)
   	if(ts.Contains("36912")) {det_file.open("detid_lists/TIB_detit_list.txt");}
   	else if(ts.Contains("43628")) {det_file.open("detid_lists/TOB_detit_list.txt");}
   	else if(ts.Contains("47014")) {det_file.open("detid_lists/TEC_detit_list.txt");}
+  	else {det_file.open("detid_lists/TID_detit_list.txt");}
   	//else {cout<<"Corresponding detector list not found ! Detid = "<<ts<<endl; return 0;}
   	//cout<<"detID = "<<detid<<endl;
   	

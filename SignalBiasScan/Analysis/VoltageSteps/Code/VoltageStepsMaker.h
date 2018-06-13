@@ -22,7 +22,9 @@ class VoltageStepsMaker {
    
    // Returns voltage from evt number or timestamp
    int getVoltage_evtnumber(int run, int evt, int timestamp=0);
-   int getVoltage_timestamp(int timestamp);
+   
+  int getVoltage_timestamp(double timestamp); //Changed
+   //int getVoltage_timestamp(int timestamp); //FIXME
 
    // Returns voltage step index
    int getIndex(int voltage);

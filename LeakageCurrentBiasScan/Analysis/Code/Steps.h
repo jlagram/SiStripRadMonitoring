@@ -69,7 +69,7 @@ TGraph* ReadSteps(std::string filename, bool print=false)
   //Read file with steps definition
   
   std::string line;
-  ifstream fin(filename);
+  ifstream fin(filename.c_str());
   if(!fin.is_open()) { std::cout<<"Error : file "<<std::string(filename)<<" not found."<<std::endl; return 0;}
  
     
@@ -123,7 +123,7 @@ void ReadBadPeriodsOld(std::string filename, vector< int > &bad_periods_start, v
   //Read file with bad periods definition
   
   std::string line;
-  ifstream fin(filename);
+  ifstream fin(filename.c_str());
   if(!fin.is_open()) { std::cout<<"Error : file "<<std::string(filename)<<" not found."<<std::endl; return;}
     
   int time_start=-1;

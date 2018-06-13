@@ -35,7 +35,17 @@ using namespace std;
 //-------------//
 void ClusterWidthAnalysisTreeMaker::Loop()
 {
+  //FIXME -- test
+  /*
+  double voltage;
+  voltage = VSmaker.getVoltage_timestamp(1527681516); cout<<"V = "<<voltage<<endl;
+  voltage = VSmaker.getVoltage_timestamp(1527681732); cout<<"V = "<<voltage<<endl;
+  voltage = VSmaker.getVoltage_timestamp(1527681953); cout<<"V = "<<voltage<<endl;
+  voltage = VSmaker.getVoltage_timestamp(1527682139); cout<<"V = "<<voltage<<endl;
+  voltage = VSmaker.getVoltage_timestamp(1527682332); cout<<"V = "<<voltage<<endl;
+	*/
   
+
   std::cout<<"Initializing"<<std::endl;
   
   std::string output_file;
@@ -109,7 +119,6 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	if(jentry%10000 == 0) 
     { 
        std::cout << "Number of events : " << jentry <<"/"<<nentries<< std::endl;
-       //cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
     }   
     
     if(theVoltage > 0) {nEntries_isPosV++;}    
@@ -117,6 +126,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
     {
     	cout<<"--- "<<nEntries_isPosV<<" entries w/ positive V values"<<endl;
     }
+  
 
 
 	nevent++;
@@ -131,6 +141,8 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	//FIXME
 	//if(theVoltage != 20) {continue;} 
 	//cout<<theVoltage<<endl;
+	
+	//cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
 
 	int thePointNumber = VSmaker.getIndex(theVoltage);
 
@@ -149,7 +161,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	}
 	
 	
-	cout<<"event->tracks.size() = "<<event->tracks.size()<<endl;
+	//cout<<"event->tracks.size() = "<<event->tracks.size()<<endl;
 	
  
     // Loop over tracks
@@ -157,7 +169,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	{
 	  TreeTrack *track = &(event->tracks[itr]);
 	  
-	  cout<<"track chi2 ="<<track->chi2<<endl;
+	  //cout<<"track chi2 ="<<track->chi2<<endl;
 	  
 	  if(track->chi2>5) continue; // adapted to v1.2 data format
 	  //if(track->pT<5) continue;
@@ -177,12 +189,11 @@ void ClusterWidthAnalysisTreeMaker::Loop()
       // int nHitsTotal = nTIBhits + nTOBhits + nTIDhits + nTEChits;
       int nHitsTotal = track->Nhits; // adapted to v1.1 data format
       
-      cout<<"nHitsTotal = "<<nHitsTotal<<endl;
+      //cout<<"nHitsTotal = "<<nHitsTotal<<endl;
       
       if(nHitsTotal < 5) continue; // remove tracks with less than 5 hits
 
 
-	cout<<__LINE__<<endl;
 
 	  // Fill histos
 	  
@@ -236,7 +247,6 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	    else if(track->TEC_fullHits.size()) FillHistos(HistSoN_TEC, ProfVsAngle_TEC, track->TEC_fullHits, thePointNumber, false, commonHistos[3], Monitors_TEC);
       }
       
-      cout<<__LINE__<<endl;
 	  
 
     } // End of loop over tracks
@@ -636,7 +646,7 @@ void ClusterWidthAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<T
 	  
 	  if(Histo->Integral()<20) //0.1
 	   { std::cout<<" Not enough entries (<20) for histo "<<thestring.Data()<<std::endl;
-	     i++; continue;  //FIXME -- keep this cut ? remove low stat points too !
+	     i++; continue; 
 	   }
  
 	  
