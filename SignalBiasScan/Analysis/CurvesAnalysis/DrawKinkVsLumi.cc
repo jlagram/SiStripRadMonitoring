@@ -432,7 +432,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
 
 	bool writeExtraText = false;
-	TString extraText   = "Preliminary 2017";
+	TString extraText   = "Preliminary";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
@@ -1422,7 +1422,23 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
 	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815242, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
 	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815281, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
 	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815282, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+
+
+	  // TOB + 1.3.1.6 //NEW -- ADDED 04/2018
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329011, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329021, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329051, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329061, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329091, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329101, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329131, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329141, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329171, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329181, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329211, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329221, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
   }
+
 
   else if(subdet=="TEC")
   {
@@ -1506,76 +1522,83 @@ int main(int argc, char *argv[])
 //--------------------------------------------
 //--- Automatized from here
 //--- Can remove/add below scans if desired
-  std::cout << endl << "Starting DrawKinkVsLumi.exe" << std::endl;
+	std::cout << endl << "Starting DrawKinkVsLumi.exe" << std::endl;
 
-  for(int i=0; i<v_analysis.size(); i++)
-  {
-  	for(int j=0; j<v_subdet.size(); j++)
-  	{
-		if(v_subdet[j] != "TIB") {superimpose_simu = false;} //Only available for TIB yet
+	for(int i=0; i<v_analysis.size(); i++)
+	{
+		for(int j=0; j<v_subdet.size(); j++)
+		{
+			if(v_subdet[j] != "TIB") {superimpose_simu = false;} //Only available for TIB yet
 
-  	  //FIll vectors here in order to read vector values and get rid of faulty runs accordingly
-  	  vector<string> runs;
-	  vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
-	  //Old runs (10)
-	  //runs.push_back("160497");lumis.push_back(0.045);
-	  runs.push_back("170000");lumis.push_back(1.44);
-	  runs.push_back("190459");lumis.push_back(6.15);
-	  runs.push_back("193541");lumis.push_back(7.19);
-	  runs.push_back("193928");lumis.push_back(7.41);
-	  runs.push_back("199832");lumis.push_back(15.14);
-	  //runs.push_back("200786");lumis.push_back(16.98);
-	  if(v_subdet[j] != "TOB" || v_analysis[i] != "Signal")
-	  {runs.push_back("203832");lumis.push_back(21.18);}
-	  runs.push_back("208339");lumis.push_back(28.57);
-	  runs.push_back("211797");lumis.push_back(29.45);
+			  //FIll vectors here in order to read vector values and get rid of faulty runs accordingly
+			  vector<string> runs;
+			vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
+			//Old runs (10)
+			//runs.push_back("160497");lumis.push_back(0.045);
+			runs.push_back("170000");lumis.push_back(1.44);
+			runs.push_back("190459");lumis.push_back(6.15);
+			runs.push_back("193541");lumis.push_back(7.19);
+			runs.push_back("193928");lumis.push_back(7.41);
+			runs.push_back("199832");lumis.push_back(15.14);
+			//runs.push_back("200786");lumis.push_back(16.98);
+			if(v_subdet[j] != "TOB" || v_analysis[i] != "Signal")
+			{runs.push_back("203832");lumis.push_back(21.18);}
+			runs.push_back("208339");lumis.push_back(28.57);
+			runs.push_back("211797");lumis.push_back(29.45);
 
-	  //2015 (4) -- Run 2
-	  runs.push_back("246963");lumis.push_back(0.001+29.46);
-	  runs.push_back("254790");lumis.push_back(0.17+29.46);
-	  if(v_subdet[j] != "TOB" || v_analysis[i] != "Signal")
-	  {runs.push_back("258443");lumis.push_back(2.09+29.46);} //Mostly bad curves for TOB
-	  runs.push_back("262254");lumis.push_back(4.23+29.46);
+			//2015 (4) -- Run 2
+			runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T
+			runs.push_back("254790");lumis.push_back(0.17+29.46);
+			if(v_subdet[j] != "TOB" || v_analysis[i] != "Signal")
+			{runs.push_back("258443");lumis.push_back(2.09+29.46);} //Mostly bad curves for TOB
+			runs.push_back("262254");lumis.push_back(4.23+29.46);
 
-	  //2016 (5)
-	  runs.push_back("271056");lumis.push_back(4.26+29.46); //No B field
-	  runs.push_back("274969");lumis.push_back(7.58+29.46);
-	  runs.push_back("276437");lumis.push_back(14.48+29.46);
-	  runs.push_back("278167");lumis.push_back(23.64+29.46);
-	  runs.push_back("280385");lumis.push_back(35.06+29.46);
-	  //runs.push_back("285371");lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
+			//2016 (5)
+			runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
+			runs.push_back("274969");lumis.push_back(7.58+29.46);
+			runs.push_back("276437");lumis.push_back(14.48+29.46);
+			// runs.push_back("276453");lumis.push_back(14.84+29.46); //Full, not completed (15v-195v)
+			runs.push_back("278167");lumis.push_back(23.64+29.46);
+			// runs.push_back("279865");lumis.push_back(32.12+29.46); //FUll, not completed (225-350V)
+			runs.push_back("280385");lumis.push_back(35.06+29.46);
+			//runs.push_back("285371");lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
 
-	  //2017 (2)
-	  // runs.push_back("295324");lumis.push_back(45.71+29.46); //-- FULL
-	  runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
-	  runs.push_back("298996");lumis.push_back(52.18+29.46);
-  	  runs.push_back("302131");lumis.push_back(65.84+29.46);
-  	  runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL
-	  runs.push_back("305862");lumis.push_back(91.65+29.46);
+			//2017 (5)
+			// runs.push_back("295324");lumis.push_back(45.71+29.46); //-- FULL -- some pixel FEDs missing, use 295376 instead
+			runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
+			runs.push_back("298996");lumis.push_back(52.18+29.46);
+			runs.push_back("302131");lumis.push_back(65.84+29.46);
+			runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL
+			if(v_subdet[j] != "TOB") {runs.push_back("305862");lumis.push_back(91.65+29.46);} //Low stat TOB -- (ALCARECO issue?)
 
+			//2017 (2) //FIXME lumi
+			runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
+			// runs.push_back("314755");lumis.push_back(97.37+29.46); //-- FULL (-10)
+			// runs.push_back("314756");lumis.push_back(97.37+29.46); //-- FULL (-10) -- few PGs
+			runs.push_back("317182");lumis.push_back(113.01+29.46);
+			runs.push_back("317683");lumis.push_back(119.21+29.46);
 
+			//--------------------------------------------
+			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);} //VFD EVOLUTION, SINGLE MODULES
 
-  	  if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);} //VFD EVOLUTION, SINGLE MODULES
+			TString ref = "170000";
+			if(v_subdet[j] == "TEC" || v_subdet[j] == "TOB") {ref = "190459";} //170000 "bad scan"
 
+			if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, 0, draw_fit);}
 
-  	  TString ref = "170000";
-  	  if(v_subdet[j] == "TEC" || v_subdet[j] == "TOB") {ref = "190459";} //170000 "bad scan"
-
-  	  if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, 0, draw_fit);}
-
-  	  	for(int k=3; k<8; k++) //Relative plots for all TEC layers
-  	  	{
-  	  		if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, k, draw_fit);} //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
-  	  		if(draw_vfd_relative_evolution_superimposed_plots) {Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], ref.Data(), runs.size(), runs, lumis, false, use_curvature, draw_fit);} //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
-  	  		if(v_subdet[j] != "TEC") {break;}
-  	  	}
-
+			for(int k=3; k<8; k++) //Relative plots for all TEC layers
+			{
+				if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, k, draw_fit);} //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
+				if(draw_vfd_relative_evolution_superimposed_plots) {Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], ref.Data(), runs.size(), runs, lumis, false, use_curvature, draw_fit);} //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
+				if(v_subdet[j] != "TEC") {break;}
+			}
+			//--------------------------------------------
+		}
 	}
-  }
 
 
-//--------------------------------------------
+	//--------------------------------------------
 
-  return 0;
+	return 0;
 }
 

@@ -314,16 +314,16 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  v_analysis.push_back("Signal");
-  //v_analysis.push_back("ClusterWidth");
+  // v_analysis.push_back("Signal");
+  v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
-  v_subdet.push_back("TIB");
+  //v_subdet.push_back("TIB");
   v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
-  v_subdet.push_back("TID");
+  //v_subdet.push_back("TEC");
+  //v_subdet.push_back("TID");
 
-  bool use_curvature = true; //true-->kink ; false-->lines
+  bool use_curvature = false; //true-->kink ; false-->lines
 
   bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
@@ -348,28 +348,29 @@ int main()
   runs.push_back("246963"); dates.push_back("20150603");
   runs.push_back("254790");	dates.push_back("20150821");
   runs.push_back("258443"); dates.push_back("20151007");
-  runs.push_back("262254");	dates.push_back("20151121");
+  runs.push_back("262254");	dates.push_back("20151121");*/
 
 //2016 (5)
   runs.push_back("271056");	dates.push_back("20160423");
-  runs.push_back("274969");	dates.push_back("20160612");
-  runs.push_back("276437");	dates.push_back("20160706");
-  runs.push_back("278167");	dates.push_back("20160803");
-  runs.push_back("280385");	dates.push_back("20160909");
-  runs.push_back("285371");	dates.push_back("20161116");*/
+  //runs.push_back("274969");	dates.push_back("20160612");
+  //runs.push_back("276437");	dates.push_back("20160706");
+  //runs.push_back("278167");	dates.push_back("20160803");
+  //runs.push_back("280385");	dates.push_back("20160909");
+  //runs.push_back("285371");	dates.push_back("20161116");
 
 //2017
   // runs.push_back("295324");	dates.push_back("20170527"); //Full
-   runs.push_back("295376");	dates.push_back("20170527"); //Full
+  // runs.push_back("295376");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   // runs.push_back("302131");	dates.push_back("20170831");
-  
-  //runs.push_back("303824");	dates.push_back("20170924"); //Full
+  // runs.push_back("303824");	dates.push_back("20170924"); //Full
   // runs.push_back("305862");	dates.push_back("20171030");
 
 //2018
-	//runs.push_back("314574");	dates.push_back("20180418");
-	//runs.push_back("314755");	dates.push_back("20180420");
+	// runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
+	//runs.push_back("314755");	dates.push_back("20180420"); //-- FULL (-10°)
+	// runs.push_back("317182");	dates.push_back("20180530");
+	// runs.push_back("317683");	dates.push_back("20180611");
 
 
 

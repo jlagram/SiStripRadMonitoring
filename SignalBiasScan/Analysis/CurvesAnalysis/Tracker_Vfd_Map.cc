@@ -12,7 +12,7 @@ using namespace std;
  */
 void Write_Vfd_FullScan_Allmodules(TString run, TString observable, TString method)
 {
-	bool write_relative_vfd_initial = false; //Tk Map values relatively to initial depletion values
+	bool write_relative_vfd_initial = true; //Tk Map values relatively to initial depletion values
 
 	VdeplRef SubdetRef;
 
@@ -22,7 +22,7 @@ void Write_Vfd_FullScan_Allmodules(TString run, TString observable, TString meth
 	v_subdet.push_back("TEC");
 	v_subdet.push_back("TID");
 
-	ULong64_t modid=-99; Double_t vfd=-99;
+	ULong64_t modid=-99; Double_t vfd=-99; Double_t ref_val = -99;
 
 	TString dirname = "./DECO_files/all_modules";
 
@@ -45,14 +45,31 @@ void Write_Vfd_FullScan_Allmodules(TString run, TString observable, TString meth
 
 		SubdetRef.loadFile(v_subdet[isubdet].Data());
 
+		ULong64_t modid_tmp = -99;
 		for(int ientry=0; ientry<nentries; ientry++)
 		{
-			modid=-99; vfd=-99;
+			modid=-99; vfd=-99; ref_val = -99;
 			t->GetEntry(ientry);
 
-			if(v_subdet[isubdet] == "TOB" || v_subdet[isubdet] == "TEC") {modid/=10;} //Remove sensor identifier
+			ref_val = SubdetRef.GetVdepl(modid);
 
-			if(write_relative_vfd_initial) file_out_tmp<<modid<<" "<<SubdetRef.GetVdepl(modid) - vfd<<endl;
+			// cout<<"modid = "<<modid<<" / modid_tmp = "<<modid_tmp<<endl;
+			// if(v_subdet[isubdet] == "TOB" || v_subdet[isubdet] == "TEC") {modid/=10;} //obsolete
+
+			//For double-sensor modules, only use first sensor
+			if(modid/10 == modid_tmp/10 && (v_subdet[isubdet] == "TOB" || v_subdet[isubdet] == "TEC") ) {modid_tmp = modid; continue;}
+			modid_tmp = modid;
+
+			if(v_subdet[isubdet] == "TOB" || v_subdet[isubdet] == "TEC") {modid/= 10;}
+
+			// cout<<"Modid = "<<modid<<" ";
+			// if(write_relative_vfd_initial) {cout<<" / labRef = "<<ref_val<<" ";}
+			// cout<<" / Vfd = "<<vfd<<endl;
+
+			if(write_relative_vfd_initial)
+			{
+				if(ref_val != 0) {file_out_tmp<<modid<<" "<<ref_val - vfd<<endl;} //else modid not found
+			}
 			else file_out_tmp<<modid<<" "<<vfd<<endl;
 		}
 
@@ -71,10 +88,14 @@ void Write_Vfd_FullScan_Allmodules(TString run, TString observable, TString meth
 
 	//Concatenate all partitions in 1 single file
 	system("rm tracker_vfd_allModules.txt");
-	system("cat tracker_vfd_map_TIB.txt >> tracker_vfd_allModules.txt");
-	system("cat tracker_vfd_map_TOB.txt >> tracker_vfd_allModules.txt");
-	system("cat tracker_vfd_map_TEC.txt >> tracker_vfd_allModules.txt");
-	system("cat tracker_vfd_map_TID.txt >> tracker_vfd_allModules.txt");
+	for(int isubdet=0; isubdet<v_subdet.size(); isubdet++)
+	{
+		system( ("cat tracker_vfd_map_"+v_subdet[isubdet]+".txt >> tracker_vfd_allModules.txt").Data() );
+	}
+
+	cout<<"--- Copying file 'tracker_vfd_allModules.txt' to : "<<endl;
+	cout<<" -> /afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_9_2_10/src/SiStripRadMonitoring/TrackerMapMaker/test"<<endl<<endl;
+	system("cp tracker_vfd_allModules.txt /afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_9_2_10/src/SiStripRadMonitoring/TrackerMapMaker/test");
 
 	return;
 }
@@ -82,7 +103,7 @@ void Write_Vfd_FullScan_Allmodules(TString run, TString observable, TString meth
 
 int main()
 {
-	TString run = "295376"; //run
+	TString run = "314574"; //run
 	TString observable = "ClusterWidth"; //observable
 	TString method = "line"; //method
 

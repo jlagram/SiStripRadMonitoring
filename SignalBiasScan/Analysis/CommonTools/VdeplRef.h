@@ -72,7 +72,8 @@ void VdeplRef::loadFile(string subdet)
   if(subdet == "TEC" && fref.is_open())
   {
   	int iter = 0;
-  
+	getline ( fref, line); //1rst line
+	
     while( getline ( fref, line))
 	{
 	  if(fref.eof()) continue;
@@ -82,7 +83,7 @@ void VdeplRef::loadFile(string subdet)
 	  dcuid >> status;
       
       //First line of file
-      if(iter==0) {detid_tmp = detid; v_TEC_isDoubleSensor.push_back(false); continue;}      
+      //if(iter==0) {detid_tmp = detid; v_TEC_isDoubleSensor.push_back(false); continue;}      
 
 	  //If same detid as previous line --> double sensor
 	  if(detid == detid_tmp)
@@ -102,7 +103,7 @@ void VdeplRef::loadFile(string subdet)
     fref.seekg(0, ios::beg);
   }
 
-
+  getline ( fref, line); //1rst line
   if(fref.is_open())
   {
     while( getline ( fref, line) && Nref < Nmax)
@@ -114,21 +115,24 @@ void VdeplRef::loadFile(string subdet)
 	  ss >> objectid >> object >> type_description >> sensor >> sensor_nb >> vdepl >> center >> detid >>
 	  dcuid >> status;
 	  
+	    
 	  //cout<<"detid = "<<detid<<endl;
 
-		//FIXME -- same for TEC		
-      if(subdet=="TOB") DetIDs[Nref] = detid*10+sensor_nb-1;
+
+      //--- create array of Vdep_ref values, adding a sensor ID for TOB & (some) TEC modules (different sensors have different ref values!)
       
+      if(subdet=="TOB") {DetIDs[Nref] = detid*10+sensor_nb-1;}
       else if(subdet == "TEC")
       {
-      	if(v_TEC_isDoubleSensor[Nref]) DetIDs[Nref] = detid*10+sensor_nb-1; //Double sensor
-      	else DetIDs[Nref] = detid*10; //Single sensor
-      }      
+      	//cout<<"Nref = "<<Nref<<" / v_TEC_isDoubleSensor[Nref] = "<<v_TEC_isDoubleSensor[Nref]<<endl;	
       
-      else DetIDs[Nref] = detid;
+      	if(v_TEC_isDoubleSensor[Nref] == true) {DetIDs[Nref] = detid*10+sensor_nb-1;} //Double sensor
+      	else DetIDs[Nref] = detid*10; //Single sensor
+      }    
+      else DetIDs[Nref] = detid; //single sensor
+     
       
       //cout<<"DetIDs[Nref] = "<<DetIDs[Nref]<<endl;
-      
 
  
 	  Vdepl[Nref] = vdepl;
@@ -161,6 +165,9 @@ double VdeplRef::GetVdepl(ULong64_t modid)
 	vdepl=Vdepl[id];
 	id++;
   }
+  
+  if(detid != modid) {cout<<"Modid "<<modid<<" not found in VdeplRef file ! Return 0"<<endl; return 0;}
+  //if(detid != modid) {return 0;}
   
   return vdepl;
 }

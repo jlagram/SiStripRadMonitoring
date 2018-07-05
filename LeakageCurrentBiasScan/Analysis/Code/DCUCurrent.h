@@ -12,6 +12,47 @@
 #include "TH1F.h"
 // for timestamp conversion
 #include "./Steps.h"
+#include <sys/stat.h>
+#include <iomanip>
+
+/* BASH COLORS */
+#define RST   "\x1B[0m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define KYEL  "\x1B[33m"
+#define KBLU  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
+#define FRED(x) KRED x RST
+#define FGRN(x) KGRN x RST
+#define FYEL(x) KYEL x RST
+#define FBLU(x) KBLU x RST
+#define FMAG(x) KMAG x RST
+#define FCYN(x) KCYN x RST
+#define FWHT(x) KWHT x RST
+#define BOLD(x) "\x1B[1m" x RST
+#define UNDL(x) "\x1B[4m" x RST
+#define ITAL(x) "\x1B[3m" x RST
+#define STRK(x) "\x1B[9m" x RST
+
+//Use stat function (from library sys/stat) to check if a file exists
+bool Check_File_Existence(const TString& name)
+{
+  struct stat buffer;
+  return (stat (name.Data(), &buffer) == 0); //true if file exists
+}
+
+//Convert double into a TString
+TString Convert_Number_To_TString(double number)
+{
+	stringstream ss;
+	ss << std::setprecision(11)<< number;
+	TString ts = ss.str();
+	return ts;
+}
+	
+	
 
 Long64_t convertDate( std::string str_date, std::string str_time){
 
@@ -232,7 +273,7 @@ void ConvertDCUCurrentTxtToRoot(string filename="Data/DCU_I_TIB_L1_20120405_run1
 
 TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel, 
 // string filename="Data/DCU_I_TIB_L1_20120405_run190459.root", int modid=369121605
- string treename="dcu", string bad_periods="", bool print=false)
+ string treename, string bad_periods="", bool print=false)
 {
 
   // Read bad periods
@@ -252,9 +293,11 @@ TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel,
 	  cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<endl;
   }
 
+
   // Open file and set tree
+  if( !Check_File_Existence(filename) ) {std::cout<<FRED("Error : file '"<<std::string(filename)<<"' not found.")<<std::endl; return 0;}
+
   TFile* fin = TFile::Open(filename.c_str());
-  if(!fin) {std::cout<<"Error : file '"<<std::string(filename)<<"' not found."<<std::endl; return 0;}
   
   char ps[50];
   int detid=-1;
@@ -263,7 +306,7 @@ TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel,
   int nmod=1;
 
   TTree* tree = (TTree*) fin->Get(treename.c_str());
-  if(!tree) {std::cout<<"Error : tree not found."<<std::endl; return 0;}
+  if(!tree) {std::cout<<"Error : tree "<<treename<<" not found."<<std::endl; return 0;}
   tree->SetBranchAddress("PS", &ps);
   tree->SetBranchAddress("DETID", &detid);
   tree->SetBranchAddress("TIME", &time);
@@ -274,6 +317,7 @@ TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel,
   // Create graph
   TGraph *g = new TGraph();
   g->SetName("Current");
+  
 
   // Read tree and fill graph
   int nentries = tree->GetEntries();
@@ -297,7 +341,7 @@ TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel,
 	}
 	if(remove_point) continue;
 	
-	cout<<"DetID = "<<detid<<endl;
+	//cout<<"DetID = "<<detid<<endl;
 
     if(detid==modid) 
 	{ 
@@ -307,6 +351,7 @@ TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel,
 	  ipt++;
 	}
   }
+ 
 
   // Set time axis and markers
   TH1F* h = g->GetHistogram();
@@ -315,17 +360,18 @@ TGraph* ReadCurrentRoot(string filename, int modid, int &nmodforchannel,
 
   fin->Close();
   
-  if(g->GetN() == 0) {cout<<"Warning : g->GetN() == 0 ! (in DCUCurrent.h)"<<endl;}
+  if(g->GetN() == 0) {cout<<FRED("Warning (PS) : g->GetN() == 0 ! (in DCUCurrent.h)")<<endl;}
  
   return g;
 
 }
 
-TGraph* ReadDCUCurrentRoot(string filename="Data/DCU_I_TIB_L1_20120405_run190459.root", int modid=369121605, string bad_periods="")
+TGraph* ReadDCUCurrentRoot(string filename, int modid, string bad_periods)
 {
 
   int nmodforchannel;
-  TGraph* g = ReadCurrentRoot(filename, modid, nmodforchannel, "dcu", bad_periods); // Same tree format for DCU and PS currents
+  //TGraph* g = ReadCurrentRoot(filename, modid, nmodforchannel, "dcu", bad_periods); // Same tree format for DCU and PS currents
+  TGraph* g = ReadCurrentRoot(filename, modid, nmodforchannel, "outTree", bad_periods); // Same tree format for DCU and PS currents
   if(!g) return 0;
   
   g->SetMarkerStyle(22);
@@ -335,10 +381,9 @@ TGraph* ReadDCUCurrentRoot(string filename="Data/DCU_I_TIB_L1_20120405_run190459
   
 }
 
-TGraph* ReadDCUCurrentFromGB(string filename="~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", int modid=369121606,
+TGraph* ReadDCUCurrentFromGB(string filename, int modid,
  string bad_periods="", bool print=false, TGraph* gtemp=0)
 {
-
   // Read bad periods
   vector< int > bad_periods_start;
   vector< int > bad_periods_end;
@@ -354,10 +399,11 @@ TGraph* ReadDCUCurrentFromGB(string filename="~/work/DCU_TIBD_TOB_from_134883720
 	for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
 	  cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<endl;
   }
+  
 
   // Open file and set tree
   TFile* fin = TFile::Open(filename.c_str());
-  if(!fin) {std::cout<<"Error : file '"<<std::string(filename)<<"' not found."<<std::endl; return 0;}
+  if(!fin) {std::cout<<FRED("Error : file '"<<std::string(filename)<<"' not found.")<<std::endl; return 0;}
   
   double Detid;
   double Dcutimestamp;
@@ -365,7 +411,7 @@ TGraph* ReadDCUCurrentFromGB(string filename="~/work/DCU_TIBD_TOB_from_134883720
   double Ileak;
 
   TTree* tree = (TTree*) fin->Get("outTree");
-  if(!tree) {std::cout<<"Error : tree not found."<<std::endl; return 0;}
+  if(!tree) {std::cout<<FRED("Error : tree 'outTree' not found in DCU file : ")<<filename<<std::endl; return 0;}
   tree->SetBranchAddress("Detid", &Detid);
   tree->SetBranchAddress("Dcutimestamp", &Dcutimestamp);
   tree->SetBranchAddress("TemperatureSi", &TemperatureSi);
@@ -380,6 +426,8 @@ TGraph* ReadDCUCurrentFromGB(string filename="~/work/DCU_TIBD_TOB_from_134883720
   int ipt=0;
   bool remove_point=false;
   double time;
+  
+  int entries_detid = 0;
   for(int i=0; i<nentries; i++)
   {
     tree->GetEntry(i);
@@ -399,15 +447,19 @@ TGraph* ReadDCUCurrentFromGB(string filename="~/work/DCU_TIBD_TOB_from_134883720
 	}
 	if(remove_point) continue;
 
+	//cout<<"detid = "<<Detid<<endl; //print list of detids
+
     if(Detid==modid) 
 	{ 
 	  if(print)  cout<<" I_dcu "<<Ileak<<" t "<<time<<" :  "<<ctime(&print_time)<<endl;
-	  if(Ileak<20) continue;
+	  if(Ileak<20) {cout<<"Ileak<20 : continue !"<<endl; continue;}
 	  g->SetPoint(ipt, time, Ileak);
 	  if(gtemp) gtemp->SetPoint(ipt, time, TemperatureSi);
-	  ipt++;
+	  ipt++; entries_detid++;
 	}
   }
+  
+  cout<<"-- Found "<<entries_detid<<" entries for DCU graph"<<endl;
 
   // Set time axis and markers
   TH1F* h = g->GetHistogram();
@@ -419,7 +471,6 @@ TGraph* ReadDCUCurrentFromGB(string filename="~/work/DCU_TIBD_TOB_from_134883720
   fin->Close();
   
   return g;
-
 }
 
 #endif

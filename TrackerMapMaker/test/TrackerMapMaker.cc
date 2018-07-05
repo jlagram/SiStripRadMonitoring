@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 
   std::string line;
   std::ifstream fin(inputfile);
-  int detid;
+  double detid;
   float value;
   string tmp; //store tmp content, not useful for map
 
@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 	  //cout<<detid<<" / "<<value<<" / "<<tmp<<endl;
 	  
 	  ss >> detid >> value;
+	  
       tkMap.fill(detid, value);
 	}
 	fin.close();

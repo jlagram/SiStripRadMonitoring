@@ -14,26 +14,20 @@
 #include <iomanip>
 #include "TString.h"
 
-//Convert double into a TString
-TString Convert_Number_To_TString(double number)
-{
-	stringstream ss;
-	ss << std::setprecision(11)<< number;
-	TString ts = ss.str();
-	return ts;
-}
 
 
 double GetMaximum(TGraph* g)
 {
+  if(!g || g->GetN() == 0) {cout<<"GetMaximum() : Empty or null TGraph ! Return 0"<<endl; return 0;}
+
   double max=-999;
   double x, y;
   for(unsigned int ipt=0; ipt<g->GetN(); ipt++)
   {
     g->GetPoint(ipt, x, y);
-	if(y>max) max=y;
+    if(y>max) max=y;
   }
-  
+
   return max;
 }
 
@@ -46,64 +40,88 @@ void Scale(TGraph *& g, double scale)
 	g->SetPoint(ipt, x, y*scale);
   }
 
-  return;  
+  return;
 }
 
 
-void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph *&gvolt, 
-                   string subdet, string run, int detid=369121605, string bad_periods="")
+void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph *&gvolt, string subdet, string run, int detid=369121605, string bad_periods="")
 {
+  cout<<FBLU("* GetConditions : ")<<endl;
+
+  string dcu_filename = ("Data/DCU_I_"+run+".root").c_str();
+  string ps_filename = ("Data/PS_I_"+subdet+"_"+run+".root").c_str();
+  string steps_filename = ("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_"+run+".txt").c_str();
+
   // Read files with voltage infos
-  //gsteps = ReadSteps(Form("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_%s.txt", run),false);
-  gsteps = ReadSteps( ("../../SignalBiasScan/Analysis/VoltageSteps/Steps/Steps_"+run+".txt").c_str(),false);
-  
-  //gsteps = ReadSteps(Form("./Steps/Steps_%s.txt", run),false);
+  if(!Check_File_Existence(steps_filename) ) {cout<<FRED("File "<<steps_filename<<" not found !")<<endl;}
+  else
+  {
+    gsteps = ReadSteps(steps_filename,false);
+  }
+
+
   if(!gsteps) {std::cout<<" No voltage steps info. Exit."<<std::endl; return;}
   gvolt = 0;//ReadVoltage(Form("Data/ConditionBrowser_%s.root", run));
   //if(!gvolt) std::cout<<" ConditionBrowser file does not exist, but it is not a problem."<<std::endl;
-  
-  //cout<<__LINE__<<endl; 
-  
+
+
   int nmodforchannel=1;
+
   // Read files with current infos
-  gcur_DCU = ReadDCUCurrentRoot( ("Data/DCU_I_"+subdet+"_"+run+".root").c_str(), detid, bad_periods);
-  gcur_PS = ReadPSCurrentRoot( ("Data/PS_I_"+subdet+"_"+run+".root").c_str(), detid, nmodforchannel, bad_periods, false); // last argument for prints
-  //gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
-  //gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
-  
-  
-  if(!gcur_PS) {std::cout<<" No PS current info. Exit."<<std::endl; return;}
+  if(!Check_File_Existence(dcu_filename) ) {cout<<FRED("File "<<dcu_filename<<" not found !")<<endl;}
+  else
+  {
+    gcur_DCU = ReadDCUCurrentFromGB(dcu_filename, detid, bad_periods);
+    if(gcur_DCU == 0) {cout<<"gcur_DCU is null !"<<endl;}
+    if(gcur_DCU->GetN()==0) {cout<<FRED("Warning : gcur_DCU->GetN()==0 !")<<endl;}
+  }
+
+  if(!Check_File_Existence(ps_filename) ) {cout<<FRED("File "<<ps_filename<<" not found !")<<endl;}
+  else
+  {
+    gcur_PS = ReadPSCurrentRoot( ps_filename, detid, nmodforchannel, bad_periods, false); // last argument for prints
+    if(gcur_PS == 0) {cout<<"gcur_PS is null !"<<endl;}
+    if(gcur_PS->GetN()==0) {cout<<FRED("Warning : gcur_PS->GetN()==0 !")<<endl;}
+  }
+
+
+  if((!gcur_DCU || gcur_DCU->GetN()==0) && (!gcur_PS || gcur_PS->GetN()==0)) 
+  {
+  	//std::cout<<FRED(" No DCU nor PS current info. Exit.")<<std::endl; 
+  	return;
+  }
   //gcur_DCU = 0; // force to not use DCU
-  
+
   // If no DCU info, will user only PS info
   float scale=1.;
   double time=0;
   double current=0;
-  if(!gcur_DCU)
-  { 
-    std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl;  
+
+  if(!gcur_DCU || gcur_DCU->GetN()==0)
+  {
+    std::cout<<"--> No DCU current info, will try to use PS current instead."<<std::endl;
     gcur_DCU = (TGraph*) gcur_PS->Clone();
-    if(!gcur_DCU) {std::cout<<" No PS info neither. Exit."<<std::endl; return;}
-    if(gcur_PS->GetN()==0) {cout<<"Warning : gcur_PS->GetN()==0 !"<<endl;}
-    
+    //if(!gcur_PS) {std::cout<<FRED(" No PS info neither. Exit.")<<std::endl; return;}
+    //if(gcur_PS->GetN()==0) {cout<<FRED("Warning : gcur_PS->GetN()==0 !")<<endl;}
+
     scale = 1./nmodforchannel; // Approximation of an equal sharing among sensors and over Vbias
 
     // fractions computed on 20120506_run193541
     const int N_TIB_L1_2012=17;
     int detids_TIB_L1_2012[N_TIB_L1_2012]={369121381,369121382,369121385,369121386,369121389,369121390,
 	                         369121605,369121606,369121609,369121610,369121613,369121614,
-							 369125861,369125862,369125866,369125869,369125870};  
+							 369125861,369125862,369125866,369125869,369125870};
     float dcu_fractions_TIB_L1_2012[N_TIB_L1_2012]={0.346, 0.329, 0.324, 0.339, 0.345, 0.329,
                                       0.345, 0.339, 0.339, 0.312, 0.320, 0.345,
 								      0.400, 0.307, 0.217, 0.627, 0.476};
-									  
+
     // fractions computed on 20120928_run203832
     const int N_TOB=6;
     int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
     float dcu_fractions_TOB[N_TOB]={0.296, 0.320, 0.327, 0.336, 0.365, 0.334};
-   
 
-    
+
+
 	//if(!strcmp(subdet,"TIB"))
 	if(subdet == "TIB")
 	{
@@ -112,7 +130,7 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
 	  		if(detid==detids_TIB_L1_2012[idet]) scale = dcu_fractions_TIB_L1_2012[idet];
 	  	}
 	}
-	
+
 	//if(!strcmp(subdet,"TOB"))
 	else if(subdet == "TOB")
 	{
@@ -121,8 +139,8 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
 	  		if(detid==detids_TOB[idet]) scale = dcu_fractions_TOB[idet];
 		}
 	}
-	cout<<"dcu/ps fraction = "<<scale<<endl;
-	
+	cout<<"--> DCU/PS fraction = "<<scale<<endl;
+
 	//cout<<"gcur_DCU->GetN() = "<<gcur_DCU->GetN()<<endl;
 
     for(int ic=0; ic<gcur_DCU->GetN(); ic++)
@@ -131,17 +149,20 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
       gcur_DCU->SetPoint(ic, time, current*scale);
     }
   }
-  
+
+  return;
 }
 
+// if current_ratio is true, return ratio of leakage current DCU / PS
 TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool current_ratio=false)
 {
-  
-  // if current_ratio is true, return ratio of leakage current DCU / PS
-  
+  cout<<FBLU("* GetVoltageDrop : ")<<endl;
+
+  //if(gcur_DCU->GetN() == 0) cout<<FRED("gcur_DCU->GetN() = 0")<<endl;
+
   TGraphErrors* gshift = new TGraphErrors();
   TGraphErrors* gratio = new TGraphErrors();
-  
+
   double time=0;
   double current=0;
   double voltage=0;
@@ -149,22 +170,19 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
   int time_cur=0;
   int time_volt=0;
   int prev_time_volt=0;
-  
+
   double current_PS=0;
   double previous_current_PS=0;
   int time_cur_PS=0;
   int prev_time_cur_PS=0;
-  
+
   double cur_PS=0;
   double cur_PS_err=0;
   double volt=0;
   double volt_err=0;
   double shift=0;
   double shift_err=0;
-  
-  if(gcur_DCU->GetN() == 0) cout<<"gcur_DCU->GetN() = "<<gcur_DCU->GetN()<<endl;
-  
-  
+
   // Loop on DCU measurements
   int ipt=0;
   for(int ic=0; ic<gcur_DCU->GetN(); ic++)
@@ -173,14 +191,13 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
     time_cur=int(time);
     if(time_cur==0) continue;
     // cout<<time_cur<<" "<<current<<"uA"<<endl;
-    //cout<<__LINE__<<endl;
-    
+
     // Look for current in PS at time_cur
     for(int icps=0; icps<gcur_PS->GetN(); icps++)
     {
       gcur_PS->GetPoint(icps, time, current_PS);
       time_cur_PS=int(time);
-      
+
       // Get PS current
       if(time_cur>=prev_time_cur_PS && time_cur<time_cur_PS)
       {
@@ -190,15 +207,15 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
         cur_PS_err=fabs(current_PS-cur_PS);
         if(cur_PS_err<2) cur_PS_err=2;
       }
-      
+
       previous_current_PS=current_PS;
       prev_time_cur_PS=time_cur_PS;
     }
-    
+
 	//Remove strange values of DCU in TOB
 	if(current>cur_PS*1.5) continue;
-    
-    
+
+
     // Look for voltage step corresponding at time_cur
     previous_voltage=300;
     prev_time_volt=0;
@@ -207,7 +224,7 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
       gsteps->GetPoint(iv, time, voltage);
       time_volt=int(time);
       // cout<<"  "<<time_volt<<" "<<voltage<<"V"<<endl;
-      
+
       // Compute voltage shift
       if(time_cur>=prev_time_volt && time_cur<time_volt)
       {
@@ -216,13 +233,13 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
         volt_err=fabs(voltage-volt);
         if(volt_err<1) volt_err=1;
 
-        /*if(cur_PS_err<2.5 && fabs(current/cur_PS-0.333)>0.05) 
+        /*if(cur_PS_err<2.5 && fabs(current/cur_PS-0.333)>0.05)
         {
-          std::cout<<" Currents : DCU "<<current<<" PS "<<cur_PS<<"  detid "<<detid<<" "<<voltage<<"V"<<std::endl;  
+          std::cout<<" Currents : DCU "<<current<<" PS "<<cur_PS<<"  detid "<<detid<<" "<<voltage<<"V"<<std::endl;
         }*/
-		
+
         if(cur_PS && prev_time_volt!=0) //FIXME
-                
+
         // remove points not in a voltage step
 		if(volt_err<=10) //1
 		{
@@ -231,92 +248,94 @@ TGraph* GetVoltageDrop(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, bool c
           gshift->SetPoint(ipt, volt, shift);
           gshift->SetPointError(ipt, volt_err, shift_err);
 		  gratio->SetPoint(ipt, volt, current/cur_PS);
-		  gratio->SetPointError(ipt, volt_err, 
+		  gratio->SetPointError(ipt, volt_err,
 		    current/cur_PS*sqrt(pow(cur_PS_err/cur_PS,2) + pow(2/current,2)));
           ipt++;
 		}
       }
-      
+
       previous_voltage=voltage;
       prev_time_volt=time_volt;
     }
   } // End of loop on DCU measurements
-  
+
   TH1F* h = gshift->GetHistogram();
   h->GetXaxis()->SetTitle("V_{bias} [V]");
   h->GetYaxis()->SetTitle("V_{drop} [V]");
-  
+
   if(current_ratio) return gratio;
   else return gshift;
-  
 }
 
 
 //----------------------------------------------------------------------------
 
-void DrawConditions(string subdet, string run, int detid=369121381, 
-                    string bad_periods="Steps/bad_periods_20120928_run203832.txt")
+void DrawConditions(string subdet, string run, int detid, string bad_periods)
 {
-    cout<<" DetID "<<detid<<endl;
+  cout<<FBLU("* DrawConditions : ")<<endl;
 
-    // Get currents and voltage
-    TGraph* gsteps;
-    TGraph* gcur_DCU;
-    TGraph* gcur_PS;
-    TGraph* gvolt;
-    GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
-	
-	double Steps_max = GetMaximum(gsteps);
-	double PS_max = GetMaximum(gcur_PS);
-	double scale_PS = 0.9*Steps_max/PS_max;
-	Scale( gcur_PS, scale_PS);
-	double DCU_max = GetMaximum(gcur_DCU);
-	double scale_DCU = 0.45*Steps_max/DCU_max;
-	Scale( gcur_DCU, scale_DCU);
-    
-    // Draw conditions for monitoring
-    TCanvas* c1 = new TCanvas();
-    gsteps->Draw("APL");
-    if(gvolt) gvolt->Draw("P");
-    gcur_DCU->Draw("P");
-    gcur_PS->Draw("PL");
-    TH1F* h = gsteps->GetHistogram();
-    h->SetTitle(Form("DetID %i", detid));
-    h->GetYaxis()->SetTitle("[V or #muA]");
-    h->GetXaxis()->SetTitle("time");
-	
-	TLegend *leg = new TLegend(0.70, 0.80, 0.98, 0.98);
-	leg->AddEntry(gsteps, "Voltage", "l");
-	leg->AddEntry(gcur_PS, Form("Leak. cur. from PS (x%.2f)", scale_PS), "pl");
-	leg->AddEntry(gcur_DCU, Form("Leak. cur. from DCU (x%.2f)", scale_DCU), "p");
-	leg->Draw();
-   
-   double x, y;
-   for(int ipt=0; ipt<gsteps->GetN(); ipt++)
-   {
-     gsteps->GetPoint(ipt, x, y);
-     TLine *l = new TLine(x, 0, x, 360);
-     l->SetLineStyle(3);
-     //l->Draw();
-   } 
+  cout<<"-- DetID "<<detid<<endl;
+
+  // Get currents and voltage
+  TGraph* gsteps = 0;
+  TGraph* gcur_DCU = 0;
+  TGraph* gcur_PS = 0;
+  TGraph* gvolt = 0;
+  GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
+
+  double Steps_max = GetMaximum(gsteps);
+  double PS_max = GetMaximum(gcur_PS);
+  double scale_PS = 0.9*Steps_max/PS_max;
+  Scale( gcur_PS, scale_PS);
+  double DCU_max = GetMaximum(gcur_DCU);
+  double scale_DCU = 0.45*Steps_max/DCU_max;
+  Scale( gcur_DCU, scale_DCU);
+
+  // Draw conditions for monitoring
+  TCanvas* c1 = new TCanvas();
+  gsteps->Draw("APL");
+  if(gvolt) gvolt->Draw("P");
+  gcur_DCU->Draw("P");
+  gcur_PS->Draw("PL");
+  TH1F* h = gsteps->GetHistogram();
+  h->SetTitle(Form("DetID %i", detid));
+  h->GetYaxis()->SetTitle("[V or #muA]");
+  h->GetXaxis()->SetTitle("time");
+
+  TLegend *leg = new TLegend(0.70, 0.80, 0.98, 0.98);
+  leg->AddEntry(gsteps, "Voltage", "l");
+  leg->AddEntry(gcur_PS, Form("Leak. cur. from PS (x%.2f)", scale_PS), "pl");
+  leg->AddEntry(gcur_DCU, Form("Leak. cur. from DCU (x%.2f)", scale_DCU), "p");
+  leg->Draw();
+
+  double x, y;
+  for(int ipt=0; ipt<gsteps->GetN(); ipt++)
+  {
+    gsteps->GetPoint(ipt, x, y);
+    TLine *l = new TLine(x, 0, x, 360);
+    l->SetLineStyle(3);
+    //l->Draw();
+  }
 }
 
-double DrawDCUOverPSRatio(string subdet, string run, int detid=369121381, string bad_periods="", bool print=false)
+double DrawDCUOverPSRatio(string subdet, string run, int detid, string bad_periods="", bool print=false)
 {
-    cout<<" DetID "<<detid<<endl;
+  cout<<FBLU("* DrawDCUOverPSRatio : ")<<endl;
 
-    // Get currents and voltage
-    TGraph* gsteps;
-    TGraph* gcur_DCU;
-    TGraph* gcur_PS;
-    TGraph* gvolt;
-    GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
-	
-    TGraph* gratio = GetVoltageDrop(gsteps, gcur_DCU, gcur_PS, true);
-	
-	double mean_ratio = 0.;
-	gratio->Fit("pol0");
-	mean_ratio = gratio->GetFunction("pol0")->GetParameter(0);
+  cout<<"-- DetID "<<detid<<endl;
+
+  // Get currents and voltage
+  TGraph* gsteps;
+  TGraph* gcur_DCU;
+  TGraph* gcur_PS;
+  TGraph* gvolt;
+  GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
+
+  TGraph* gratio = GetVoltageDrop(gsteps, gcur_DCU, gcur_PS, true);
+
+  double mean_ratio = 0.;
+  gratio->Fit("pol0");
+  mean_ratio = gratio->GetFunction("pol0")->GetParameter(0);
 
     // Draw conditions for monitoring
     TCanvas* c1 = new TCanvas();
@@ -330,7 +349,7 @@ double DrawDCUOverPSRatio(string subdet, string run, int detid=369121381, string
 	c1->Modified();
 	c1->Update();
 
-	
+
 	return mean_ratio;
 }
 
@@ -356,35 +375,66 @@ Double_t fitvdrop(Double_t *x, Double_t *par)
 
 int ComputeCorrection(string subdet, string run, double detid, TGraph*& gvdrop, TF1*& fit, string bad_periods="", bool show=true)
 {
-  
-  // Loop over modules
   cout.precision(10);
-  cout<<endl<<" DetID "<<detid<<endl;
-  
+  cout<<endl<<endl<<UNDL(FBLU("* ComputeCorrection for Detid : "))<<detid<<endl;
+
+  // Loop over modules
+
 
   // Get currents and voltage
-  TGraph* gsteps;
-  TGraph* gcur_DCU;
-  TGraph* gcur_PS;
-  TGraph* gvolt;
+  TGraph* gsteps = 0;
+  TGraph* gcur_DCU = 0;
+  TGraph* gcur_PS = 0;
+  TGraph* gvolt = 0;
   GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, subdet, run, detid, bad_periods);
+  
+  if((!gcur_DCU || gcur_DCU->GetN()==0) && (!gcur_PS || gcur_PS->GetN()==0)) {std::cout<<FRED(" No DCU nor PS current info. Exit.")<<std::endl; return -1;}
 
+  //cout<<__LINE__<<endl;
+
+  if(!gsteps) {cout<<FRED("Warning : gsteps is null ! Exit")<<endl; return -1;}
+  else if(gsteps->GetN() == 0) {cout<<FRED("Warning : gsteps->GetN() == 0 !")<<endl;}
+  
+  if(!gcur_DCU) {cout<<FRED("Warning : gcur_DCU is null !")<<endl;}
+  else if(gcur_DCU->GetN() == 0) {cout<<FRED("Warning : gcur_DCU->GetN() == 0 !")<<endl;}
+  
+  if(!gcur_PS) {cout<<FRED("Warning : gcur_PS is null !")<<endl;}
+  else if(gcur_PS->GetN() == 0) {cout<<FRED("Warning : gcur_PS->GetN() == 0 !")<<endl;}
+  
 
   // scale graphs for drawing
-  double Steps_max = GetMaximum(gsteps);
-  double PS_max = GetMaximum(gcur_PS);
-  double scale_PS = 0.9*Steps_max/PS_max;
-  TGraph* gcur_PS_clone = (TGraph*) gcur_PS->Clone();
-  Scale( gcur_PS_clone, scale_PS);
-  double DCU_max = GetMaximum(gcur_DCU);
-  double scale_DCU = 0.45*Steps_max/DCU_max;
-  TGraph* gcur_DCU_clone = (TGraph*) gcur_DCU->Clone();
-  Scale( gcur_DCU_clone, scale_DCU);
+  double Steps_max = 0, PS_max = 0, DCU_max = 0, scale_DCU = 0, scale_PS = 0;
+  TGraph *gcur_DCU_clone = 0, *gcur_PS_clone = 0;
   
+  if(gsteps) {Steps_max = GetMaximum(gsteps);}
+  
+  
+  if(gcur_PS) 
+  {
+  	PS_max = GetMaximum(gcur_PS);
+  	scale_PS = 0.9*Steps_max/PS_max;  	
+  	gcur_PS_clone = (TGraph*) gcur_PS->Clone();
+  	Scale( gcur_PS_clone, scale_PS);
+  }
+
+
+ 
+  
+  if(gcur_DCU) 
+  {
+  	DCU_max = GetMaximum(gcur_DCU);
+  	scale_DCU = 0.45*Steps_max/DCU_max;
+  
+  	gcur_DCU_clone = (TGraph*) gcur_DCU->Clone();
+	Scale( gcur_DCU_clone, scale_DCU);
+  	  
+  }
+
+
 
   // Draw conditions for monitoring
   TCanvas* c1;
-  if(show) 
+  if(show)
   {
     c1 = new TCanvas();
     gsteps->Draw("APL");
@@ -401,18 +451,19 @@ int ComputeCorrection(string subdet, string run, double detid, TGraph*& gvdrop, 
     leg->AddEntry(gcur_PS_clone, Form("Leak. cur. from PS (x%.2f)", scale_PS), "pl");
     leg->AddEntry(gcur_DCU_clone, Form("Leak. cur. from DCU (x%.2f)", scale_DCU), "p");
     leg->Draw();
-  } 
-  
+  }
+
   // Compute voltage drop induced by leakage current
   TCanvas* c2;
   if(show) c2 = new TCanvas("c2", "V drop", 200, 0, 700, 500);
-  
-  
+
+
   gvdrop = GetVoltageDrop(gsteps, gcur_DCU, gcur_PS);
   gvdrop->SetTitle(Form("DetID %i", detid));
   gvdrop->SetMarkerStyle(20);
   if(show) gvdrop->Draw("AP");
   
+
 
   int fit_status=-999;
   // Fit voltage drop
@@ -420,15 +471,16 @@ int ComputeCorrection(string subdet, string run, double detid, TGraph*& gvdrop, 
   // used also for early 2015 runs with reduced leakage current and all Run1 when fitting the curves for all the modules (more robust)
   TF1* fvdrop = new TF1("fvdrop", " [0]*([1]+(1+[2]*x)*sqrt(x)) ", 20, 360);
   fvdrop->SetParameter(0,0.2);
-  fvdrop->SetParLimits(0, -5, 10);  
+  fvdrop->SetParLimits(0, -5, 10);
   fvdrop->SetParLimits(1, -10, 100);
-  fvdrop->SetParameter(1,-1);  
-  
-  if(gvdrop->GetN() == 0) cout<<"Void TGraph : N points = "<<gvdrop->GetN()<<endl;
-  
+  fvdrop->SetParameter(1,-1);
+
+  if(gvdrop->GetN() == 0) {cout<<FRED("Warning : gvdrop->GetN() == 0 ==> Cannot fit")<<endl; return -1;}
+
   fit_status = gvdrop->Fit("fvdrop");
   // For 2015 bad fits
-  if(fvdrop->GetParameter(1)<-9.9){
+  if(fvdrop->GetParameter(1)<-9.9)
+  {
     fvdrop->SetParameter(0,0.);
     fvdrop->SetParameter(1,50);
     fvdrop->SetParameter(3,0.);
@@ -436,38 +488,9 @@ int ComputeCorrection(string subdet, string run, double detid, TGraph*& gvdrop, 
   }
   
 
-  // function with curve in 2 parts : x^1/2 + x^3/2 and pol1 for 'plateau'
-  // 5 parameters, so need more points
-/*  TF1* fvdrop = new TF1("fvdrop", fitfunction, 20, 360, 5);
-  fvdrop->SetParameter(2, 150);
-  fvdrop->SetParLimits(1, 0.001, 10);
-  fvdrop->SetParameter(3, 0.01);
-  fit_status = gvdrop->Fit("fvdrop");
-/*
-  // function with curve in 2 parts : sigmoid and pol1
-  // fit needs a lot of points to work
-  /*TF1* fvdrop = new TF1("fvdrop", fitfunction2, 20, 360, 5);
-  fvdrop->SetParameter(0, 3.);
-  fvdrop->SetParameter(2, 150);
-  fvdrop->SetParameter(4, 0.03);
-  fit_status = gvdrop->Fit("fvdrop");*/
 
-  // For TOB
-  
-/*  TF1* fvdrop = new TF1("fvdrop", fitvdrop , 30, 360, 5);
-  fvdrop->SetParameter(0, -0.2);
-  fvdrop->SetParLimits(0, -10, 0);
-  fvdrop->SetParameter(1,-1);
-  fvdrop->SetParLimits(1, 0, 100);
-  fvdrop->SetParameter(2, 200);
-  //fvdrop->SetParLimits(2, 175, 225);
-  //fvdrop->SetParLimits(3, -1, 10);  
-  fit_status = gvdrop->Fit("fvdrop", "R");
-  cout << "Kink_fit= " << fvdrop->GetParameter(2) << endl;
-  cout << "Chi_Square_fit = " << fvdrop->GetChisquare()/fvdrop->GetNDF() << endl;
-*/  
-  
-  if(show) 
+
+  if(show)
   {
     c1->Modified();
     c1->Update();
@@ -476,22 +499,20 @@ int ComputeCorrection(string subdet, string run, double detid, TGraph*& gvdrop, 
     c2->Update();
     //c2->Print(Form("IleakEffect_%s_%i.pdf", run, detid));
   }
-  
-  
+
   fit = (TF1*) gvdrop->GetListOfFunctions()->First();
-  
+
   return fit_status;
-  
 }
 
 void ComputeCorrections(string subdet, string run, vector<double> detids, string bad_periods="", bool show=true)
 {
   int N = detids.size();
-  
+
   // Histos and output file
   //TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
   TFile* fout = new TFile( ("LeakCurCorr_"+subdet+"_"+run+".root").c_str(),"recreate");
-  
+
   //TFile* fout = new TFile(Form("LeakCurCorr_files/LeakCurCorr_%s_%s.root", subdet, run),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);
   TGraph* g2param = new TGraph();
@@ -508,8 +529,9 @@ void ComputeCorrections(string subdet, string run, vector<double> detids, string
   {
 
     detid = detids[idet];
-	ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods, show);
-    
+	int status = ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods, show);
+	if(status==-1) {continue;} //error
+	
     // Store fit result
     if(fit)
     if(fit->GetNDF()>1)
@@ -528,14 +550,14 @@ void ComputeCorrections(string subdet, string run, vector<double> detids, string
       hparam2->Fill(fit->GetParameter(2));
       ifit++;
     }
-    
+
     getchar(); //to wait for user ?
-    
+
 //    delete c1;
 //    delete c2;
-  
+
   } // End of loop over modules
-  
+
 
   // Write output root file
   cout<<"Chi2 mean : "<<hchi2->GetMean()<<endl;
@@ -551,21 +573,26 @@ void ComputeCorrections(string subdet, string run, vector<double> detids, string
   hparam1->Write();
   hparam2->Write();
   fout->Close();
-  
+
 }
 
 void ComputeAllCorrections(string subdet, string run, bool fullscan, string bad_periods="")
 {
+	cout<<FYEL("######################")<<endl;
+	cout<<"--- Will compute Ileak corrections for "<<subdet<<" / run "<<run<<endl;
+	cout<<"--- Full scan = "<<fullscan<<endl;
+	cout<<FYEL("######################")<<endl;
+
   std::string string_subdet(subdet);
 
   TString filename = "Data/detid_lists/"+string_subdet+"_detid_list";
   if(fullscan) filename+= "_full";
   filename+= ".txt";
-  
+
   // Histos and output file
   //TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet, run),"recreate");
   TFile* fout = new TFile( ("LeakCurCorr_"+subdet+"_"+run+".root").c_str(),"recreate");
-  
+
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);
   TGraph* g2param = new TGraph();
   TH1F* hparam0 = new TH1F("hparam0", "param0", 100, -1, 1);
@@ -591,27 +618,32 @@ void ComputeAllCorrections(string subdet, string run, bool fullscan, string bad_
   float chi2_limit = 3.; //2015: 3.
 
   // Loop on detids
-  if(fin.is_open())  
+  if(fin.is_open())
   {
     //while( getline ( fin, line) && idet < 6000)
     while( getline ( fin, line))
     {
       if(fin.eof()) continue;
       std::istringstream iss(line);
-      
+
       iss >> detid;
-            
+
 	  idet++;
-	  
+
 	  //cout<<endl<<endl<<"DETID == "<<detid<<endl<<endl;
 
 	  status = ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods, show);
+	  if(status==-1) {continue;} //error
+	  
 
       // Store fit result
-      if(fit)
-      if(fit->GetNDF()>1)
-      //if(fit->GetChisquare()/fit->GetNDF() < 50.)
+      if(status == 0) //Fit is OK -- changed
+      //if(fit)
       {
+
+       if(fit->GetNDF()>1)
+       //if(fit->GetChisquare()/fit->GetNDF() < 50.)
+       {
     	fout->cd();
     	cout<<"Storing fit for detid "<<detid<<endl;
     	fit->SetName( ("fit_" + Convert_Number_To_TString(detid)).Data() );
@@ -630,6 +662,8 @@ void ComputeAllCorrections(string subdet, string run, bool fullscan, string bad_
     	hparam2->Fill(fit->GetParameter(2));
     	ifit++;
       }
+     }
+      
 
       if(show) getchar();
 
@@ -654,11 +688,12 @@ void ComputeAllCorrections(string subdet, string run, bool fullscan, string bad_
   hparam1->Write();
   hparam2->Write();
   fout->Close();
-  
+
   cerr<<"N good fits: "<<ngoodfit<<endl;
   cerr<<"N bad fits: "<<nbadfit<<" (chi2/ndf > "<<chi2_limit<<", not bad enough that the fit is rejected (>50.))"<<endl;
   cerr<<"N fits w/o convergence: "<<nnotconv<<endl;
 
+  return;
 }
 
 //----------------------------------------------------l--------------------
@@ -666,43 +701,49 @@ void ComputeAllCorrections(string subdet, string run, bool fullscan, string bad_
 void ComputeDCUFractions(vector<double> detids, string subdet="TIB", string run="20120506_run193541", string bad_periods="")
 {
   int N = detids.size();
-  
+
   // Loop over modules
   int detid=0;
   int ifit=0;
   for(int idet=0; idet<N; idet++)
   {
     detid = detids[idet];
-    cout<<" DetID "<<detid<<endl;
-	
+    //cout<<" DetID "<<detid<<endl;
+
     DrawDCUOverPSRatio(subdet, run, detid, bad_periods);
-	getchar();
+    getchar();
   }
-  
+
 }
 
 
 int main()
 {
-
 //NB : detids lists in Data/detid_lists/
 //NB : leakage info files must be stored in Data/
 
-	bool fullscan = false; //If small scan, compute corrections only for dew detids !
+	bool fullscan = true; //If small scan, compute corrections only for dew detids !
 
 //--- FUNCTION CALLS
 
 
-
-	ComputeAllCorrections("TOB", "20180530_run317182", fullscan);
+	//ComputeAllCorrections("TIB", "20180611_run317683", fullscan);
 
 	/*
-	ComputeAllCorrections("TIB", "20180530_run317182", fullscan);
-	ComputeAllCorrections("TOB", "20180530_run317182", fullscan);
-	ComputeAllCorrections("TEC", "20180530_run317182", fullscan);
-	ComputeAllCorrections("TID", "20180530_run317182", fullscan);
-	*/
+	ComputeAllCorrections("TIB", "20180611_run317683", fullscan);
+	ComputeAllCorrections("TOB", "20180611_run317683", fullscan);
+	ComputeAllCorrections("TEC", "20180611_run317683", fullscan);
+	ComputeAllCorrections("TID", "20180611_run317683", fullscan);*/
+	
+	
+	ComputeAllCorrections("TIB", "20180420_run314755", fullscan);/*
+	ComputeAllCorrections("TOB", "20180420_run314755", fullscan);
+	ComputeAllCorrections("TEC", "20180420_run314755", fullscan);
+	ComputeAllCorrections("TID", "20180420_run314755", fullscan);*/
+	
+
 
 
 	return 0;
 }
+

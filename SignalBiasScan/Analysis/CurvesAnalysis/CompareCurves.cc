@@ -134,7 +134,20 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    int temp_modid = modid;
    if(subdet=="TOB" || subdet=="TEC") {temp_modid = modid / 10;} // In order to have the same correction for the two sensors of the same module
 
-   int corrected = CorrectGraphForLeakageCurrent(g[i], temp_modid, corr_name);
+
+   bool apply_Ileak_corr = true; //if true, will apply Ileak corrections
+
+   int corrected = -1;
+   if(apply_Ileak_corr)
+   {
+   	corrected = CorrectGraphForLeakageCurrent(g[i], temp_modid, corr_name);
+   }
+   else 
+   {
+   	int corrected = 1;
+   }
+   
+
    if(corrected) g[i]->SetMarkerColor(13); //Gray markers if corrected
    else cout<<"(run "<<runs[i]<<")"<<endl;
 
@@ -507,6 +520,7 @@ void CompareTOBCurves(string dirname, const int NF, vector<string> dates, vector
  // TOB + 1.3.1.6 //NEW -- ADDED 04/2018
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329011, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329021, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ /*
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329051, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329061, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329091, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
@@ -529,6 +543,7 @@ void CompareTOBCurves(string dirname, const int NF, vector<string> dates, vector
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329182, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329212, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329222, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ */
 
  return;
 }
@@ -629,13 +644,14 @@ int main()
 	//runs.push_back("295376");	dates.push_back("20170527"); lumis.push_back(45.71+29.46); //Full
 	// runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
 	// runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
-	runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46); //Full
-	runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
+	//runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46); //Full
+	//runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
 
-	//2018 //FIXME lumi
-	runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(0+29.46); //Full -20°
-	runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(0+29.46); //Full -10°
-	runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(0+29.46);
+	//2018
+	runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(97.37+29.46); //Full -20°
+	runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(97.37+29.46); //Full -10°
+	//runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
+	//runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
 
 
 	int NF = runs.size();
