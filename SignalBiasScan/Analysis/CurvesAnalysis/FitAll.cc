@@ -320,8 +320,8 @@ int main()
   vector<string> v_subdet;
   //v_subdet.push_back("TIB");
   v_subdet.push_back("TOB");
-  //v_subdet.push_back("TEC");
-  //v_subdet.push_back("TID");
+  v_subdet.push_back("TEC");
+  v_subdet.push_back("TID");
 
   bool use_curvature = false; //true-->kink ; false-->lines
 
