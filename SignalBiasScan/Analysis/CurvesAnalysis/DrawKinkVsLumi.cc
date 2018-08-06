@@ -19,11 +19,10 @@
 #include "TROOT.h"
 #include "TLegend.h"
 #include "TLatex.h"
-
+#include "THStack.h"
 
 
 //---------------------------
-
 
 // Correct for the difference of total inelastic crosfs section when center of mass energy change (because we use a single fluence file for Run1 lumi)
 double CorrectForCME(double lumi)
@@ -195,6 +194,8 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   for(int i=0; i<NF; i++)
   {
+  	// cout<<"run "<<runs[i]<<endl;
+
   	//if(antype=="ClusterWidth" && runs[i]=="258443") {continue;}
 
   	string inputfile_name = dirname+"/"+filename+"_"+runs[i]+".root";
@@ -202,7 +203,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
     if(!Check_File_Existence(inputfile_name)) {cout<<FRED("No data file : ")<<inputfile_name<<endl; continue;}
 
     TFile *f = TFile::Open(inputfile_name.c_str());
-    //cout<<"File "<<inputfile_name<<" opened"<<endl;
+    // cout<<"File "<<inputfile_name<<" opened"<<endl;
 
 	if(!f) { cout<<"No file : "<<(dirname+"/"+filename+"_"+runs[i]+".root")<<endl; continue;}
 	TTree* tr = (TTree*) f->FindObjectAny("tout");
@@ -228,6 +229,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
       tr->GetEntry(ie);
 
 
+
 //----------------
 //CAN REMOVE DETIDS/RUNS/TYPE COMBINATIONS HERE (if bad curve --> not to appear on plot)
 
@@ -235,28 +237,32 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
     if(remove_badscans)
     {
-    	if( Is_Scan_Bad(subdet, runs[i], antype, odetid) == true) {continue;}
-    }
+		// cout<<"run "<<runs[i];
 
+    	if( Is_Scan_Bad(subdet, runs[i], antype, odetid) == true)
+		{
+			continue;
+		}
+    }
 
 //----------------
 
-	//cout<<"odetid = "<<odetid<<endl;
-	//if(odetid== 4701481960) {cout<<"!!! odepvolt = "<<odepvolt<<endl;}
+	// cout<<"odetid = "<<odetid<<endl;
+	// if(odetid == 4362329091) {cout<<"!! odetid = "<<odetid<<endl;}
+	// if(odetid == 4362329091) {cout<<"!!! odepvolt = "<<odepvolt<<endl;}
 
-	  if(odetid==detid && odepvolt>=0)
-	  { //interested only in 1 module
+	  if(odetid==detid && odepvolt>=0) //interested only in 1 module
+	  {
+		lumi = lumis[i];
 
-
-
-	   	  lumi = lumis[i];
-
-        //cout<<" --> Write point!";
+		//cout<<" --> Write point!";
 
 		g->SetPoint(ipt, lumi, odepvolt);
 		g->SetPointError(ipt, 0, oerrdepvolt);
 
 		// cout<<"lumi = "<<lumi<<endl;
+		// cout<<"run "<<runs[i]<<endl;
+
 
 		ipt++;
 
@@ -467,6 +473,8 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   if(superimpose_simu && g_simu != 0)
   {
+	  h->SetMinimum(0.); //So that we can ~see where simu predicts inversion
+
  	  g_simu->SetMarkerColor(kRed); g_simu->SetLineColor(kRed);
 	  g_simu->SetLineWidth(2);
 	  g_simu->SetMarkerSize(1.2);
@@ -506,8 +514,9 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	double flu_7TeV = ComputeFluence(lumi_7TeV, detid, subdet) / pow(10,12);
 	double flu_8TeV = ComputeFluence(lumi_8TeV, detid, subdet) / pow(10,12);
 	double flu_Run1 = ComputeFluence(lumi_Run1, detid, subdet) / pow(10,12);
-	double flu_max = h->GetXaxis()->GetXmax(); //main axis is lumi
-	if(draw_vs_fluence) flu_max = ComputeFluence(h->GetXaxis()->GetXmax(), detid, subdet) / pow(10, 12); //main axis is flu
+
+	double flu_max = ComputeFluence(h->GetXaxis()->GetXmax(), detid, subdet) / pow(10, 12);
+	// cout<<"flumax = "<<flu_max<<endl;
 
 
    //Need to draw 3 X-axis for fluence (depends on CME) --> Not linear
@@ -1040,7 +1049,7 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 	latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
 
 	bool writeExtraText = false;
-	TString extraText   = "Preliminary 2017";
+	TString extraText   = "Preliminary";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
@@ -1482,6 +1491,511 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
   //Superimpose_DrawDiffModules_SmallScan(dirname, subdet, "280385", NF, runs, lumis, usefluence);
 }
 
+
+
+
+
+
+
+
+
+/**
+ * Compute the mean Vfd drop (wrt initial lab values) for each layer of the partition
+ * Also print the mean drops for 1) all modules, 2) only small scans modules => Comparison
+ */
+pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString dirname, TString subdet, TString antype, TString run)
+{
+	bool return_fluence = false; //Do not bother to compute fluence for each module
+
+	pair< vector<double>, vector<double> > result;
+
+	int size = 4;
+	if(subdet == "TEC") {size = 7;}
+	else if(subdet == "TOB") {size = 6;}
+	else if(subdet == "TID") {size = 3;}
+	vector<double> v_mean_vfd_layers(size);
+	vector<int> v_nofModules_layers(size);
+	vector<double> v_mean_fluence(size);
+
+	TString file_tmp = "./detid_lists/"+subdet+"_detid_list.txt";
+	ifstream detid_list_small(file_tmp.Data() );
+
+	VdeplRef SubdetRef;
+    SubdetRef.loadFile(subdet.Data() );
+
+	vector<ULong64_t> v_smallDetids;
+
+	string line = "";
+	while(getline(detid_list_small, line) )
+	{
+		//For TEC & TOB, add a suffix (0, 1, 2) to distinguish sensors !
+		if(subdet == "TEC" || subdet == "TOB")
+		{
+			double tmp = Convert_TString_To_Number(line) * 10;
+			v_smallDetids.push_back(tmp);
+			tmp = Convert_TString_To_Number(line) * 10 + 1;
+			v_smallDetids.push_back(tmp);
+			tmp = Convert_TString_To_Number(line) * 10 + 2;
+			v_smallDetids.push_back(tmp);
+		}
+		else
+		{
+			v_smallDetids.push_back(Convert_TString_To_Number(line));
+		}
+	}
+
+
+	TString inputfile_name = dirname+"/all_modules/DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
+	if(!Check_File_Existence(inputfile_name))
+	{
+		cout<<inputfile_name<<" not found"<<endl;
+
+		inputfile_name = dirname+"/DECO_"+antype+"_"+subdet+"_line_"+run+".root";
+		if(!Check_File_Existence(inputfile_name)) {cout<<FRED("No file : ")<<inputfile_name<<endl; return result;}
+	}
+
+    TFile *f = TFile::Open(inputfile_name);
+    cout<<endl<<endl<<"File "<<inputfile_name<<" opened"<<endl;
+
+	TTree* tr = (TTree*) f->FindObjectAny("tout");
+
+	ULong64_t odetid;
+	int olayer;
+	double odepvolt;
+	double oerrdepvolt;
+	double oplateau;
+	double ofitchisquare;
+	int ofitstatus;
+	double olastpty;
+	double ochi2;
+
+    tr->SetBranchAddress("DETID",&odetid);
+    tr->SetBranchAddress("LAYER",&olayer);
+    tr->SetBranchAddress("ERRDEPVOLT",&oerrdepvolt);
+    tr->SetBranchAddress("DEPVOLT",&odepvolt);
+    tr->SetBranchAddress("PLATEAU",&oplateau); // corrected for ILeak or not
+    tr->SetBranchAddress("FITCHI2",&ofitchisquare);
+    tr->SetBranchAddress("FITSTATUS",&ofitstatus); // ndf
+    tr->SetBranchAddress("LASTPOINTS",&olastpty);
+    tr->SetBranchAddress("CHI2",&ochi2); // significance min
+
+	UInt_t nentries = tr->GetEntries();
+
+	double mean_vfd_smallModules = 0;
+	double mean_vfd_allModules = 0;
+
+	cout<<"nentries = "<<nentries<<endl;
+	int nof_skippedModules = 0; //Some modules are not found in Vdepl Ref file
+    for(UInt_t ie = 0; ie <nentries; ie++)
+    {
+		tr->GetEntry(ie);
+
+		//FIXME -- use only first TEC wheels for testing
+		// if(subdet == "TEC")
+		// {
+		// 	if(GetWheel(odetid) > 3) {continue;}
+		// }
+
+		double vfd_drop = fabs(odepvolt - SubdetRef.GetVdepl(odetid));
+		if(vfd_drop == 0 || SubdetRef.GetVdepl(odetid) == 0) {nof_skippedModules++; continue;}
+
+		if(return_fluence) {v_mean_fluence[olayer-1]+= ComputeFluence(100.01, odetid, subdet);}
+
+		// cout<<endl<<"odetid = "<<odetid<<endl;
+		for(int idet=0; idet<v_smallDetids.size(); idet++)
+		{
+			if(odetid == v_smallDetids[idet])
+			{
+				mean_vfd_smallModules+= vfd_drop;
+			}
+		}
+
+		// cout<<"vfd_drop = "<<vfd_drop<<endl;
+
+		mean_vfd_allModules+= vfd_drop;
+
+		//NB : vector index start at 0
+		v_mean_vfd_layers[olayer-1]+= vfd_drop;
+		v_nofModules_layers[olayer-1]++;
+	}
+
+
+	mean_vfd_smallModules/= v_smallDetids.size(); //Small scan modules
+	mean_vfd_allModules/= (nentries-nof_skippedModules); //All modules
+	for(int ilayer=0; ilayer<v_mean_vfd_layers.size(); ilayer++)
+	{
+		v_mean_vfd_layers[ilayer]/= v_nofModules_layers[ilayer];
+	}
+
+	cout<<"--- Partition : "<<subdet<<endl;
+	if(return_fluence)
+	{
+		for(int ilayer=0; ilayer<size; ilayer++)
+		{
+			v_mean_fluence[ilayer]/= v_nofModules_layers[ilayer];
+			cout<<"mean_fluence layer "<<ilayer+1<<" = "<<v_mean_fluence[ilayer]<<endl;
+		}
+	}
+
+	cout<<"* Mean VFD difference [Small Scan Modules] : "<<mean_vfd_smallModules<<endl;
+	cout<<"* Mean VFD difference [All Modules] : "<<mean_vfd_allModules<<endl;
+
+	f->Close();
+
+	result.first = v_mean_vfd_layers;
+	result.second = v_mean_fluence;
+
+	return result;
+	// return v_mean_vfd_layers;
+}
+
+
+/**
+ * Plot the mean Vfd drop (wrt initial lab values) for each layer
+ */
+
+void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString subdet, TString antype, TString run = "")
+{
+	bool return_fluence = false; //Do not bother to compute fluence for each module
+
+	vector<TString> v_subdet;
+	v_subdet.push_back("TIB");
+	v_subdet.push_back("TID");
+	v_subdet.push_back("TOB");
+	v_subdet.push_back("TEC");
+
+	//If want to plot multiple runs at once, remove 'run' arg and list the runs here instead !
+	vector<TString> v_runs;
+	if(run == "")
+	{
+		v_runs.push_back("314574");
+		v_runs.push_back("303824");
+		v_runs.push_back("295376");
+	}
+	else {v_runs.push_back(run);}
+
+	vector<TH1F*> v_h;
+	if(v_runs.size() > 1) {v_h.resize(v_runs.size());} //1 histo per run
+	else {v_h.resize(v_subdet.size());} //else 1 histo per subdet (-> different colors)
+
+	for(int i=0; i<v_h.size(); i++)
+	{
+		v_h[i] = new TH1F("", "", 20, 0, 20);
+	}
+
+	TH1F* h_flu = new TH1F("", "", 20, 0, 20);
+
+	TLegend* leg = new TLegend(0.76, 0.80, 0.93, 0.96);
+
+	vector<int> v_colors;
+
+	v_colors.push_back(kOrange);
+	v_colors.push_back(kRed);
+	v_colors.push_back(kPink-9);
+	v_colors.push_back(kViolet-1);
+	v_colors.push_back(kBlack);
+	v_colors.push_back(kBlue);
+	v_colors.push_back(kAzure+6);
+
+
+	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
+    c1->SetTopMargin(0.1);
+    c1->SetBottomMargin(0.1);
+
+	for(int irun=0; irun<v_runs.size(); irun++)
+	{
+		int ibin_tmp = 0;
+		for(int idet=0; idet<v_subdet.size(); idet++)
+		{
+			// vector<double> v_mean_vfd_layers = Compute_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[idet], antype, v_runs[irun]);
+			pair<vector<double>, vector<double> > v_mean_vfd_fluence = Compute_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[idet], antype, v_runs[irun]);
+
+			for(int ibin=0; ibin<v_mean_vfd_fluence.first.size(); ibin++)
+			{
+				h_flu->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.second[ibin]); //set layer fluence
+
+				if(v_runs.size() > 1) //1 histo per run
+				{
+					v_h[irun]->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.first[ibin]); //Binning starts at 1
+				}
+				else //1 histo per subdet
+				{
+					v_h[idet]->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.first[ibin]); //Binning starts at 1
+				}
+				// cout<<"SetBinContent bin "<<ibin_tmp + ibin + 1<<", v_mean_vfd_fluence.first[ibin] = "<<v_mean_vfd_fluence.first[ibin]<<endl;
+			}
+
+			ibin_tmp+= v_mean_vfd_fluence.first.size();
+		}
+	}
+
+	//text labels
+	const Int_t nx = 20;
+	const char *labels[nx]  = {"L1","L2","L3","L4","R1","R2","R3","L1","L2","L3","L4","L5","L6","R1","R2","R3","R4","R5","R6","R7"};
+
+	for(int i=1;i<=nx;i++) v_h[0]->GetXaxis()->SetBinLabel(i,labels[i-1]);
+
+	int nof_iter = 0; //need to loop either on runs (if there are >1) or on subdets
+	if(v_runs.size() > 1) {nof_iter = v_runs.size();}
+	else {nof_iter = v_subdet.size();}
+
+	for(int iter=0; iter<nof_iter; iter++)
+	{
+		if(v_runs.size() > 1) {leg->AddEntry(v_h[iter], v_runs[iter], "F");}
+		else {leg->AddEntry(v_h[iter], v_subdet[iter], "F");}
+
+		v_h[iter]->SetFillColor(v_colors[iter]);
+		v_h[iter]->SetLineColor(kBlack);
+		// v_h[iter]->GetXaxis()->SetLabelSize(0.);
+
+		v_h[iter]->GetXaxis()->SetTitle("Barrel Layers / End Cap Rings");
+	    v_h[iter]->GetXaxis()->SetTitleSize(.04);
+		//v_h[iter]->GetXaxis()->SetLabelSize(.05);
+		v_h[iter]->GetXaxis()->SetTitleOffset(1.2);
+
+		v_h[iter]->GetYaxis()->SetTitle("Full depletion voltage drop [V]");
+		v_h[iter]->GetYaxis()->SetTitleSize(.04);
+		v_h[iter]->GetYaxis()->SetTitleOffset(1.4);
+
+		v_h[iter]->SetMinimum(0.);
+
+		v_h[iter]->Draw("hist same");
+	}
+
+	if(return_fluence)
+	{
+		//scale hint1 to the pad coordinates
+		Float_t rightmax = h_flu->GetMaximum();
+		Float_t scale = v_h[0]->GetMaximum()/rightmax;
+		h_flu->SetLineColor(kRed);
+		h_flu->Scale(scale);
+		cout<<"h_flu->GetMaximum() "<<h_flu->GetMaximum()<<endl;
+
+		h_flu->Draw("hist same");
+	}
+
+    //draw an axis on the right side
+    // TGaxis *axis = new TGaxis(gPad->GetUxmax(),gPad->GetUymin(), gPad->GetUxmax(), gPad->GetUymax(),0,rightmax,510,"+L");
+    // axis->SetLineColor(kRed);
+    // axis->SetTextColor(kRed);
+    // axis->Draw("same");
+
+
+
+	//superimpose lines at the xbins positions
+	const Int_t nxbins = 20;
+	Double_t xbins[nxbins+1];
+	for(int i=0; i<nxbins+1; i++)
+	{
+		xbins[i] = i;
+	}
+	TLine l;
+	c1->Update();
+	Double_t ymin = c1->GetUymin();
+	Double_t ymax = c1->GetUymax();
+	l.SetLineStyle(2);
+	for (Int_t ibin=1;ibin<nxbins;ibin++)
+	{
+		if(v_runs.size() > 1) {ymax = v_h[0]->GetBinContent(ibin);} //plot lines according to histo of a single run
+		else //if 1 histo per subdet, need to loop on all subdets to draw proper lines
+		{
+			//-- HARD-CODED : 4 layers TIB, 3TID, 6TOB, 7TEC
+			if(ibin > 0 && ibin < 5) {ymax = v_h[0]->GetBinContent(ibin);} //TIB histo
+			else if(ibin > 4 && ibin < 8) {ymax = v_h[1]->GetBinContent(ibin);} //TID histo
+			else if(ibin > 7 && ibin < 14) {ymax = v_h[2]->GetBinContent(ibin);} //TOB histo
+			else if(ibin > 13) {ymax = v_h[3]->GetBinContent(ibin);} //TEC histo
+		}
+
+		l.DrawLine(xbins[ibin],ymin,xbins[ibin],ymax);
+	}
+
+	leg->Draw("same");
+
+
+//----------------
+	// CAPTIONS //
+//----------------
+
+	TString cmsText     = "CMS";
+	TLatex latex;
+	latex.SetNDC();
+	latex.SetTextAngle(0);
+	latex.SetTextColor(kBlack);
+	latex.SetTextFont(61);
+	latex.SetTextAlign(11);
+	latex.SetTextSize(0.05);
+	latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
+
+	bool writeExtraText = false;
+	TString extraText   = "Preliminary 2018";
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.04);
+	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
+
+
+	//c1->SaveAs("Vfd_Drop_Per_Layer.png");
+	c1->SaveAs("Vfd_Drop_Per_Layer.pdf");
+
+	delete c1; c1 = NULL;
+	for(int i=0; i<v_h.size(); i++)
+	{
+		delete v_h[i]; v_h[i] = NULL;
+	}
+
+	delete h_flu;
+	delete leg;
+	// delete axis;
+
+	return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Idea : check 2D plot CW@300V vs VFD to see if clear correlations between the 2 (-> not found ; but can see what are the populations of Vfd)
+ */
+/*
+void Plot_CW300V_VS_Vfd(TString dirname, TString subdet, TString antype, TString run)
+{
+	// TString inputfile_name = dirname+"/all_modules/DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
+	TString inputfile_name = "./DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
+
+    TFile *f = TFile::Open(inputfile_name);
+    cout<<endl<<endl<<"File "<<inputfile_name<<" opened"<<endl;
+
+	TTree* tr = (TTree*) f->Get("tout");
+	cout<<"Tree opened" <<endl;
+
+
+	ULong64_t odetid;
+	int olayer;
+	double odepvolt;
+	double oerrdepvolt;
+	double CW300V;
+
+    tr->SetBranchAddress("DETID",&odetid);
+    tr->SetBranchAddress("LAYER",&olayer);
+    tr->SetBranchAddress("DEPVOLT",&odepvolt);
+	tr->SetBranchAddress("ERRDEPVOLT",&oerrdepvolt);
+	tr->SetBranchAddress("CW300V",&CW300V); // CW value at 300V
+
+	UInt_t nentries = tr->GetEntries();
+	cout<<"nentries = "<<nentries<<endl;
+
+	int nlayers = 4;
+	for(int ilayer=1; ilayer<nlayers+1; ilayer++)
+	{
+		TH2F* h = new TH2F("", "", 15, 0, 150, 10, 1.5, 4.5);
+
+	    for(UInt_t ie = 0; ie <nentries; ie++)
+	    {
+			tr->GetEntry(ie);
+
+			if(olayer != ilayer) {continue;}
+
+			h->Fill(odepvolt, CW300V);
+		}
+
+		h->GetYaxis()->SetTitle("CW at 300V");
+		h->GetYaxis()->SetTitleOffset(0.8);
+		h->GetXaxis()->SetTitle("Vfd");
+
+		TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
+		c1->SetRightMargin(0.15);
+		h->Draw("colz");
+
+		c1->SaveAs("CW300V_VS_Vfd_TIBL"+Convert_Number_To_TString(ilayer)+".png");
+
+		delete c1; c1 = NULL;
+		delete h; h = NULL;
+	}
+
+	f->Close();
+
+	return;
+}
+*/
+
+
+/**
+ * Idea Eric :  plot CW vs Seeding strip for 1 partition / 1 scan. Check if border effects, and if changes at different Vfds
+ */
+
+/*
+void Plot_CW_vs_seed()
+{
+	// TString inputfile_name = dirname+"/all_modules/DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
+	TString inputfile_name = "./test.root";
+    TFile *f = TFile::Open(inputfile_name);
+    cout<<endl<<endl<<"File "<<inputfile_name<<" opened"<<endl;
+
+	TTree* tr = (TTree*) f->Get("T");
+	cout<<"Tree opened" <<endl;
+
+	TH2F* h = new TH2F("", "", 20, 0, 128*6, 7, 2, 8);
+
+	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
+
+	ULong64_t odetid = 0;
+	ULong64_t seed = 0;
+	double voltage = 0, cw = 0;
+
+    tr->SetBranchAddress("DetID",&odetid);
+    tr->SetBranchAddress("seed",&seed);
+	tr->SetBranchAddress("voltage",&voltage);
+	tr->SetBranchAddress("cw",&cw);
+
+	UInt_t nentries = tr->GetEntries();
+	cout<<"nentries = "<<nentries<<endl;
+
+	for(int ientry=0; ientry<nentries; ientry++)
+	{
+		tr->GetEntry(ientry);
+		h->Fill(seed, cw);
+		// cout<<"seed "<<seed<<" / cw "<<cw<<endl;
+
+	}
+
+	h->Draw("colz");
+
+	c1->SaveAs("test.png");
+
+	delete h;
+	delete f;
+	delete c1;
+
+	return;
+}
+*/
+
+
+
+
+
+
+
+
+
+//--------------------------------------------
+// ##     ##    ###    #### ##    ##
+// ###   ###   ## ##    ##  ###   ##
+// #### ####  ##   ##   ##  ####  ##
+// ## ### ## ##     ##  ##  ## ## ##
+// ##     ## #########  ##  ##  ####
+// ##     ## ##     ##  ##  ##   ###
+// ##     ## ##     ## #### ##    ##
+//--------------------------------------------
+
 int main(int argc, char *argv[])
 {
   Modified_tdr_style();
@@ -1490,6 +2004,7 @@ int main(int argc, char *argv[])
 
   bool use_curvature = false; //true-->kink ; false-->lines
 
+
   bool usefluence = true; //Draw fluence axis
   bool superimpose_simu = false; //Superimpose simulation curves (only TIB for now)
   bool draw_vdep_lab = true; //Draw lab measurement of initial Vfd
@@ -1497,11 +2012,12 @@ int main(int argc, char *argv[])
 
 
 
-
 //-- ACTIONS --//
   bool draw_vfd_evolution_plots = true; //Vfd evol plots
   bool draw_vfd_relative_evolution_plots = false; //Vfd relative evol plots
   bool draw_vfd_relative_evolution_superimposed_plots = false; //Vfd relative evol plots with both observables drawn
+  bool compute_mean_drop = false; //Compute mean Vfd drop for each Layer
+  bool plot_cw_vs_vfd = false;
 
 
 //-- Choose the observables
@@ -1568,18 +2084,25 @@ int main(int argc, char *argv[])
 			runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
 			runs.push_back("298996");lumis.push_back(52.18+29.46);
 			runs.push_back("302131");lumis.push_back(65.84+29.46);
-			runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL
+			runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
 			if(v_subdet[j] != "TOB") {runs.push_back("305862");lumis.push_back(91.65+29.46);} //Low stat TOB -- (ALCARECO issue?)
 
-			//2017 (2) //FIXME lumi
+			//2018
 			runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
 			// runs.push_back("314755");lumis.push_back(97.37+29.46); //-- FULL (-10)
-			// runs.push_back("314756");lumis.push_back(97.37+29.46); //-- FULL (-10) -- few PGs
-			runs.push_back("317182");lumis.push_back(113.01+29.46);
+			// runs.push_back("314756");lumis.push_back(97.37+29.46); //-- FULL (-10) -- few previously excluded PGs
+			runs.push_back("317182");lumis.push_back(113.01+29.46); //-- (ALCARECO issue, low stat)
 			runs.push_back("317683");lumis.push_back(119.21+29.46);
 
 			//--------------------------------------------
 			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);} //VFD EVOLUTION, SINGLE MODULES
+			if(compute_mean_drop)
+			{
+				// Compute_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[j], v_analysis[i], "314574");
+				Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[j], v_analysis[i], "303824");
+			}
+			// if(plot_cw_vs_vfd) {Plot_CW300V_VS_Vfd(dirname, v_subdet[j], v_analysis[i], "314574");}
+
 
 			TString ref = "170000";
 			if(v_subdet[j] == "TEC" || v_subdet[j] == "TOB") {ref = "190459";} //170000 "bad scan"

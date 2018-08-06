@@ -20,7 +20,7 @@ FIT = Fit.exe
 FITALL = FitAll.exe
 COMPARECURVES = CompareCurves.exe
 DRAWKINKVSLUMI = DrawKinkVsLumi.exe
-TRACKERMAP = Tracker_Vfd_Map.exe
+TRACKERMAP = Write_Vfd_Map.exe
 
 CURVFUNC = ../CommonTools/CurvesFunctions.h
 MODFLU = ../CommonTools/ModFluence.h
@@ -53,9 +53,9 @@ $(DRAWKINKVSLUMI): DrawKinkVsLumi.cc $(CURVFUNC) $(MODFLU) $(STYLE)
 	@$(CC) DrawKinkVsLumi.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
 	@echo "-- Done --"
 	
-$(TRACKERMAP): Tracker_Vfd_Map.cc Fit.h $(STYLE)
+$(TRACKERMAP): Write_Vfd_Map.cc Fit.h $(STYLE)
 	@echo "-- Creating executable ./$(TRACKERMAP) --"
-	@$(CC) Tracker_Vfd_Map.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
+	@$(CC) Write_Vfd_Map.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
 	@echo "-- Done --"
 
 

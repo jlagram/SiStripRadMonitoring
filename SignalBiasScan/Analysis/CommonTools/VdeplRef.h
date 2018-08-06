@@ -166,7 +166,11 @@ double VdeplRef::GetVdepl(ULong64_t modid)
 	id++;
   }
   
-  if(detid != modid) {cout<<"Modid "<<modid<<" not found in VdeplRef file ! Return 0"<<endl; return 0;}
+  if(detid != modid) 
+  {
+  	//cout<<"Modid "<<modid<<" not found in VdeplRef file ! Return 0"<<endl; 
+  	return 0;
+  }
   //if(detid != modid) {return 0;}
   
   return vdepl;

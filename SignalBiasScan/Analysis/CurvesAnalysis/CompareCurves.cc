@@ -60,6 +60,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  //cout<<"entering CompareCurve(...)"<<endl;
 
  if(!draw) gROOT->SetBatch(kTRUE);
+ //gStyle->SetPalette(kBlackBody);
 
  int err_type=0;
 
@@ -84,6 +85,15 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  }
 
  vector<int> colors; int nof_aborted_iterations=0; //So that if scan not draw --> color remains free
+ colors.push_back(kOrange);
+ colors.push_back(kRed);
+ if(runs.size() > 4) colors.push_back(kPink-9);
+ colors.push_back(kViolet-1);
+ if(runs.size() > 6) colors.push_back(kBlack);
+ colors.push_back(kBlue);
+ colors.push_back(kAzure+6);
+
+
  colors.push_back(kBlack);
  colors.push_back(kBlue);
  colors.push_back(TColor::GetColorDark(kGreen));
@@ -95,7 +105,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  colors.push_back(kAzure+1);
  colors.push_back(kBlue+3);
  colors.push_back(kRed+1);
-
+ 
+ 
 
  int ifirst=-1;
 
@@ -125,7 +136,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
    if(ifirst<0) ifirst=i;
 
-   if(!g[i]) { nof_aborted_iterations++; continue;}
+   if(!g[i]) {nof_aborted_iterations++; continue;}
 
    //cout<<__LINE__<<endl;
 
@@ -135,18 +146,18 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    if(subdet=="TOB" || subdet=="TEC") {temp_modid = modid / 10;} // In order to have the same correction for the two sensors of the same module
 
 
-   bool apply_Ileak_corr = true; //if true, will apply Ileak corrections
+   bool apply_Ileak_corr = false; //if true, will apply Ileak corrections
 
-   int corrected = -1;
+   int corrected = 0;
    if(apply_Ileak_corr)
    {
    	corrected = CorrectGraphForLeakageCurrent(g[i], temp_modid, corr_name);
    }
-   else 
+   else
    {
-   	int corrected = 1;
+   	corrected = 0;
    }
-   
+
 
    if(corrected) g[i]->SetMarkerColor(13); //Gray markers if corrected
    else cout<<"(run "<<runs[i]<<")"<<endl;
@@ -157,6 +168,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    if(i>=colors.size()) {cout<<"Error : need more colors !"<<endl;}
    g[i]->SetLineColor(colors[i-nof_aborted_iterations]);
    g[i]->SetLineWidth(2);
+   
+   
    int npt = g[i]->GetN();
    if(npt>2)
    {
@@ -194,6 +207,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	   float scale=1;
 	   //For signal scale at 90;
 	   if(type=="Signal") scale = lastpoints[i]/90;
+	   
 	   //scale at plateau of first curve
 	   else scale = lastpoints[i]/lastpoints[ifirst];
 	   //float scale = lastpoints[i]/maxend;
@@ -278,8 +292,21 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(showfit) x = func[ifirst]->GetParameter(0);
 
 
- //TLegend *leg = new TLegend(0.65, 0.2, 0.85, 0.5);
- TLegend *leg = new TLegend(0.45, 0.15, 0.92, 0.55);
+ TLegend *leg = 0;
+ //leg = new TLegend(0.60, 0.60, 0.94, 0.88); //used for approved plots
+ 
+ 
+ double x_tmp = 0, y_tmp = 0;
+ g[ifirst]->GetPoint(g[ifirst]->GetN()-1, x_tmp, y_tmp);
+ 
+ //Check if last point of "first Tgraph" is above or below the middle of y-axis, to decide where to place the legend
+ if(y_tmp > h->GetMinimum() + (h->GetMaximum() - h->GetMinimum() ) / 2.) {leg = new TLegend(0.60, 0.14, 0.94, 0.42);}
+ else {leg = new TLegend(0.60, 0.60, 0.94, 0.88);}
+ 
+ 
+ //if(subdet == "TOB") {leg = new TLegend(0.60, 0.60, 0.94, 0.88);}
+ //else {leg = new TLegend(0.45, 0.15, 0.92, 0.55);} //approved plots
+ 
  //leg->SetBorderSize(0.1);
  leg->SetTextFont(42);
  leg->SetHeader("Bias voltage scans");
@@ -394,7 +421,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
 
 	bool writeExtraText = false;
-	TString extraText   = "Preliminary 2017";
+	TString extraText   = "Preliminary";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
@@ -403,9 +430,10 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	subdetinfo.SetNDC();
 	subdetinfo.SetTextSize(0.045);
 	subdetinfo.SetTextFont(42);
-	subdetinfo.DrawLatex(0.80,0.93,"TIB Layer 1");
-
-
+	
+	TString caption = subdet + " L" + Convert_Number_To_TString((ULong64_t) GetLayer(detid));
+	if(subdet == "TEC") {caption = subdet + " R" + Convert_Number_To_TString((ULong64_t) GetLayer(detid));}
+	subdetinfo.DrawLatex(0.80,0.93,caption);
 
 
 
@@ -620,7 +648,7 @@ int main()
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
 	v_subdet.push_back("TOB");
-	v_subdet.push_back("TEC");
+	 	v_subdet.push_back("TEC");
 
 
 	vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
@@ -633,17 +661,18 @@ int main()
 	//runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
 
 	//2016 (6)
-	//runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
+	//runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46); //Full
 	//runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
 	//runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
 	//runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
 	//runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
 	//-- runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
+	
 	//2017 (5)
-	// runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
+	//runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
 	//runs.push_back("295376");	dates.push_back("20170527"); lumis.push_back(45.71+29.46); //Full
-	// runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
-	// runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
+	//runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
+	//runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
 	//runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46); //Full
 	//runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
 
@@ -656,7 +685,7 @@ int main()
 
 	int NF = runs.size();
 
-	bool normalize=true;
+	bool normalize=false;
 	bool print=true;
 	bool showfit=false;
 	bool draw_plots = false;

@@ -106,7 +106,7 @@ void Create_Plot_Directories()
  * @param  debug         [verbosity for debugging]
  * @param  filter_twice  [if true, Hanning smoothing is applied twice]
  * @param  use_curvature [if true, return value from kink method ; else from 'lines' method]
- * @param  showplots     [useless] //FIXME
+ * @param  showplots     [useless]
  * @param  verbose       [verbosity of function]
  * @param  observable    [signal or CW]
  * @param  draw_plot     [to avoid drawing in FitAll.exe (only interested in Vfd values)]
@@ -128,31 +128,6 @@ double FitCurve(TGraphErrors* g, int debug, bool filter_twice, bool use_curvatur
 
 	bool SGSmooth=false; //if True, SavitzkyGolaySmoother is applied on curve
 
-//--------------
- // # #    # # ##### #   ##   #      # ###### ######
- // # ##   # #   #   #  #  #  #      #     #  #
- // # # #  # #   #   # #    # #      #    #   #####
- // # #  # # #   #   # ###### #      #   #    #
- // # #   ## #   #   # #    # #      #  #     #
- // # #    # #   #   # #    # ###### # ###### ######
-//--------------
-
-//Variables used throughout the function (to store coordinates, etc.)
-	double y_tmp = 0, x_tmp = 0; //tmp coordinates
-	double ymax=0; //Store maximum y-value of the TGraph
-	double ymin=999; //Store minimum y-value of the TGraph
-	for(int ipt=0; ipt<g->GetN(); ipt++)
-	{
-		g->GetPoint(ipt, x_tmp, y_tmp);
-
-		if(y_tmp>ymax) {ymax=y_tmp;}
-		if(y_tmp<ymin) {ymin=y_tmp;}
-	}
-
-	int status = 0; //Store the fit status
-
-
-
 
 //---------------------------------------------
  //  ####  #    #  ####   ####  ##### #    # # #    #  ####
@@ -170,7 +145,7 @@ double FitCurve(TGraphErrors* g, int debug, bool filter_twice, bool use_curvatur
 
 	g = MedianFilter(g); //Basic filter using the median of 3 points to smooth some stat. fluctuations (def. in CurvesFunctions.h)
 
-	//FIXME //Needed to do this to avoid weird bug of top line fit -- check if still necessary
+	//Needed to do this to avoid weird bug of top line fit -- TBC : check if still necessary
 	Double_t* err_Y = g->GetEY();
 	for(int i=0; i<g->GetN(); i++)
 	{
@@ -189,6 +164,44 @@ double FitCurve(TGraphErrors* g, int debug, bool filter_twice, bool use_curvatur
 	TGraph* g_fit = new TGraphErrors(g_tmp->GetN(), g_tmp->GetX(), g_tmp->GetY() , g->GetEX(), g->GetEY() );
 
 
+
+
+
+
+//--------------
+// # #    # # ##### #   ##   #      # ###### ######
+// # ##   # #   #   #  #  #  #      #     #  #
+// # # #  # #   #   # #    # #      #    #   #####
+// # #  # # #   #   # ###### #      #   #    #
+// # #   ## #   #   # #    # #      #  #     #
+// # #    # #   #   # #    # ###### # ###### ######
+//--------------
+
+	//Variables used throughout the function (to store coordinates, etc.)
+	double y_tmp = 0, x_tmp = 0; //tmp coordinates
+	double ymax=0; //Store maximum y-value of the TGraph
+	double ymin=999; //Store minimum y-value of the TGraph
+	for(int ipt=0; ipt<g->GetN(); ipt++)
+	{
+		g->GetPoint(ipt, x_tmp, y_tmp);
+
+		// cout<<"ipt = "<<ipt<<" / x = "<<x_tmp<<" / y  = "<<y_tmp<<endl;
+
+		if(y_tmp>ymax) {ymax=y_tmp;}
+		if(y_tmp<ymin) {ymin=y_tmp;}
+	}
+
+	double ymax_nosmooth=0; //Store maximum y-value of the non-smoothed TGraph (for protections, see below)
+	for(int ipt=0; ipt<g_nosmooth->GetN(); ipt++)
+	{
+		g_nosmooth->GetPoint(ipt, x_tmp, y_tmp);
+
+		// cout<<"ipt = "<<ipt<<" / x = "<<x_tmp<<" / y  = "<<y_tmp<<endl;
+
+		if(y_tmp>ymax_nosmooth) {ymax_nosmooth=y_tmp;}
+	}
+
+	int status = 0; //Store the fit status
 
 
 
@@ -320,9 +333,8 @@ if(verbose) cout<<"* Linear Fits Method :";
 	f3_high->SetRange(vdep_high_start, vdep_high_end); //Perform final top line fit : [starting point;350] V
 	g_fit->Fit("fphigh", "rqn");
 
-	//Protection against 'top line' using too many points //FIXME -- not needed anymore ?
+	//Protection against 'top line' using too many points //-- not needed anymore ?
 	// if(npt_high_start > g_fit->GetN()-3)  {cout<<FRED("Top line fit covers too many points !")<<endl; return -1;}
-
 
 
 
@@ -351,7 +363,7 @@ if(verbose) cout<<"* Linear Fits Method :";
 	g->GetPoint(g->GetN()-1, vdep_low_end, y_tmp);
 
 
-	//PROTECTION -- If there is only ~ decreasing slope (not 2 distinct regimes), consider that Vfd is too low and use first point
+	//PROTECTION -- If the curve is only decreasing (not 2 distinct regimes), consider that Vfd is too low to be extracted, and use first point
 	bool only_drecreasing_slope = true; double y_ref=999;
 	for(int i=0; i<10; i++) //Check 10 first points for any increase in Y-axis
 	{
@@ -559,7 +571,7 @@ if(verbose) cout<<"* Linear Fits Method :";
 
 					if(coeff_low<0.001) //If coeff_low becomes <=0, it must mean there will be another kink somewhere
 					{
-						multiple_kinks = true; //Protection against possible "multiple kinks" i.e. meta-maximums
+						multiple_kinks = true; //Protection against possible "multiple kinks", e.g. meta-maximums
 					}
 
 					//Must normalize chi2 sum
@@ -573,8 +585,8 @@ if(verbose) cout<<"* Linear Fits Method :";
 						//Protection : If suspect that there are multiple kinks/maximums, prevent starting point of bottom line to be moved too far "right" just to extract this kink !
 						if(multiple_kinks && k>npt_low_start+2) {continue;}
 
-						//Slope against negative/tiny slopes for bottom fit
-						if(coeff_low<0) {continue;} //Protection against negative slope
+						//Protection against negative/tiny slopes for bottom fit
+						if(coeff_low<0) {continue;} //Forbid negative slope
 						else if(y_tmp < 10) //CW
 						{
 							if(coeff_low < 0.001)
@@ -659,13 +671,16 @@ if(verbose) cout<<"* Linear Fits Method :";
 										//This avoids that we leave out too many points, and end up	with a 'flat' bottom line (i.e. we loose steepness information from first points)
 										if(slope_tmp * slope_before_mv_pt < 0 || slope_tmp / slope_before_mv_pt < 0.66) {continue;} //NEW
 
-										// if(debug==1) cout<<"slope_tmp / slope_initial "<<slope_tmp / slope_initial<<endl;
+										if(debug==1) cout<<"slope_tmp / slope_initial "<<slope_tmp / slope_initial<<endl;
 
 
-										//-- PROTECTION on bottom line slope //NEW //FIXME (verify it works fine)
+										//-- PROTECTION on bottom line slope //TBC -- verify it's relevant
 										// ~ same as protection above ; but here we compare current slope to initial slope before *any* point has been moved
 										//Require that current slope be at least 20% or initial slope
 										if(slope_tmp * slope_initial < 0 || slope_tmp / slope_initial < 0.20) {continue;}
+
+										//FIXME -- NEW -- Protection against negative/tiny slopes for bottom fit
+										if(slope_tmp<0) {continue;} //Forbid negative slope
 									}
 
 
@@ -734,7 +749,7 @@ if(verbose) cout<<"* Linear Fits Method :";
 							// if(debug==1) cout<<"slope_tmp / slope_initial "<<slope_tmp / slope_initial<<endl;
 
 
-							//-- PROTECTION on bottom line slope //NEW //FIXME (verify it works fine)
+							//-- PROTECTION on bottom line slope //TBC -- verify it's relevant
 							// ~ same as protection above ; but here we compare current slope to initial slope before *any* point has been moved
 							//Require that current slope be at least 20% or initial slope
 							if(slope_tmp * slope_initial < 0 || slope_tmp / slope_initial < 0.20) {continue;}
@@ -826,47 +841,62 @@ if(verbose) cout<<"* Linear Fits Method :";
 
 
 	//--- PROTECTIONS aggainst low VFD cases (lines algo most likely failed)
-	//--- If such case detected, use non-smoothed TGraph instead of MedianFilter-smoothed one (not to loose info) //NEW
+	//--- If such case detected, use non-smoothed TGraph instead of MedianFilter-smoothed one (to avoid loosing any info)
 	bool is_low_vfd = false;
 
-	if(debug) cout<<"ymax "<<ymax<<endl;
+	if(debug) cout<<endl<<"ymax "<<ymax<<endl<<endl;
+	if(debug) cout<<endl<<"ymax_nosmooth "<<ymax_nosmooth<<endl<<endl;
 
-	//PROTECTION against low Vfd cases -- If one of the first 4 points of TGraph corresponds to a maximum in y-axis, choose it as Vfd //NEW
-	double x[4], y[4];
+	// for(int ipt=0; ipt<g_nosmooth->GetN(); ipt++)
+	// {
+	// 	g_nosmooth->GetPoint(ipt, x_tmp, y_tmp);
+	//
+	// 	cout<<"ipt "<<ipt<<" / x = "<<x_tmp<<" / y_tmp = "<<y_tmp<<endl;
+	// }
 
-	for (size_t i = 0; i < 3; i++) //NEW
+
+	//PROTECTION against low Vfd cases -- If one of the first 5 points of TGraph (after potentially having removed first points!) corresponds to a maximum in y-axis, choose it as Vfd
+	double x[5], y[5]; //CHANGED -- 5 instead of 4 first points
+	for (size_t i = 0; i < 4; i++)
 	{
-		if(i+4 >= g_nosmooth->GetN()) {break;}
+		if(i+5 >= g_nosmooth->GetN()) {break;}
 
 		g_nosmooth->GetPoint(i, x[0], y[0]);
 		g_nosmooth->GetPoint(i+1, x[1], y[1]);
 		g_nosmooth->GetPoint(i+2, x[2], y[2]);
 		g_nosmooth->GetPoint(i+3, x[3], y[3]);
+		g_nosmooth->GetPoint(i+4, x[4], y[4]);
 
-		double slope_1, slope_2;
+		double slope_1, slope_2, slope_3;
 
 		slope_1 = y[1] - y[0];
 		slope_2 = y[3] - y[2];
+		slope_3 = y[4] - y[3];
 
-		//Check the first 4 points : if they correspond to ymax, consider that plateau is already reached (Vfd ~ 0) ---> Choose point as Vdep
+		//Check the first 5 points : if they correspond to ymax, consider that plateau is already reached (Vfd ~ 0) ---> Choose point as Vdep
 		bool vdep_found = false;
 		if(i==0)
 		{
-			for(int j=0; j<4; j++)
+			for(int j=0; j<5; j++)
 			{
-			  if(fabs((y[j] - ymax)/ymax) < 0.01 )
-			  {
-				  vdep_crossingpoint = x[j];
-				  if(debug==1) {cout<<FYEL("Special case detected (maximum y within first points) -- Choosing vdep = "<<vdep_crossingpoint<<" !")<<endl;}
-				  vdep_found=true;
-				  is_low_vfd=true;
-				  break;
-			  }
+				// if(debug==1) {cout<<"j= "<<j<<" --> y[j] = "<<y[j]<<" /// (y[j] - ymax)/ymax = "<<(y[j] - ymax)/ymax<<endl;}
+
+				if(y[j] == ymax_nosmooth) //max found
+				{
+					vdep_crossingpoint = x[j];
+					if(debug==1) {cout<<FYEL("Special case detected (maximum y within first points) -- Choosing vdep = "<<vdep_crossingpoint<<" !")<<endl;}
+					vdep_found=true;
+					is_low_vfd=true;
+					break;
+				}
 			}
 		}
 		if(vdep_found) {break;}
 
-		if( ( (slope_1 >= 0 && slope_2 <= 0) || (fabs((y[3]-y[0])/y[0]) < 0.05) && slope_2 <= 0 )   && y[2] >= 0.95 * ymax)
+		//Protection against low Vfd cases :
+		//- If "inversion of slope" happens within first point, select Vfd among first Points //CHANGED -- removed, seems too strict
+		//- Idem if maximum of curve is reached within first points
+		if( fabs( (y[3]-y[0])/y[0]) < 0.05 && slope_2 < 0 && slope_3 < 0 && y[2] >= 0.95 * ymax)
 		{
 			vdep_crossingpoint = x[1];
 			if(debug==1) {cout<<FYEL("Special case detected (low Vfd ?) -- Choosing vdep = "<<vdep_crossingpoint<<" !")<<endl;}
@@ -995,7 +1025,7 @@ if(verbose) cout<<"* Linear Fits Method :";
 	//--- Curvature Graph
 	c2 = new TCanvas;
 	c2->SetTopMargin(0.1);
-	
+
 	gscurv->SetTitle("");
 	gscurv->Draw("AP");
 	//gscurv->GetXaxis()->SetTitle("V_{bias} [V]");
@@ -1005,10 +1035,10 @@ if(verbose) cout<<"* Linear Fits Method :";
 	gscurv->GetYaxis()->SetTitleSize(.04);
 	gscurv->GetXaxis()->SetTitleOffset(1.18);
 	gscurv->GetYaxis()->SetTitleOffset(1.4);
-	
+
 	g3pts->Draw("P");
 	g3pts->Fit("pol2", "q");
-	
+
 	TString cmsText     = "CMS";
 	TLatex latex;
 	latex.SetNDC();
@@ -1019,25 +1049,25 @@ if(verbose) cout<<"* Linear Fits Method :";
 	latex.SetTextSize(0.05);
 	latex.DrawLatex(0.58,0.93,cmsText);
 
-	TString extraText   = "Preliminary 2017";	
+	TString extraText   = "Preliminary 2017";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(0.70, 0.932, extraText);
-	
+
 	c2->Modified();
 	c2->Update();
 
-	
+
 	//---- Rather use these parameters, if don't want to display y-axis numbers
 	//gscurv->GetYaxis()->SetTitleOffset(1.);
 	//gscurv->GetYaxis()->SetLabelSize(.0);
-	
-	
-	
+
+
+
 	//--- Lines Method Graph
 	c1 = new TCanvas();
 	c1->SetTopMargin(0.1);
-	
+
 	g->SetTitle("");
 	if(!is_low_vfd) g->Draw("AP"); //"P" = marker, "A" = draw axis, "X" = no errors
 	else {g_nosmooth->Draw("AP");}
@@ -1046,20 +1076,20 @@ if(verbose) cout<<"* Linear Fits Method :";
 	g->GetXaxis()->SetTitle("Bias voltage [V]");
 	//g->GetYaxis()->SetTitle("ClusterWidth [#strips]");
 	if(observable == "Signal") g->GetYaxis()->SetTitle("Cluster charge [a.u.]");
-	//else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [a.u.]"); 
-	else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [number of strips]"); 
+	//else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [a.u.]");
+	else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [number of strips]");
 	g->GetXaxis()->SetTitleSize(.04);
 	g->GetYaxis()->SetTitleSize(.04);
 	g->GetXaxis()->SetTitleOffset(1.18);
 	g->GetYaxis()->SetTitleOffset(1.4);
-	
+
 	//----------------
 	// CAPTIONS //
 	//----------------
 
 // -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
 
-	
+
 	latex.SetNDC();
 	latex.SetTextAngle(0);
 	latex.SetTextColor(kBlack);
@@ -1067,16 +1097,16 @@ if(verbose) cout<<"* Linear Fits Method :";
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
 	latex.DrawLatex(0.58,0.93,cmsText);
-	
+
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(0.70, 0.932, extraText);
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	TLine *l = new TLine(vdep_kink, ymin, vdep_kink, ymax+0.1);
 	l->SetLineStyle(3);
@@ -1224,7 +1254,7 @@ void FitOneCurve(string dirname, string subdet, string run, ULong64_t modid, str
 
 	cout<<endl<<"Run = "<<run<<endl;
 	cout<<"DetID "<<modid<<endl; cout<<"------"<<endl;
-	
+
 	TString tmp_type = type;
 
 	FitCurve(g, debug, false, use_curvature, false, tmp_type);

@@ -48,12 +48,12 @@ TString Convert_Number_To_TString(ULong64_t number)
 }
 
 //Convert a TString into a float
-float Convert_TString_To_Number(TString ts)
+double Convert_TString_To_Number(TString ts)
 {
-	float number = 0;
+	double number = 0;
 	string s = ts.Data();
 	stringstream ss(s);
-	ss >> number;
+	ss >> std::setprecision(10) >> number;
 	return number;
 }
 

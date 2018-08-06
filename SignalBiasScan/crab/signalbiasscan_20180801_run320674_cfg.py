@@ -26,7 +26,7 @@ process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(1000)
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('/store/data/Run2018B/EGamma/ALCARECO/SiStripCalMinBias-06Jul2018-v1/20000/02F37B33-028D-E811-BDE2-A0369FE2C01C.root'))
+    fileNames = cms.untracked.vstring('/store/data/Run2018D/ZeroBias/ALCARECO/SiStripCalMinBias-PromptReco-v2/000/320/570/00000/F6551191-5996-E811-9E6F-FA163ECF8ABB.root'))
     
 #this file doesn't contain event from run 317683    
 

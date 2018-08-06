@@ -26,26 +26,11 @@ enum SubDet { All, TIB, TOB, TID, TEC};
 
 using namespace std;
 
-//FIXME
-//int counter = 0;
-
-
 
 // Main method //
 //-------------//
 void ClusterWidthAnalysisTreeMaker::Loop()
 {
-  //FIXME -- test
-  /*
-  double voltage;
-  voltage = VSmaker.getVoltage_timestamp(1527681516); cout<<"V = "<<voltage<<endl;
-  voltage = VSmaker.getVoltage_timestamp(1527681732); cout<<"V = "<<voltage<<endl;
-  voltage = VSmaker.getVoltage_timestamp(1527681953); cout<<"V = "<<voltage<<endl;
-  voltage = VSmaker.getVoltage_timestamp(1527682139); cout<<"V = "<<voltage<<endl;
-  voltage = VSmaker.getVoltage_timestamp(1527682332); cout<<"V = "<<voltage<<endl;
-	*/
-  
-
   std::cout<<"Initializing"<<std::endl;
   
   std::string output_file;
@@ -102,6 +87,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
   Long64_t nentries = fChain->GetEntries();
 
   std::cout << "NUMBER OF ENTRIES = "<< nentries << std::endl; 
+  
 
 
   //------------------//
@@ -138,7 +124,6 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 	else theVoltage = VSmaker.getVoltage_evtnumber(event->run_nr, event->ev_nr, event->ev_timestamp);
 	if(theVoltage<0) continue; // skip event if not on a voltage step
 	
-	//FIXME
 	//if(theVoltage != 20) {continue;} 
 	//cout<<theVoltage<<endl;
 	
@@ -214,6 +199,9 @@ void ClusterWidthAnalysisTreeMaker::Loop()
 		FillHistos(HistSoN_TIB_onstrip[2], ProfVsAngle_TIB, track->TIB_fullHits, thePointNumber, false, commonHistos[0], Monitors_TIB);
 		use_onstrip=1;
 	  }
+	  
+
+	  
 
       // TOB
 	  if(part==TOB || part==All)
@@ -286,6 +274,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
   // If evtid selection used, print corresponding timestamp ranges
   if(!usetimestamp) VSmaker.printComputedSteps();
   if(reclusterize) std::cout<<"N_clus "<<N_clus<<" lost : "<<N_clus_lost<<" split : "<<N_clus_split<<std::endl;
+  
 
 }
 
@@ -525,7 +514,7 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
   if(use_onstrip==4 && clus_onStrip!=4 && usehit) usehit=false;
   if(use_onstrip==-4 && clus_onStrip!=-4 && usehit) usehit=false;
   
-  //FIXME
+
   //cout<<"**Good Hit"<<endl;
   //counter++;
   //cout<<"counter = "<<counter<<endl;
@@ -541,7 +530,7 @@ void ClusterWidthAnalysisTreeMaker::FillHitInfo(std::map<ULong64_t , std::vector
   // Fill histos and profiles for layer
   iter = HistSoN.find(layerid);
   if( iter != HistSoN.end() && hit->chargeAngleCorr > 0 && usehit )
-    iter->second.at(thePointNumber)->Fill(hit->width);
+    iter->second.at(thePointNumber)->Fill(hit->width); //FIXME -- why this instruction twice ?
   
   iterProf = ProfVsAngle.find(layerid);
   if( iterProf != ProfVsAngle.end() )
@@ -915,3 +904,148 @@ void ClusterWidthAnalysisTreeMaker::FitProfiles(std::map<ULong64_t , std::vector
   myFile->Close();
 
 }
+
+
+//FIXME -- temporary. want to check if CW depends on seed strip position
+void ClusterWidthAnalysisTreeMaker::Test()
+{
+  // Read definition of voltage steps
+  std::cout << "Setting Deco Voltage vector : " << std::endl;
+  if(usetimestamp) std::cout << " using timestamp step definition " << std::endl;
+  else std::cout << " using event number step definition" << std::endl;
+  
+  //if(usetimestamp) VSmaker.readVoltageSteps_timestamp(stepsfile.c_str());
+  //else VSmaker.readVoltageSteps_evtnumber(stepsfile.c_str());
+  VSmaker.readVoltageSteps(stepsfile.c_str(), usetimestamp);
+  std::cout << " done" << std::endl;
+  
+  VSmaker.Initialize();
+  t_monitor_start = VSmaker.t_monitor_start;
+  t_monitor_end = VSmaker.t_monitor_end;
+
+
+
+  //FIXME -- test : try to create alternative output file containing seeding strip info
+  TFile * myFile = new TFile("test.root", "recreate");
+
+  ULong64_t detid;
+  double voltage;
+  double cw;
+  int seed;
+
+  
+  TTree *tree = new TTree("T", "summary information");
+  tree->Branch("DetID",&detid, "DetID/l");
+  tree->Branch("seed",&seed, "seed/l");
+  tree->Branch("voltage",&voltage,"Voltage/D");
+  tree->Branch("cw",&cw,"cw/D");
+  
+  Long64_t nentries = fChain->GetEntries();
+
+  std::cout << "NUMBER OF ENTRIES = "<< nentries << std::endl; 
+  
+  double theVoltage;
+  
+
+
+  //------------------//
+  // Loop over events //
+  //------------------//
+  
+  int nEntries_isPosV = 1;
+  
+  for (Long64_t jentry=0; jentry<nentries;jentry++) 
+  {
+      Long64_t ientry = LoadTree(jentry);
+    if (ientry < 0) break;
+	fChain->GetEntry(jentry);
+	
+	
+	//FIXME
+	if(jentry > 100000) {break;}
+
+
+    // Get voltage setting for this event
+	theVoltage=-1;
+	if(usetimestamp) theVoltage = VSmaker.getVoltage_timestamp(event->ev_timestamp);
+	else theVoltage = VSmaker.getVoltage_evtnumber(event->run_nr, event->ev_nr, event->ev_timestamp);
+	if(theVoltage<0) continue; // skip event if not on a voltage step
+    
+	if(jentry%10000 == 0) 
+    { 
+       std::cout << "Number of events : " << jentry <<"/"<<nentries<< std::endl;
+    }   
+    
+    if(theVoltage > 0) {nEntries_isPosV++;}    
+    if(nEntries_isPosV % 5000 == 0)
+    {
+    	cout<<"--- "<<nEntries_isPosV<<" entries w/ positive V values"<<endl;
+    }
+  
+
+
+
+	
+	//if(theVoltage != 20) {continue;} 
+	//cout<<theVoltage<<endl;
+	
+	//cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
+
+	int thePointNumber = VSmaker.getIndex(theVoltage);
+
+	// check index
+	if(thePointNumber < 0){
+      std::cout<<" WARNING : point number out of range : "<<thePointNumber<<std::endl;
+	  return;
+	}
+	
+	for(unsigned int itr=0; itr<event->tracks.size(); itr++)
+	{
+	  TreeTrack *track = &(event->tracks[itr]);
+	  
+	  //cout<<"track chi2 ="<<track->chi2<<endl;
+	  
+	  if(track->chi2>5) continue; // adapted to v1.2 data format
+	  //if(track->pT<5) continue;
+
+	  // Get number of hits
+      int nTIBhits, nTOBhits, nTIDhits, nTEChits;
+	  
+	  if(track->TIB_hits.size()) nTIBhits = track->TIB_hits.size();
+	  else nTIBhits = track->TIB_fullHits.size(); // same hits with more infos
+	  if(track->TOB_hits.size()) nTOBhits = track->TOB_hits.size();
+	  else nTOBhits = track->TOB_fullHits.size();
+	  if(track->TID_hits.size()) nTIDhits = track->TID_hits.size();
+	  else nTIDhits = track->TID_fullHits.size();
+	  if(track->TEC_hits.size()) nTEChits = track->TEC_hits.size();
+	  else nTEChits = track->TEC_fullHits.size();
+
+      // int nHitsTotal = nTIBhits + nTOBhits + nTIDhits + nTEChits;
+      int nHitsTotal = track->Nhits; // adapted to v1.1 data format
+      
+      //cout<<"nHitsTotal = "<<nHitsTotal<<endl;
+      
+      if(nHitsTotal < 5) continue; // remove tracks with less than 5 hits
+	
+
+	  //FIXME -- test
+	  for(int ihit=0; ihit<track->TIB_fullHits.size(); ihit++)
+	  {
+	  	detid = track->TIB_fullHits[ihit].detId;
+	  	seed = track->TIB_fullHits[ihit].seed;
+	  	voltage = theVoltage; 
+	  	cw = track->TIB_fullHits[ihit].width;
+	  	tree->Fill();
+	  }
+	  
+	 }
+  }
+
+
+
+  myFile->Write();
+  delete myFile;
+  
+  return;
+}
+

@@ -92,6 +92,9 @@ public :
    const int use_width;
    int use_onstrip;
    bool reclusterize;
+   
+   //FIXME
+   void Test();
 
 };
 

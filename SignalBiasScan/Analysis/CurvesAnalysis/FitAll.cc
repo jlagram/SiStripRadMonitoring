@@ -89,6 +89,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   int ofitstatus;
   double olastpty;
   double ochi2;
+  double CW300V;
 
   tout->Branch("DETID",&odetid,"DETID/l");
   tout->Branch("LAYER",&olayer,"LAYER/I");
@@ -99,6 +100,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
   tout->Branch("FITSTATUS",&ofitstatus,"FITSTATUS/I");
   tout->Branch("LASTPOINTS",&olastpty,"LASTPOINTS/D");
   tout->Branch("CHI2",&ochi2,"CHI2/D");
+  tout->Branch("CW300V",&CW300V,"CW300V/D"); //NEW -- check relation CW (@300V) vs VFD for Eric
 
   UInt_t nentries = tr->GetEntries();
   Int_t nfit = 0;
@@ -158,6 +160,10 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 
     tempdetid = (ULong64_t) detid;
 
+    // if(detid == 4362329091) cout<<"!!! detid = "<<detid<<endl;
+    // cout<<"detid = "<<detid<<endl;
+
+
     mapping::iterator iter = DetID_Vdep.find(tempdetid);
     if(iter == DetID_Vdep.end() ) //If detid was not already found in map
     {
@@ -194,6 +200,14 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
       c1->cd();
       TGraphErrors * thegraph = new TGraphErrors(k, avolt, ampv, aevolt, aempv);
       string corr_name="_"+SubDet+Run;
+
+
+
+      //Extract CW value @ 300V (<-> before applying Ileak corr!)
+      double x_tmp = 0, CW300V = -999;
+      thegraph->GetPoint(thegraph->GetN()-1, x_tmp, CW300V);
+      if(x_tmp != 300) {CW300V = -999;} //Make sure that we are using the 300V point
+
 
 
       int corrected = 0;
@@ -258,7 +272,8 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
       tempdepvolt.push_back(0);
       tempdepvolt.push_back(0);
       tempdepvolt.push_back(lastpty);
-      tempdepvolt.push_back(0);
+	  tempdepvolt.push_back(0);
+	  tempdepvolt.push_back(CW300V);
 
       // cout<<__LINE__<<endl;
       // cout<<"DetID_Vdep = "<<&DetID_Vdep<<endl;
@@ -276,6 +291,8 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 
   for(mapping::iterator iter = DetID_Vdep.begin(); iter != DetID_Vdep.end(); ++iter)
   {
+	odetid = iter->first;
+
     olayer = iter->second.at(0);
     odepvolt = iter->second.at(1);
     oerrdepvolt = iter->second.at(2);
@@ -283,8 +300,8 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
     ofitchisquare = iter->second.at(4);
     ofitstatus = iter->second.at(5);
     olastpty = iter->second.at(6);
-    ochi2 = iter->second.at(7);
-    odetid = iter->first;
+	ochi2 = iter->second.at(7);
+	CW300V = iter->second.at(8);
 
     //cout<<"DETID = "<<odetid<<" -- VDEP = "<<odepvolt<<endl;
 
@@ -314,11 +331,11 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  // v_analysis.push_back("Signal");
+  v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
-  //v_subdet.push_back("TIB");
+  v_subdet.push_back("TIB");
   v_subdet.push_back("TOB");
   v_subdet.push_back("TEC");
   v_subdet.push_back("TID");
@@ -351,12 +368,12 @@ int main()
   runs.push_back("262254");	dates.push_back("20151121");*/
 
 //2016 (5)
-  runs.push_back("271056");	dates.push_back("20160423");
-  //runs.push_back("274969");	dates.push_back("20160612");
-  //runs.push_back("276437");	dates.push_back("20160706");
-  //runs.push_back("278167");	dates.push_back("20160803");
-  //runs.push_back("280385");	dates.push_back("20160909");
-  //runs.push_back("285371");	dates.push_back("20161116");
+  //runs.push_back("271056");	dates.push_back("20160423");
+  // runs.push_back("274969");	dates.push_back("20160612");
+  // runs.push_back("276437");	dates.push_back("20160706");
+  // runs.push_back("278167");	dates.push_back("20160803");
+  // runs.push_back("280385");	dates.push_back("20160909");
+  // runs.push_back("285371");	dates.push_back("20161116");
 
 //2017
   // runs.push_back("295324");	dates.push_back("20170527"); //Full
@@ -367,10 +384,10 @@ int main()
   // runs.push_back("305862");	dates.push_back("20171030");
 
 //2018
-	// runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
+	//runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
 	//runs.push_back("314755");	dates.push_back("20180420"); //-- FULL (-10°)
 	// runs.push_back("317182");	dates.push_back("20180530");
-	// runs.push_back("317683");	dates.push_back("20180611");
+	runs.push_back("317683");	dates.push_back("20180611");
 
 
 

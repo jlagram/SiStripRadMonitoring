@@ -3,11 +3,11 @@
 //-------------
 
 //-- CHOOSE HERE THE TIB MODULE(S) FOR WHICH YOU WANT TO PLOT THE SCAN CURVE
-void FitTIBSmallScan(string dirname, string date, string run, string type, bool produce_multiple_plots)
+void FitTIBSmallScan(string dirname, string date, string run, string type, bool produce_multiple_plots, bool multiple_runs_selected)
 {
 	vector<ULong64_t> v_modids;
 
-	if(!produce_multiple_plots)
+	if(!produce_multiple_plots || multiple_runs_selected)
 	{
 		v_modids.push_back(369121385);
 	}
@@ -36,18 +36,19 @@ void FitTIBSmallScan(string dirname, string date, string run, string type, bool 
 	for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
 	{
 		FitOneCurve(dirname, "TIB", run, v_modids[i_modid], type, 1, date, 0);
-		if(produce_multiple_plots) {system( ("mv Fit_line.png Fit_line_TIB_"+Convert_Number_To_TString(v_modids[i_modid])+".png").Data() );}
+		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TIB_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For lines plots
+		//if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_curv.png Fit_kink_TIB_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For curv. plots
 	}
 }
 
 //-- CHOOSE HERE THE TOB MODULE(S) FOR WHICH YOU WANT TO PLOT THE SCAN CURVE
-void FitTOBSmallScan(string dirname, string date, string run, string type, bool produce_multiple_plots)
+void FitTOBSmallScan(string dirname, string date, string run, string type, bool produce_multiple_plots, bool multiple_runs_selected)
 {
 	vector<ULong64_t> v_modids;
 
-	if(!produce_multiple_plots)
+	if(!produce_multiple_plots || multiple_runs_selected)
 	{
-		v_modids.push_back(4362815241);
+		v_modids.push_back(4362329221);
 	}
 
 	else
@@ -95,18 +96,18 @@ void FitTOBSmallScan(string dirname, string date, string run, string type, bool 
 	for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
 	{
 		FitOneCurve(dirname, "TOB", run, v_modids[i_modid], type, 1, date, 0);
-		if(produce_multiple_plots) {system( ("mv Fit_line.png Fit_line_TOB_"+Convert_Number_To_TString(v_modids[i_modid])+".png").Data() );}
+		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TOB_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );}
 	}
 }
 
 //-- CHOOSE HERE THE TEC MODULE(S) FOR WHICH YOU WANT TO PLOT THE SCAN CURVE
-void FitTECSmallScan(string dirname, string date, string run, string type, bool produce_multiple_plots)
+void FitTECSmallScan(string dirname, string date, string run, string type, bool produce_multiple_plots, bool multiple_runs_selected)
 {
 	vector<ULong64_t> v_modids;
 
-	if(!produce_multiple_plots)
+	if(!produce_multiple_plots || multiple_runs_selected)
 	{
-		v_modids.push_back(4701482651);
+		v_modids.push_back(4701483361);
 	}
 
 	else
@@ -151,7 +152,7 @@ void FitTECSmallScan(string dirname, string date, string run, string type, bool 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
   	FitOneCurve(dirname, "TEC", run, v_modids[i_modid], type, 1, date, 0);
-    if(produce_multiple_plots) {system( ("mv Fit_line.png Fit_line_TEC_"+Convert_Number_To_TString(v_modids[i_modid])+".png").Data() );}
+    if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TEC_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );}
   }
 }
 
@@ -161,21 +162,24 @@ int main()
   Modified_tdr_style();
   gStyle->SetOptFit(0);
 
-  bool produce_multiple_plots = true; //true <-> will run on full list of small scan detids
+  //If true :
+  //- If only 1 scan selected, will produce plots for full detid list
+  //- If several scans selected, will produce plots for 1 detid but all the selected scans
+  bool produce_multiple_plots = true;
 
 //--- Choose the observable
-  // string type = "Signal";
+  //string type = "Signal";
   string type = "ClusterWidth";
 
 //--- Choose the subdetector (modules are selected above)
 	vector<string> v_subdet;
-	// v_subdet.push_back("TIB");
-	v_subdet.push_back("TOB");
-	// v_subdet.push_back("TEC");
+	v_subdet.push_back("TIB");
+	//v_subdet.push_back("TOB");
+	//v_subdet.push_back("TEC");
 
   vector<string> runs; vector<string> dates;
-//--- Choose the scan(s) to plot
 
+//--- Choose the scan(s) to plot
 //Old (10)
   //runs.push_back("160497");	dates.push_back("20110315");
   //runs.push_back("170000");	dates.push_back("20110715");
@@ -195,7 +199,7 @@ int main()
   //runs.push_back("262254");	dates.push_back("20151121");
 
 //2016 (5)
-  //runs.push_back("271056");	dates.push_back("20160423");
+  //runs.push_back("271056");	dates.push_back("20160423"); //Full
   //runs.push_back("274969");	dates.push_back("20160612");
   //runs.push_back("276437");	dates.push_back("20160706");
   //runs.push_back("278167");	dates.push_back("20160803");
@@ -207,17 +211,21 @@ int main()
   // runs.push_back("295376");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
-  // runs.push_back("303824");	dates.push_back("20170924"); //Full
-  // runs.push_back("305862");	dates.push_back("20171030");
+  //runs.push_back("303824");	dates.push_back("20170924"); //Full
+  //runs.push_back("305862");	dates.push_back("20171030");
 
   //2018
-  runs.push_back("314574");	dates.push_back("20180418"); //Full
+  //runs.push_back("314574");	dates.push_back("20180418"); //Full
   // runs.push_back("314755");	dates.push_back("20180420"); //Full, -10°
-  // runs.push_back("317182");	dates.push_back("20180530"); //alcareco issue
-   //runs.push_back("317683");	dates.push_back("20180611"); //alcareco issue
+  //runs.push_back("317182");	dates.push_back("20180530"); //alcareco issue
+  runs.push_back("317683");	dates.push_back("20180611"); //alcareco issue
 
 
 
+
+//--------------------------------------------
+  bool multiple_runs_selected = false;
+  if(runs.size() > 1) {multiple_runs_selected = true;}
 
   string dirname = "../"+type+"Analysis/Code/Outputs";
 
@@ -225,9 +233,9 @@ int main()
   {
 	  for(int j=0; j<v_subdet.size(); j++)
 	  {
-		  if(v_subdet[j] == "TIB") {FitTIBSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots);}
-		  else if(v_subdet[j] == "TOB") {FitTOBSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots);}
-		  else if(v_subdet[j] == "TEC") {FitTECSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots);}
+		  if(v_subdet[j] == "TIB") {FitTIBSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots, multiple_runs_selected);}
+		  else if(v_subdet[j] == "TOB") {FitTOBSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots, multiple_runs_selected);}
+		  else if(v_subdet[j] == "TEC") {FitTECSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots, multiple_runs_selected);}
 		  else {cout<<" Wrong subdet !"<<endl; return 0;}
 	  }
   }

@@ -722,12 +722,15 @@ int main()
 //NB : detids lists in Data/detid_lists/
 //NB : leakage info files must be stored in Data/
 
-	bool fullscan = true; //If small scan, compute corrections only for dew detids !
+	bool fullscan = false; //If small scan, compute corrections only for dew detids !
 
 //--- FUNCTION CALLS
 
 
-	//ComputeAllCorrections("TIB", "20180611_run317683", fullscan);
+	ComputeAllCorrections("TIB", "20180420_run314755", fullscan);
+	//ComputeAllCorrections("TOB", "20180418_run314574", fullscan);
+	//ComputeAllCorrections("TEC", "20180418_run314574", fullscan);
+	//ComputeAllCorrections("TID", "20180418_run314574", fullscan);
 
 	/*
 	ComputeAllCorrections("TIB", "20180611_run317683", fullscan);
@@ -735,8 +738,8 @@ int main()
 	ComputeAllCorrections("TEC", "20180611_run317683", fullscan);
 	ComputeAllCorrections("TID", "20180611_run317683", fullscan);*/
 	
-	
-	ComputeAllCorrections("TIB", "20180420_run314755", fullscan);/*
+	/*
+	ComputeAllCorrections("TIB", "20180420_run314755", fullscan);
 	ComputeAllCorrections("TOB", "20180420_run314755", fullscan);
 	ComputeAllCorrections("TEC", "20180420_run314755", fullscan);
 	ComputeAllCorrections("TID", "20180420_run314755", fullscan);*/

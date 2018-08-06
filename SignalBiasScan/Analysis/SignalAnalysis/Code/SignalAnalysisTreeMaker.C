@@ -515,6 +515,11 @@ barycenter, float seed, float seedChargeAngleCorr)
 
   if(hit->chargeAngleCorr > 0 && usehit) {iter->second.at(thePointNumber)->Fill(hit->chargeAngleCorr);}
   //if(seedChargeAngleCorr > 0 && usehit) {iter->second.at(thePointNumber)->Fill(seedChargeAngleCorr);} //--- USE SEED CHARGE INSTEAD OF TOTAL CHARGE	 !!
+  
+  
+  //cout<<"----"<<endl;
+  //cout<<"-- hit->chargeAngleCorr = "<<hit->chargeAngleCorr<<endl;
+  //cout<<"-- seedChargeAngleCorr = "<<seedChargeAngleCorr<<endl;
 
 
 }
