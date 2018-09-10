@@ -60,7 +60,6 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  //cout<<"entering CompareCurve(...)"<<endl;
 
  if(!draw) gROOT->SetBatch(kTRUE);
- //gStyle->SetPalette(kBlackBody);
 
  int err_type=0;
 
@@ -85,15 +84,6 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  }
 
  vector<int> colors; int nof_aborted_iterations=0; //So that if scan not draw --> color remains free
- colors.push_back(kOrange);
- colors.push_back(kRed);
- if(runs.size() > 4) colors.push_back(kPink-9);
- colors.push_back(kViolet-1);
- if(runs.size() > 6) colors.push_back(kBlack);
- colors.push_back(kBlue);
- colors.push_back(kAzure+6);
-
-
  colors.push_back(kBlack);
  colors.push_back(kBlue);
  colors.push_back(TColor::GetColorDark(kGreen));
@@ -105,8 +95,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  colors.push_back(kAzure+1);
  colors.push_back(kBlue+3);
  colors.push_back(kRed+1);
- 
- 
+
 
  int ifirst=-1;
 
@@ -136,7 +125,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
    if(ifirst<0) ifirst=i;
 
-   if(!g[i]) {nof_aborted_iterations++; continue;}
+   if(!g[i]) { nof_aborted_iterations++; continue;}
 
    //cout<<__LINE__<<endl;
 
@@ -146,9 +135,9 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    if(subdet=="TOB" || subdet=="TEC") {temp_modid = modid / 10;} // In order to have the same correction for the two sensors of the same module
 
 
-   bool apply_Ileak_corr = false; //if true, will apply Ileak corrections
+   bool apply_Ileak_corr = true; //if true, will apply Ileak corrections
 
-   int corrected = 0;
+   int corrected = -1;
    if(apply_Ileak_corr)
    {
    	corrected = CorrectGraphForLeakageCurrent(g[i], temp_modid, corr_name);
@@ -168,8 +157,6 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    if(i>=colors.size()) {cout<<"Error : need more colors !"<<endl;}
    g[i]->SetLineColor(colors[i-nof_aborted_iterations]);
    g[i]->SetLineWidth(2);
-   
-   
    int npt = g[i]->GetN();
    if(npt>2)
    {
@@ -207,7 +194,6 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	   float scale=1;
 	   //For signal scale at 90;
 	   if(type=="Signal") scale = lastpoints[i]/90;
-	   
 	   //scale at plateau of first curve
 	   else scale = lastpoints[i]/lastpoints[ifirst];
 	   //float scale = lastpoints[i]/maxend;
@@ -292,21 +278,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(showfit) x = func[ifirst]->GetParameter(0);
 
 
- TLegend *leg = 0;
- //leg = new TLegend(0.60, 0.60, 0.94, 0.88); //used for approved plots
- 
- 
- double x_tmp = 0, y_tmp = 0;
- g[ifirst]->GetPoint(g[ifirst]->GetN()-1, x_tmp, y_tmp);
- 
- //Check if last point of "first Tgraph" is above or below the middle of y-axis, to decide where to place the legend
- if(y_tmp > h->GetMinimum() + (h->GetMaximum() - h->GetMinimum() ) / 2.) {leg = new TLegend(0.60, 0.14, 0.94, 0.42);}
- else {leg = new TLegend(0.60, 0.60, 0.94, 0.88);}
- 
- 
- //if(subdet == "TOB") {leg = new TLegend(0.60, 0.60, 0.94, 0.88);}
- //else {leg = new TLegend(0.45, 0.15, 0.92, 0.55);} //approved plots
- 
+ //TLegend *leg = new TLegend(0.65, 0.2, 0.85, 0.5);
+ TLegend *leg = new TLegend(0.45, 0.15, 0.92, 0.55);
  //leg->SetBorderSize(0.1);
  leg->SetTextFont(42);
  leg->SetHeader("Bias voltage scans");
@@ -391,19 +364,6 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	 }
   }
 
-/*
-  TLatex* latex = new TLatex();
-  latex->SetNDC(); // draw in NDC coordinates [0,1]
-  latex->SetTextSize(0.03);
-  latex->SetTextAlign(13);
-  latex->DrawLatex(0.15, 0.88, "CMS Preliminary");
-*/
-
-
-
-//NEW
-
-
 //----------------
 	// CAPTIONS //
 //----------------
@@ -421,7 +381,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
 
 	bool writeExtraText = false;
-	TString extraText   = "Preliminary";
+	TString extraText   = "Preliminary 2017";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
@@ -430,10 +390,12 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	subdetinfo.SetNDC();
 	subdetinfo.SetTextSize(0.045);
 	subdetinfo.SetTextFont(42);
-	
-	TString caption = subdet + " L" + Convert_Number_To_TString((ULong64_t) GetLayer(detid));
-	if(subdet == "TEC") {caption = subdet + " R" + Convert_Number_To_TString((ULong64_t) GetLayer(detid));}
-	subdetinfo.DrawLatex(0.80,0.93,caption);
+	subdetinfo.DrawLatex(0.80,0.93,"TIB Layer 1");
+
+    TString detid_text   = "Detid " + Convert_Number_To_TString(detid);
+	latex.SetTextFont(42);
+	latex.SetTextSize(0.03);
+	latex.DrawLatex(0.78, 0.85, detid_text);
 
 
 
@@ -505,6 +467,8 @@ void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector
 {
  string subdet = "TIB";
 
+//FIXME
+
  //TIBminus_1_2_2_1
  CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121381, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, subdet, NF, dates, runs, lumis,  369121382, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
@@ -525,6 +489,26 @@ void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector
  CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125866, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125869, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
  CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125870, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+
+
+	//FIXME
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124670, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124666, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124662, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124669, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124665, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124661, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124654, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124650, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124646, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124422, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124653, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124649, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124645, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124421, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124758, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
 }
 
 //-------------------------------
@@ -630,6 +614,45 @@ void CompareTECCurves(string dirname, const int NF, vector<string> dates, vector
 
 
 
+//-------------------------------
+void CompareTIDCurves(string dirname, const int NF, vector<string> dates, vector<string> runs, vector<float> lumis, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw_plots=false, bool draw_vdep=false, TString run_vdep="")
+{
+//NB : "1 & 2" at the end of detif --> sensor number
+
+	vector<ULong64_t> v_modids;
+
+//--- FULL LIST
+	//1 sensor (+0)
+	v_modids.push_back(402666145);
+	v_modids.push_back(402666141);
+	v_modids.push_back(402666137);
+	v_modids.push_back(402666782);
+	v_modids.push_back(402666146);
+	v_modids.push_back(402666142);
+	v_modids.push_back(402666138);
+	v_modids.push_back(402666781);
+	v_modids.push_back(402666265);
+	v_modids.push_back(402666261);
+	v_modids.push_back(402666257);
+	v_modids.push_back(402666277);
+	v_modids.push_back(402666273);
+	v_modids.push_back(402666269);
+	v_modids.push_back(402666133);
+	v_modids.push_back(402666129);
+	v_modids.push_back(402666125);
+	v_modids.push_back(402666134);
+	v_modids.push_back(402666130);
+	v_modids.push_back(402666126);
+
+  for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
+  {
+  	CompareCurve(dirname, "TID", NF, dates, runs, lumis, v_modids[i_modid], type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+  }
+
+}
+
+
+
 
 //-------------------------------
 //-------------------------------
@@ -642,13 +665,14 @@ int main()
 
 
 	vector<string> v_analysis;
-	//v_analysis.push_back("Signal");
-	v_analysis.push_back("ClusterWidth");
+	v_analysis.push_back("Signal");
+	// v_analysis.push_back("ClusterWidth");
 
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
-	v_subdet.push_back("TOB");
-	 	v_subdet.push_back("TEC");
+	// v_subdet.push_back("TOB");
+	// v_subdet.push_back("TEC");
+	//v_subdet.push_back("TID");
 
 
 	vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
@@ -661,31 +685,30 @@ int main()
 	//runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
 
 	//2016 (6)
-	//runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46); //Full
+	//runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
 	//runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
 	//runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
 	//runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
 	//runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
 	//-- runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
-	
 	//2017 (5)
-	//runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
+	// runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
 	//runs.push_back("295376");	dates.push_back("20170527"); lumis.push_back(45.71+29.46); //Full
-	//runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
-	//runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
-	//runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46); //Full
-	//runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
+	// runs.push_back("298996");	dates.push_back("20170714");	lumis.push_back(52.18+29.46);
+	// runs.push_back("302131");	dates.push_back("20170831");	lumis.push_back(65.84+29.46);
+	// runs.push_back("303824");	dates.push_back("20170924");	lumis.push_back(70.55+29.46); //Full
+	// runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
 
 	//2018
 	runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(97.37+29.46); //Full -20°
 	runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(97.37+29.46); //Full -10°
-	//runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
-	//runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
+	// runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
+	// runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
 
 
 	int NF = runs.size();
 
-	bool normalize=false;
+	bool normalize=true;
 	bool print=true;
 	bool showfit=false;
 	bool draw_plots = false;
@@ -704,7 +727,8 @@ int main()
  	{
  		if(v_subdet[j]=="TIB") CompareTIBCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
     	if(v_subdet[j]=="TOB") CompareTOBCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
-    	if(v_subdet[j]=="TEC") CompareTECCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
+		if(v_subdet[j]=="TEC") CompareTECCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
+		if(v_subdet[j]=="TID") CompareTIDCurves(dirname, NF, dates, runs, lumis, v_analysis[i], normalize, showfit, print, suffix, draw_plots, draw_vdep);
  	}
 
   }

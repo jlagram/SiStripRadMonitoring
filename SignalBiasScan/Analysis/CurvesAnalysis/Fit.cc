@@ -173,8 +173,8 @@ int main()
 
 //--- Choose the subdetector (modules are selected above)
 	vector<string> v_subdet;
-	v_subdet.push_back("TIB");
-	//v_subdet.push_back("TOB");
+	//v_subdet.push_back("TIB");
+	v_subdet.push_back("TOB");
 	//v_subdet.push_back("TEC");
 
   vector<string> runs; vector<string> dates;
@@ -208,18 +208,18 @@ int main()
 
   //2017
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
-  // runs.push_back("295376");	dates.push_back("20170527"); //Full
+  //runs.push_back("295376");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   //runs.push_back("302131");	dates.push_back("20170831");
   //runs.push_back("303824");	dates.push_back("20170924"); //Full
   //runs.push_back("305862");	dates.push_back("20171030");
 
   //2018
-  //runs.push_back("314574");	dates.push_back("20180418"); //Full
+  runs.push_back("314574");	dates.push_back("20180418"); //Full
   // runs.push_back("314755");	dates.push_back("20180420"); //Full, -10°
   //runs.push_back("317182");	dates.push_back("20180530"); //alcareco issue
-  runs.push_back("317683");	dates.push_back("20180611"); //alcareco issue
-
+  //runs.push_back("317683");	dates.push_back("20180611"); 
+  //runs.push_back("320674");	dates.push_back("20180801"); //alcareco issue ?
 
 
 
