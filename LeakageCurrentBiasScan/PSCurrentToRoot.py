@@ -85,7 +85,9 @@ for row in currents:
     # check if will process the entry
     if not PS_DETIDS.has_key(str_ps):
         if current < 10:
-            print str_ps, "not found in dictionnary. Skip it.   Ileak < 10"
+            if "channel000" not in str_ps: 
+              print str_ps, "not found in dictionnary. Skip it.   Ileak < 10"
+              # it is normal that channel000 is not in dictionnary
             continue
         else:
             # check if it corresponds to cases with channel = 0 in the MAP.csv file

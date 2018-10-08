@@ -291,6 +291,7 @@ TGraph* ReadCurrentRoot(std::string filename, int modid, int &nmodforchannel,
 	   }
 	}
 	if(remove_point) continue;
+	if(current<20) {cout<<"Warning: removing current: "<<current<<"uA"<<endl; continue;}
 
     if(detid==modid) 
 	{ 
@@ -383,6 +384,7 @@ void ReadCurrentRootForAllDetids(std::string filename, map< int, TGraph*> &map_c
 	   }
 	}
 	if(remove_point) continue;
+	if(current<20) {cout<<"Warning: removing current: "<<current<<"uA"<<endl; continue;}
 	
 	if(map_currents.find(detid)==map_currents.end())
 	{
@@ -496,7 +498,7 @@ TGraph* ReadDCUCurrentFromGB(std::string filename="~/work/DCU_TIBD_TOB_from_1348
 
 // filter on subdet to not overload memory unnecessarily
 void ReadDCUCurrentFromDCUDataForAllDetids(map< int, TGraph*> &map_currents, std::string filename="~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", 
- std::string subdet="TIB", std::string bad_periods="", bool print=false)
+ std::string subdet="TIB", std::string bad_periods="", bool print=false, bool temperature=false)
 {
 
   // Read bad periods
@@ -573,7 +575,8 @@ void ReadDCUCurrentFromDCUDataForAllDetids(map< int, TGraph*> &map_currents, std
     if(map_currents.find((int)Detid)==map_currents.end())
 	{
 	  TGraph *g = new TGraph();
-	  g->SetName(Form("Current_dcu_%i", (int)Detid));
+	  if(temperature) g->SetName(Form("Temperature_dcu_%i", (int)Detid));
+	  else g->SetName(Form("Current_dcu_%i", (int)Detid));
 	  // Set time axis and markers
 	  TH1F* h = g->GetHistogram();
 	  h->GetXaxis()->SetTimeDisplay(1);
@@ -583,7 +586,8 @@ void ReadDCUCurrentFromDCUDataForAllDetids(map< int, TGraph*> &map_currents, std
 	  map_currents[(int)Detid] = g;
 	}
     ipt = map_currents[(int)Detid]->GetN();
-	map_currents[(int)Detid]->SetPoint(ipt, time, Ileak);
+	if(temperature) map_currents[(int)Detid]->SetPoint(ipt, time, TemperatureSi);
+	else map_currents[(int)Detid]->SetPoint(ipt, time, Ileak);
 
   }
 

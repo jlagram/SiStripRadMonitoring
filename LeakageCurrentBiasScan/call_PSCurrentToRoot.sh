@@ -19,7 +19,7 @@ convertFullScan()
 {
  input=$1
  run=$2
- #convertSmallScan $input $run
+ convertSmallScan $input $run
  echo "converting $1 to $2 for TID"
  python2.7 PSCurrentToRoot.py -subdet=TID $input.csv
  mv $input.root PS_I_TID_$run.root
@@ -47,3 +47,18 @@ convertFullScan()
 ##convert SmallBiasScan_20160909073000_20160909141000
 #convertSmallScan SmallBiasScan_20160909103000_20160909121000 20160909_run280385
 #convertSmallScan SmallBiasScan_20161116150500_20161116163000 20161116_run285371
+#convertSmallScan SmallBiasScan_20171030120700_20171030131100 20171030_run305862
+
+#convertFullScan FullBiasScan_20180418021000_20180418040500 20180418_run314574 
+#convertFullScan FullBiasScan_20180419235000_20180420014500 20180419_run314755
+#convertSmallScan SmallBiasScan_2018053011220_20180530130200 20180530_run317182
+#convertSmallScan SmallBiasScan_20180611163500_20180611174700 20180611_run317683
+#convertSmallScan SmallBiasScan_20180801082500_20180801102500 20180801_run320674
+#convertFullScan FullBiasScan_20180923130000_20180923151500 20180923_run323370_part1
+#convertFullScan FullBiasScan_20180923203500_20180923212200 20180923_run323370_part2
+
+## Noise bias scan
+#convertSmallScan SmallBiasScan_20170919184100_20170920093700 noise_20170919_run303272
+#convertFullScan FullBiasScan_20180618095500_20180618122500 noise_20180618_run317974_part1 
+#convertFullScan FullBiasScan_20180619144500_20180619155500 noise_20180618_run317974_part2 
+#convertFullScan FullBiasScan_20180919071200_20180919093200 noise_20180919_run323011

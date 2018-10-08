@@ -144,6 +144,7 @@ void GetVoltageDropAndRatio(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, T
   
   double cur_PS=0;
   double cur_PS_err=0;
+  double min_err=2;
   double volt=0;
   double volt_err=0;
   double shift=0;
@@ -157,7 +158,7 @@ void GetVoltageDropAndRatio(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, T
     gcur_DCU->GetPoint(ic, time, current);
     time_cur=int(time);
     if(time_cur==0) continue;
-     //cout<<time_cur<<" "<<current<<"uA"<<endl;
+    // cout<<time_cur<<" "<<current<<"uA"<<endl;
     
     // Look for current in PS at time_cur
     for(int icps=0; icps<gcur_PS->GetN(); icps++)
@@ -173,7 +174,8 @@ void GetVoltageDropAndRatio(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, T
         cur_PS=(previous_current_PS+current_PS)/2.;
         if(!prev_time_cur_PS) cur_PS=0; // time_cur before first PS meas. Set to 0 to not use it.
         cur_PS_err=fabs(current_PS-cur_PS);
-        if(cur_PS_err<2) cur_PS_err=2;
+		min_err = sqrt(2*2+0.005*cur_PS*0.005*cur_PS); // added a prop. syst. otherwise too small error for large currents
+        if(cur_PS_err<min_err) cur_PS_err=min_err;
       }
       
       previous_current_PS=current_PS;
@@ -210,7 +212,8 @@ void GetVoltageDropAndRatio(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, T
 		if(volt_err<=10) //1
 		{
           shift= current*13.8e-3+cur_PS*1.e-3;
-          shift_err= 2*13.8e-3+cur_PS_err*1.e-3;
+          shift_err= sqrt(2*2+0.005*cur_PS*0.005*cur_PS)*13.8e-3+cur_PS_err*1.e-3;
+		  //cout<<"cur_PS "<<cur_PS<<" "<<" curPS_err "<<cur_PS_err<<" shift "<<shift<<" "<<shift_err<<endl;
           gvdrop->SetPoint(ipt, volt, shift);
           gvdrop->SetPointError(ipt, volt_err, shift_err);
 		  gratio->SetPoint(ipt, volt, current/cur_PS);
@@ -382,8 +385,8 @@ void ApplyDCUOverPSRatio(TGraph *gsteps, TGraph *&gcur_DCU, TGraph *gcur_PS, TGr
 
 //----------------------------------------------------------------------------
 
-void DrawConditions(std::string subdet="TIB", std::string run="20120928_run203832", int detid=369121381, 
-                    std::string bad_periods="Steps/bad_periods_20120928_run203832.txt", bool print=false)
+void DrawConditions(std::string subdet="TIB", std::string run="20171030_run305862", int detid=369121381, 
+                    std::string bad_periods="", bool print=false)
 {
     cout<<" DetID "<<detid<<endl;
 
@@ -437,7 +440,7 @@ void DrawConditions(std::string subdet="TIB", std::string run="20120928_run20383
    if(print) c1->Print(Form("Conditions_detid_%i.eps", detid));
 }
 
-double DrawDCUOverPSRatio(std::string subdet="TIB", std::string run="20150821_run254790", int detid=369121381, std::string bad_periods="", bool print=false)
+double DrawDCUOverPSRatio(std::string subdet="TIB", std::string run="20171030_run305862", int detid=369121381, std::string bad_periods="", bool print=false)
 {
     cout<<" DetID "<<detid<<endl;
 
@@ -580,12 +583,12 @@ int ComputeCorrection(std::string subdet, std::string run, int detid, TGraphErro
   // Fit voltage drop
   // sqrt(x) function works for spring 2012 runs for modules with high Vdepl (almost no 'plateau')
   // used also for early 2015 runs with reduced leakage current and all Run1 when fitting the curves for all the modules (more robust)
-  TF1* fvdrop = new TF1("fvdrop", " [0]*([1]+(1+[2]*x)*sqrt(x)) ", 20, 360);
+  TF1* fvdrop = new TF1("fvdrop", " [0]*([1]+(1+[2]*x)*sqrt(x)) ", 10, 300); //20,360 // limit at 200V for 2018 -10° scan due to thermal runaway
   fvdrop->SetParameter(0,0.2);
   fvdrop->SetParLimits(0, -5, 10);  
   fvdrop->SetParLimits(1, -10, 100);
   fvdrop->SetParameter(1,-1);
-  fit_status = gvdrop->Fit("fvdrop");
+  fit_status = gvdrop->Fit("fvdrop");//, "R");
   // For 2015 bad fits
   if(fvdrop->GetParameter(1)<-9.9){
     fvdrop->SetParameter(0,0.);
@@ -629,9 +632,9 @@ int ComputeCorrection(std::string subdet, std::string run, int detid, TGraphErro
   if(show) 
   {
     if(c1) {c1->Modified(); c1->Update(); }
-    //c1->Print(Form("Ileak-Vbias_%s_%i.pdf", run, detid));
+    //c1->Print(Form("Ileak-Vbias_%s_%i.pdf", run.c_str(), detid));
     if(c2) { c2->Modified(); c2->Update(); }
-    //c2->Print(Form("IleakEffect_%s_%i.pdf", run, detid));
+    //c2->Print(Form("IleakEffect_%s_%i.pdf", run.c_str(), detid));
     if(c3) { c3->Modified(); c3->Update(); }
   }
   
@@ -677,17 +680,19 @@ void ComputeCorrections(std::string subdet, std::string run, int* detids, const 
 	{
 	  xfirst = TMath::MinElement(gvdrop->GetN(), gvdrop->GetX());
 	  xlast = TMath::MaxElement(gvdrop->GetN(), gvdrop->GetX());
-	  if(gvdrop->GetN()<8 || !(xfirst<=75 && xlast>=240)) 
+	  //if(gvdrop->GetN()<8 || !(xfirst<=75 && xlast>=240)) 
+	  if(gvdrop->GetN()<8 || !(xfirst<=45 && xlast>=190)) // for 2018 scans
 	    {cerr<<"Too few points for computing correction for detid "<<detid<<endl; continue;}
 	}
     
     // Store fit result
     if(fit)
     if(fit->GetNDF()>1)
-    if(fit->GetChisquare()/fit->GetNDF() < 50.)
+    //if(fit->GetChisquare()/fit->GetNDF() < 50.)
     {
       fout->cd();
       cout<<"Storing fit for detid "<<detid<<endl;
+      cout<<"Chi2/ndf: "<<fit->GetChisquare()/fit->GetNDF()<<endl;
       fit->SetName(Form("fit_%i", detid));
       fit->Write();
       gvdrop->SetName(Form("vdrop_%i", detid));
@@ -699,7 +704,7 @@ void ComputeCorrections(std::string subdet, std::string run, int* detids, const 
       hparam2->Fill(fit->GetParameter(2));
       ifit++;
     }
-    
+   
     getchar();
     
 //    delete c1;
@@ -863,7 +868,7 @@ void ComputeAllDCUOverPSRatios(std::string subdet, std::string run, std::string 
 }
 
 
-void ComputeAllCorrections(std::string subdet, std::string run, std::string filename, std::string bad_periods="")
+void ComputeAllCorrections(std::string subdet, std::string run, std::string filename, std::string bad_periods="", float CHI2_TOREJECT=50.)
 {
   
   // load currents for all detids
@@ -877,12 +882,15 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
   TH1F* hparam1 = new TH1F("hparam1", "param1", 500, -5, 5);
   TH1F* hparam2 = new TH1F("hparam2", "param2", 100, -10, 10);
 
+  //float CHI2_TOREJECT=20.;
+
   int idet=0;
   int ifit=0;
   int status=0;
   int ngoodfit=0;
   int nbadfit=0;
   int nrejectedfit=0;
+  int nrejectedfit_chi2=0;
   int nnoinfo=0;
   int nnotconv=0;
   int nfewcurpts=0;
@@ -897,7 +905,7 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
   double xfirst,xlast;
 
   // storing graphs for bad fits (limit on chi2/ndf)
-  float chi2_limit = 3.; //2012: 5. //2015: 3. 
+  float chi2_limit = 5.; //2012: 5. //2015: 3. // 2018: 5., 15. for TIB/TID
 
   // Loop on detids
   if(fin.is_open())  {
@@ -916,32 +924,37 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
 	  {
 		xfirst = TMath::MinElement(gvdrop->GetN(), gvdrop->GetX());
 		xlast = TMath::MaxElement(gvdrop->GetN(), gvdrop->GetX());
-		if(gvdrop->GetN()<8 || !(xfirst<=75 && xlast>=240)) 
+		//if(gvdrop->GetN()<8 || !(xfirst<=75 && xlast>=240)) 
+	    if(gvdrop->GetN()<8 || !(xfirst<=45 && xlast>=190)) // for 2018 scans
 		  {cerr<<"Too few points for computing correction for detid "<<detid<<".  "<<gvdrop->GetN()<<" pts  from "<<xfirst<<" to "<<xlast<<" V"<<endl; nfewcurpts++; continue;}
 	  }
 	  
       // Store fit result
       if(fit)
 	  {
-    	if(fit->GetNDF()>1 && fit->GetChisquare()/fit->GetNDF() < 50.)
-    	{
-    	  fout->cd();
-    	  cout<<"Storing fit for detid "<<detid<<endl;
-    	  fit->SetName(Form("fit_%i", detid));
-    	  fit->Write();
-		  cerr<<detid<<" "<<fit->Eval(300)<<endl;
-    	  gvdrop->SetName(Form("vdrop_%i", detid));
-    	  //gvdrop->Write();
-    	  if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) gvdrop->Write();
-          if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) nbadfit++;
-          else ngoodfit++;
-          if(status==4) nnotconv++;
-    	  if(fit->GetNDF()) hchi2->Fill(fit->GetChisquare()/fit->GetNDF());
-    	  g2param->SetPoint(ifit, fit->GetParameter(0), fit->GetParameter(1));
-    	  hparam0->Fill(fit->GetParameter(0));
-    	  hparam1->Fill(fit->GetParameter(1));
-    	  hparam2->Fill(fit->GetParameter(2));
-    	  ifit++;
+    	if(fit->GetNDF()>1)
+		{
+		  if( fit->GetChisquare()/fit->GetNDF() < CHI2_TOREJECT)
+    	  {
+    		fout->cd();
+    		cout<<"Storing fit for detid "<<detid<<endl;
+    		fit->SetName(Form("fit_%i", detid));
+    		fit->Write();
+			cerr<<detid<<" "<<fit->Eval(300)<<endl;
+    		gvdrop->SetName(Form("vdrop_%i", detid));
+    		//gvdrop->Write();
+    		if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) gvdrop->Write();
+        	if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) nbadfit++;
+        	else ngoodfit++;
+        	if(status==4) nnotconv++;
+    		if(fit->GetNDF()) hchi2->Fill(fit->GetChisquare()/fit->GetNDF());
+    		g2param->SetPoint(ifit, fit->GetParameter(0), fit->GetParameter(1));
+    		hparam0->Fill(fit->GetParameter(0));
+    		hparam1->Fill(fit->GetParameter(1));
+    		hparam2->Fill(fit->GetParameter(2));
+    		ifit++;
+    	  }
+		  else { nrejectedfit_chi2++; nrejectedfit++;}
     	}
 		else nrejectedfit++;
 	  }
@@ -973,8 +986,8 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
   
   cerr<<"N tot detids: "<<idet<<endl;
   cerr<<"N good fits: "<<ngoodfit<<endl;
-  cerr<<"N bad fits: "<<nbadfit<<" (chi2/ndf > "<<chi2_limit<<", not bad enough that the fit is rejected (>50.))"<<endl;
-  cerr<<"N rejected fits: "<<nrejectedfit<<" (chi2/ndf > 50.)"<<endl;
+  cerr<<"N bad fits: "<<nbadfit<<" (chi2/ndf > "<<chi2_limit<<", not bad enough that the fit is rejected (>"<<int(CHI2_TOREJECT)<<"))"<<endl;
+  cerr<<"N rejected fits: "<<nrejectedfit<<" ; "<<nrejectedfit_chi2<<" due to too large chi2 (chi2/ndf > "<<int(CHI2_TOREJECT)<<")"<<endl;
   cerr<<"N fits w/o convergence: "<<nnotconv<<endl;
   cerr<<"N detids w/o currents infos: "<<nnoinfo<<endl;
   cerr<<"N detids w too few currents infos: "<<nfewcurpts<<endl;
@@ -1081,7 +1094,8 @@ void ComputeILeakCorrections(std::string subdet="TIB_L1", std::string run="20120
   
   /*TGraphErrors* gv;
   TF1* fv;
-  ComputeCorrection("TIB", "20120812_run200786", 369158836, gv, fv, "");*/
+  //LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, "TIB", "20180418_run314574", "");
+  ComputeCorrection("TIB", "20180418_run314574", 369158756, gv, fv, "");*/
   
   /*//ComputeCorrections("TIB", "20120405_run190459", detids_2012, N_2012, "Steps/bad_periods_20120405_run190459.txt");
   ComputeAllCorrections("TIB", "20120405_run190459", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
@@ -1122,6 +1136,51 @@ void ComputeILeakCorrections(std::string subdet="TIB_L1", std::string run="20120
   ComputeDCUOverPSRatios("TIB", "20161116_run285371", detids_2012_bis, N_2012_bis, "");
   ComputeCorrections("TIB", "20161116_run285371", detids_2012_bis, N_2012_bis, "");
 */
+const int N1=1;
+int detids1[N1]={436311928};
+//ComputeCorrections("TOB", "20180923_run323370", detids1, N1, "");
+
+  // 2017
+  //ComputeCorrections("TIB", "20170527_run295324", detids_2012, N_2012, "Steps/bad_periods_20170527_run295324.txt");
+  //ComputeDCUOverPSRatios("TIB", "20171030_run305862", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20170527_run295376", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20170714_run298996", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20170714_run298996.txt");
+  //ComputeCorrections("TIB", "20171030_run305862", detids_2012_bis, N_2012_bis, "");
+  
+  //ComputeDCUOverPSRatios("TIB", "", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "", detids_2012_bis, N_2012_bis, "");
+  
+  // 2018
+  //ComputeDCUOverPSRatios("TIB", "20180418_run314574", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20180418_run314574", detids_2012_bis, N_2012_bis, "");
+  //ComputeAllDCUOverPSRatios("TIB", "20180418_run314574", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "20180418_run314574", "Data/TIB_detids_sorted.txt", "");
+  
+  //ComputeDCUOverPSRatios("TIB", "20180419_run314755", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20180419_run314755", detids_2012_bis, N_2012_bis, "");
+  //ComputeAllDCUOverPSRatios("TIB", "20180419_run314755", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "20180419_run314755", "Data/TIB_detids_sorted.txt", "");
+
+  //ComputeDCUOverPSRatios("TIB", "20180530_run317182", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20180530_run317182", detids_2012_bis, N_2012_bis, "");
+  //ComputeDCUOverPSRatios("TIB", "20180611_run317683", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20180611_run317683", detids_2012_bis, N_2012_bis, "");
+  //ComputeDCUOverPSRatios("TIB", "20180801_run320674", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180801_run320674.txt");
+  //ComputeCorrections("TIB", "20180801_run320674", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180801_run320674.txt");
+
+  //ComputeDCUOverPSRatios("TIB", "20180923_run323370", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180923_run323370.txt");
+  ComputeCorrections("TIB", "20180923_run323370", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeAllDCUOverPSRatios("TIB", "20180923_run323370", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeAllCorrections("TIB", "20180923_run323370", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+
+  //noise
+  //ComputeCorrections("TIB", "noise_20180618_run317974", detids_2012_bis, N_2012_bis, "");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20180618_run317974", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20180618_run317974", "Data/TIB_detids_sorted.txt", "");
+  //ComputeCorrections("TIB", "noise_20180919_run323011", detids_2012_bis, N_2012_bis, "");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20180919_run323011", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20180919_run323011", "Data/TIB_detids_sorted.txt", "");
+  
 
   // TESTS
   const int N_test=10;
@@ -1133,6 +1192,11 @@ void ComputeILeakCorrections(std::string subdet="TIB_L1", std::string run="20120
   //-----
   const int N_TOB=6;
   int detids_TOB[N_TOB]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528};
+  
+  const int N_TOB_2012=18;
+  int detids_TOB_2012[N_TOB_2012]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528,
+                         436232901, 436232902, 436232905, 436232906, 436232909, 436232910,
+						 436232913, 436232914, 436232917, 436232918, 436232921, 436232922};
   //DrawConditions("TOB", "20121130_run208339",436281508 , "Steps/bad_periods_20121130_run208339.txt");
 
   // 2012
@@ -1200,8 +1264,42 @@ void ComputeILeakCorrections(std::string subdet="TIB_L1", std::string run="20120
   ComputeCorrections("TOB", "20160909_run280385", detids_TOB, N_TOB, "");
   ComputeCorrections("TOB", "20161116_run285371", detids_TOB, N_TOB, "");*/
 
-  TGraphErrors* gv;
-  TF1* fv;
+  // 2017
+  //ComputeDCUOverPSRatios("TOB", "20171030_run305862", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeCorrections("TOB", "20171030_run305862", detids_TOB_2012, N_TOB_2012, "");
+  
+  // 2018
+  //ComputeDCUOverPSRatios("TOB", "20180418_run314574", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeCorrections("TOB", "20180418_run314574", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "20180418_run314574", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "20180418_run314574", "Data/TOB_detids_sorted.txt", "", 20);
+
+  //ComputeDCUOverPSRatios("TOB", "20180419_run314755", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeCorrections("TOB", "20180419_run314755", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "20180419_run314755", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "20180419_run314755", "Data/TOB_detids_sorted.txt", "");
+
+  //ComputeDCUOverPSRatios("TOB", "20180530_run317182", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeCorrections("TOB", "20180530_run317182", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeDCUOverPSRatios("TOB", "20180611_run317683", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeCorrections("TOB", "20180611_run317683", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeDCUOverPSRatios("TOB", "20180801_run320674", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_20180801_run320674.txt");
+  //ComputeCorrections("TOB", "20180801_run320674", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_20180801_run320674.txt");
+
+  //ComputeCorrections("TOB", "20180923_run323370", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeAllDCUOverPSRatios("TOB", "20180923_run323370", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeAllCorrections("TOB", "20180923_run323370", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+
+  //noise
+  //ComputeCorrections("TOB", "noise_20180618_run317974", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20180618_run317974", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "noise_20180618_run317974", "Data/TOB_detids_sorted.txt", "");
+  //ComputeCorrections("TOB", "noise_20180919_run323011", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20180919_run323011", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "noise_20180919_run323011", "Data/TOB_detids_sorted.txt", "");
+
+  //TGraphErrors* gv;
+  //TF1* fv;
   //LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, "TOB", "20120510_run193928", "Steps/bad_periods_20120510_run193928.txt");
   //ComputeCorrection("TOB", "20120510_run193928", 436281508, gv, fv, "Steps/bad_periods_20120510_run193928.txt");
   //DrawDCUOverPSRatio("TOB", "20120510_run193928", 436281508, "Steps/bad_periods_20120510_run193928.txt");
@@ -1224,6 +1322,17 @@ void ComputeILeakCorrections(std::string subdet="TIB_L1", std::string run="20120
   ComputeAllCorrections("TID", "20150603_run246963", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20150603_run246963.txt");
   ComputeAllCorrections("TID", "20160423_run271056", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
 */  
+
+  // 2018
+  //ComputeAllDCUOverPSRatios("TID", "20180418_run314574", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllCorrections("TID", "20180418_run314574", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllDCUOverPSRatios("TID", "20180419_run314755", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllCorrections("TID", "20180419_run314755", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllDCUOverPSRatios("TID", "20180923_run323370", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeAllCorrections("TID", "20180923_run323370", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+
+  //ComputeAllDCUOverPSRatios("TID", "noise_20180919_run323011", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllCorrections("TID", "noise_20180919_run323011", "Data/TID_detids_sorted.txt", "");
 
   // TEC
   //------
@@ -1293,4 +1402,33 @@ void ComputeILeakCorrections(std::string subdet="TIB_L1", std::string run="20120
   ComputeCorrections("TEC", "20160909_run280385", detids_TEC, N_TEC, "");
   ComputeCorrections("TEC", "20161116_run285371", detids_TEC, N_TEC, "");*/
 
+  // 2018
+  //ComputeDCUOverPSRatios("TEC", "20180418_run314574", detids_TEC, N_TEC, "");
+  //ComputeCorrections("TEC", "20180418_run314574", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "20180418_run314574", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "20180418_run314574", "Data/TEC_detids_sorted.txt", "", 10);
+
+  //ComputeDCUOverPSRatios("TEC", "20180419_run314755", detids_TEC, N_TEC, "");
+  //ComputeCorrections("TEC", "20180419_run314755", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "20180419_run314755", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "20180419_run314755", "Data/TEC_detids_sorted.txt", "");
+  
+  //ComputeDCUOverPSRatios("TEC", "20180530_run317182", detids_TEC, N_TEC, "");
+  //ComputeCorrections("TEC", "20180530_run317182", detids_TEC, N_TEC, "");
+  //ComputeDCUOverPSRatios("TEC", "20180611_run317683", detids_TEC, N_TEC, "");
+  //ComputeCorrections("TEC", "20180611_run317683", detids_TEC, N_TEC, "");
+  //ComputeDCUOverPSRatios("TEC", "20180801_run320674", detids_TEC, N_TEC, "Steps/bad_periods_20180801_run320674.txt");
+  //ComputeCorrections("TEC", "20180801_run320674", detids_TEC, N_TEC, "Steps/bad_periods_20180801_run320674.txt");
+
+  //ComputeCorrections("TEC", "20180923_run323370", detids_TEC, N_TEC, "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeAllDCUOverPSRatios("TEC", "20180923_run323370", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeAllCorrections("TEC", "20180923_run323370", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+
+  // noise
+  //ComputeCorrections("TEC", "noise_20180618_run317974", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20180618_run317974", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "noise_20180618_run317974", "Data/TEC_detids_sorted.txt", "");
+  //ComputeCorrections("TEC", "noise_20180919_run323011", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20180919_run323011", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "noise_20180919_run323011", "Data/TEC_detids_sorted.txt", "");
 }

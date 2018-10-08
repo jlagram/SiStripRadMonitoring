@@ -24,6 +24,20 @@ bool isUsedInSmallBiasScan ( int detid ) {
        detid==369125865 || // module not powered and masked
        detid==369125861 ) return true;
     
+    // TOB + 1.3.1.6
+    if(detid==436232901 ||
+       detid==436232902 ||
+       detid==436232905 ||
+       detid==436232906 ||
+       detid==436232909 ||
+       detid==436232910 ||
+       detid==436232913 ||
+       detid==436232914 ||
+       detid==436232917 ||
+       detid==436232918 ||
+       detid==436232921 ||
+       detid==436232922 ) return true;
+    
     // TOB + 4.3.3.8
     if(detid==436281512 ||
        detid==436281528 ||
@@ -111,7 +125,7 @@ void CopyTree(const char* filename="DCU_TIBD_TEC+_TEC-_TOB_from_1440141900_to_14
 
 
 void FilterDCUInfos(){
-    CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1333635000_to_1333662000_Apr2012.root", "20120405_run190459", false);
+/*    CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1333635000_to_1333662000_Apr2012.root", "20120405_run190459", false);
     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1336315800_to_1336322700_May2012.root", "20120506_run193541", true);
     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1336684500_to_1336691700_May2012.root", "20120510_run193928", false);
     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1343488200_to_1343500200_Jul2012.root", "20120728_run199832", true);
@@ -135,4 +149,24 @@ void FilterDCUInfos(){
 	CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1472749800_to_1472753700_Sep2016_FullScan.root", "20160901_run279865", false);
 	CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1473415200_to_1473424200_Sep2016.root", "20160909_run280385", true);
 	CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1479307200_to_1479312900_Nov2016.root", "20161116_run285371", true);
-} 
+*/
+
+     // 2017
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1509354000_to_1509358500_Oct2017.root", "20171030_run305862", true);
+
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1505832000_to_1505839500_Sep2017_Noise1.root", "noise_20170919_run303272_part1", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1505883000_to_1505886000_Sep2017_Noise2.root", "noise_20170919_run303272_part2", false);
+
+     // 2018
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1524017100_to_1524024600_Apr2018.root", "20180418_run314574", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1524095100_to_1524102300_Apr2018_-10C.root", "20180419_run314755", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1524189300_to_1524194400_Apr2018_-10C_missingPS.root", "20180419_run314756", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1527679200_to_1527685500_May2018.root", "20180530_run317182", true);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1528734600_to_1528739400_Jun2018.root", "20180611_run317683", true);
+     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529315700_to_1529324700_Jun2018_Noise1.root", "noise_20180618_run317974_part1", true);
+     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529419500_to_1529423700_Jun2018_Noise2.root", "noise_20180618_run317974_part2", true);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1533111900_to_1533119100_Aug2018.root", "20180801_run320674", true);    
+     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537341300_to_1537349460_Sep2018_Noise.root", "noise_20180919_323011", false);
+     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537707600_to_1537715700_Sep2018_Part1.root", "20180923_run323370_part1", false);
+     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537735200_to_1537737600_Part2.root", "20180923_run323370_part2", false);
+}

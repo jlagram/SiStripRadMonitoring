@@ -1,12 +1,12 @@
 {
-  char* run="TIB_L1_20120506_run193541";
+  char* run="TOB_20170924_run303824";
   
-  TFile* f = new TFile(Form("Results/LeakCurCorr_%s.root", run), "read");
+  TFile* f = new TFile(Form("~/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/LeakCurCorr_%s.root", run), "read");
   if(!f) cout<<"File not found."<<endl;
   
   TH1F* h = new TH1F("h", "", 35, 0, 350);
   h->Draw();
-  h->SetMaximum(6);
+  h->SetMaximum(15);
   gStyle->SetOptStat(0);
   
   int PS=0;
@@ -32,15 +32,17 @@
       
       //if(PS!=prev_PS && prev_PS) icolor++;
       //if(icolor==3) icolor++;
-      
+     
+      icolor=3; 
       // From 3 different PS
       if(PS==3691213) icolor=1;
       if(PS==3691216) icolor=2;
       if(PS==3691258) icolor=4;
       
       fit->SetLineColor(icolor);
-      fit->Draw("same");
       prev_PS=PS;
+      //if(icolor!=3) 
+        fit->Draw("same");
     } 
   }
       
