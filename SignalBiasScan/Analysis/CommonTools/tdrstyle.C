@@ -276,7 +276,7 @@ TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
   tdrStyle->SetTickLength(0.03, "XYZ");
   tdrStyle->SetNdivisions(510, "XYZ");
   tdrStyle->SetPadTickX(0);  //NEW
-  tdrStyle->SetPadTickY(1);
+  tdrStyle->SetPadTickY(0); //NEW
 
 // Change for log plots:
   tdrStyle->SetOptLogx(0);

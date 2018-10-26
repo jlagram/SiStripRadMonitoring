@@ -7,7 +7,7 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
  # Conditions (Global Tag is used here):
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag.globaltag = '101X_dataRun2_Express_v7'
+process.GlobalTag.globaltag = '101X_dataRun2_Express_v8'
 
 process.load('Configuration.StandardSequences.Services_cff')
 

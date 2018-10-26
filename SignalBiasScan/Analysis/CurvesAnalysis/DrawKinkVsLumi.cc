@@ -458,6 +458,12 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	latex.SetTextSize(0.03);
 	latex.DrawLatex(0.80, 0.954, detid_text);
 
+	TLatex subdetinfo;
+	subdetinfo.SetNDC();
+	subdetinfo.SetTextSize(0.04);
+	subdetinfo.SetTextFont(42);
+	// subdetinfo.DrawLatex(0.20,0.25,"TIB Layer 1");
+
 	//TString fluence_label = "Fluence #scale[0.9]{[10^{12} . cm^{-2}]}";
 	TString fluence_label = "Simulated fluence [1 MeV neutron equivalent . cm^{-2} . 10^{12}]";
 	latex.SetTextFont(42);
@@ -475,8 +481,9 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   TH1F* h_simu = 0;
 
   TLegend *leg = new TLegend(.60,.60,.80,.75);
+  // TLegend *leg = new TLegend(.60,.60,.85,.70);
   gStyle->SetLegendTextSize(0.03);
-  leg->SetBorderSize(4.);
+  leg->SetBorderSize(1.);
   gStyle->SetLegendBorderSize(1);
   gStyle->SetLegendFillColor(0);
   gStyle->SetLegendFont(42);
@@ -646,7 +653,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
     output_name+="_detid"+ts_detid+"_"+antype;
     if(superimpose_simu) {output_name+="_simu";}
     output_name+=+".png";
-    //output_name+=+".pdf";
+    // output_name+=+".pdf";
 
     c1->SaveAs(output_name);
   }
@@ -1574,6 +1581,8 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 {
 	bool debug = false;
 
+	bool use_SmallScanModules_only = false; //If false, use all available modules
+
 	pair< vector<double>, vector<double> > result;
 
 	int size = 4;
@@ -1613,10 +1622,10 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 
 
 	TString inputfile_name = dirname+"/all_modules/DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
-	if(!Check_File_Existence(inputfile_name))
-	{
-		cout<<inputfile_name<<" not found"<<endl;
 
+	if(!Check_File_Existence(inputfile_name) || use_SmallScanModules_only)
+	{
+		cout<<endl<<"Using small scan modules only !"<<endl<<endl;
 		inputfile_name = dirname+"/DECO_"+antype+"_"+subdet+"_line_"+run+".root";
 		if(!Check_File_Existence(inputfile_name)) {cout<<FRED("No file : ")<<inputfile_name<<endl; return result;}
 	}
@@ -1651,9 +1660,10 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 	double mean_vfd_smallModules = 0;
 	double mean_vfd_allModules = 0;
 
+	cout<<"//--------------------------------------------"<<endl;
 	cout<<"nentries = "<<nentries<<endl<<endl;
 	int nof_skippedModules = 0; //Some modules are not found in Vdepl Ref file
-    for(UInt_t ie = 0; ie <nentries; ie++)
+    for(UInt_t ie = 0; ie < nentries; ie++)
     {
 		tr->GetEntry(ie);
 
@@ -1670,6 +1680,7 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 		if(return_fluence) {v_mean_fluence[olayer-1]+= ComputeFluence(lumi, odetid, subdet);}
 
 		// cout<<endl<<"odetid = "<<odetid<<endl;
+
 		for(int idet=0; idet<v_smallDetids.size(); idet++)
 		{
 			if(odetid == v_smallDetids[idet])
@@ -1681,11 +1692,15 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 		// cout<<"vfd_drop = "<<vfd_drop<<endl;
 
 		mean_vfd_allModules+= vfd_drop;
+		// if(debug) {cout<<"mean_vfd_allModules = "<<mean_vfd_allModules<<endl;}
 
 		//NB : vector index start at 0
 		v_mean_vfd_layers[olayer-1]+= vfd_drop;
 		v_nofModules_layers[olayer-1]++;
-	}
+
+		if(debug) {cout<<"v_mean_vfd_layers[olayer-1] = "<<v_mean_vfd_layers[olayer-1]<<endl;
+		}
+	} //end entries loop
 
 
 	mean_vfd_smallModules/= v_smallDetids.size(); //Small scan modules
@@ -1872,22 +1887,22 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	if(plot_fluence)
 	{
 		//scale hint1 to the pad coordinates
-		Float_t rightmax = h_flu->GetMaximum();
+		Float_t rightmax = 1.25 * h_flu->GetMaximum();
 		Float_t scale = v_h[0]->GetMaximum()/rightmax;
+		h_flu->Scale(scale);
+		// Float_t rightmax = h_flu->GetMaximum();
+		// h_flu->Scale(scale * 0.8);
         h_flu->SetLineColor(kRed);
         h_flu->SetLineWidth(3);
         h_flu->SetLineStyle(2); //dashed
-		h_flu->Scale(scale * 0.8);
 
-		cout<<"h_flu->GetMaximum() "<<h_flu->GetMaximum()<<endl;
+		// cout<<"h_flu->GetMaximum() "<<h_flu->GetMaximum()<<endl;
 
 		h_flu->Draw("hist same");
 
         //draw an axis on the right side
 		axis = new TGaxis(20, 0, 20, v_h[0]->GetMaximum(), 0, rightmax * pow(10, -12), 510,"+L");
-		// axis = new TGaxis(gPad->GetUxmax(),gPad->GetUymin(), gPad->GetUxmax(), gPad->GetUymax(),0,rightmax*0.8,510,"+L");
-
-		// TGaxis *axis = new TGaxis(h->GetXaxis()->GetXmax(), h->GetMinimum(), h->GetXaxis()->GetXmax(), h->GetMaximum(), 0, label_max,510,"+L");
+		// axis = new TGaxis(20, 0, 20, h_flu->GetMaximum(), 0, rightmax * pow(10, -12), 510,"+L");
 
 		axis->SetTickLength(0.03);
 	    axis->SetLabelSize(0.035);
@@ -1896,8 +1911,8 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	    axis->SetNoExponent(kTRUE);
 	    // axis->SetLabelOffset(-0.008);
 
-		axis->SetTitle("Simulated fluence [1 MeV neutron equivalent . cm^{-2}]");
-		axis->SetTitleSize(.03);
+		axis->SetTitle("Simulated fluence [10^{12} MeV neutron equivalent . cm^{-2}]");
+		axis->SetTitleSize(.035);
 		axis->SetTitleOffset(1.3);
 
         axis->SetLineColor(kRed);
@@ -1999,24 +2014,24 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 
 void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype="ClusterWidth")
 {
-	bool use_fluence = false; // false <-> do not superimpose fluence for each layer //faster
+	bool use_fluence = true; // false <-> do not superimpose fluence for each layer //faster
 	bool read_flu_from_file = true;
 
-	// ofstream file_out("fluence_per_layer.txt"); //write the mean fluences to txt file
-	ifstream file_in("fluence_per_layer.txt"); //read the mean fluences from txt file
+	// ofstream file_out("fluence_per_layer.txt"); //write the mean fluences to txt file //NB : comment to avoid overwrite
+	ifstream file_in("Fluence_perLayer_MultiScans.txt"); //read the mean fluences from txt file
 
 
 	vector<TString> v_subdet;
 	v_subdet.push_back("TIB");
 	v_subdet.push_back("TOB");
-	// v_subdet.push_back("TEC");
-	// v_subdet.push_back("TID");
+	v_subdet.push_back("TEC");
+	v_subdet.push_back("TID");
 
 	//If want to plot multiple runs at once, remove 'run' arg and list the runs here instead !
 	vector<TString> v_runs; vector<double> lumis;
 
 	// v_runs.push_back("170000");lumis.push_back(1.44);
-	// v_runs.push_back("190459");lumis.push_back(6.15);
+	v_runs.push_back("190459");lumis.push_back(6.15);
 	v_runs.push_back("193928");lumis.push_back(7.41);
 	v_runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T
 	v_runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
@@ -2024,27 +2039,69 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	v_runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
 	v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
 
+	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
+	c1->SetTopMargin(0.1);
+	c1->SetBottomMargin(0.1);
+	c1->SetRightMargin(0.15);
+
 	// TLegend* leg = new TLegend(0.73, 0.75, 0.95, 0.88);
-	TLegend* leg = new TLegend(0.73, 0.50, 0.95, 0.88);
+	TLegend* leg = 0;
+	// leg = new TLegend(0.70, 0.50, 0.90, 0.88);
+	leg = new TLegend(0.86, 0.20, 1.06, 0.88);
 	leg->SetBorderSize(0);
 	gStyle->SetLegendFont(42);
 	gStyle->SetLegendTextSize(0.03);
 
+	vector<int> v_color; //Store colors, according on the subdets which are booked
+	for(int idet=0; idet<v_subdet.size(); idet++)
+	{
+		if(v_subdet[idet] == "TIB")
+		{
+			v_color.push_back(kRed);
+			v_color.push_back(kPink+10);
+			v_color.push_back(kOrange);
+			v_color.push_back(kRed+2);
+		}
+		else if(v_subdet[idet] == "TOB")
+		{
+			v_color.push_back(kBlue+4);
+			v_color.push_back(kBlue-2);
+			v_color.push_back(kBlue+1);
+            v_color.push_back(kBlue-4);
+			v_color.push_back(kBlue-7);
+			v_color.push_back(kBlue-10);
+		}
+		else if(v_subdet[idet] == "TEC")
+		{
+			v_color.push_back(kGreen-7);
+			v_color.push_back(kGreen);
+			v_color.push_back(kGreen+1);
+			v_color.push_back(kGreen+2);
+			v_color.push_back(kYellow+1);
+			v_color.push_back(kYellow+2);
+			v_color.push_back(kYellow-6);
+		}
+		else if(v_subdet[idet] == "TID")
+		{
+			v_color.push_back(kMagenta-7);
+			v_color.push_back(kMagenta);
+			v_color.push_back(kMagenta+2);
+		}
+	}
 
-	vector<TGraphErrors*> v_graphs(20); //1 tgraph per layer
+
+
+	vector<TGraph*> v_graphs(20); //1 tgraph per layer
 	for(int ig=0; ig<v_graphs.size(); ig++)
 	{
-		v_graphs[ig] = new TGraphErrors(v_runs.size() );
+		v_graphs[ig] = new TGraph(v_runs.size() );
 	}
+
+	vector<TString> v_legend(20); //Associated legend to each layer
 
 	//Can store 1 value (<-> mean Vfd drop) for each layer of each subdet
 	vector<vector<double> > v_meanVfdDrop_PerLayer_PerSubdet(v_subdet.size() );
 	vector<vector<double> > v_meanFluence_PerLayer_PerSubdet(v_subdet.size() );
-
-	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
-	c1->SetTopMargin(0.1);
-	c1->SetBottomMargin(0.1);
-	c1->SetRightMargin(0.1);
 
 	for(int irun=0; irun<v_runs.size(); irun++) //For each scan
 	{
@@ -2052,7 +2109,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 
 		for(int idet=0; idet<v_subdet.size(); idet++) //For each subdet
 		{
-			pair<vector<double>, vector<double> > v_mean_vfd_fluence = Compute_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[idet], antype, v_runs[irun], lumis[irun], use_fluence);
+			pair<vector<double>, vector<double> > v_mean_vfd_fluence = Compute_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[idet], antype, v_runs[irun], lumis[irun], !read_flu_from_file);
 
 			v_meanVfdDrop_PerLayer_PerSubdet[idet] = v_mean_vfd_fluence.first; //Get mean Vfd drop of each layer
 			v_meanFluence_PerLayer_PerSubdet[idet] = v_mean_vfd_fluence.second; //Get mean fluence of each layer
@@ -2068,15 +2125,13 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 				if(!use_fluence)
 				{
 					x = lumis[irun];
-
-					//Read fluence from txt file
-					if(read_flu_from_file)
-					{
-						string line;
-						getline(file_in, line);
-						stringstream ss(line); int run; string det;
-						ss>>run>>det>>x; //read mean flu
-					}
+				}
+				else if(read_flu_from_file)
+				{
+					string line;
+					getline(file_in, line);
+					stringstream ss(line); int run; string det;
+					ss>>run>>det>>x; //read mean flu
 				}
 				else
 				{
@@ -2091,18 +2146,40 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 
 				if(!irun) //Add legend entries only once
 				{
-					if(v_subdet[idet]=="TIB") {v_graphs[index_layer]->SetMarkerColor(kOrange + ilayer);}
-					else if(v_subdet[idet]=="TOB") {v_graphs[index_layer]->SetMarkerColor(kAzure + ilayer);}
-					else if(v_subdet[idet]=="TEC") {v_graphs[index_layer]->SetMarkerColor(kGreen + ilayer);}
-					else if(v_subdet[idet]=="TID") {v_graphs[index_layer]->SetMarkerColor(kMagenta + ilayer);}
+					if(v_subdet[idet]=="TIB")
+					{
+						v_graphs[index_layer]->SetMarkerStyle(kFullCircle);
+					}
+					else if(v_subdet[idet]=="TOB")
+					{
+						v_graphs[index_layer]->SetMarkerStyle(kFullSquare);
+					}
+					else if(v_subdet[idet]=="TEC")
+					{
+						v_graphs[index_layer]->SetMarkerStyle(kFullTriangleUp);
+						v_graphs[index_layer]->SetMarkerSize(2);
+					}
+					else if(v_subdet[idet]=="TID")
+					{
+						v_graphs[index_layer]->SetMarkerStyle(kFullDiamond);
+						v_graphs[index_layer]->SetMarkerSize(2);
+					}
+					v_graphs[index_layer]->SetMarkerColor(v_color[index_layer]);
+					v_graphs[index_layer]->SetLineColor(v_color[index_layer]);
 
 
-					TString leg_name = v_subdet[idet] + " ";
-					if(v_subdet[idet] == "TEC" || v_subdet[idet] == "TID") {leg_name+= "R";}
-					else {leg_name+= "L";}
-					leg_name+= Convert_Number_To_TString(ilayer+1);
+					// if(v_subdet[idet]=="TIB") {v_graphs[index_layer]->SetMarkerColor(kOrange + ilayer); v_graphs[index_layer]->SetLineColor(kOrange + ilayer);}
+					// else if(v_subdet[idet]=="TOB") {v_graphs[index_layer]->SetMarkerColor(kAzure + ilayer); v_graphs[index_layer]->SetLineColor(kAzure + ilayer);}
+					// else if(v_subdet[idet]=="TEC") {v_graphs[index_layer]->SetMarkerColor(kGreen + ilayer);}
+					// else if(v_subdet[idet]=="TID") {v_graphs[index_layer]->SetMarkerColor(kMagenta + ilayer);}
 
-					leg->AddEntry(v_graphs[index_layer], leg_name, "P");
+
+					v_legend[index_layer] = v_subdet[idet] + " ";
+					if(v_subdet[idet] == "TEC" || v_subdet[idet] == "TID") {v_legend[index_layer]+= "R";}
+					else {v_legend[index_layer]+= "L";}
+					v_legend[index_layer]+= Convert_Number_To_TString(ilayer+1);
+
+					leg->AddEntry(v_graphs[index_layer], v_legend[index_layer], "P");
 				}
 
 				index_layer++;
@@ -2114,7 +2191,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	// h->SetMinimum(0.);
 	h->SetMaximum(0.);
 	h->GetYaxis()->SetTitle("Full depletion voltage drop [V]");
-	if(use_fluence || read_flu_from_file) {h->GetXaxis()->SetTitle("Simulated fluence [1 MeV neutron equivalent . cm^{-2}]");}
+	if(use_fluence) {h->GetXaxis()->SetTitle("Simulated fluence [1 MeV neutron equivalent . cm^{-2}]");}
 	else {h->GetXaxis()->SetTitle("Integrated luminosity [fb^{-1}]");}
     h->GetXaxis()->SetTitleSize(.04);
     h->GetXaxis()->SetTitleOffset(1.18);
@@ -2128,9 +2205,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 		v_graphs[ig]->Draw("same PL");
 	}
 
-
 	leg->Draw("same");
-
 
 //----------------
 	// CAPTIONS //
@@ -2160,12 +2235,22 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.png");
 	// c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.pdf");
 
+
+	TFile* f_output = new TFile("TGraphs_VFDevol.root", "RECREATE");
+	f_output->cd();
+	for(int ig=0; ig<v_graphs.size(); ig++)
+	{
+		v_graphs[ig]->Write(v_legend[ig]);
+	}
+
 	for(int i=0; i<v_graphs.size(); i++)
 	{
 		delete v_graphs[i]; v_graphs[i] = NULL;
 	}
 	delete leg;
 	delete c1; c1 = NULL;
+
+	delete f_output; f_output = NULL;
 
 	return;
 }
@@ -2317,17 +2402,17 @@ int main(int argc, char *argv[])
 
 
   bool usefluence = true; //Draw fluence axis
-  bool superimpose_simu = false; //Superimpose simulation curves (only TIB for now)
+  bool superimpose_simu = true; //Superimpose simulation curves (only TIB for now)
   bool draw_vdep_lab = true; //Draw lab measurement of initial Vfd
   bool draw_fit = false; //Draw linear fit of vfd evolution
 
 
 
 //-- ACTIONS --//
-  bool draw_vfd_evolution_plots = false; //Vfd evol plots
+  bool draw_vfd_evolution_plots = true; //Vfd evol plots
   bool draw_vfd_relative_evolution_plots = false; //Vfd relative evol plots
   bool draw_vfd_relative_evolution_superimposed_plots = false; //Vfd relative evol plots with both observables drawn
-  bool compute_mean_drop = true; //Compute mean Vfd drop for each Layer
+  bool compute_mean_drop = false; //Compute mean Vfd drop for each Layer
   bool compute_mean_drop_multipleScans = false; //Compute mean Vfd drop for each Layer, for several scans
   bool plot_cw_vs_vfd = false;
 
@@ -2397,14 +2482,16 @@ int main(int argc, char *argv[])
 			runs.push_back("298996");lumis.push_back(52.18+29.46);
 			runs.push_back("302131");lumis.push_back(65.84+29.46);
 			runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
-			if(v_subdet[j] != "TOB") {runs.push_back("305862");lumis.push_back(91.65+29.46);} //Low stat TOB -- (ALCARECO issue?)
+			// if(v_subdet[j] != "TOB") {runs.push_back("305862");lumis.push_back(91.65+29.46);} //Low stat TOB -- (ALCARECO issue?)
 
 			//2018
-			runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
+			// runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
 			// runs.push_back("314755");lumis.push_back(97.37+29.46); //-- FULL (-10)
 			// runs.push_back("314756");lumis.push_back(97.37+29.46); //-- FULL (-10) -- few previously excluded PGs
-			runs.push_back("317182");lumis.push_back(113.01+29.46); //-- (ALCARECO issue?)
-			runs.push_back("317683");lumis.push_back(119.21+29.46); //-- (ALCARECO issue?)
+			// runs.push_back("317182");lumis.push_back(113.01+29.46); //-- (ALCARECO issue)
+            // runs.push_back("317683");lumis.push_back(119.21+29.46);
+			// runs.push_back("320674");lumis.push_back(127.08+29.46);
+			// runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
 
 			//--------------------------------------------
 			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);} //VFD EVOLUTION, SINGLE MODULES
@@ -2432,8 +2519,6 @@ int main(int argc, char *argv[])
 	}
 
 	if(compute_mean_drop_multipleScans) {Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(dirname, "ClusterWidth");}
-
-	// Test();
 
 	//--------------------------------------------
 

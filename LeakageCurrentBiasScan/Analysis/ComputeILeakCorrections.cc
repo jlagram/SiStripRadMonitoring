@@ -727,10 +727,10 @@ int main()
 //--- FUNCTION CALLS
 
 
-	ComputeAllCorrections("TIB", "20180420_run314755", fullscan);
-	//ComputeAllCorrections("TOB", "20180418_run314574", fullscan);
-	//ComputeAllCorrections("TEC", "20180418_run314574", fullscan);
-	//ComputeAllCorrections("TID", "20180418_run314574", fullscan);
+	//ComputeAllCorrections("TIB", "20180801_run320674", fullscan);
+	//ComputeAllCorrections("TOB", "20180801_run320674", fullscan);
+	//ComputeAllCorrections("TEC", "20180801_run320674", fullscan);
+	ComputeAllCorrections("TID", "20180801_run320674", fullscan);
 
 	/*
 	ComputeAllCorrections("TIB", "20180611_run317683", fullscan);

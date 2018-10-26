@@ -103,14 +103,12 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(showfit)
  for(int i=0; i<NF; i++)
  {
-
    double params[3];
    GetFitParams(subdet, runs[i], modid, params[0], params[1], params[2]);
    signal->SetParameters(params);
 
    func[i] = (TF1*) signal->Clone();
    if(!func[i]) cout<<"Error : no function in '"<<modid<<"' in "<<runs[i]<<endl;
-
  }
 
  // Get Graph
@@ -125,7 +123,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
    if(ifirst<0) ifirst=i;
 
-   if(!g[i]) { nof_aborted_iterations++; continue;}
+   if(!g[i]) {nof_aborted_iterations++; continue;}
 
    //cout<<__LINE__<<endl;
 
@@ -315,6 +313,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 //-- Add line representing Vfd value for one run
 // NB : draw line up to ymax --> more readable if the vdep is rpz for "highest" curve !
 
+  int olayer_detid = 0; //save layer info for display
   if(draw_vdep)
   {
 	  TString input_name = "DECO_files/DECO_"+type+"_"+subdet+"_line_"+run_vdep+".root";
@@ -350,7 +349,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	  		vdep = odepvolt;
 	  	}
 	  }
-
+	  olayer_detid = olayer;
 
 	 if(vdep != 0)
 	 {
@@ -386,11 +385,13 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
 
+	TString subdet_text = subdet + " Layer " + Convert_Number_To_TString(olayer_detid+1);
+	if(subdet == "TEC") subdet_text = subdet + " Ring " + Convert_Number_To_TString(olayer_detid+1);
 	TLatex subdetinfo;
 	subdetinfo.SetNDC();
 	subdetinfo.SetTextSize(0.045);
 	subdetinfo.SetTextFont(42);
-	subdetinfo.DrawLatex(0.80,0.93,"TIB Layer 1");
+	subdetinfo.DrawLatex(0.80,0.93, subdet_text);
 
     TString detid_text   = "Detid " + Convert_Number_To_TString(detid);
 	latex.SetTextFont(42);
@@ -410,7 +411,10 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(type=="Signal") name+= "signal/";
  else name+= "CW/";
 
- name+= "compareCurve/compareCurves_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ".png";
+ TString ext = ".png";
+ // TString ext = ".pdf";
+
+ name+= "compareCurve/compareCurves_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
  if(print) {c1->SaveAs(name.Data());}
  //getchar();
  //c1->Close();
@@ -467,8 +471,6 @@ void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector
 {
  string subdet = "TIB";
 
-//FIXME
-
  //TIBminus_1_2_2_1
  CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121381, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, subdet, NF, dates, runs, lumis,  369121382, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
@@ -492,7 +494,6 @@ void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector
 
 
 
-	//FIXME
 	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124670, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124666, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124662, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
@@ -666,13 +667,13 @@ int main()
 
 	vector<string> v_analysis;
 	v_analysis.push_back("Signal");
-	// v_analysis.push_back("ClusterWidth");
+	v_analysis.push_back("ClusterWidth");
 
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
 	// v_subdet.push_back("TOB");
 	// v_subdet.push_back("TEC");
-	//v_subdet.push_back("TID");
+	// v_subdet.push_back("TID");
 
 
 	vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
@@ -689,7 +690,7 @@ int main()
 	//runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
 	//runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
 	//runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
-	//runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
+	// runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
 	//-- runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
 	//2017 (5)
 	// runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
@@ -700,8 +701,8 @@ int main()
 	// runs.push_back("305862");	dates.push_back("20171030");	lumis.push_back(91.65+29.46);
 
 	//2018
-	runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(97.37+29.46); //Full -20°
-	runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(97.37+29.46); //Full -10°
+	// runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(97.37+29.46); //Full -20°
+	// runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(97.37+29.46); //Full -10°
 	// runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
 	// runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
 

@@ -36,7 +36,7 @@ void ClusterWidthAnalysisTreeMaker::Loop()
   std::string output_file;
   
   // Read definition of voltage steps
-  std::cout << "Setting Deco Voltage vector : " << std::endl;
+  std::cout << "Opening Vstep/timestamp file : "<<stepsfile.c_str()<< std::endl;
   if(usetimestamp) std::cout << " using timestamp step definition " << std::endl;
   else std::cout << " using event number step definition" << std::endl;
   

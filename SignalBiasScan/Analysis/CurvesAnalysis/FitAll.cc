@@ -331,18 +331,18 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  // v_analysis.push_back("Signal");
+  v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
-  //v_subdet.push_back("TIB");
-  v_subdet.push_back("TOB");
+  v_subdet.push_back("TIB");
+  //v_subdet.push_back("TOB");
   //v_subdet.push_back("TEC");
   //v_subdet.push_back("TID");
 
   bool use_curvature = false; //true-->kink ; false-->lines
 
-  bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
+  bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
 
   vector<string> runs; vector<string> dates;
@@ -351,18 +351,18 @@ int main()
 //Old (10)
 // runs.push_back("160497");	dates.push_back("20110315");
   // runs.push_back("160497");	dates.push_back("20110315");
-  //runs.push_back("170000");	dates.push_back("20110715");
-  //runs.push_back("190459");	dates.push_back("20120405");
+  // runs.push_back("170000");	dates.push_back("20110715");
+  // runs.push_back("190459");	dates.push_back("20120405");
   // runs.push_back("193541");	dates.push_back("20120506");
-  runs.push_back("193928");	dates.push_back("20120510");
+  // runs.push_back("193928");	dates.push_back("20120510");
   // runs.push_back("199832");	dates.push_back("20120728");
   // runs.push_back("200786");	dates.push_back("20120812");
   // runs.push_back("203832");	dates.push_back("20120928");
   // runs.push_back("208339");	dates.push_back("20121130");
-  // runs.push_back("211797");	dates.push_back("20130213");
+  //runs.push_back("211797");	dates.push_back("20130213");
 
 //2015 (4)
-  //runs.push_back("246963"); dates.push_back("20150603");
+  // runs.push_back("246963"); dates.push_back("20150603");
   // runs.push_back("254790");	dates.push_back("20150821");
   // runs.push_back("258443"); dates.push_back("20151007");
   // runs.push_back("262254");	dates.push_back("20151121");
@@ -380,30 +380,32 @@ int main()
   // runs.push_back("295376");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   // runs.push_back("302131");	dates.push_back("20170831");
-  // runs.push_back("303824");	dates.push_back("20170924"); //Full
+  runs.push_back("303824");	dates.push_back("20170924"); //Full
   // runs.push_back("305862");	dates.push_back("20171030");
 
 //2018
-	// runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
-	//runs.push_back("314755");	dates.push_back("20180420"); //-- FULL (-10°)
-	// runs.push_back("317182");	dates.push_back("20180530");
-	// runs.push_back("317683");	dates.push_back("20180611");
+  // runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
+  //runs.push_back("314755");	dates.push_back("20180420"); //-- FULL (-10°)
+  // runs.push_back("317182");	dates.push_back("20180530");
+  // runs.push_back("317683");	dates.push_back("20180611");
+  // runs.push_back("320674");	dates.push_back("20180801");
+  //runs.push_back("323374");	dates.push_back("20180923"); //FULL
 
 
 
   for(int i=0; i<v_analysis.size(); i++)
   {
-  	for(int j=0; j<v_subdet.size(); j++)
-  	{
- 	  for(int irun = 0; irun < runs.size(); irun++)
- 	  {
- 	  	if(v_subdet[j]=="TOB" && v_analysis[i]=="Signal" && runs[irun]=="203832") {continue;}
- 	  	else if(v_subdet[j]=="TEC" && v_analysis[i]=="Signal" && runs[irun]=="160497") {continue;}
+    for(int j=0; j<v_subdet.size(); j++)
+    {
+      for(int irun = 0; irun < runs.size(); irun++)
+      {
+        if(v_subdet[j]=="TOB" && v_analysis[i]=="Signal" && runs[irun]=="203832") {continue;}
+        else if(v_subdet[j]=="TEC" && v_analysis[i]=="Signal" && runs[irun]=="160497") {continue;}
 
- 	    string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";
-  	    FitAllCurves(dirname, v_subdet[j], dates[irun], runs[irun], v_analysis[i], use_curvature, smallScan_modules_only);
-	  }
-	}
+        string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";
+        FitAllCurves(dirname, v_subdet[j], dates[irun], runs[irun], v_analysis[i], use_curvature, smallScan_modules_only);
+      }
+    }
   }
 
 }
