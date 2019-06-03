@@ -1,0 +1,79 @@
+#!/bin/bash
+
+
+# $1 : CMSSW version
+if [ "$1" = "" ] 
+then
+    echo " Syntax : cmsRun_batch configfile.cfg proxyfile outputfilename [inputfile]"
+    exit
+fi
+
+# CMSSW directory
+CMSSWDIR=/afs/cern.ch/work/j/jlagram/Strips/CMSSW_10_3_3/src/SiStripRadMonitoring/NoiseBiasScan/condor
+
+
+#starting directory
+echo "You are working here : "
+pwd
+export SCRATCH=`pwd`
+echo "Your CMSSW directory is :"
+echo $CMSSWDIR
+echo
+
+cd $CMSSWDIR
+eval `scramv1 runtime -sh`
+cd -
+
+
+# $1 : config file
+if [ "$1" != "" ] 
+  then
+    echo "cp $CMSSWDIR/$1 ."
+    cp $CMSSWDIR/$1 .
+  else
+    echo " Need a configuration file. exit."
+    echo " Syntax : cmsRun_batch configfile.cfg proxyfile outputfilename [inputfile] [other arguments for cmsRun]"
+    exit
+fi
+
+# $1 can be a path, so get only the filename here
+configfile=`echo $1 | awk -F/ '{print $NF}' | awk -F. '{print $1}'`
+
+#cat ${configfile}.py > ${configfile}_temp.py
+
+
+# set proxy to read files on the grid
+if [ "$2" != "" ] ; then
+    echo " setting proxy: $2"
+    export X509_USER_PROXY=/afs/cern.ch/user/j/jlagram/$2
+    voms-proxy-info -all
+    voms-proxy-info -all -file $X509_USER_PROXY
+fi
+
+# name for output file
+if [ "$3" != "" ] ; then
+    echo " output file will be renamed: $3"
+    OUTPUT_FILE_NAME=$3
+fi
+
+# name for input file
+if [ "$4" != "" ] ; then
+    echo " input file to be copied: $4"
+    cp $CMSSWDIR/$4 .
+fi
+
+
+echo "cmsRun ${configfile}_temp.py FileList=$4 FileIndex=$5 OutputName=noise_$5.root"
+if [ "$4" != "" ] ; then 
+  cmsRun ${configfile}.py FileList=$4 FileIndex=$5 OutputName=noise_$5.root
+else
+  cmsRun ${configfile}.py
+fi
+
+
+echo
+ls -lhrt
+echo
+
+
+exit

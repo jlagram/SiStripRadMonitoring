@@ -1,0 +1,8 @@
+executable            = cmsRun_batch_eos
+arguments             = monitorFileNoise_cfg.py x509up_u16737 dummy.root Sep2018_VRRandom0to1_4to6_files.txt $(ProcId)
+output                = jobs_output/output.$(ClusterId).$(ProcId).out
+error                 = jobs_output/error.$(ClusterId).$(ProcId).err
+log                   = jobs_output/log.$(ClusterId).log
++JobFlavour = "microcentury"
+#+JobFlavour = "longlunch"
+queue 153 

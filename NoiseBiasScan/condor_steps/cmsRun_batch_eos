@@ -1,0 +1,103 @@
+#!/bin/bash
+
+
+# $1 : CMSSW version
+if [ "$1" = "" ] 
+then
+    echo " Syntax : cmsRun_batch configfile.cfg proxyfile outputfilename [inputfile]"
+    exit
+fi
+
+# CMSSW directory
+CMSSWDIR=/afs/cern.ch/work/j/jlagram/Strips/CMSSW_10_3_3/src/Noise
+# Castor storage directory
+STOREDIR=/eos/cms/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Jun2018/VRRandom0_part2
+
+
+#starting directory
+echo "You are working here : "
+pwd
+export SCRATCH=`pwd`
+echo "Your CMSSW directory is :"
+echo $CMSSWDIR
+echo
+
+cd $CMSSWDIR
+eval `scramv1 runtime -sh`
+cd -
+
+
+# $1 : config file
+if [ "$1" != "" ] 
+  then
+    echo "cp $CMSSWDIR/$1 ."
+    cp $CMSSWDIR/$1 .
+  else
+    echo " Need a configuration file. exit."
+    echo " Syntax : cmsRun_batch configfile.cfg proxyfile outputfilename [inputfile] [other arguments for cmsRun]"
+    exit
+fi
+
+# $1 can be a path, so get only the filename here
+configfile=`echo $1 | awk -F/ '{print $NF}' | awk -F. '{print $1}'`
+
+cat ${configfile}.py > ${configfile}_temp.py
+
+
+# set proxy to read files on the grid
+if [ "$2" != "" ] ; then
+    echo " setting proxy: $2"
+    export X509_USER_PROXY=/afs/cern.ch/user/j/jlagram/$2
+    voms-proxy-info -all
+    voms-proxy-info -all -file $X509_USER_PROXY
+fi
+
+# name for output file
+if [ "$3" != "" ] ; then
+    echo " output file will be renamed: $3"
+    OUTPUT_FILE_NAME=$3
+fi
+
+# name for input file
+if [ "$4" != "" ] ; then
+    echo " input file to be copied: $4"
+    cp $CMSSWDIR/$4 .
+fi
+
+
+echo "cmsRun ${configfile}_temp.py FileList=$4 $5"
+if [ "$4" != "" ] ; then 
+  cmsRun ${configfile}_temp.py FileList=$4 $5
+else
+  cmsRun ${configfile}_temp.py
+fi
+
+
+echo
+ls -lhrt
+echo
+
+OUTPUT_FILE=`ls -rt | grep .root | tail -1`
+echo "copy $OUTPUT_FILE to $OUTPUT_FILE_NAME"
+cp $OUTPUT_FILE $OUTPUT_FILE_NAME
+
+echo
+ls -lhrt
+echo
+
+
+# copy the 1 last root files in eos 
+for OUTPUT_FILE in `ls -rt | grep .root | tail -1`
+do
+    echo "copy $OUTPUT_FILE to $STOREDIR/$OUTPUT_FILE"  
+    xrdcp $OUTPUT_FILE root://eoscms.cern.ch/$STOREDIR/$OUTPUT_FILE &> cp_output
+    cat cp_output
+    noerror=`cat cp_output`
+    # if copy to eos failed
+    #if [ "$noerror" != "" ] # may no more be right
+    #then
+    #  cp $OUTPUT_FILE /afs/cern.ch/user/j/jlagram/work/$OUTPUT_FILE
+    #fi
+done                                                                            
+
+exit

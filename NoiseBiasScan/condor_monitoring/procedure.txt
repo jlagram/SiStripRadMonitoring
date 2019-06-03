@@ -1,0 +1,29 @@
+# get file list for dataset
+dasgoclient --query="file dataset=/VRRandom0/Commissioning2019-v1/RAW"
+
+# replace number of jobs by number of files in above list
+vi job.sub
+
+# get grid credentials
+voms-proxy-init --voms cms --valid 168:00
+ll /tmp/x509up_u* | grep jlagram
+cp /tmp/x509up_u16737 ~/
+
+# launch jobs
+condor_submit job.sub
+
+# get file names and event ranges from logs
+python2.7 readLogs.py JOBID
+
+# create file lists for each voltage steps
+# update in the script the input and output names
+# optionnal filter on run number, if provided in argument
+python2.7 listFilesPerStep.py (RUN)
+
+# draw monitoring plots
+# update in file directory name with inputs and steps definition file name
+python2.7 drawGraphFromRoot.py 
+
+# old version reading logs and doing a single monitoring plot
+# update inputs names in the script
+python2.7 drawGraph.py

@@ -1,0 +1,9 @@
+executable            = cmsRun_batch_eos
+#arguments             = computeNoiseFromRaw_cfg.py x509up_u16737 SiStripCommissioningSource_20.root March2019_VRRandom0_files.txt EventRange=328691:777657-328691:825480
+output                = 2018Sep_VRRandom0to1_4to6/output.$(ClusterId).$(ProcId).out
+error                 = 2018Sep_VRRandom0to1_4to6/error.$(ClusterId).$(ProcId).err
+log                   = 2018Sep_VRRandom0to1_4to6/log.$(ClusterId).log
++JobFlavour = "longlunch"
+#+JobFlavour = "workday"
+#queue
+queue arguments from arguments.txt
