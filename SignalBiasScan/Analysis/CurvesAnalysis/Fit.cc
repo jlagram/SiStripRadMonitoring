@@ -9,7 +9,10 @@ void FitTIBSmallScan(string dirname, string date, string run, string type, bool 
 
 	if(!produce_multiple_plots || multiple_runs_selected)
 	{
-		v_modids.push_back(369121385);
+		v_modids.push_back(369125866);
+		v_modids.push_back(369125870);
+		v_modids.push_back(369121381);
+		//v_modids.push_back(369121389);
 	}
 
 	else
@@ -48,7 +51,7 @@ void FitTOBSmallScan(string dirname, string date, string run, string type, bool 
 
 	if(!produce_multiple_plots || multiple_runs_selected)
 	{
-		v_modids.push_back(4362329221);
+		v_modids.push_back(4362815081);
 	}
 
 	else
@@ -107,7 +110,7 @@ void FitTECSmallScan(string dirname, string date, string run, string type, bool 
 
 	if(!produce_multiple_plots || multiple_runs_selected)
 	{
-		v_modids.push_back(4701483361);
+		v_modids.push_back(4701482280);
 	}
 
 	else
@@ -173,8 +176,8 @@ int main()
 
 //--- Choose the subdetector (modules are selected above)
 	vector<string> v_subdet;
-	v_subdet.push_back("TIB");
-	//v_subdet.push_back("TOB");
+	//v_subdet.push_back("TIB");
+	v_subdet.push_back("TOB");
 	//v_subdet.push_back("TEC");
 
   vector<string> runs; vector<string> dates;
@@ -195,7 +198,7 @@ int main()
 //2015 (4)
   //runs.push_back("246963");	dates.push_back("20150603");
   //runs.push_back("254790");	dates.push_back("20150821");
-  //runs.push_back("258443");	dates.push_back("20151007");
+  runs.push_back("258443");	dates.push_back("20151007");
   //runs.push_back("262254");	dates.push_back("20151121");
 
 //2016 (5)
@@ -217,11 +220,12 @@ int main()
   //2018
   //runs.push_back("314574");	dates.push_back("20180418"); //Full
   // runs.push_back("314755");	dates.push_back("20180420"); //Full, -10°
-  //runs.push_back("317182");	dates.push_back("20180530"); //alcareco issue
+  //runs.push_back("317182");	dates.push_back("20180530"); 
   //runs.push_back("317683");	dates.push_back("20180611"); 
   //runs.push_back("320674");	dates.push_back("20180801"); 
   //runs.push_back("323374");	dates.push_back("20180923"); //FULL
-
+  //runs.push_back("324841");	dates.push_back("20181018");
+  // runs.push_back("326883");	dates.push_back("20181118"); //HI
 
 //--------------------------------------------
   bool multiple_runs_selected = false;

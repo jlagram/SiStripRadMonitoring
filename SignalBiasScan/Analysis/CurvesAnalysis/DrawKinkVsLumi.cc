@@ -21,7 +21,6 @@
 #include "TLatex.h"
 #include "THStack.h"
 
-
 //--------------------------------------------
 // ##     ## ######## ##       ########  ######## ########
 // ##     ## ##       ##       ##     ## ##       ##     ##
@@ -168,7 +167,7 @@ void CheckFits(string dirname, string subdet, const int NF, vector<string> runs,
 // ##         ## ##   ##     ## ##       ###       ##      ##     ## ##     ## ##     ## ##     ## ##       ##
 // ########    ###     #######  ######## ###     ######    ##     ##  #######  ########   #######  ######## ########
 //--------------------------------------------
-void DrawOneModule(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, ULong64_t detid, bool useflu=false, bool print=false, bool use_curvature=true, bool superimpose_simu=false, bool draw_vdep_lab=true, bool draw_fit=false)
+void DrawOneModule(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, ULong64_t detid, bool useflu=false, bool print=false, bool use_curvature=true, bool superimpose_simu=false, bool draw_vdep_lab=true, bool draw_fit=false, bool draw_gray_band=false)
 {
 	bool draw_vs_fluence = false; //If true, main axis is fluence ; else, main axis is lumi
 
@@ -326,27 +325,55 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   //cout<<"--- Superimpose simulation : Fluence --> Lumi"<<endl;
 
+  int choice_simu = 3; //FIXME
   if(superimpose_simu)
   {
-	  TString simufile_name = dirname+"/simulation/VdepGraphs_TIB_2017.root";
+      if(subdet != "TIB" && choice_simu == 0) {cout<<"Can only plot this simulation for TIB ! Abort"<<endl; return;}
+
+    TString simufile_name = "";
+    if(choice_simu == 0) {simufile_name = dirname+"/simulation/VdepGraphs_TIB_2017.root";}
+    else if(choice_simu == 1) {simufile_name = dirname+"/simulation/Simu_JLA_v1.root";}
+    else if(choice_simu == 2) {simufile_name = dirname+"/simulation/Simu_JLA_v2.root";}
+    else if(choice_simu == 3) {simufile_name = dirname+"/simulation/Graph_new_nico_thesis.root";}
+
 	if(Check_File_Existence(simufile_name) )
 	{
-		TFile* f_simu = TFile::Open( simufile_name );
+		TFile* f_simu = TFile::Open(simufile_name);
 
-		TString g_simu_name = "graph_" + Convert_Number_To_TString(detid);
-		//cout<<g_simu_name.Data()<<endl;
+		TString ts_detid = Convert_Number_To_TString(detid);
+		if(subdet == "TOB" || subdet == "TEC") {ts_detid = Convert_Number_To_TString(detid/10);}
+
+		TString g_simu_name = "";
+        if(choice_simu == 0) {g_simu_name = "graph_" + ts_detid;}
+        else
+        {
+            g_simu_name = "lumigr_"+ts_detid;
+			// g_simu_name = "feqgr_"+ts_detid;
+        }
 
 		g_simu = (TGraph*) f_simu->Get(g_simu_name);
 		if(g_simu == 0) {cout<<"Error : "<<g_simu_name<<" not found in "<<simufile_name<<" !"<<endl; return;}
+		cout<<FYEL("-- Opened simu graph '"<<g_simu_name<<"'")<<endl<<endl;
 
+		// cout<<"g_simu->GetN() "<<g_simu->GetN()<<endl;
 		for(int i=0; i<g_simu->GetN(); i++)
 		{
 			g_simu->GetPoint(i, x_tmp, y_tmp);
 
 			//cout<<"i =="<<i<<endl;
 
-			if(!draw_vs_fluence) {g_simu->SetPoint(i, GetLumiFromFluence(x_tmp, detid, subdet), y_tmp);}
-			else {g_simu->SetPoint(i, x_tmp*pow(10, -12), y_tmp);}
+			if(choice_simu == 0)
+			{
+				if(!draw_vs_fluence) {g_simu->SetPoint(i, GetLumiFromFluence(x_tmp, detid, subdet), y_tmp);} //In files from Cbart there is only fluence
+				else {g_simu->SetPoint(i, x_tmp*pow(10, -12), y_tmp);}
+			}
+			// else if(choice_simu == 3) //Non-physical decrease above 195fb
+			// {
+			// 	if(x_tmp > 150)
+			// 	{
+			// 		g_simu->RemovePoint(i);
+			// 	}
+			// }
 
 			if(y_tmp > y_max) {y_max = y_tmp;}
 			else if(y_tmp < y_min) {y_min = y_tmp;}
@@ -355,7 +382,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
  	}
  	else {cout<<FRED(""<<simufile_name<<" not found !"<<)<<endl;}
   }
-
+  // cout<<"g_simu->GetN() "<<g_simu->GetN()<<endl;
 
 
 //----------------------
@@ -363,8 +390,6 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   //bool draw_vdep_lab = true; //Draw lab measurement of initial Vfd
   //bool draw_fit = false; //Draw linear fit of vfd evolution
-
-  if(subdet=="TEC") draw_vdep_lab = false;
 
   VdeplRef SubdetRef;
   SubdetRef.loadFile(subdet);
@@ -432,6 +457,8 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
 // -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
 
+	bool writeExtraText = false; //Write 'cms prelim' label
+
 	TString cmsText     = "CMS";
 	TLatex latex;
 	latex.SetNDC();
@@ -440,23 +467,31 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	latex.SetTextFont(61);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
+	if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
 
-	bool writeExtraText = false;
 	TString extraText   = "Preliminary";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
-	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
+	if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
 
 	TString energy_text   = "#sqrt{s}=13 TeV (25 ns)";
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.04);
 	//latex.DrawLatex(0.75, 0.954, energy_text);
 
-	TString detid_text   = "Detid " + Convert_Number_To_TString(detid);
+
+	TString fluka_text   = "CMS FLUKA v3.9.0.0";
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.025);
+	if(superimpose_simu) {latex.DrawLatex(0.30, 0.78, fluka_text);}
+
+	// TString detid_text   = "Detid " + Convert_Number_To_TString(detid);
+	TString detid_text = "Detid " + Convert_Number_To_TString(detid) + " - "+subdet+" L"+Convert_Number_To_TString((ULong64_t) GetLayer(detid));
+	if(subdet=="TEC") detid_text = "Detid " + Convert_Number_To_TString(detid) + " - "+subdet+" R"+Convert_Number_To_TString((ULong64_t) GetLayer(detid));
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.03);
-	latex.DrawLatex(0.80, 0.954, detid_text);
+    //-- detid + layer info -- disactivate for approval
+	// latex.DrawLatex(0.70, 0.954, detid_text);
 
 	TLatex subdetinfo;
 	subdetinfo.SetNDC();
@@ -477,13 +512,13 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
 
 
-//--- Superimpose Vfd prediction curve from C. Barth
+//--- Superimpose Vfd prediction curve
   TH1F* h_simu = 0;
 
   TLegend *leg = new TLegend(.60,.60,.80,.75);
   // TLegend *leg = new TLegend(.60,.60,.85,.70);
   gStyle->SetLegendTextSize(0.03);
-  leg->SetBorderSize(1.);
+  leg->SetBorderSize(0.);
   gStyle->SetLegendBorderSize(1);
   gStyle->SetLegendFillColor(0);
   gStyle->SetLegendFont(42);
@@ -493,20 +528,21 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 	  h->SetMinimum(0.); //So that we can ~see where simu predicts inversion
 
  	  g_simu->SetMarkerColor(kRed); g_simu->SetLineColor(kRed);
-	  g_simu->SetLineWidth(2);
+	  g_simu->SetLineWidth(3);
 	  g_simu->SetMarkerSize(1.2);
 	  //g_simu->Draw("APL");
-	  g_simu->Draw("PL");
+      // g_simu->Draw("PL");
+      g_simu->Draw("L");
 
 	  //leg = new TLegend(.65,.70,.85,.80);
 	  //leg = new TLegend(.65,.65,.85,.75);
 
-	  leg->AddEntry(g_simu, "Prediction", "P");
+	  leg->AddEntry(g_simu, "Prediction", "L");
 	  leg->AddEntry(g, "Measurement", "P");
 	  leg->Draw("same");
   }
 
-  g->Draw("PL"); //Draw again to get data points on top
+  // g->Draw("PL"); //Draw again to get data points on top
 
 //----------
 
@@ -599,16 +635,18 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
 //--------------------------------------------
 
-	//Draw gray band below ~30V, to emphasize unsensitivity at low Vfd
-	bool draw_gray_band = false;
-
-	TH1F* h_gray = new TH1F("", "", 1, 0, 10000);
-	h_gray->SetBinContent(1, 30);
-	h_gray->SetFillColor(kGray);
-	h_gray->SetFillStyle(3004);
-	h_gray->SetLineWidth(0.);
-	if(draw_gray_band) {h_gray->Draw("same");}
-
+	//Draw gray band, to emphasize unsensitivity at low Vfd
+	TH1F* h_gray = 0;
+	if(draw_gray_band)
+	{
+		h_gray = new TH1F("", "", 1, 0, 10000);
+		if(subdet == "TIB") {h_gray->SetBinContent(1, 30);}
+		else if(subdet == "TOB" || subdet == "TEC") {h_gray->SetBinContent(1, 50);}
+		h_gray->SetFillColor(kGray);
+		h_gray->SetFillStyle(3004);
+		h_gray->SetLineWidth(0.);
+		h_gray->Draw("same");
+	}
 
 
 //------------------
@@ -652,8 +690,8 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
     TString ts_detid = Convert_Number_To_TString(detid);
     output_name+="_detid"+ts_detid+"_"+antype;
     if(superimpose_simu) {output_name+="_simu";}
-    output_name+=+".png";
-    // output_name+=+".pdf";
+    output_name+=".png";
+    // output_name+=".pdf";
 
     c1->SaveAs(output_name);
   }
@@ -664,10 +702,10 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
   delete g;
   delete c1;
   delete pref; //delete marker;
-  delete h_gray;
   //delete axis;
   if(axis2) {delete axis2;}
   if(axis3) {delete axis3;}
+  if(draw_gray_band) {delete h_gray;}
 
   return;
 }
@@ -788,6 +826,7 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   unsigned int Ndet;
   ULong64_t* Detids;
   double* vfd_ref;
+  vector<double> vfd_ref_fullScan;
 
   if(subdet=="TIB") {Ndet=Ndet_TIB; Detids=Detids_TIB; vfd_ref=vfd_ref_TIB;}
   else if(subdet=="TOB") {Ndet=Ndet_TOB; Detids=Detids_TOB; vfd_ref=vfd_ref_TOB;}
@@ -836,13 +875,11 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 
   	tref->GetEntry(ie);
 
-
   	//NEW -- separate TEC by rings
   	if(subdet=="TEC" && layer!= 0)
   	{
   		if(olayer != layer) {continue;}
   	}
-
 
   	//----------------
 	//CAN REMOVE DETIDS/RUNS/TYPE COMBINATIONS HERE (if bad curve --> not to appear on plot)
@@ -858,15 +895,37 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
     	}
     }
 
+	//-- CHANGED : was using VFD(labo) - VFD(ref scan) as reference
+	//Therefore, was using a different reference point for each method or observable
+	//Problem : the measurement of the ref scan seems to be quite different for the 2 methods, whereas for the other scans the results are ~ the same
+	//So better use 1 single reference point for all : the labo measurement !
+    // for(UInt_t idet = 0; idet < Ndet; idet++)
+    // {
+    //   if(odetid==Detids[idet] && odepvolt>=0)
+	//   {
+	// 	  // cout<<"odetid = "<<odetid<<endl;
+	//
+	// 	  vfd_ref[idet] = odepvolt;
+	//   }
+    // }
 
+	VdeplRef SubdetRef;
+    SubdetRef.loadFile(subdet);
 
+	for(UInt_t idet = 0; idet < Ndet; idet++)
+	{
+      odepvolt = SubdetRef.GetVdepl(Detids[idet]);
+	  if(odetid==Detids[idet] && odepvolt>=0)
+	    {
+	  	  // cout<<"odetid = "<<odetid<<endl;
 
-    for(UInt_t idet = 0; idet < Ndet; idet++)
-    {
-      if(odetid==Detids[idet] && odepvolt>=0) vfd_ref[idet] = odepvolt;
-    }
+	  	  vfd_ref[idet] = odepvolt;
+	    }
+	}
+
+	// cout<<"==> odetid = "<<odetid<<endl;
+	// vfd_ref_fullScan.push_back(odepvolt); //-- use all available modules => should read fullScan file instead
   }
-
 
   if(run!="labref")
   {
@@ -897,18 +956,18 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   		  if(olayer != layer) {continue;}
   	  }
 
-
       for(UInt_t idet  = 0; idet < Ndet; idet++)
       {
     	if(odetid==Detids[idet] && odepvolt>=0)
 		{
 		  h->Fill(odepvolt-vfd_ref[idet]);
 
-		  //cout<<Detids[idet]<<" "<<odepvolt<<"-"<<vfd_ref[idet]<<"= "<<odepvolt-vfd_ref[idet]<<endl;
+		  // cout<<Detids[idet]<<" "<<odepvolt<<"-"<<vfd_ref[idet]<<"= "<<odepvolt-vfd_ref[idet]<<endl;
 		}
       }
-	}
 
+	  // h->Fill(odepvolt - vfd_ref_fullScan[ie]); //-- use all available modules => should read fullScan file instead
+	}
 
 	delete f;
   }
@@ -920,10 +979,10 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 	for(UInt_t idet = 0; idet < Ndet; idet++)
 	{
       odepvolt = SubdetRef.GetVdepl(Detids[idet]);
-	  if(odepvolt>=0) h->Fill(odepvolt-vfd_ref[idet]);
+	  if(odepvolt>=0) h->Fill(odepvolt);
+	  // if(odepvolt>=0) h->Fill(odepvolt-vfd_ref[idet]); //CHANGED -- USE DIRECTLY C-V RESULTS AS REF, NOT FIRST SCAN...!
 	}
   }
-
 
   if(show)
   {
@@ -936,7 +995,6 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
   delete tref; delete fref; //CHANGED
   if(show) delete c1;
 
-
   return h;
 }
 
@@ -945,7 +1003,6 @@ TH1F* DrawHistoDiffModules_SmallScan(string dirname, string subdet, string antyp
 
 TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string antype, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu=false, bool use_curvature=true, int layer=0, bool draw_fit=true)
 {
-
   bool useRmsAsErrors=true;
   cout<<"Use RMS error : "<<useRmsAsErrors<<" // Use Mean Error : "<<1-useRmsAsErrors<<endl;
 
@@ -962,7 +1019,6 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
     fluenceRun2 = DetFluenceRun2.GetFluence(369121381);
   }
 
-
   TGraphErrors *g = new TGraphErrors();
   int ipt=0; //need independant index, because some runs are skipped
 
@@ -974,16 +1030,13 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 	double lumi_Run1=29.46;
 	double lumi=0;
 
-  for(int i=0; i<NF; i++)
+	for(int i=0; i<NF; i++)
   {
-    //------------------
-
     TH1F* hdiff = DrawHistoDiffModules_SmallScan(dirname, subdet, antype, ref, runs[i], useflu, use_curvature, layer);
 
     if(!hdiff) {cout<<FRED("hdiff is null! Continue")<<endl; continue;}
 
     lumi = lumis[i];
-
 
 	cout<<"--- Run "<<runs[i]<<endl;
 	cout<<"hdiff : "<<hdiff->GetEntries()<<" entries / Mean = "<<hdiff->GetMean()<<" / RMS : "<<hdiff->GetRMS()<<endl;
@@ -991,17 +1044,14 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 
 	g->SetPoint(ipt, lumi, hdiff->GetMean());//-href->GetMean());
 
-
 	if(useRmsAsErrors) g->SetPointError(ipt, 0, hdiff->GetRMS());
     else g->SetPointError(ipt, 0, hdiff->GetMeanError());
-
 
 	if(i==0)
 	{
         if(useRmsAsErrors) g->SetPointError(ipt, 0, href->GetRMS());
         else g->SetPointError(ipt, 0, href->GetMeanError());
     }
-
 
 	//cout<<ipt<<" mean "<<hdiff->GetMean()-href->GetMean();
 	//if(useRmsAsErrors) cout<<" / rms = "<<hdiff->GetRMS()<<endl;
@@ -1186,6 +1236,14 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 }
 
 
+
+
+
+
+
+
+
+
 //--------------------------------------------
 //  ######  ##     ## ########  ######## ########  #### ##     ## ########   #######   ######  ########    ########  #### ######## ########
 // ##    ## ##     ## ##     ## ##       ##     ##  ##  ###   ### ##     ## ##     ## ##    ## ##          ##     ##  ##  ##       ##
@@ -1197,38 +1255,66 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 //--------------------------------------------
 
 //Superimpose 2 "diff kink" curves (to have Signal & Clusterwidth on same plot)
-void Superimpose_DrawDiffModules_SmallScan(string dirname, string subdet, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu, bool use_curvature, bool draw_fit=true)
+void Superimpose_DrawDiffModules_SmallScan(string dirname, string subdet, string analysis, string ref, const int NF, vector<string> runs, vector<float> lumis, bool useflu, bool use_curvature, bool draw_fit=true)
 {
-	TGraphErrors* g_sig = DrawDiffModules_SmallScan(dirname, subdet, "Signal", ref, NF, runs, lumis, useflu, use_curvature, 0, draw_fit);
-	TGraphErrors* g_cluster = DrawDiffModules_SmallScan(dirname, subdet, "ClusterWidth", ref, NF, runs, lumis, useflu, use_curvature, 0, draw_fit);
+    bool compare_methods = true; //false <-> compare observables instead
 
-	if(!g_sig || !g_cluster) {cout<<"Null TGraph ! Abort !"<<endl; return;}
+    TGraphErrors* g_1 = 0;
+    TGraphErrors* g_2 = 0;
+
+    if(compare_methods) //compare methods
+    {
+        g_1 = DrawDiffModules_SmallScan(dirname, subdet, analysis, ref, NF, runs, lumis, useflu, 1, 0, draw_fit);
+        g_2 = DrawDiffModules_SmallScan(dirname, subdet, analysis, ref, NF, runs, lumis, useflu, 0, 0, draw_fit);
+    }
+    else //compare observables
+    {
+        g_1 = DrawDiffModules_SmallScan(dirname, subdet, "Signal", ref, NF, runs, lumis, useflu, use_curvature, 0, draw_fit);
+        g_2 = DrawDiffModules_SmallScan(dirname, subdet, "ClusterWidth", ref, NF, runs, lumis, useflu, use_curvature, 0, draw_fit);
+    }
+
+	if(!g_1 || !g_2) {cout<<"Null TGraph ! Abort !"<<endl; return;}
 
 	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
 
 
-  TH1F* h1 = g_cluster->GetHistogram(); //Access g content via TH1F*
+  TH1F* h1 = g_2->GetHistogram(); //Access g content via TH1F*
   if(useflu) h1->GetXaxis()->SetTitle("Fluence [cm^{-2}]");
   //else h1->GetXaxis()->SetTitle("L_{int} [fb^{-1}]");
   //else h1->GetXaxis()->SetTitle("#scale[0.6]{#int} L [fb^{-1} ]");
   else h1->GetXaxis()->SetTitle("Integrated luminosity [fb^{-1}]");
-  h1->GetYaxis()->SetTitle("V_{FD} [V]");
-  g_cluster->SetMarkerStyle(20);
 
-  g_cluster->Draw("APL");
+  h1->GetYaxis()->SetTitle("Full depletion voltage drop [V]");
+  h1->GetYaxis()->SetTitleSize(0.04);
+  h1->GetYaxis()->SetTitleOffset(1.3);
+
+  g_2->SetMarkerStyle(20);
+
+  g_2->Draw("APL");
 
   c1->Modified();
   c1->Update();
 
-  g_sig->SetMarkerStyle(20);
-  g_sig->SetMarkerColor(kRed);
-  g_sig->SetLineColor(kRed);
-  g_sig->Draw("PL"); //Don't redraw axis ("A")
+  g_1->SetMarkerStyle(20);
+  g_1->SetMarkerColor(kRed);
+  g_1->SetLineColor(kRed);
+  g_1->Draw("PL"); //Don't redraw axis ("A")
 
-  TLegend* leg = new TLegend(.65,.70,.85,.80);
+  TLegend* leg;
+  if(compare_methods) {leg = new TLegend(.60,.80,.93,.90);}
+  else {leg = new TLegend(.50,.80,.75,.90);}
+
   gStyle->SetLegendTextSize(0.03);
-  leg->AddEntry(g_cluster, "ClusterWidth", "P");
-  leg->AddEntry(g_sig, "Signal", "P");
+  if(compare_methods)
+  {
+      leg->AddEntry(g_1, "Curvature method", "P");
+      leg->AddEntry(g_2, "Crossing lines method", "P");
+  }
+  else
+  {
+	  leg->AddEntry(g_1, "Cluster charge", "P");
+      leg->AddEntry(g_2, "Cluster width", "P");
+  }
   leg->Draw("same");
 
   c1->Modified();
@@ -1236,15 +1322,25 @@ void Superimpose_DrawDiffModules_SmallScan(string dirname, string subdet, string
 
   Create_Plot_Directories();
 
-  TString name = "plots/superimpose_CW_signal/superimpose_diff_";
-  if(use_curvature) {name+= "kink";}
-  else {name+= "line";}
+  TString name = "";
+  if(compare_methods)
+  {
+     name = "plots/superimpose_curves/superimpose_diffMethods_";
+     name+= analysis;
+  }
+  else
+  {
+      name = "plots/superimpose_curves/superimpose_diffObservables_";
+      if(use_curvature) {name+= "kink";}
+      else {name+= "line";}
+  }
+
   name+=".png";
 
   c1->SaveAs(name);
 
   delete c1; delete leg;
-  delete g_sig; delete g_cluster;
+  delete g_1; delete g_2;
 
   return;
 }
@@ -1447,7 +1543,7 @@ TProfile* PrintDiffModules_FullScan(string dirname, string subdet, string antype
 //--------------------------------------------
 
 
-void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> runs, vector<float> lumis, bool usefluence, bool use_curvature, bool superimpose_simu=false, bool draw_vdep_lab=true, bool draw_fit=false)
+void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> runs, vector<float> lumis, bool usefluence, bool use_curvature, bool superimpose_simu=false, bool draw_vdep_lab=true, bool draw_fit=false, bool draw_gray_band=false)
 {
   int NF = runs.size();
 
@@ -1456,60 +1552,60 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
   if(subdet=="TIB")
   {
 	  //TIB-
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121381, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121382, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121385, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121386, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121389, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121390, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121381, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121382, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121385, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121386, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121389, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121390, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  //TIB+
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125862, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125866, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125870, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125862, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125866, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125870, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 
 	  //OTHER TIB MODULES, ONLY USED IN FULL SCANS, THEREFORE NOT TO BE USED FOR EVOLUTION PLOTS !
 	  /*
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121605, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121606, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121609, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121610, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121613, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121614, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125861, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125865, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125869, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);*/
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121605, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121606, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121609, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121610, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121613, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121614, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125861, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125865, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125869, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);*/
   }
 
   else if(subdet=="TOB")
   {
   //TOB
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815081, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815082, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815121, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815122, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815161, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815162, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815201, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815202, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815241, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815242, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815281, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815282, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815081, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815082, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815121, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815122, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815161, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815162, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815201, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815202, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815241, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815242, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815281, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815282, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 
 
 	  // TOB + 1.3.1.6 //NEW -- ADDED 04/2018
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329011, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329021, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329051, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329061, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329091, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329101, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329131, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329141, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329171, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329181, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329211, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329221, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329011, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329021, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329051, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329061, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329091, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329101, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329131, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329141, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329171, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329181, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329211, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329221, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
   }
 
 
@@ -1517,35 +1613,35 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
   {
 	  //TEC
 	  //1 sensor
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701481960, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482280, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482400, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482000, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482320, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482040, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482360, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701481960, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482280, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482400, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482000, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482320, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482040, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482360, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  //2 sensors
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482651, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482652, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482961, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482962, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483241, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483242, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482651, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482652, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482961, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482962, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483241, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483242, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483361, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483362, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482611, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482612, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482661, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482662, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483001, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483002, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482621, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482622, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482921, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482922, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483321, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
-	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483322, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483361, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483362, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482611, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482612, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482661, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482662, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483001, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483002, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482621, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482622, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482921, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701482922, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483321, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TEC", type, "", NF, runs, lumis, 4701483322, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
   }
 
 
@@ -1553,6 +1649,8 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
   //DrawDiffModules_SmallScan(dirname, subdet, type, "160497", NF, runs, lumis, usefluence, use_curvature);
 
   //Superimpose_DrawDiffModules_SmallScan(dirname, subdet, "280385", NF, runs, lumis, usefluence);
+
+  return;
 }
 
 
@@ -1756,6 +1854,10 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run = "", double lumi = 0)
 {
 	bool plot_fluence = true; // false <-> do not superimpose fluence for each layer //faster
+    bool read_flu_from_file = true;
+	bool use_logScale = false;
+
+    ifstream file_in("fluence_per_layer.txt"); //read the mean fluences from txt file
 
 	vector<TString> v_subdet;
 	v_subdet.push_back("TIB");
@@ -1768,9 +1870,9 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	vector<double> lumis;
 	if(run == "")
 	{
+		v_runs.push_back("323374"); lumis.push_back(152.45+29.46);
 		v_runs.push_back("314574"); lumis.push_back(97.37+29.46);
 		v_runs.push_back("303824"); lumis.push_back(70.55+29.46);
-		v_runs.push_back("295376"); lumis.push_back(45.71+29.46);
 	}
 	else {v_runs.push_back(run); lumis.push_back(lumi);}
 
@@ -1815,27 +1917,41 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 		gPad->SetTicky(0); //remove right-hand ticks
 	}
 
+	if(use_logScale) {c1->SetLogy();}
 
 	for(int irun=0; irun<v_runs.size(); irun++)
 	{
 		int ibin_tmp = 0;
 		for(int idet=0; idet<v_subdet.size(); idet++)
 		{
-			pair<vector<double>, vector<double> > v_mean_vfd_fluence = Compute_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[idet], antype, v_runs[irun], lumis[irun], plot_fluence);
+            pair<vector<double>, vector<double> > v_mean_vfd_fluence = Compute_Mean_Vfd_Drop_Per_Layer(dirname, v_subdet[idet], antype, v_runs[irun], lumis[irun], !read_flu_from_file);
 
 			for(int ibin=0; ibin<v_mean_vfd_fluence.first.size(); ibin++)
 			{
-				h_flu->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.second[ibin]); //set layer fluence
+                if(!plot_fluence || !read_flu_from_file)
+                {
+                    h_flu->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.second[ibin]); //set layer fluence
+                }
+                else
+                {
+                    string line;
+					getline(file_in, line);
+					stringstream ss(line);
+					int run; string det; double x;
+					ss>>run>>det>>x; //read mean flu
+					cout<<"subdet "<<v_subdet[idet]<<" / ibin "<<ibin<<" -> Flu = "<<x<<endl;
 
-				if(v_runs.size() > 1) //1 histo per run
+					h_flu->SetBinContent(ibin_tmp + ibin + 1, x); //set layer fluence
+                }
+
+            	if(v_runs.size() > 1) //1 histo per run
 				{
 					v_h[irun]->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.first[ibin]); //Binning starts at 1
 				}
 				else //1 histo per subdet
 				{
-                    v_h[idet]->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.first[ibin]); //Binning starts at 1
-
-                    if(idet == 1 || (idet == 3 && ibin > 3) ) {h_color->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.first[ibin]);} //Only color few TOB/TEC bins
+					v_h[idet]->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.first[ibin]);
+					if(idet == 1 || (idet == 3 && ibin > 3) ) {h_color->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.first[ibin]);}
 				}
 				// cout<<"SetBinContent bin "<<ibin_tmp + ibin + 1<<", v_mean_vfd_fluence.first[ibin] = "<<v_mean_vfd_fluence.first[ibin]<<endl;
 			}
@@ -1849,16 +1965,13 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	// const char *labels[nx]  = {"L1","L2","L3","L4","R1","R2","R3","L1","L2","L3","L4","L5","L6","R1","R2","R3","R4","R5","R6","R7"};
 	const char *labels[nx]  = {"TIB L1","TIB L2","TIB L3","TIB L4","TOB L1","TOB L2","TOB L3","TOB L4","TOB L5","TOB L6","TID R1","TID R2","TID R3","TEC R1","TEC R2","TEC R3","TEC R4","TEC R5","TEC R6","TEC R7"};
 
-	for(int i=1;i<=nx;i++) v_h[0]->GetXaxis()->SetBinLabel(i,labels[i-1]);
+	for(int i=1;i<=nx;i++) {v_h[0]->GetXaxis()->SetBinLabel(i,labels[i-1]);}
 
 	v_h[0]->GetXaxis()->LabelsOption("v");
 
 	int nof_iter = 0; //need to loop either on runs (if there are >1) or on subdets
 	if(v_runs.size() > 1) {nof_iter = v_runs.size();}
 	else {nof_iter = v_subdet.size();}
-
-	//Set y-axis maximum (leave space for legend)
-	v_h[0]->SetMaximum(v_h[0]->GetMaximum() * 1.2);
 
 	for(int iter=0; iter<nof_iter; iter++)
 	{
@@ -1875,13 +1988,29 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 		v_h[iter]->GetYaxis()->SetTitleSize(.04);
 		v_h[iter]->GetYaxis()->SetTitleOffset(1.4);
 
-		v_h[iter]->SetMinimum(0.);
+		if(use_logScale) {v_h[iter]->SetMinimum(20.);}
+		else {v_h[iter]->SetMinimum(0.);}
+
+		if(v_runs.size()>1) {v_h[iter]->SetLineColor(iter+1); cout<<v_runs[iter]<<" : color "<<iter+1<<endl;}
 
 		v_h[iter]->Draw("hist same");
 	}
 
-    h_color->SetFillColor(kGray);
-    h_color->Draw("hist same");
+	//Set y-axis maximum (leave space for legend)
+	v_h[0]->SetMaximum(v_h[0]->GetMaximum() * 1.2);
+	if(use_logScale)
+	{
+		v_h[0]->SetMaximum(v_h[0]->GetMaximum() * 1.3);
+		v_h[0]->SetNdivisions(7);
+	}
+
+
+
+	if(v_runs.size() == 1)
+	{
+		h_color->SetFillColor(kGray);
+		h_color->Draw("hist same");
+	}
 
     TGaxis *axis = 0;
 	if(plot_fluence)
@@ -1896,23 +2025,33 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
         h_flu->SetLineWidth(3);
         h_flu->SetLineStyle(2); //dashed
 
-		// cout<<"h_flu->GetMaximum() "<<h_flu->GetMaximum()<<endl;
+		h_flu->SetMinimum(20.);
 
+		// cout<<"v_h[0]->GetMaximum() = "<<v_h[0]->GetMaximum()<<endl;
+		// cout<<"h_flu->GetMaximum() "<<h_flu->GetMaximum()<<endl;
 		h_flu->Draw("hist same");
 
         //draw an axis on the right side
-		axis = new TGaxis(20, 0, 20, v_h[0]->GetMaximum(), 0, rightmax * pow(10, -12), 510,"+L");
-		// axis = new TGaxis(20, 0, 20, h_flu->GetMaximum(), 0, rightmax * pow(10, -12), 510,"+L");
+        if(use_logScale)
+		{
+			axis = new TGaxis(20, 0, 20, v_h[0]->GetMaximum(), 20., rightmax * pow(10, -11), 7,"G +L");
+			axis->SetTitle("Simulated fluence [10^{11} MeV neutron equivalent . cm^{-2}]");
+		}
+		else
+		{
+			axis = new TGaxis(20, 0, 20, v_h[0]->GetMaximum(), 0, rightmax * pow(10, -12), 510,"+L");
+			axis->SetTitle("Simulated fluence [10^{12} MeV neutron equivalent . cm^{-2}]");
+		}
 
-		axis->SetTickLength(0.03);
+        axis->SetTickLength(0.03);
 	    axis->SetLabelSize(0.035);
 		axis->SetLabelFont(42);
 		axis->SetTitleFont(42);
 	    axis->SetNoExponent(kTRUE);
 	    // axis->SetLabelOffset(-0.008);
 
-		axis->SetTitle("Simulated fluence [10^{12} MeV neutron equivalent . cm^{-2}]");
 		axis->SetTitleSize(.035);
+		axis->SetTitleColor(kRed);
 		axis->SetTitleOffset(1.3);
 
         axis->SetLineColor(kRed);
@@ -1934,7 +2073,8 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	}
 	TLine l;
 	c1->Update();
-	Double_t ymin = c1->GetUymin();
+	// Double_t ymin = c1->GetUymin();
+	Double_t ymin = v_h[0]->GetMinimum();
 	Double_t ymax = c1->GetUymax();
 	l.SetLineStyle(2);
 	for (Int_t ibin=1;ibin<nxbins;ibin++)
@@ -1959,6 +2099,8 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	// CAPTIONS //
 //----------------
 
+	bool writeExtraText = false; //Write 'CMS prelim' label
+
 	TString cmsText     = "CMS";
 	TLatex latex;
 	latex.SetNDC();
@@ -1967,21 +2109,25 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	latex.SetTextFont(61);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
+	if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
 
-	bool writeExtraText = false;
 	TString extraText   = "Preliminary";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
-	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
+	if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
 
     TString lumi_text   = "29.45 fb^{-1} (Run 1) + 70.55 fb^{-1} (Run 2)";
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.03);
-	latex.DrawLatex(0.60, 0.93, lumi_text);
+	latex.DrawLatex(0.55, 0.93, lumi_text);
 
-	c1->SaveAs("Vfd_Drop_Per_Layer.png");
-	// c1->SaveAs("Vfd_Drop_Per_Layer.pdf");
+	TString fluka_text   = "CMS FLUKA v3.9.0.0";
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.025);
+	latex.DrawLatex(0.62, 0.85, fluka_text);
+
+	c1->SaveAs("Vfd_Drop_Per_Layer.pdf");
+	// c1->SaveAs("Vfd_Drop_Per_Layer.png");
 
 	delete c1; c1 = NULL;
 	for(int i=0; i<v_h.size(); i++)
@@ -2012,37 +2158,49 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 // ##     ##  #######  ########    ##    ####     ######   ######  ##     ## ##    ##  ######
 //--------------------------------------------
 
+/**
+ * Plot the Vdrop for each subdet layer as a separate TGraph (cf. 2018 approved plot)
+ * Can see 2 main trends (before inversion) : thin and thick sensors
+ */
 void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype="ClusterWidth")
 {
 	bool use_fluence = true; // false <-> do not superimpose fluence for each layer //faster
 	bool read_flu_from_file = true;
+    bool use_logScale = false;
 
 	// ofstream file_out("fluence_per_layer.txt"); //write the mean fluences to txt file //NB : comment to avoid overwrite
 	ifstream file_in("Fluence_perLayer_MultiScans.txt"); //read the mean fluences from txt file
+	// ifstream file_in("Fluence_perLayer_MultiScans_TIBTOB.txt"); //read the mean fluences from txt file
 
 
 	vector<TString> v_subdet;
 	v_subdet.push_back("TIB");
 	v_subdet.push_back("TOB");
-	v_subdet.push_back("TEC");
+	v_subdet.push_back("TEC"); //If want to only use TIB/TOB, also change the fluence file being read !
 	v_subdet.push_back("TID");
 
 	//If want to plot multiple runs at once, remove 'run' arg and list the runs here instead !
 	vector<TString> v_runs; vector<double> lumis;
 
-	// v_runs.push_back("170000");lumis.push_back(1.44);
+	// v_runs.push_back("170000");lumis.push_back(1.44); //not used for now, still missing files
 	v_runs.push_back("190459");lumis.push_back(6.15);
 	v_runs.push_back("193928");lumis.push_back(7.41);
 	v_runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T
 	v_runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
 	v_runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
 	v_runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
-	v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
+	// v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
+	// v_runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
 
 	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
 	c1->SetTopMargin(0.1);
 	c1->SetBottomMargin(0.1);
 	c1->SetRightMargin(0.15);
+    if(use_logScale)
+	{
+		c1->SetLogx();
+		c1->SetLogy();
+	}
 
 	// TLegend* leg = new TLegend(0.73, 0.75, 0.95, 0.88);
 	TLegend* leg = 0;
@@ -2058,9 +2216,9 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 		if(v_subdet[idet] == "TIB")
 		{
 			v_color.push_back(kRed);
+			v_color.push_back(kOrange+9);
 			v_color.push_back(kPink+10);
-			v_color.push_back(kOrange);
-			v_color.push_back(kRed+2);
+			v_color.push_back(kMagenta+2);
 		}
 		else if(v_subdet[idet] == "TOB")
 		{
@@ -2139,7 +2297,8 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 					// file_out<<v_runs[irun]<<" "<<v_subdet[idet]<<" "<<x<<endl; //write mean flu
 				}
 
-				v_graphs[index_layer]->SetPoint(irun, x, -v_meanVfdDrop_PerLayer_PerSubdet[idet][ilayer]);
+				if(use_logScale) {v_graphs[index_layer]->SetPoint(irun, x, v_meanVfdDrop_PerLayer_PerSubdet[idet][ilayer]);}
+				else {v_graphs[index_layer]->SetPoint(irun, x, -v_meanVfdDrop_PerLayer_PerSubdet[idet][ilayer]);}
 
 				cout<<"-- Graph "<<index_layer<<" / ipt "<<irun<<" / x = "<<x<<" / y = "<<v_meanVfdDrop_PerLayer_PerSubdet[idet][ilayer]<<endl;
 
@@ -2189,7 +2348,12 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 
 	TH1F* h = v_graphs[0]->GetHistogram();
 	// h->SetMinimum(0.);
-	h->SetMaximum(0.);
+	if(!use_logScale) {h->SetMaximum(0.);}
+	else
+	{
+		h->GetYaxis()->SetMoreLogLabels();
+		h->GetXaxis()->SetMoreLogLabels();
+	}
 	h->GetYaxis()->SetTitle("Full depletion voltage drop [V]");
 	if(use_fluence) {h->GetXaxis()->SetTitle("Simulated fluence [1 MeV neutron equivalent . cm^{-2}]");}
 	else {h->GetXaxis()->SetTitle("Integrated luminosity [fb^{-1}]");}
@@ -2197,7 +2361,6 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
     h->GetXaxis()->SetTitleOffset(1.18);
 	h->GetYaxis()->SetTitleSize(.04);
 	h->GetYaxis()->SetTitleOffset(1.4);
-
 	h->Draw();
 
 	for(int ig=0; ig<v_graphs.size(); ig++)
@@ -2211,7 +2374,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	// CAPTIONS //
 //----------------
 
-	TString cmsText     = "CMS";
+	TString cmsText = "CMS";
 	TLatex latex;
 	latex.SetNDC();
 	latex.SetTextAngle(0);
@@ -2227,30 +2390,37 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
 
-    TString lumi_text   = "29.45 fb^{-1} (Run 1) + 70.55 fb^{-1} (Run 2)";
+	TString lumi_text   = "29.45 fb^{-1} (Run 1) + 70.55 fb^{-1} (Run 2)";
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.03);
 	latex.DrawLatex(0.60, 0.93, lumi_text);
 
-	c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.png");
-	// c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.pdf");
+	TString fluka_text   = "CMS FLUKA v3.9.0.0";
+	latex.SetTextFont(52);
+	latex.SetTextSize(0.025);
+	latex.DrawLatex(0.62, 0.85, fluka_text);
 
+	// c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.png");
+	c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.pdf");
 
+	//Save rootfile containing each TGraph separately
+	/*
 	TFile* f_output = new TFile("TGraphs_VFDevol.root", "RECREATE");
 	f_output->cd();
 	for(int ig=0; ig<v_graphs.size(); ig++)
 	{
 		v_graphs[ig]->Write(v_legend[ig]);
 	}
+	delete f_output; f_output = NULL;
+	*/
 
 	for(int i=0; i<v_graphs.size(); i++)
 	{
 		delete v_graphs[i]; v_graphs[i] = NULL;
 	}
+
 	delete leg;
 	delete c1; c1 = NULL;
-
-	delete f_output; f_output = NULL;
 
 	return;
 }
@@ -2400,22 +2570,23 @@ int main(int argc, char *argv[])
 
   bool use_curvature = false; //true-->kink ; false-->lines
 
-
+//--------------------------------------------
   bool usefluence = true; //Draw fluence axis
   bool superimpose_simu = true; //Superimpose simulation curves (only TIB for now)
   bool draw_vdep_lab = true; //Draw lab measurement of initial Vfd
   bool draw_fit = false; //Draw linear fit of vfd evolution
+  bool draw_gray_band = true; //Add gray band at low V to emphasize our insensitivity
 
 
-
+  //--------------------------------------------
 //-- ACTIONS --//
-  bool draw_vfd_evolution_plots = true; //Vfd evol plots
+  bool draw_vfd_evolution_plots = false; //Vfd evol plots
   bool draw_vfd_relative_evolution_plots = false; //Vfd relative evol plots
   bool draw_vfd_relative_evolution_superimposed_plots = false; //Vfd relative evol plots with both observables drawn
   bool compute_mean_drop = false; //Compute mean Vfd drop for each Layer
   bool compute_mean_drop_multipleScans = false; //Compute mean Vfd drop for each Layer, for several scans
   bool plot_cw_vs_vfd = false;
-
+//--------------------------------------------
 
 //-- Choose the observables
   vector<string> v_analysis;
@@ -2425,9 +2596,9 @@ int main(int argc, char *argv[])
 //-- Choose the subdet
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  // v_subdet.push_back("TOB");
-  // v_subdet.push_back("TEC");
-
+  //v_subdet.push_back("TOB");
+  //v_subdet.push_back("TEC");
+//--------------------------------------------
 
 
 
@@ -2441,9 +2612,7 @@ int main(int argc, char *argv[])
 	{
 		for(int j=0; j<v_subdet.size(); j++)
 		{
-			if(v_subdet[j] != "TIB") {superimpose_simu = false;} //Only available for TIB yet
-
-			//FIll vectors here in order to read vector values and get rid of faulty runs accordingly
+			//Fill vectors here in order to read vector values and get rid of faulty runs accordingly
 			vector<string> runs;
 			vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
 			//Old runs (10)
@@ -2485,19 +2654,22 @@ int main(int argc, char *argv[])
 			// if(v_subdet[j] != "TOB") {runs.push_back("305862");lumis.push_back(91.65+29.46);} //Low stat TOB -- (ALCARECO issue?)
 
 			//2018
-			// runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
+			runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20)
 			// runs.push_back("314755");lumis.push_back(97.37+29.46); //-- FULL (-10)
 			// runs.push_back("314756");lumis.push_back(97.37+29.46); //-- FULL (-10) -- few previously excluded PGs
-			// runs.push_back("317182");lumis.push_back(113.01+29.46); //-- (ALCARECO issue)
-            // runs.push_back("317683");lumis.push_back(119.21+29.46);
-			// runs.push_back("320674");lumis.push_back(127.08+29.46);
-			// runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
+			// runs.push_back("317182");lumis.push_back(113.01+29.46); //-- (ALCARECO issue, not used)
+            runs.push_back("317683");lumis.push_back(119.21+29.46);
+			runs.push_back("320674");lumis.push_back(127.08+29.46);
+            runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
+            runs.push_back("324841");lumis.push_back(161.40+29.46);
+            // runs.push_back("326883");lumis.push_back(xxx+29.46); //Heavy Ions
 
 			//--------------------------------------------
-			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit);} //VFD EVOLUTION, SINGLE MODULES
+			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);} //VFD EVOLUTION, SINGLE MODULES
 			if(compute_mean_drop)
 			{
-				Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_analysis[i], "303824", 70.55+29.46);
+                // Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_analysis[i], "", 0);
+                Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_analysis[i], "303824", 70.55+29.46);
 				break; //Don't need to repeat for each subdet
 			}
 			// if(plot_cw_vs_vfd) {Plot_CW300V_VS_Vfd(dirname, v_subdet[j], v_analysis[i], "314574");}
@@ -2511,7 +2683,7 @@ int main(int argc, char *argv[])
 			for(int k=3; k<8; k++) //Relative plots for all TEC layers
 			{
 				if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, k, draw_fit);} //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
-				if(draw_vfd_relative_evolution_superimposed_plots) {Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], ref.Data(), runs.size(), runs, lumis, false, use_curvature, draw_fit);} //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
+				if(draw_vfd_relative_evolution_superimposed_plots) {Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, draw_fit);} //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
 				if(v_subdet[j] != "TEC") {break;}
 			}
 			//--------------------------------------------
@@ -2519,7 +2691,6 @@ int main(int argc, char *argv[])
 	}
 
 	if(compute_mean_drop_multipleScans) {Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(dirname, "ClusterWidth");}
-
 	//--------------------------------------------
 
 	return 0;

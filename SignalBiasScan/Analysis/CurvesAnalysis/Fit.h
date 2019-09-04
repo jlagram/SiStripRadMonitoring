@@ -59,7 +59,7 @@ void Create_Plot_Directories()
 	mkdir("plots/CW/compareCurve",0777);
 	mkdir("plots/CW/relative",0777);
 	mkdir("plots/signal/relative",0777);
-	mkdir("plots/superimpose_CW_signal",0777);
+	mkdir("plots/superimpose_curves",0777);
 }
 
 
@@ -1047,12 +1047,12 @@ if(verbose) cout<<"* Linear Fits Method :";
 	latex.SetTextFont(61);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	latex.DrawLatex(0.58,0.93,cmsText);
+	// latex.DrawLatex(0.58,0.93,cmsText);
 
 	TString extraText   = "Preliminary 2017";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
-	latex.DrawLatex(0.70, 0.932, extraText);
+	// latex.DrawLatex(0.70, 0.932, extraText);
 
 	c2->Modified();
 	c2->Update();
@@ -1070,10 +1070,20 @@ if(verbose) cout<<"* Linear Fits Method :";
 
 	g->SetTitle("");
 	if(!is_low_vfd) g->Draw("AP"); //"P" = marker, "A" = draw axis, "X" = no errors
-	else {g_nosmooth->Draw("AP");}
+	else
+	{
+		//CHANGED -- in that case, delete g, and replace it by g_nosmooth
+		delete g; g = 0;
+
+		g = g_nosmooth;
+		g->Draw("AP");
+
+		// g_nosmooth->Draw("AP");
+	}
 	//g->SetMarkerColor(15);
 	//g->GetXaxis()->SetTitle("V_{bias} [V]");
 	g->GetXaxis()->SetTitle("Bias voltage [V]");
+	// cout<<"g->GetXaxis()->GetTitle() "<<g->GetXaxis()->GetTitle()<<endl;
 	//g->GetYaxis()->SetTitle("ClusterWidth [#strips]");
 	if(observable == "Signal") g->GetYaxis()->SetTitle("Cluster charge [a.u.]");
 	//else if(observable == "ClusterWidth") g->GetYaxis()->SetTitle("Cluster width [a.u.]");
@@ -1088,29 +1098,21 @@ if(verbose) cout<<"* Linear Fits Method :";
 	//----------------
 
 // -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
-
-
 	latex.SetNDC();
 	latex.SetTextAngle(0);
 	latex.SetTextColor(kBlack);
 	latex.SetTextFont(61);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	latex.DrawLatex(0.58,0.93,cmsText);
+	// latex.DrawLatex(0.58,0.93,cmsText);
 
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
-	latex.DrawLatex(0.70, 0.932, extraText);
-
-
-
-
-
-
+	// latex.DrawLatex(0.70, 0.932, extraText);
 
 	TLine *l = new TLine(vdep_kink, ymin, vdep_kink, ymax+0.1);
 	l->SetLineStyle(3);
-	//l->Draw(); //Draw vertical line at vdep by kink method
+	// l->Draw(); //Draw vertical line at vdep by kink method
 
 	// draw low threshold
 	TLine *lthresh = new TLine(xthresh, ymin, xthresh, ymax+0.1);
@@ -1125,13 +1127,12 @@ if(verbose) cout<<"* Linear Fits Method :";
 	gthresh->SetFillStyle(3354);
 	//gthresh->Draw("f");
 
-
 	//--- draw 2 line fit and crossing point position
 	f3_high->Draw("same");  // blue line
 	f3_low->Draw("same");  // green line
 	TLine *lcross = new TLine(vdep_crossingpoint, ymin, vdep_crossingpoint, ymax+0.1);
 	lcross->SetLineStyle(2);
-	lcross->Draw(); ////Draw vertical line at vdep by fit method
+	lcross->Draw("same"); //Draw vertical line at vdep by fit method
 
 	//Sigmoid Fit
 	//status = g->Fit("ftest", "rqn");

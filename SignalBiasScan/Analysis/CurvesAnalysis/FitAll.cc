@@ -332,13 +332,13 @@ int main()
 {
   vector<string> v_analysis;
   v_analysis.push_back("Signal");
-  v_analysis.push_back("ClusterWidth");
+  // v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  //v_subdet.push_back("TOB");
-  //v_subdet.push_back("TEC");
-  //v_subdet.push_back("TID");
+  // v_subdet.push_back("TOB");
+  // v_subdet.push_back("TEC");
+  // v_subdet.push_back("TID");
 
   bool use_curvature = false; //true-->kink ; false-->lines
 
@@ -359,7 +359,7 @@ int main()
   // runs.push_back("200786");	dates.push_back("20120812");
   // runs.push_back("203832");	dates.push_back("20120928");
   // runs.push_back("208339");	dates.push_back("20121130");
-  //runs.push_back("211797");	dates.push_back("20130213");
+  // runs.push_back("211797");	dates.push_back("20130213");
 
 //2015 (4)
   // runs.push_back("246963"); dates.push_back("20150603");
@@ -380,7 +380,7 @@ int main()
   // runs.push_back("295376");	dates.push_back("20170527"); //Full
   //runs.push_back("298996");	dates.push_back("20170714");
   // runs.push_back("302131");	dates.push_back("20170831");
-  runs.push_back("303824");	dates.push_back("20170924"); //Full
+  // runs.push_back("303824");	dates.push_back("20170924"); //Full
   // runs.push_back("305862");	dates.push_back("20171030");
 
 //2018
@@ -389,7 +389,8 @@ int main()
   // runs.push_back("317182");	dates.push_back("20180530");
   // runs.push_back("317683");	dates.push_back("20180611");
   // runs.push_back("320674");	dates.push_back("20180801");
-  //runs.push_back("323374");	dates.push_back("20180923"); //FULL
+  runs.push_back("323374");	dates.push_back("20180923"); //FULL
+  // runs.push_back("324841");	dates.push_back("20181018");
 
 
 

@@ -56,7 +56,6 @@ TString Change_Data_Format(TString ts)
 
 void CompareCurve(string dirname, string subdet, const int NF, vector<string> dates, vector<string> runs, vector<float> lumis, ULong64_t modid, string type, bool normalize=false, bool showfit=true, bool print=false, string suffix="", bool draw=true, bool draw_vdep = false)
 {
-
  //cout<<"entering CompareCurve(...)"<<endl;
 
  if(!draw) gROOT->SetBatch(kTRUE);
@@ -347,9 +346,13 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	  	if( ((subdet=="TOB" || subdet == "TEC") && odetid/10 == detid) || odetid == detid)
 	  	{
 	  		vdep = odepvolt;
+			olayer_detid = olayer;
+
+			// cout<<"modid "<<detid<<endl;
+			// cout<<"odepvolt "<<odepvolt<<endl;
+			// cout<<"olayer "<<olayer<<endl;
 	  	}
 	  }
-	  olayer_detid = olayer;
 
 	 if(vdep != 0)
 	 {
@@ -385,7 +388,9 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
 
-	TString subdet_text = subdet + " Layer " + Convert_Number_To_TString(olayer_detid+1);
+    // cout<<"subdet = "<<subdet<<" / Convert_Number_To_TString((ULong64_t) GetLayer(modid)) = "<<Convert_Number_To_TString((ULong64_t) GetLayer(modid))<<" / detid = "<<modid<<endl;
+
+	TString subdet_text = subdet + " Layer " + Convert_Number_To_TString((ULong64_t) GetLayer(modid));
 	if(subdet == "TEC") subdet_text = subdet + " Ring " + Convert_Number_To_TString(olayer_detid+1);
 	TLatex subdetinfo;
 	subdetinfo.SetNDC();
@@ -461,6 +466,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
  c1->Close();
 
+  return;
 }
 
 
@@ -493,23 +499,22 @@ void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector
  CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125870, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 
 
-
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124670, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124666, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124662, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124669, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124665, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124661, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124654, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124650, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124646, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124422, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124653, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124649, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124645, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124421, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124758, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-
+	//--Included in full scans
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124670, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124666, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124662, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124669, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124665, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124661, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124654, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124650, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124646, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124422, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124653, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124649, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124645, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124421, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124758, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 }
 
 //-------------------------------
@@ -666,7 +671,7 @@ int main()
 
 
 	vector<string> v_analysis;
-	v_analysis.push_back("Signal");
+	// v_analysis.push_back("Signal");
 	v_analysis.push_back("ClusterWidth");
 
 	vector<string> v_subdet;
@@ -680,17 +685,17 @@ int main()
 	//--- RUN 2
 	//2015 (4)
 
-	//runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
+	runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
 	//runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
 	//runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
-	//runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
+	runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
 
 	//2016 (6)
-	//runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
+	runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
 	//runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
-	//runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
+	runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
 	//runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
-	// runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
+	runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
 	//-- runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
 	//2017 (5)
 	// runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
@@ -704,8 +709,13 @@ int main()
 	// runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(97.37+29.46); //Full -20°
 	// runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(97.37+29.46); //Full -10°
 	// runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
-	// runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
+    // runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
+    // runs.push_back("320674");	dates.push_back("20180801");	lumis.push_back(127.08+29.46);
+    // runs.push_back("323374");	dates.push_back("20180923");	lumis.push_back(152.45+29.46); //Full
+    // runs.push_back("324841");	dates.push_back("20181018");	lumis.push_back(161.40+29.46);
+    // runs.push_back("326883");	dates.push_back("20181118");	lumis.push_back(xxx+29.46); //HI
 
+    //---------------------------
 
 	int NF = runs.size();
 
@@ -734,4 +744,3 @@ int main()
 
   }
 }
-
