@@ -7,15 +7,22 @@ from ROOT import TFile, TTree, TObject, TCanvas, TGraphAsymmErrors, TLine, TMath
 from datetime import datetime
 
 
+# GET ARGUMENTS
+
+# get directory name and steps file name
+if len(sys.argv)<3:
+  print 'Use is: python2.7 drawGraphFromRoot.py DIRECTORY STEP_LIST (RUN)'
+  exit()
+else:
+  dirname = sys.argv[1]
+  stepfilename = sys.argv[2]
+
 # possibility to filter on a run number
 run_to_keep = 0
-if len(sys.argv)>1:
-  print 'RUN ', sys.argv[1]
-  run_to_keep = int(sys.argv[1])
+if len(sys.argv)>3:
+  print 'RUN ', sys.argv[3]
+  run_to_keep = int(sys.argv[3])
 
-
-dir='scans/2018Jun/monitor'
-stepfilename='noisebias_20180618_10_to_200V.txt' 
 
 #--------------------------------------------------------
 
@@ -86,7 +93,7 @@ def draw_save_graphs(graphs, yvar, xvar, filename):
 
 # get list of log files
 jobs=[]
-for root, dirs, files in os.walk(dir):
+for root, dirs, files in os.walk(dirname):
   for filename in files:
     words = filename.replace('.root', '').split('_')
     if words[0]=="noise" and words[1].isdigit():
@@ -98,7 +105,7 @@ for root, dirs, files in os.walk(dir):
 jobs.sort()
 detids={}
 for job in jobs:
-  f = TFile.Open(dir+'/noise_'+job+'.root')
+  f = TFile.Open(dirname+'/noise_'+job+'.root')
   if f is None: continue
   #print 'opened', f.GetName()
   tree = f.Get('monitor/noisetree')

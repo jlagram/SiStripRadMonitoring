@@ -1,15 +1,28 @@
 import sys
 
+
+# GET ARGUMENTS
+
+# get file names
+if len(sys.argv)<3:
+  print 'Use is: python2.7 listFilesPerStep.py STEP_LIST FILE_LIST (RUN)'
+  exit()
+else:
+  step_list_name = sys.argv[1]
+  file_list_name = sys.argv[2]
+
 # possibility to filter on a run number
 run_to_keep = 0
-if len(sys.argv)>1:
-  print 'RUN ', sys.argv[1]
-  run_to_keep = int(sys.argv[1])
+if len(sys.argv)>3:
+  print 'RUN ', sys.argv[3]
+  run_to_keep = int(sys.argv[3])
 
+
+#--------------------------------------------------------
 
 # read steps definition
 steps={}
-f = open('noisebias_20180618_200_to_300V.txt', 'r')
+f = open(step_list_name, 'r')
 for line in f:
   words = line.split(" ")
   if len(words)>4 and str.isdigit(words[0]):
@@ -55,7 +68,7 @@ stepList.sort()
 # for each step produce a file list
 for step in stepList:
 
-  f = open('Jun2018_VRRandom0_files_part2_step'+str(step)+'.txt', 'w')
+  f = open(file_list_name+'_step'+str(step)+'.txt', 'w')
 
   evt_min = steps[step][0]
   evt_max = steps[step][1]

@@ -57,7 +57,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(20) )
 process.load('Configuration.StandardSequences.RawToDigi_Data_cff')
 process.load('RecoLocalTracker.Configuration.RecoLocalTracker_cff')
 
-process.monitor = cms.EDAnalyzer('InputFileNoise',
+process.monitor = cms.EDAnalyzer('NoiseBiasScan',
 #    srcZSdigi = cms.InputTag('siStripZeroSuppression','VirginRaw')
 srcZSdigi = cms.InputTag('siStripDigis','VirginRaw'))
 

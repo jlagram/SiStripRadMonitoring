@@ -1,5 +1,5 @@
 # get file list for dataset
-dasgoclient --query="file dataset=/VRRandom0/Commissioning2019-v1/RAW"
+dasgoclient --query="file dataset=/VRRandom0/Commissioning2019-v1/RAW run=331595" > Sep2019_VRRandom0_files.txt
 
 # replace number of jobs by number of files in above list
 vi job.sub
@@ -9,21 +9,28 @@ voms-proxy-init --voms cms --valid 168:00
 ll /tmp/x509up_u* | grep jlagram
 cp /tmp/x509up_u16737 ~/
 
+## edit directory name in cmsRun_batch_eos 
+
 # launch jobs
 condor_submit job.sub
+# get status with:
+condor_q
 
 # get file names and event ranges from logs
 python2.7 readLogs.py JOBID
 
 # create file lists for each voltage steps
-# update in the script the input and output names
-# optionnal filter on run number, if provided in argument
-python2.7 listFilesPerStep.py (RUN)
+## update the input name in the script if different from FileListWithEventsAndNoise.txt (as produced by previous command)
+## specify other inputs in argument
+## optionnal filter on run number, if provided in argument
+python2.7 listFilesPerStep.py noisebias_20190920.txt Sep2019_VRRandom0_files (RUN)
 
 # draw monitoring plots
-# update in file directory name with inputs and steps definition file name
-python2.7 drawGraphFromRoot.py 
+## specify the directory with the noise_*.root files and the steps definition file name
+## optionnal filter on run number, if provided in argument
+## results stored in NoiseVsEvents.root
+python2.7 drawGraphFromRoot.py scans/2019Sep/monitor noisebias_20190920.txt (RUN)
 
 # old version reading logs and doing a single monitoring plot
-# update inputs names in the script
+## update inputs names in the script
 python2.7 drawGraph.py
