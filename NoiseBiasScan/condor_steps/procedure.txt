@@ -1,7 +1,7 @@
 # get file list for dataset
 dasgoclient --query="file dataset=/VRRandom0/Commissioning2019-v1/RAW"
 
-# get file list for each step
+# get file list for each step, from work in condor_monitoring directory, and copy them here
 
 # prepare arguments for jobs 
 ./generate_arguments.sh biasscanLog.txt March2019_VRRandom0_files > arguments.txt 
@@ -13,4 +13,6 @@ voms-proxy-init --voms cms --valid 168:00
 ll /tmp/x509up_u* | grep jlagram
 cp /tmp/x509up_u16737 ~/
 
+# launch one job per voltage step
+## update the log directory name in job.sub
 condor_submit job.sub
