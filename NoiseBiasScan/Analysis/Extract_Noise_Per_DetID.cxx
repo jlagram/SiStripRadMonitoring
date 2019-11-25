@@ -1,6 +1,8 @@
 /**
 Nicolas Tonon, IPHC
 12/2017
+
+- Modified by JL Agram 10/2019
 */
 
 #include "Helper_Functions.h"
@@ -100,11 +102,12 @@ void Count_Events_EachStep_In1Profile(TString path, TString run)
  * @param profile        pointer to profile of noise for 2 APVs
  * @param fed_key_string fedkey given as a TString
  */
-vector< pair<double, double> > Fit_Profile(TProfile* profile, double fed_key, TFile* const f_control)
+void Fit_Profile(TProfile* profile, double fed_key, vector< pair<double, double> > &v_results, TFile* const f_control)
 {
 	// cout<<"--- Entering Fit_Profile()"<<endl;
 
-	vector< pair<double, double> > v_results(10); //Store results in pairs of double (2 APVs) -- make sure it can store ~10 vars
+	//Store results in pairs of double (2 APVs) -- store 6 vars
+	if(v_results.size()<6) { cout<<FRED("Length of results container too small. Increase it.") << endl; return;}
 
 	//loop on 2 APVs per profile
 	for(int iAPV=0; iAPV<2; iAPV++)
@@ -112,7 +115,7 @@ vector< pair<double, double> > Fit_Profile(TProfile* profile, double fed_key, TF
 		if(mapFedkeyToDeviceid.find(fed_key)== mapFedkeyToDeviceid.end() )
 		{
 			cout<<FRED("Error: unknown fed key: " << fed_key << " ") << endl;
-			return v_results;
+			return;
 		}
 
 		//1 histo made with values from all strips, 1 made only with values within 3 sigmas ('trimmed')
@@ -288,7 +291,7 @@ vector< pair<double, double> > Fit_Profile(TProfile* profile, double fed_key, TF
 	// delete gaussian_fit; delete gaussian_fit_trimmed;
 	// gaussian_fit = NULL; gaussian_fit_trimmed = NULL;
 
-	return v_results; //Return gaussian fit results for both APVs
+	return;
 }
 
 
@@ -320,13 +323,14 @@ void Extract_Infos_From_Profile_Into_TTree(TDirectory* dir, TTree* tree, TFile* 
 	TIter* iter_list = new TIter(list_of_keys);
 
 	//Tmp store results from profile fits
-	vector< pair<double, double> > v_infos_from_profile(10); //Make sure it can store at least 10 vars, in case we need to add some
+	vector< pair<double, double> > v_infos_from_profile(6);
 
 	//Loop on all histograms from this directory (2 APVs, noise/pedestal/...)
 	while(obj_tmp = iter_list->Next() )
 	{
-		TString ts = "", fed_key = "", laser_chan = "", plot_type = "";
-
+		TString ts = "", fed_key = "", laser_chan = "", plot_type = ""; 
+		
+		
 		dir->GetObject(obj_tmp->GetTitle(), profile); //Get profile object
 
 		if(profile == 0) {continue;}
@@ -368,10 +372,12 @@ void Extract_Infos_From_Profile_Into_TTree(TDirectory* dir, TTree* tree, TFile* 
 
 		//FIXME
 		//--- FILTER ON PARTITION AND LAYER (decoding info from detid)
+		if( mapFedkeyToDeviceid.find(fed_key_decimal)== mapFedkeyToDeviceid.end() ) continue;
 		int partition = int( (mapFedkeyToDeviceid[fed_key_decimal]>>25)&0x7);
 		int layer = int( (mapFedkeyToDeviceid[fed_key_decimal]>>14)&0x7);
 
-		if(partition != 3 || (layer != 1 && layer != 4) ) {continue;} //Only TIB L1 & L4 for now
+		//if(partition != 3 || (layer != 1 && layer != 4) ) {continue;} //Only TIB L1 & L4 for now
+		if(partition != 3) {continue;} //Only TIB
 
 		//-----------------
 
@@ -381,7 +387,7 @@ void Extract_Infos_From_Profile_Into_TTree(TDirectory* dir, TTree* tree, TFile* 
 		}
 
 		//Get infos from fit to this profile
-		v_infos_from_profile = Fit_Profile(profile, fed_key_decimal, f_control);
+		Fit_Profile(profile, fed_key_decimal, v_infos_from_profile, f_control);
 
 		//-----------------
 		//--- Store infos from fit into TTree
@@ -448,6 +454,9 @@ void Loop_On_All_Directories(TDirectory* current_dir, TTree* tree, TFile* const 
 	counter++; if(counter%1000 == 0) {cout<<"--- "<<counter<<" directories checked"<<endl;}
 
 	// if(counter>20) {delete iter_list; return;}
+
+
+/// CHECK: skip first element in the list ?
 
 	//Loop on all directories found in input file
 	while (obj_tmp = iter_list->Next() )
@@ -565,7 +574,7 @@ void Store_Noise_Infos_All_DetIDs(TString path, TString run, TString step, TFile
 		cerr<<"Did not find the directory /DQMData/SiStrip/ControlView in input file ! Abort"<<endl;
 		f_output->Close();
 		f_input->Close();
-		delete tree; tree = NULL; return;
+		delete tree; tree = NULL; delete f_output; return;
 	}
 
 
@@ -583,6 +592,9 @@ void Store_Noise_Infos_All_DetIDs(TString path, TString run, TString step, TFile
 
 	f_output->Close();
 	f_input->Close();
+	
+	delete f_output;
+	return;
 }
 
 
@@ -650,27 +662,33 @@ int main()
          //TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Jul2011/TIB";
          //TString run = "153517";
 
-	// TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Sep2012/TIB";
-	// TString run = "203243";
+	 TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Sep2012/TIB";
+	 TString run = "203243";
+
+	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/2016/VRRandom0to3";
+	//TString run = "280667";
 
 	// TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/2017/VRRandom0and1";
 	// TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/2017/VRRandom0_linBaseline";
 	// TString run = "303272";
 
-	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/2016/VRRandom0to3";
-	//TString run = "280667";
+	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/2017Dec/TIB";
+	//TString run = "307585";
 
 	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Jun2018/VRRandom0_part1";
 	//TString run = "317974";
 
-        TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Jun2018/VRRandom0_part2";
-        TString run = "318024";
+    //TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Jun2018/VRRandom0_part2";
+    //TString run = "318024";
 
-	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Sep2018/VRRandom0to1_4to6";
+	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/Sep2018/VRRandom0to7";
 	//TString run = "323011";
 
 	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/2019Mar";
 	//TString run = "328691";
+
+	//TString path = "/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/NoiseBiasScan/2019Sep/VRRandom0";
+	//TString run = "331595";
 
 
 //-----------------------------

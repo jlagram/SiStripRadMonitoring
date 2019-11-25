@@ -141,7 +141,62 @@ bool Check_File_Existence(const TString& name)
 
 
 
+// initially defined in SignalBiasScan/CommonTools/CurvesFunctions.h
+int GetSubdet(ULong64_t modid)
+{
+  if(modid>999999999) modid/=10; // sensor option for TOB
+  // 3->6 : TIB, TID, TOB, TEC
+  static const Int_t kSubdetOffset = 25;
+  int subdet = (modid>>kSubdetOffset)&0x7;
 
+  return subdet;
+}
+
+// initially defined in SignalBiasScan/CommonTools/CurvesFunctions.h
+int GetLayer(ULong64_t modid)
+{
+  if(modid>999999999) modid/=10; // sensor option for TOB & TEC
+  Int_t subdet = GetSubdet(modid);
+  
+  static const unsigned layerStartBit = 14;
+  static const unsigned layerMask = 0x7;
+  static const unsigned ringStartBitTID = 9;
+  static const unsigned ringMaskTID = 0x3;
+  static const unsigned ringStartBitTEC = 5;
+  static const unsigned ringMaskTEC = 0x7;
+  Int_t layer = 0;
+  
+  // For TIB and TOB
+  if(subdet==3 || subdet==5) layer = ((modid>>layerStartBit) & layerMask);
+  // For TID, returns ring
+  if(subdet==4) layer = ((modid>>ringStartBitTID) & ringMaskTID);
+  // For TEC, returns ring
+  if(subdet==6) layer = ((modid>>ringStartBitTEC) & ringMaskTEC);
+
+  return layer;
+
+}
+
+
+
+double GetMedian(vector<double> values)
+{
+	int size = values.size();
+
+	if (size == 0) return 0;
+	else
+	{
+		sort(values.begin(), values.end());
+		if (size % 2 == 0)
+		{
+	 		return (values[size / 2 - 1] + values[size / 2]) / 2;
+		}
+		else 
+		{
+			return values[size / 2];
+		}
+	}
+}
 
 
 //---------------
@@ -185,6 +240,32 @@ void Fill_Step_List_Vector(TString run)
 		step_list.resize(0);
 	}
 	
+	else if(run == "331595") // Sept 2019
+	{
+		step_list.push_back("10"); step_isUsed.push_back(true);
+		step_list.push_back("15"); step_isUsed.push_back(true);
+		step_list.push_back("20"); step_isUsed.push_back(true);
+		step_list.push_back("25"); step_isUsed.push_back(true);
+		step_list.push_back("30"); step_isUsed.push_back(true);
+		step_list.push_back("35"); step_isUsed.push_back(true);
+		step_list.push_back("40"); step_isUsed.push_back(true);
+		step_list.push_back("50"); step_isUsed.push_back(true);
+		step_list.push_back("60"); step_isUsed.push_back(true);
+		step_list.push_back("70"); step_isUsed.push_back(true);
+		step_list.push_back("80"); step_isUsed.push_back(true);
+		step_list.push_back("90"); step_isUsed.push_back(true);
+		step_list.push_back("105"); step_isUsed.push_back(true);
+		step_list.push_back("120"); step_isUsed.push_back(true);
+		step_list.push_back("135"); step_isUsed.push_back(true);
+		step_list.push_back("150"); step_isUsed.push_back(true);
+		step_list.push_back("165"); step_isUsed.push_back(true);
+		step_list.push_back("180"); step_isUsed.push_back(true);
+		step_list.push_back("200"); step_isUsed.push_back(true);
+		step_list.push_back("225"); step_isUsed.push_back(true);
+		step_list.push_back("250"); step_isUsed.push_back(true);
+		step_list.push_back("275"); step_isUsed.push_back(true);
+		step_list.push_back("300"); step_isUsed.push_back(true);
+	}
 	else if(run == "328691") // March 2019
 	{
 		step_list.push_back("10"); step_isUsed.push_back(true);
@@ -285,6 +366,23 @@ void Fill_Step_List_Vector(TString run)
 		step_list.push_back("275"); step_isUsed.push_back(true);
 		step_list.push_back("300"); step_isUsed.push_back(true);
 	}
+	else if(run == "307585")
+	{
+		step_list.push_back("10"); step_isUsed.push_back(true);
+		step_list.push_back("20"); step_isUsed.push_back(true);
+		step_list.push_back("30"); step_isUsed.push_back(true);
+		step_list.push_back("40"); step_isUsed.push_back(true);
+		step_list.push_back("50"); step_isUsed.push_back(true);
+		step_list.push_back("60"); step_isUsed.push_back(true);
+		step_list.push_back("90"); step_isUsed.push_back(true);
+		step_list.push_back("105"); step_isUsed.push_back(true);
+		step_list.push_back("120"); step_isUsed.push_back(true);
+		//step_list.push_back("150"); step_isUsed.push_back(true);
+		step_list.push_back("165"); step_isUsed.push_back(true);
+		step_list.push_back("180"); step_isUsed.push_back(true);
+		step_list.push_back("195"); step_isUsed.push_back(true);
+		step_list.push_back("210"); step_isUsed.push_back(true);
+	}
 	else if(run == "303272")
 	{
 		step_list.push_back("10"); step_isUsed.push_back(false);
@@ -342,6 +440,30 @@ void Fill_Step_List_Vector(TString run)
 		step_isUsed[24] = true; //270V
 		step_isUsed[25] = true; //285V
 	}
+	else if(run == "280667")
+	{
+		step_list.push_back("30"); step_isUsed.push_back(true);
+		step_list.push_back("45"); step_isUsed.push_back(true);
+		step_list.push_back("60"); step_isUsed.push_back(true);
+		step_list.push_back("75"); step_isUsed.push_back(true);
+		step_list.push_back("90"); step_isUsed.push_back(true);
+		step_list.push_back("105"); step_isUsed.push_back(true);
+		step_list.push_back("120"); step_isUsed.push_back(true);
+		step_list.push_back("135"); step_isUsed.push_back(true);
+		step_list.push_back("150"); step_isUsed.push_back(true);
+		step_list.push_back("165"); step_isUsed.push_back(true);
+		step_list.push_back("180"); step_isUsed.push_back(true);
+		step_list.push_back("195"); step_isUsed.push_back(true);
+		step_list.push_back("210"); step_isUsed.push_back(true);
+		step_list.push_back("225"); step_isUsed.push_back(true);
+		step_list.push_back("240"); step_isUsed.push_back(true);
+		step_list.push_back("255"); step_isUsed.push_back(true);
+		step_list.push_back("270"); step_isUsed.push_back(true);
+		step_list.push_back("285"); step_isUsed.push_back(true);
+		step_list.push_back("300"); step_isUsed.push_back(true);
+		step_list.push_back("325"); step_isUsed.push_back(true);
+		step_list.push_back("350"); step_isUsed.push_back(true);
+	}
 	else if(run == "203243")
 	{
 		step_list.push_back("30"); step_isUsed.push_back(true);
@@ -363,30 +485,6 @@ void Fill_Step_List_Vector(TString run)
 		step_list.push_back("260"); step_isUsed.push_back(true);
 		step_list.push_back("275"); step_isUsed.push_back(true);
 		step_list.push_back("290"); step_isUsed.push_back(true);
-		step_list.push_back("300"); step_isUsed.push_back(true);
-		step_list.push_back("325"); step_isUsed.push_back(true);
-		step_list.push_back("350"); step_isUsed.push_back(true);
-	}
-	else if(run == "280667")
-	{
-		step_list.push_back("30"); step_isUsed.push_back(true);
-		step_list.push_back("45"); step_isUsed.push_back(true);
-		step_list.push_back("60"); step_isUsed.push_back(true);
-		step_list.push_back("75"); step_isUsed.push_back(true);
-		step_list.push_back("90"); step_isUsed.push_back(true);
-		step_list.push_back("105"); step_isUsed.push_back(true);
-		step_list.push_back("120"); step_isUsed.push_back(true);
-		step_list.push_back("135"); step_isUsed.push_back(true);
-		step_list.push_back("150"); step_isUsed.push_back(true);
-		step_list.push_back("165"); step_isUsed.push_back(true);
-		step_list.push_back("180"); step_isUsed.push_back(true);
-		step_list.push_back("195"); step_isUsed.push_back(true);
-		step_list.push_back("210"); step_isUsed.push_back(true);
-		step_list.push_back("225"); step_isUsed.push_back(true);
-		step_list.push_back("240"); step_isUsed.push_back(true);
-		step_list.push_back("255"); step_isUsed.push_back(true);
-		step_list.push_back("270"); step_isUsed.push_back(true);
-		step_list.push_back("285"); step_isUsed.push_back(true);
 		step_list.push_back("300"); step_isUsed.push_back(true);
 		step_list.push_back("325"); step_isUsed.push_back(true);
 		step_list.push_back("350"); step_isUsed.push_back(true);
@@ -521,13 +619,16 @@ TString Find_Path_EOS_File(TString path_run, TString run, TString step)
 	int counter = 0; //Make sure while loops are not infinite
 	int nlines = 0;
 
-	TString path_file = path_run, command = "", read_output = "";
+	TString path_file = path_run;
+	TString command = "";
+	TString read_output = "";
 	path_file.Remove(TString::kTrailing, '/'); //Remove '/' char at end of TString if present
 	cout<<FBLU("-- Looking for .root file '"<<step<<"V' in path : "<<path_file<<" --")<<endl;
 
 	//Look recursively in path, as long as .root file not found
 	while(!path_file.Contains(".root"))
 	{
+		cout<<" listing directory: "<<path_file<<endl;
 		//Count number of files in dir.
 		command = "eos ls " + path_file + " | wc -l";
 
@@ -535,7 +636,7 @@ TString Find_Path_EOS_File(TString path_run, TString run, TString step)
 		 //cout<<"GetStdoutFromCommand(command) --> "<<GetStdoutFromCommand(command)<<endl;
 		 //cout<<"Convert_TString_To_Number(GetStdoutFromCommand(command) --> "<<Convert_TString_To_Number(GetStdoutFromCommand(command))<<endl;
 
-		nlines = Convert_TString_To_Number(GetStdoutFromCommand(command) );
+		nlines = Convert_TString_To_Number( GetStdoutFromCommand(command) );
 
 		//If there is only 1 file listed
 		if(nlines==1)
@@ -550,6 +651,7 @@ TString Find_Path_EOS_File(TString path_run, TString run, TString step)
 		else if(nlines==0) {cout<<FRED("Empty dir. -- EOS path of .root file not found !")<<endl; return "";}
 		else //If multiple files or dir. listed, look each of them
 		{
+			cout<<" looking for the file/dir corresponding to the step: "<<step<<endl;
 			//Reads content of "path_run" dir. -- Will look for desired Vstep (whether it is present as a subdir. or as a .root file)
 			for (int iline = 1; iline <= nlines; iline++)
 			{
@@ -678,7 +780,7 @@ int CorrectGraphForLeakageCurrent(TGraphErrors* g, double detid, TString output_
 	// Get correction function
 	TString filename="LeakCurCorr"+output_name+".root";
 
-	TString filepath="/afs/cern.ch/user/n/ntonon/public/tracker_aging/CMSSW_9_2_10/src/SiStripRadMonitoring/LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/"+filename;
+	TString filepath="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/"+filename;
 
 	if (filename.Contains("170000") ) {return 0;} //No leakage correction for this old run, neglected
 

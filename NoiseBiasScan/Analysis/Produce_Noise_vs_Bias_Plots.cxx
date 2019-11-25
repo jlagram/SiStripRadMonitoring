@@ -568,6 +568,12 @@ void Produce_Noise_VS_Bias_Histograms_For_All_Detids_And_Store_Results(TString r
 	//Get maps detid <-> noise infos, for all Vsteps
 	vector < map< double, vector<double> > > v_maps_allSteps = Get_Detid_Noise_Maps_For_All_Steps(run); //Fill the vector of maps (1 map per Vstep)
 
+	// check detid list size for each step
+	for(int i=0; i<v_maps_allSteps.size(); i++)
+	{
+		std::cout<<"Step "<<i<<": "<<v_maps_allSteps[i].size()<<" detids"<<std::endl;
+	}
+
 	vector<Double_t> fit_results(4); double detid;
 
 	TFile* f_output_plots = new TFile("NoiseVSvolt_graphs_run"+run+".root", "RECREATE"); //Will contain output TGraphs (then plot, superimpose, ...)
@@ -590,11 +596,14 @@ void Produce_Noise_VS_Bias_Histograms_For_All_Detids_And_Store_Results(TString r
 	int n_control_plots_TIBL4=0; //Don't plot too many detids from TIBL4
 	int n_control_plots_TIBL1_superimpose=0; //Don't plot too many detids from TIBL1
 	int n_control_plots_TIBL4_superimpose=0; //Don't plot too many detids from TIBL4
+	int ndet=0;
 
 	//Iterate over all the detids, taken as the list of keys stored in 1 map (e.g. the map corresponding to first Vstep)
-	for(map< double, vector<double> >::iterator it = v_maps_allSteps[2].begin(); it != v_maps_allSteps[0].end(); it++)
+	for(map< double, vector<double> >::iterator it = v_maps_allSteps[0].begin(); it != v_maps_allSteps[0].end(); it++)
 	{
 		detid = 0;
+		ndet++;
+		if(ndet%1000==0) std::cout<<ndet<<" modules"<<std::endl;
 		for(int k=0; k<fit_results.size(); k++)
 		{
 			fit_results[k] = 0;
@@ -610,7 +619,8 @@ void Produce_Noise_VS_Bias_Histograms_For_All_Detids_And_Store_Results(TString r
 		//--- FILTER ON PARTITION AND LAYER (decoding info from detid)
 		int partition = int( ( (long) (current_detid/10)>>25)&0x7);
 		int layer = int( ( (long) (current_detid/10)>>14)&0x7);
-		if(partition != 3 || (layer != 1 && layer != 4) ) {continue;} //Only TIB L1 & L4 for now
+		//if(partition != 3 || (layer != 1 && layer != 4) ) {continue;} //Only TIB L1 & L4 for now
+                if(partition != 3) continue; //Only TIB
 
 		//-- Only plot few DetIDs
 		bool do_control_plot=false;
@@ -953,7 +963,7 @@ void ToyStudy_Change_Scan_Procedure(int ntoys, double error, int scan_choice)
 
 void Superimpose_Curves_From_Two_Scans(vector<TString> list_scans, vector<TString> v_dates, bool superimpose_plateaus)
 {
-	if(list_scans.size() < 2 || list_scans.size() > 5) {cout<<"Number of scans must be between 2 & 5! Abort"<<endl; return;}
+	if(list_scans.size() < 2 || list_scans.size() > 6) {cout<<"Number of scans must be between 2 & 6! Abort"<<endl; return;}
 
 	TFile* f = TFile::Open(("./NoiseVSvolt_graphs_run"+list_scans[0]+".root").Data() );
 
@@ -1118,10 +1128,11 @@ int main()
 	//run = "203243"; date = "20120921";
 	//run = "280667"; date = "20160914";
 	//run = "303272"; date = "20170919";
-	run = "317974"; date = "20180618";
-        //run = "318024"; date = "20180618";
+	//run = "317974"; date = "20180618";
+    //run = "318024"; date = "20180618";
 	//run = "323011"; date = "20180919";
-	//run = "328691"; date = "20190321";
+	run = "328691"; date = "20190321";
+	//run = "331595"; date = "20190920";
 
 	Fill_Step_List_Vector(run);
 
@@ -1137,6 +1148,8 @@ int main()
 	list_scans.push_back("303272"); v_dates.push_back("Sep 2017");
 	list_scans.push_back("323011"); v_dates.push_back("Sep 2018");
 	list_scans.push_back("328691"); v_dates.push_back("Mar 2019");
+	list_scans.push_back("331595"); v_dates.push_back("Sep 2019");
+	
 	//Superimpose_Curves_From_Two_Scans(list_scans, v_dates, false);
 
 	return 0;
