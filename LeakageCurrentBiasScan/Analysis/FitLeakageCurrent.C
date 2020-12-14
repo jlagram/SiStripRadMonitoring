@@ -60,7 +60,7 @@ TGraphErrors* GetIleakVsVbias(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS)
 	 
     if(volt!=0)
     // remove points not in a voltage step
-	if(volt_err<=15) //1
+	if(volt_err<=15) //1 //15
 	{
 	  gout->SetPoint(ipt, volt, current);
       gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
@@ -76,11 +76,11 @@ TGraphErrors* GetIleakVsVbias(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS)
   
 }
 
-TGraphErrors* AverageIleakVsVbias(TGraphErrors* g)
+TGraphErrors* AverageIleakVsVbias(TGraphErrors* g, float deriv_min=0.01)
 {
   TGraphErrors* gout = new TGraphErrors();
   
-  double volt, current, volt_err, curr_err;
+  double volt, current, volt_err, curr_err, previous_volt_err;
   double previous_volt=0;
   double mean_current=0;
   double deriv=0;
@@ -104,14 +104,14 @@ TGraphErrors* AverageIleakVsVbias(TGraphErrors* g)
 	 if( (previous_volt!=0 && previous_volt!=volt) || ipt==g->GetN()-1 ) 
 	 // step completed (moved to next one or last point)
 	 {
-	   if(ipt==g->GetN()-1) previous_volt==volt;
+	   if(ipt==g->GetN()-1) previous_volt=volt;
 	   mean_current/=nmean;
 	   // clean points with no evolution
 	   deriv = (prev_pt_curr-mean_current) / (prev_pt_volt - previous_volt);
-	   if(previous_volt!=0 && deriv>0.01) //0.5
+	   if(previous_volt!=0 && deriv>deriv_min) //0.5
 	   {
 	     gout->SetPoint(ip, previous_volt, mean_current);
-	     gout->SetPointError(ip, volt_err, curr_err/sqrt(nmean));
+	     gout->SetPointError(ip, previous_volt_err, curr_err/sqrt(nmean));
 	     //gout->SetPointError(ip, volt_err, curr_err);
 		 cout<<previous_volt<<"V "<<mean_current<<"uA +/- "<<curr_err/sqrt(nmean)<<" y':"<<deriv<<endl;
 		 //cout<<previous_volt<<"V "<<mean_current<<"uA +/- "<<curr_err<<" y':"<<deriv<<endl;
@@ -123,10 +123,66 @@ TGraphErrors* AverageIleakVsVbias(TGraphErrors* g)
 	   nmean=1;
 	 }
 	 previous_volt=volt;
+	 previous_volt_err=volt_err;
   }
 
   return gout;
 }
+
+
+// getting largest values to avoid not saturated currents during a step
+/*TGraphErrors* SaturatedIleakVsVbias(TGraphErrors* g, float deriv_min=0.01)
+{
+  TGraphErrors* gout = new TGraphErrors();
+  
+  double volt, current, volt_err, curr_err, previous_volt_err;
+  double previous_volt=0;
+  double mean_current=0;
+  double deriv=0;
+  double prev_pt_volt=0;
+  double prev_pt_curr=0;
+  int nmean=0;
+  int ip=0;
+  
+  for(int ipt=0; ipt<g->GetN(); ipt++)
+  {
+     g->GetPoint(ipt, volt, current);
+	 volt_err = g->GetErrorX(ipt);
+	 curr_err = g->GetErrorY(ipt);
+	 
+     if(previous_volt==volt)
+	 {
+	   mean_current+=current;
+	   nmean++;
+	 }
+	 
+	 if( (previous_volt!=0 && previous_volt!=volt) || ipt==g->GetN()-1 ) 
+	 // step completed (moved to next one or last point)
+	 {
+	   if(ipt==g->GetN()-1) previous_volt=volt;
+	   mean_current/=nmean;
+	   // clean points with no evolution
+	   deriv = (prev_pt_curr-mean_current) / (prev_pt_volt - previous_volt);
+	   if(previous_volt!=0 && deriv>deriv_min) //0.5
+	   {
+	     gout->SetPoint(ip, previous_volt, mean_current);
+	     gout->SetPointError(ip, previous_volt_err, curr_err/sqrt(nmean));
+	     //gout->SetPointError(ip, volt_err, curr_err);
+		 cout<<previous_volt<<"V "<<mean_current<<"uA +/- "<<curr_err/sqrt(nmean)<<" y':"<<deriv<<endl;
+		 //cout<<previous_volt<<"V "<<mean_current<<"uA +/- "<<curr_err<<" y':"<<deriv<<endl;
+		 prev_pt_volt = previous_volt;
+		 prev_pt_curr = mean_current;
+	     ip++;
+	   }
+	   mean_current=current;
+	   nmean=1;
+	 }
+	 previous_volt=volt;
+	 previous_volt_err=volt_err;
+  }
+
+  return gout;
+}*/
 
 TGraphErrors* GetDerivative(TGraph* g)
 {
@@ -160,6 +216,53 @@ TGraphErrors* GetDerivative(TGraph* g)
   
 }
 
+
+float GetStartFlat(TGraph* g, TH1F* &h, float &deriv_above_thresh, float &thresh_min, float &thresh_max, float &xstart_err)
+{
+  float xstart = 400;
+  float x_above_thresh = 400;
+  double voltage, deriv;
+  double ymean, yrms;
+  // Warning: points not always filled in the same order
+  // -> reordering using map
+  map< double, double> points;
+  for(int ip=0; ip<g->GetN(); ip++)
+  {
+    g->GetPoint(ip, voltage, deriv);
+	points[voltage]=deriv;
+  }
+  
+  map< double, double>::iterator itPoints = points.end();
+  while( itPoints!=points.begin() )
+  {
+    itPoints--;
+    voltage=itPoints->first;
+	deriv=itPoints->second;
+	cout<<" "<<voltage<<" "<<deriv<<endl;
+    if(voltage>200) h->Fill(deriv);
+	else
+	{
+	  ymean = h->GetMean();
+	  yrms = h->GetRMS();
+	  thresh_min = ymean-3.5*yrms;
+	  thresh_max = ymean+3.5*yrms;
+	  h->Fill(deriv);
+	  deriv_above_thresh = deriv;
+	  x_above_thresh = voltage;
+	  if(fabs(deriv)>thresh_max)
+	  {
+	    cout<<" first not flat point: "<<voltage<<" "<<deriv<<", thresh: "<<thresh_max<<endl;
+		break;
+	  }
+	  xstart = voltage;
+	}
+  }
+  
+  xstart_err = fabs(x_above_thresh - xstart);
+  cout<<" xstart: "<<xstart<<"  err: "<<xstart_err<<endl;
+  
+  return xstart;
+}
 //------------------------------------------------------------------------------
 
 void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods="")
@@ -220,6 +323,13 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
 	int nmodforchannel;
     GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmodforchannel, subdet, run, detid, bad_periods);
     // Only gsteps and gcur_DCU really needed
+  	if(!gcur_DCU && !gcur_PS) {std::cout<<" No DCU , neither PS currents graphs. Exiting."<<std::endl; continue;}
+    if(!gcur_DCU && gcur_PS) 
+	{
+	   std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl; 
+	   gcur_DCU = (TGraph*) gcur_PS->Clone();
+	   Scale( gcur_DCU, 1./nmodforchannel);
+	 }
     
 	double Steps_max = GetMaximum(gsteps);
 	double PS_max = GetMaximum(gcur_PS);
@@ -245,12 +355,13 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     
     
     // Get leakage current vs Vbias
+    TCanvas* c2 = new TCanvas("c2", "Ileak", 200, 0, 700, 500);
     TGraphErrors* gIleak = GetIleakVsVbias(gsteps, gcur_DCU_unscaled, gcur_PS_unscaled);
 	if(!gIleak) {cout<<"Skipping detid"<<endl; continue;}
-    TCanvas* c2 = new TCanvas("c2", "Ileak", 200, 0, 700, 500);
 	gIleak = AverageIleakVsVbias(gIleak);
     gIleak->SetMarkerStyle(20);
     gIleak->Draw("AP");
+	gIleak->SetTitle(Form("DetID %i", detid));
     TH1F* hleak = gIleak->GetHistogram();
     hleak->GetXaxis()->SetTitle("V_{bias} [V]");
     hleak->GetYaxis()->SetTitle("I_{leak} [#muA]");
@@ -321,12 +432,52 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     lvdrop3->Draw();
     
 	
+	// Look at derivative as second part of the curve is a line
     
+    TCanvas* cd = new TCanvas("cd", "Derivative", 300, 0, 700, 500);
     // Compute derivative of current vs voltage curve
-    /*TGraphErrors* gderivative = GetDerivative( gIleak );
+    //TGraphErrors* gmed = MedianFilter( gIleak );
+	//gmed = HanningFilter(gmed);
+	TGraphErrors* gderivative = GetDerivative( gIleak );
+	//gderivative = HanningFilter( gderivative );
     gderivative->SetMarkerStyle(20);
-    gderivative->Draw("AP");*/
-	 
+    gderivative->Draw("AP");
+    TH1F* hdaxis = gderivative->GetHistogram();
+    hdaxis->GetXaxis()->SetTitle("V_{bias} [V]");
+    hdaxis->GetYaxis()->SetTitle("derivative");
+	
+	// start to fit above 200V
+	TF1* fflat = new TF1("fflat", "[0]", 10, 360);
+	fflat->SetParameter(0, 0.); 
+	fflat->SetRange(200, 360);
+	status = gderivative->Fit("fflat", "R");
+	cout<<"Fit status: "<<status;
+	if(fflat->GetNDF()) cout<<" chi2/ndf: "<<fflat->GetChisquare()/fflat->GetNDF()<<endl;
+	float cst = fflat->GetParameter(0);
+	cout<<"  pol0: "<<cst<<endl;
+	TH1F* hd = new TH1F("hd", "derivative", 250, -4*cst, 6*cst);
+	float deriv_above, thresh_min, thresh_max, xstart_err;
+	float xstart = GetStartFlat(gderivative, hd, deriv_above, thresh_min, thresh_max, xstart_err);
+
+    cout<<" xstart: "<<xstart<<endl<<endl;
+
+    double ymin_deriv = gderivative->GetYaxis()->GetXmin();
+    double ymax_deriv = gderivative->GetYaxis()->GetXmax();
+	TLine* lstart = new TLine(xstart, ymin_deriv, xstart, ymax_deriv*0.8);
+    lstart->SetLineStyle(2);
+    lstart->SetLineColor(kViolet);
+    lstart->Draw();
+	cd->Print(Form("IleakDerivative_%s_detid_%i.pdf", run, detid));
+	
+    TCanvas* cd2 = new TCanvas("cd2", "Derivative", 350, 0, 700, 500);
+	hd->Draw();
+	TLine* lthresh = new TLine(thresh_min, 0, thresh_min, hd->GetMaximum()*0.8);
+    lthresh->SetLineStyle(2);
+	lthresh->Draw();
+	lthresh->DrawLine(thresh_max, 0, thresh_max, hd->GetMaximum()*0.8);
+	cd2->Print(Form("IleakDerivativeHisto_%s_detid_%i.pdf", run, detid));
+	
+	
     // function with curve in 2 parts: exp(-x) and pol1
     /*TF1* fderiv = new TF1("fderiv", fitfunctionderiv, 5, 360, 5);
     //TF1* fderiv = new TF1("fderiv", "[0] + [1]*exp(-1*[3]*x)", 10, 360);
@@ -346,13 +497,18 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     gderivative->Fit("fderiv", "R");*/
     
 	 //TF1* fit = (TF1*) gIleak->GetListOfFunctions()->First();
-	 TF1* fit = (TF1*) gROOT->GetFunction("fvdrop3");
+	 TF1* fit = (TF1*) gROOT->GetFunction("fvdrop");
     //TF1* fit = (TF1*) gderivative->GetListOfFunctions()->First();
     //TF1* fit = 0;
 
-
+    c2->cd();
+    lstart->DrawLine(xstart, ymin, xstart, ymax);
+  	c2->Modified();
+	c2->Update();
+    c2->Print(Form("IleakVsVbias_%s_detid_%i.pdf", run, detid));
 
     // Find Kink
+	
     TCanvas* c3 = new TCanvas("c3", "", 400, 0, 700, 500);
     TGraphErrors* gmedian = MedianFilter( gIleak );
     int nfilt=1;
@@ -415,14 +571,16 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
 	c3->cd();
 	fvdrop->Draw("same");
   	fvdrop3->Draw("same");
-  	c3->Modified();
 	TLine* lopt2 = new TLine(xopt, gIleak->GetYaxis()->GetXmin(),
 	                          xopt, gIleak->GetYaxis()->GetXmax());
     //lopt2->Draw();
     lvdrop->Draw();
     lvdrop3->Draw();
 
-    c3->Print(Form("IleakVsVbias_%s_detid_%i.pdf", run, detid));
+  	c3->Modified();
+	c3->Update();
+
+    //c3->Print(Form("IleakVsVbias_%s_detid_%i.pdf", run, detid));
     //c4->Print(Form("IleakVsVbias_curv_%s_detid_%i.pdf", run, detid));
 	
 	
@@ -460,8 +618,10 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
 		  		  
 		  output->cd();
 		  
-    	  odepvolt = fit->GetParameter(2);
-		  oerrdepvolt = fit->GetParError(2);
+    	  //odepvolt = fit->GetParameter(2);
+		  //oerrdepvolt = fit->GetParError(2);
+    	  odepvolt = xstart;
+		  oerrdepvolt = xstart_err;
 
     	  oplateau = 0;
     	  ofitchisquare = fit->GetChisquare()/fit->GetNDF();
@@ -498,6 +658,10 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     c2->Modified();
     c2->Update();
     //c2->Print(Form("IleakEffect_%s_%i.pdf", run, detid));
+    cd->Modified();
+    cd->Update();
+    cd2->Modified();
+    cd2->Update();
     c3->Modified();
     c3->Update();
     c4->Modified();
@@ -507,12 +671,16 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
  
     delete fvdrop;
     delete fvdrop3;
+	delete hd;
+	delete gderivative;
     delete gmedian;
     delete gscurv;
     delete g3pts;
 
     delete c1;
     delete c2;
+    delete cd;
+    delete cd2;
     delete c3;
     delete c4;
     
@@ -577,7 +745,15 @@ void FitLeakageCurrent(char* subdet="TIB_L1", char* run="20120506_run193541")
   //Fit("TIB", "20180419_run314755", detids_test, N_test, "");
   //Fit("TIB", "20180530_run317182", detids_test, N_test, ""); 
   //Fit("TIB", "20180801_run320674", detids_test, N_test, "Steps/bad_periods_20180801_run320674.txt"); 
-  Fit("TIB", "20180923_run323370", detids_test, N_test, "Steps/bad_periods_20180923_run323370.txt");
+  //Fit("TIB", "20180923_run323370", detids_test, N_test, "Steps/bad_periods_20180923_run323370.txt");
+  Fit("TIB", "noise_20160914_run280667", detids_test, N_test, ""); // use points between steps
+  //Fit("TIB", "noise_20160914_run280667", detids_test, N_test, "");
+  //Fit("TIB", "noise_20170919_run303272", detids_test, N_test, "Steps/bad_periods_noise_20170919_run303272.txt"); // with smoothing
+  //Fit("TIB", "noise_20171205_run307585", detids_test, N_test, "");
+  //Fit("TIB", "noise_20180618_run317974", detids_test, N_test, "");
+  //Fit("TIB", "noise_20180919_run323011", detids_test, N_test, "");
+  //Fit("TIB", "noise_20190321_run328691", detids_test, N_test, "");
+  //Fit("TIB", "noise_20190920_run331595", detids_test, N_test, "");
   
   // TOB
   //-----
