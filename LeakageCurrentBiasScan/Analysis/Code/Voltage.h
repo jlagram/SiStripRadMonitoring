@@ -1,6 +1,3 @@
-#ifndef Voltage_h
-#define Voltage_h
-
 // Code to read voltage root file get from ConditionBrowser web page
 // Only for crosscheck of steps definition
 
@@ -69,5 +66,3 @@ TGraph* ReadVoltage(std::string filename="Data/ConditionBrowser_1343662723590.ro
   
   return g;
 }
-
-#endif
