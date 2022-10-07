@@ -60,7 +60,7 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
   gcur_DCU = ReadDCUCurrentFromGB(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/DCU/DCU_I_%s.root", run.c_str()), detid, bad_periods);
   //gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
   gcur_PS = ReadPSCurrentRoot(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/PS/PS_I_%s_%s.root", subdet.c_str(), run.c_str()), detid, nmodforchannel, bad_periods, false); // last argument for prints
-  
+
   return;
 }
 
@@ -209,7 +209,7 @@ void GetVoltageDropAndRatio(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS, T
 		
         if(cur_PS && prev_time_volt!=0)
         // remove points not in a voltage step
-		if(volt_err<=10) //1
+		if(volt_err<=1) //1 //10
 		{
           shift= current*13.8e-3+cur_PS*1.e-3;
           shift_err= sqrt(2*2+0.005*cur_PS*0.005*cur_PS)*13.8e-3+cur_PS_err*1.e-3;
@@ -742,7 +742,7 @@ void ComputeDCUOverPSRatios(std::string subdet, std::string run, int* detids, co
   TTree* tout = new TTree("ratio","DCUOverPSRatio");
   ULong64_t detid;
   double nmod_avg_diff, fit_avg_diff, I_min, I_max, I_rms, I_ratio, V_min, V_max;
-  int nmod, npts;
+  int nmod, npts, npts_tot;
   tout->Branch("DETID",&detid,"DETID/l");
   tout->Branch("NMOD", &nmod, "NMOD/I");
   tout->Branch("NMOD_RATIO_AVG_DIFF", &nmod_avg_diff,"NMOD_RATIO_AVG_DIFF/D");
@@ -753,7 +753,8 @@ void ComputeDCUOverPSRatios(std::string subdet, std::string run, int* detids, co
   tout->Branch("I_RATIO",&I_ratio,"I_RATIO/D");
   tout->Branch("V_MIN",&V_min,"V_MIN/D");
   tout->Branch("V_MAX",&V_max,"V_MAX/D");
-  tout->Branch("NPTS",&npts,"NTPS/I");
+  tout->Branch("NPTS",&npts,"NTPS/I"); // only during V steps
+  tout->Branch("NPTS_TOT",&npts_tot,"NTPS/I");
   
   TGraph* gsteps;
   TGraph* gcur_DCU;
@@ -775,10 +776,12 @@ void ComputeDCUOverPSRatios(std::string subdet, std::string run, int* detids, co
     // Get currents and voltage
     if(map_PS_currents.size()>0)  GetLoadedConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmod, run, detid);
     else GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmod, subdet, run, detid, bad_periods);
+
+    npts_tot = gcur_DCU->GetN();
 	
     // to get explicitely gvdrop and gratio
 	GetVoltageDropAndRatio(gsteps, gcur_DCU, gcur_PS, gvdrop, gratio);
-	//cout<<" ratio: "<<gratio->GetN()<<endl;
+	// cout<<" ratio: "<<gratio->GetN()<<endl;
 	
 	mean_ratio = 0;
 	nmod_avg_diff = 0;
@@ -867,8 +870,9 @@ void ComputeAllDCUOverPSRatios(std::string subdet, std::string run, std::string 
   return;
 }
 
-
-void ComputeAllCorrections(std::string subdet, std::string run, std::string filename, std::string bad_periods="", float CHI2_TOREJECT=50.)
+// CHI2_TOCHECK -> graph stored for possible checks
+// CHI2_TOREJECT -> correction not kept
+void ComputeAllCorrections(std::string subdet, std::string run, std::string filename, std::string bad_periods="", float CHI2_TOCHECK=5., float CHI2_TOREJECT=50.)
 {
   
   // load currents for all detids
@@ -884,6 +888,12 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
 
   //float CHI2_TOREJECT=20.;
 
+  // Small scans
+  // TIB 2012
+  const int N_TIB_L1_2012=17;
+  int detids_TIB_L1_2012[N_TIB_L1_2012]={369121381,369121382,369121385,369121386,369121389,369121390,369121605,369121606,369121609,369121610,
+                                         369121613,369121614,369125861,369125862,369125866,369125869,369125870};  
+  
   int idet=0;
   int ifit=0;
   int status=0;
@@ -897,15 +907,18 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
   TGraphErrors *gvdrop;
   TF1 *fit;
 
+
   // input file with list of detids
   std::string line;
   ifstream fin(filename);
   int detid=0;
   bool show=false;
   double xfirst,xlast;
+  bool isSmallScansPS=false;
 
   // storing graphs for bad fits (limit on chi2/ndf)
-  float chi2_limit = 5.; //2012: 5. //2015: 3. // 2018: 5., 15. for TIB/TID
+  float chi2_limit = CHI2_TOCHECK; //5.; //2012: 5. //2015: 3. // 2018: 5., 15. for TIB/TID
+  float chi2_over_ndf = 0;
 
   // Loop on detids
   if(fin.is_open())  {
@@ -916,6 +929,15 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
       ss >> detid;
 	  idet++;
 
+	  // check if module in small scans PS
+	  isSmallScansPS = false;
+	  for(int idet=0; idet<N_TIB_L1_2012; idet++)
+	    if(detid == detids_TIB_L1_2012[idet]) 
+		  {cout<<" small scan PS: "<<detid<<endl; isSmallScansPS = true;}
+
+	  
+	  
+	  // compute correction
 	  status = ComputeCorrection(subdet, run, detid, gvdrop, fit, bad_periods, show);
 	  if(status==-11) nnoinfo++;
 	  
@@ -925,8 +947,10 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
 		xfirst = TMath::MinElement(gvdrop->GetN(), gvdrop->GetX());
 		xlast = TMath::MaxElement(gvdrop->GetN(), gvdrop->GetX());
 		//if(gvdrop->GetN()<8 || !(xfirst<=75 && xlast>=240)) 
-	    if(gvdrop->GetN()<8 || !(xfirst<=45 && xlast>=190)) // for 2018 scans
-		  {cerr<<"Too few points for computing correction for detid "<<detid<<".  "<<gvdrop->GetN()<<" pts  from "<<xfirst<<" to "<<xlast<<" V"<<endl; nfewcurpts++; continue;}
+	    if(gvdrop->GetN()<8 || !(xfirst<=45 && xlast>=190)) // from 2018 scans
+	    //if(gvdrop->GetN()<8 || !(xfirst<=25 && xlast>=120)) // for sept 2020 scan, up to 165V
+		  {cerr<<"Too few points for computing correction for detid "<<detid<<".  "
+		    <<gvdrop->GetN()<<" pts  from "<<xfirst<<" to "<<xlast<<" V"<<endl; nfewcurpts++; continue;}
 	  }
 	  
       // Store fit result
@@ -934,6 +958,7 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
 	  {
     	if(fit->GetNDF()>1)
 		{
+		  chi2_over_ndf = fit->GetChisquare()/fit->GetNDF();
 		  if( fit->GetChisquare()/fit->GetNDF() < CHI2_TOREJECT)
     	  {
     		fout->cd();
@@ -942,12 +967,17 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
     		fit->Write();
 			cerr<<detid<<" "<<fit->Eval(300)<<endl;
     		gvdrop->SetName(Form("vdrop_%i", detid));
+			//h = (TH1*) gvdrop->GetHistogram();
+			TString title = gvdrop->GetTitle();
+			title+=" - chi2/ndf = ";
+			title+=Form("%.1f", chi2_over_ndf);
+			gvdrop->SetTitle(title);
     		//gvdrop->Write();
-    		if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) gvdrop->Write();
-        	if(fit->GetChisquare()/fit->GetNDF() > chi2_limit) nbadfit++;
+    		if(chi2_over_ndf > chi2_limit || isSmallScansPS) gvdrop->Write();
+        	if(chi2_over_ndf > chi2_limit) nbadfit++;
         	else ngoodfit++;
         	if(status==4) nnotconv++;
-    		if(fit->GetNDF()) hchi2->Fill(fit->GetChisquare()/fit->GetNDF());
+    		if(fit->GetNDF()) hchi2->Fill(chi2_over_ndf);
     		g2param->SetPoint(ifit, fit->GetParameter(0), fit->GetParameter(1));
     		hparam0->Fill(fit->GetParameter(0));
     		hparam1->Fill(fit->GetParameter(1));
@@ -1169,23 +1199,52 @@ int detids1[N1]={436311928};
   //ComputeCorrections("TIB", "20180801_run320674", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180801_run320674.txt");
 
   //ComputeDCUOverPSRatios("TIB", "20180923_run323370", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180923_run323370.txt");
-  ComputeCorrections("TIB", "20180923_run323370", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeCorrections("TIB", "20180923_run323370", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180923_run323370.txt");
   //ComputeAllDCUOverPSRatios("TIB", "20180923_run323370", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
   //ComputeAllCorrections("TIB", "20180923_run323370", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeDCUOverPSRatios("TIB", "20181018_run324841", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20181018_run324841", detids_2012_bis, N_2012_bis, "");
+
+  
+  // HI
+  //ComputeDCUOverPSRatios("TIB", "20181115_run326776", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "20181115_run326776", detids_2012_bis, N_2012_bis, "");
+  //ComputeDCUOverPSRatios("TIB", "20181118_run326883", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20181118_run326883.txt");
+  //ComputeCorrections("TIB", "20181118_run326883", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20181118_run326883.txt");
 
   //noise
-  //ComputeCorrections("TIB", "noise_20180618_run317974", detids_2012_bis, N_2012_bis, "");
-  //ComputeAllDCUOverPSRatios("TIB", "noise_20180618_run317974", "Data/TIB_detids_sorted.txt", "");
-  //ComputeAllCorrections("TIB", "noise_20180618_run317974", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20160914_run280667", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20160914_run280667", detids_2012_bis, N_2012_bis, "");
+  //ComputeCorrections("TIB", "noise_20170919_run303272", detids_2012_bis, N_2012_bis, "Steps/bad_periods_noise_20170919_run303272.txt");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20170919_run303272", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt");
+  //ComputeAllCorrections("TIB", "noise_20170919_run303272", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt", 10, 50);
+  //ComputeCorrections("TIB", "noise_20171205_run307585", detids_2012_bis, N_2012_bis, "");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20171205_run307585", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20171205_run307585", "Data/TIB_detids_sorted.txt", "", 10, 50);
+  //ComputeCorrections("TIB", "noise_20180618_run317974", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20180618_run317974.txt");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20180618_run317974", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt");
+  //ComputeAllCorrections("TIB", "noise_20180618_run317974", "Data/TIB_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt", 40, 60);
   //ComputeCorrections("TIB", "noise_20180919_run323011", detids_2012_bis, N_2012_bis, "");
   //ComputeAllDCUOverPSRatios("TIB", "noise_20180919_run323011", "Data/TIB_detids_sorted.txt", "");
-  //ComputeAllCorrections("TIB", "noise_20180919_run323011", "Data/TIB_detids_sorted.txt", "");
-  
+  //ComputeAllCorrections("TIB", "noise_20180919_run323011", "Data/TIB_detids_sorted.txt", "", 30, 50);
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20190321_run328691", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20190321_run328691", "Data/TIB_detids_sorted.txt", "", 30, 100);
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20190920_run331595", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20190920_run331595", "Data/TIB_detids_sorted.txt", "", 50, 100);
+  //ComputeCorrections("TIB", "noise_20200903_run337160", detids_2012_bis, N_2012_bis, "");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20200903_run337160", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20200903_run337160", "Data/TIB_detids_sorted.txt", "", 13, 50);
+  //ComputeCorrections("TIB", "noise_20201120_run338731", detids_2012_bis, N_2012_bis, "");
+  //ComputeAllDCUOverPSRatios("TIB", "noise_20201120_run338731", "Data/TIB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TIB", "noise_20201120_run338731", "Data/TIB_detids_sorted.txt", "", 50, 100);
 
   // TESTS
-  const int N_test=10;
-  int detids_test[N_test]={369174348, 369170952, 369158584, 369137878, 369157316, 369138229, 369141097, 369175404, 369157284, 369157176};
+  //const int N_test=10;
+  //int detids_test[N_test]={369174348, 369170952, 369158584, 369137878, 369157316, 369138229, 369141097, 369175404, 369157284, 369157176};
   //ComputeCorrections("TIB", "20150603_run246963", detids_test, N_test, "Steps/bad_periods_20150603_run246963.txt");  
+  const int N_test=3;
+  int detids_test[N_test]={369137878, 369138229, 369157176};
+  //ComputeCorrections("TIB", "noise_20180618_run317974", detids_test, N_test, "Steps/bad_periods_20180618_run317974.txt");  
 
  
   // TOB
@@ -1289,14 +1348,38 @@ int detids1[N1]={436311928};
   //ComputeCorrections("TOB", "20180923_run323370", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_20180923_run323370.txt");
   //ComputeAllDCUOverPSRatios("TOB", "20180923_run323370", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
   //ComputeAllCorrections("TOB", "20180923_run323370", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeDCUOverPSRatios("TOB", "20181018_run324841", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeCorrections("TOB", "20181018_run324841", detids_TOB_2012, N_TOB_2012, "");
+  
+  //HI
+  //ComputeDCUOverPSRatios("TOB", "20181115_run326776", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeCorrections("TOB", "20181115_run326776", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeDCUOverPSRatios("TOB", "20181118_run326883", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_20181118_run326883.txt");
+  //ComputeCorrections("TOB", "20181118_run326883", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_20181118_run326883.txt");
+
 
   //noise
-  //ComputeCorrections("TOB", "noise_20180618_run317974", detids_TOB_2012, N_TOB_2012, "");
-  //ComputeAllDCUOverPSRatios("TOB", "noise_20180618_run317974", "Data/TOB_detids_sorted.txt", "");
-  //ComputeAllCorrections("TOB", "noise_20180618_run317974", "Data/TOB_detids_sorted.txt", "");
+  //ComputeCorrections("TOB", "noise_20170919_run303272", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_noise_20170919_run303272.txt");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20170919_run303272", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt");
+  //ComputeAllCorrections("TOB", "noise_20170919_run303272", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt", 5, 50);
+  //ComputeCorrections("TOB", "noise_20180618_run317974", detids_TOB_2012, N_TOB_2012, "Steps/bad_periods_20180618_run317974.txt");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20180618_run317974", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt");
+  //ComputeAllCorrections("TOB", "noise_20180618_run317974", "Data/TOB_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt", 10, 50);
   //ComputeCorrections("TOB", "noise_20180919_run323011", detids_TOB_2012, N_TOB_2012, "");
   //ComputeAllDCUOverPSRatios("TOB", "noise_20180919_run323011", "Data/TOB_detids_sorted.txt", "");
   //ComputeAllCorrections("TOB", "noise_20180919_run323011", "Data/TOB_detids_sorted.txt", "");
+  //ComputeCorrections("TOB", "noise_20190321_run328691", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20190321_run328691", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "noise_20190321_run328691", "Data/TOB_detids_sorted.txt", "", 5, 50);
+  //ComputeCorrections("TOB", "noise_20190920_run331595", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20190920_run331595", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "noise_20190920_run331595", "Data/TOB_detids_sorted.txt", "", 10, 50);
+  //ComputeCorrections("TOB", "noise_20200903_run337160", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20200903_run337160", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "noise_20200903_run337160", "Data/TOB_detids_sorted.txt", "", 4, 50);
+  //ComputeCorrections("TOB", "noise_20201120_run338731", detids_TOB_2012, N_TOB_2012, "");
+  //ComputeAllDCUOverPSRatios("TOB", "noise_20201120_run338731", "Data/TOB_detids_sorted.txt", "");
+  //ComputeAllCorrections("TOB", "noise_20201120_run338731", "Data/TOB_detids_sorted.txt", "", 10, 50);
 
   //TGraphErrors* gv;
   //TF1* fv;
@@ -1323,16 +1406,28 @@ int detids1[N1]={436311928};
   ComputeAllCorrections("TID", "20160423_run271056", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20160423_run271056.txt");
 */  
 
-  // 2018
+
   //ComputeAllDCUOverPSRatios("TID", "20180418_run314574", "Data/TID_detids_sorted.txt", "");
   //ComputeAllCorrections("TID", "20180418_run314574", "Data/TID_detids_sorted.txt", "");
   //ComputeAllDCUOverPSRatios("TID", "20180419_run314755", "Data/TID_detids_sorted.txt", "");
   //ComputeAllCorrections("TID", "20180419_run314755", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllDCUOverPSRatios("TID", "noise_20180618_run317974", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt");
+  //ComputeAllCorrections("TID", "noise_20180618_run317974", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt", 20, 50);
   //ComputeAllDCUOverPSRatios("TID", "20180923_run323370", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
   //ComputeAllCorrections("TID", "20180923_run323370", "Data/TID_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
 
+  //ComputeAllDCUOverPSRatios("TID", "noise_20170919_run303272", "Data/TID_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt");
+  //ComputeAllCorrections("TID", "noise_20170919_run303272", "Data/TID_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt", 5, 50);
   //ComputeAllDCUOverPSRatios("TID", "noise_20180919_run323011", "Data/TID_detids_sorted.txt", "");
   //ComputeAllCorrections("TID", "noise_20180919_run323011", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllDCUOverPSRatios("TID", "noise_20190321_run328691", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllCorrections("TID", "noise_20190321_run328691", "Data/TID_detids_sorted.txt", "", 5, 50);
+  //ComputeAllDCUOverPSRatios("TID", "noise_20190920_run331595", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllCorrections("TID", "noise_20190920_run331595", "Data/TID_detids_sorted.txt", "", 25, 50);
+  //ComputeAllDCUOverPSRatios("TID", "noise_20200903_run337160", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllCorrections("TID", "noise_20200903_run337160", "Data/TID_detids_sorted.txt", "", 10, 50);
+  //ComputeAllDCUOverPSRatios("TID", "noise_20201120_run338731", "Data/TID_detids_sorted.txt", "");
+  //ComputeAllCorrections("TID", "noise_20201120_run338731", "Data/TID_detids_sorted.txt", "", 25, 70);
 
   // TEC
   //------
@@ -1423,12 +1518,37 @@ int detids1[N1]={436311928};
   //ComputeCorrections("TEC", "20180923_run323370", detids_TEC, N_TEC, "Steps/bad_periods_20180923_run323370.txt");
   //ComputeAllDCUOverPSRatios("TEC", "20180923_run323370", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
   //ComputeAllCorrections("TEC", "20180923_run323370", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20180923_run323370.txt");
+  //ComputeDCUOverPSRatios("TEC", "20181018_run324841", detids_TEC, N_TEC, "");
+  //ComputeCorrections("TEC", "20181018_run324841", detids_TEC, N_TEC, "");
+  
+  //HI
+  //ComputeDCUOverPSRatios("TEC", "20181115_run326776", detids_TEC, N_TEC, "");
+  //ComputeCorrections("TEC", "20181115_run326776", detids_TEC, N_TEC, "");
+  //ComputeDCUOverPSRatios("TEC", "20181118_run326883", detids_TEC, N_TEC, "Steps/bad_periods_20181118_run326883.txt");
+  //ComputeCorrections("TEC", "20181118_run326883", detids_TEC, N_TEC, "Steps/bad_periods_20181118_run326883.txt");
+  
 
   // noise
-  //ComputeCorrections("TEC", "noise_20180618_run317974", detids_TEC, N_TEC, "");
-  //ComputeAllDCUOverPSRatios("TEC", "noise_20180618_run317974", "Data/TEC_detids_sorted.txt", "");
-  //ComputeAllCorrections("TEC", "noise_20180618_run317974", "Data/TEC_detids_sorted.txt", "");
+  //ComputeCorrections("TEC", "noise_20170919_run303272", detids_TEC, N_TEC, "Steps/bad_periods_noise_20170919_run303272.txt");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20170919_run303272", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt");
+  //ComputeAllCorrections("TEC", "noise_20170919_run303272", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_noise_20170919_run303272.txt", 5, 50);
+  //ComputeCorrections("TEC", "noise_20180618_run317974", detids_TEC, N_TEC, "Steps/bad_periods_20180618_run317974.txt");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20180618_run317974", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt");
+  //ComputeAllCorrections("TEC", "noise_20180618_run317974", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20180618_run317974.txt", 10, 50);
   //ComputeCorrections("TEC", "noise_20180919_run323011", detids_TEC, N_TEC, "");
   //ComputeAllDCUOverPSRatios("TEC", "noise_20180919_run323011", "Data/TEC_detids_sorted.txt", "");
   //ComputeAllCorrections("TEC", "noise_20180919_run323011", "Data/TEC_detids_sorted.txt", "");
+  //ComputeCorrections("TEC", "noise_20190321_run328691", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20190321_run328691", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "noise_20190321_run328691", "Data/TEC_detids_sorted.txt", "", 5, 50);
+  //ComputeCorrections("TEC", "noise_20190920_run331595", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20190920_run331595", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "noise_20190920_run331595", "Data/TEC_detids_sorted.txt", "", 10, 50);
+  //ComputeCorrections("TEC", "noise_20200903_run337160", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20200903_run337160", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "noise_20200903_run337160", "Data/TEC_detids_sorted.txt", "", 4, 50);
+  //ComputeCorrections("TEC", "noise_20201120_run338731", detids_TEC, N_TEC, "");
+  //ComputeAllDCUOverPSRatios("TEC", "noise_20201120_run338731", "Data/TEC_detids_sorted.txt", "");
+  //ComputeAllCorrections("TEC", "noise_20201120_run338731", "Data/TEC_detids_sorted.txt", "", 15, 50);
+
 }

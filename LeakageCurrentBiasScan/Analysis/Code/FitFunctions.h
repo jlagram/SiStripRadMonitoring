@@ -1,3 +1,6 @@
+#ifndef FitFunctions_h
+#define FitFunctions_h
+
 #include <math.h>
 
 Double_t fitfunction(Double_t *x, Double_t *par){
@@ -78,3 +81,5 @@ Double_t fitfunctionderiv2(Double_t *x, Double_t *par){
   
   return value;
 }
+
+#endif

@@ -163,10 +163,28 @@ void FilterDCUInfos(){
      //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1524189300_to_1524194400_Apr2018_-10C_missingPS.root", "20180419_run314756", false);
      //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1527679200_to_1527685500_May2018.root", "20180530_run317182", true);
      //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1528734600_to_1528739400_Jun2018.root", "20180611_run317683", true);
-     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529315700_to_1529324700_Jun2018_Noise1.root", "noise_20180618_run317974_part1", true);
-     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529419500_to_1529423700_Jun2018_Noise2.root", "noise_20180618_run317974_part2", true);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529315700_to_1529324700_Jun2018_Noise1.root", "noise_20180618_run317974_part1", true);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529419500_to_1529423700_Jun2018_Noise2.root", "noise_20180618_run317974_part2", true);
      //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1533111900_to_1533119100_Aug2018.root", "20180801_run320674", true);    
-     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537341300_to_1537349460_Sep2018_Noise.root", "noise_20180919_323011", false);
-     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537707600_to_1537715700_Sep2018_Part1.root", "20180923_run323370_part1", false);
-     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537735200_to_1537737600_Part2.root", "20180923_run323370_part2", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537341300_to_1537349460_Sep2018_Noise.root", "noise_20180919_323011", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537707600_to_1537715700_Sep2018_Part1.root", "20180923_run323370_part1", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1537735200_to_1537737600_Sep2018_Part2.root", "20180923_run323370_part2", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1539846120_to_1539850500_Oct2018.root", "20181018_run324841", true);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1542313800_to_1542319200.root", "20181115_run326776", true);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1542588600_to_1542600000.root", "20181118_run326883", true);
+
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1359555300_to_1359582300_Jan2013_Noise.root", "", true);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1473865200_to_1473869700_Sep2016_Noise.root", "20160914_run280667", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1505845800_to_1505854200_Sep2017_Noise1.root", "20170919_run303272_part1", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1505897100_to_1505900700_Sep2017_Noise2.root", "20170919_run303272_part2", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1505845800_to_1505854200_Sep2017_Noise1.root", "20170919_run303272_part1", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1505897100_to_1505900700_Sep2017_Noise2.root", "20170919_run303272_part2", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529315700_to_1529324700_Jun2018_Noise1.root", "noise_20180618_run317974_part1", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1529419500_to_1529423700_Jun2018_Noise2.root", "noise_20180618_run317974_part2", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1553167800_to_1553178300_Mar2019_Noise.root", "noise_20190321_run328691", false);
+     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1553163900_to_1553174700_Mar2019_noise.root", "noise_20190321_run328691", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1568977800_to_1568987100_Sep2019_Noise.root", "noise_20190920_run331595", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1599127200_to_1599139800_Sep2020_Noise.root" , "noise_20200903_run337160", false);
+     //CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1605869400_to_1605880200_Dec2020_Noise.root", "noise_20201120_run338731", false);
+     CopyTree("~/work/DCU_TIBD_TEC+_TEC-_TOB_from_1605865800_to_1605876600.root_Dec2020_Noise.root", "noise_20201120_run338731", false);
 }
