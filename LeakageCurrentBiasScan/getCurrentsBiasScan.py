@@ -4,8 +4,8 @@
 
 import cx_Oracle
 import datetime
-#import matplotlib.pyplot as plt
-#import matplotlib.dates as dates
+import matplotlib.pyplot as plt
+import matplotlib.dates as dates
 
 def str2bool(v):
 	return v.lower() in ("yes", "true", "t", "1")
