@@ -11,6 +11,6 @@ def restrictInput( fileNames, numberOfFiles, firstFile=0) :
         if len(files)== numberOfFiles:
             break
         i+=1
-    print 'restricting input to:'
-    print files 
+    print('restricting input to:')
+    print(files)
     return files

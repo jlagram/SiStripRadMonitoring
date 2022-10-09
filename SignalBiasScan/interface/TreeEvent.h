@@ -167,7 +167,13 @@ class TreeEvent {
   };
   ~TreeEvent(){};
   
-  void reset() { tracks.clear(); Ntracks = 0; }
+  void reset() {
+    std::vector< TreeTrack >::iterator itTrack;
+    for(itTrack=tracks.begin(); itTrack!=tracks.end(); itTrack++)
+      itTrack->reset();
+    tracks.clear(); 
+    Ntracks = 0; 
+  }
   
   
   // data member

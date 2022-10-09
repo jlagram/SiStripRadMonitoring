@@ -24,7 +24,7 @@ time_t convertTimestamp( std::string str){
   ss.clear(); ss << str.substr(12, 2); ss >> time.tm_sec;
   //time.tm_isdst=1;
   
-  if(year < 2000 || year > 2020) std::cout<<" Wrong year format : "<<year<<std::endl;
+  if(year < 2000 || year > 2026) std::cout<<" Wrong year format : "<<year<<std::endl;
   if(time.tm_sec < 0 || time.tm_sec > 61) std::cout<<" Wrong sec format : "<<year<<std::endl;
   //cout<<" timestamp "<<year<<" "<<time.tm_mon<<" "<<time.tm_mday<<" "<<time.tm_hour<<" "<<time.tm_min<<" "<<time.tm_sec<<std::endl;
 

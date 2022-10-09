@@ -24,13 +24,13 @@
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/one/EDAnalyzer.h"
 
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
-
+#include "FWCore/Utilities/interface/InputTag.h"
 
 
 #include "Geometry/TrackerGeometryBuilder/interface/TrackerGeometry.h"
@@ -49,13 +49,6 @@
 #include "DataFormats/GeometryVector/interface/LocalVector.h"
 #include <DataFormats/TrackerRecHit2D/interface/SiPixelRecHit.h>
 #include <DataFormats/SiStripDetId/interface/SiStripDetId.h>
-
-//-- Not available in newer CMSSW version -- to comment
-#include <DataFormats/SiStripDetId/interface/TIBDetId.h>
-#include <DataFormats/SiStripDetId/interface/TIDDetId.h>
-#include <DataFormats/SiStripDetId/interface/TOBDetId.h>
-#include <DataFormats/SiStripDetId/interface/TECDetId.h>
-
 
 #include "DataFormats/DetId/interface/DetId.h"
 #include <DataFormats/SiPixelCluster/interface/SiPixelCluster.h>
@@ -187,16 +180,17 @@ bool isUsedInSmallBiasScan ( int detid ) {
 // class declaration
 //
 
-class SignalBiasScan : public edm::EDAnalyzer {
+class SignalBiasScan : public edm::one::EDAnalyzer<edm::one::SharedResources> {
    public:
       explicit SignalBiasScan(const edm::ParameterSet&);
       ~SignalBiasScan();
 
+      static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
    private:
-      virtual void beginJob() ;
-      virtual void analyze(const edm::Event&, const edm::EventSetup&);
-      virtual void endJob() ;
+      virtual void beginJob() override;
+      virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
+      virtual void endJob() override;
   
 
       // ----------member data ---------------------------
@@ -222,10 +216,12 @@ class SignalBiasScan : public edm::EDAnalyzer {
   bool stripInfos_;
 
 
-  edm::ESHandle<TransientTrackBuilder> theTTrackBuilder;
-  //edm::ESHandle<GeometricSearchTracker> theTracker;
-  edm::ESHandle<MagneticField> bField;  
-  edm::ESHandle<Propagator> thePropagator;
+  const edm::ESGetToken<MagneticField, IdealMagneticFieldRecord> magneticFieldESToken_;
+  const edm::ESGetToken<TrackerGeometry, TrackerDigiGeometryRecord> tkGeomToken_;
+  const edm::ESGetToken<StripClusterParameterEstimator, TkStripCPERecord> cpeToken_;
+
+  SiStripClusterInfo clusterInfo_;
+
 
   TTree *smalltree;
   
@@ -254,7 +250,11 @@ SignalBiasScan::SignalBiasScan(const edm::ParameterSet& iConfig):
 vertexSrc( consumes<reco::VertexCollection>(iConfig.getParameter<edm::InputTag>("primaryVertexColl") )), 
 trackSrc( consumes<edm::View<reco::Track> >( iConfig.getParameter<edm::InputTag>("trackLabel") )),
 trajSrc( consumes<std::vector<Trajectory> >( iConfig.getParameter<edm::InputTag>("tkTraj") )),
-trajTrackAssociationSrc( consumes<TrajTrackAssociationCollection>( iConfig.getParameter<edm::InputTag>("labelTrajToTrack") ))
+trajTrackAssociationSrc( consumes<TrajTrackAssociationCollection>( iConfig.getParameter<edm::InputTag>("labelTrajToTrack") )),
+magneticFieldESToken_(esConsumes<MagneticField, IdealMagneticFieldRecord>()),
+tkGeomToken_(esConsumes<TrackerGeometry, TrackerDigiGeometryRecord>()),
+cpeToken_(esConsumes(edm::ESInputTag("", "StripCPEfromTrackAngle"))),
+clusterInfo_(consumesCollector())
 {
 
   //now do what ever initialization is needed
@@ -306,8 +306,7 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   
   
   // Get magnetic field
-  iSetup.get<IdealMagneticFieldRecord>().get(bField); 
-  
+  const MagneticField* bField = &iSetup.getData(magneticFieldESToken_);
   
   //------------------
   //get primary vertex
@@ -342,12 +341,12 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     edm::Handle<TrajTrackAssociationCollection> trajTrackAssociationHandle;
     iEvent.getByToken(trajTrackAssociationSrc, trajTrackAssociationHandle);
     
-    edm::ESHandle<TrackerGeometry> theTrackerGeometry;
-    iSetup.get<TrackerDigiGeometryRecord>().get( theTrackerGeometry );  
-   
-    edm::ESHandle<StripClusterParameterEstimator> parameterestimator;
-    iSetup.get<TkStripCPERecord>().get("StripCPEfromTrackAngle", parameterestimator); 
+    const TrackerGeometry* theTrackerGeometry = &iSetup.getData(tkGeomToken_);
+    
+    edm::ESHandle<StripClusterParameterEstimator> parameterestimator = iSetup.getHandle(cpeToken_);
     const StripClusterParameterEstimator &stripcpe(*parameterestimator);
+
+    clusterInfo_.initEvent(iSetup);
     
 	// Set event infos
     treeevent->reset();
@@ -413,28 +412,31 @@ SignalBiasScan::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 		treehit->tsosy = tsos.localPosition().y();
 
 
-		SiStripClusterInfo clusterInfo = SiStripClusterInfo( *cluster, iSetup, detid); 
+		clusterInfo_.setCluster( *cluster, detid);
 		//if(cluster == 0) cout << "no cluster found " << endl;
 		if(cluster!=0){
 
-		  clusterInfo.signalOverNoise();
-		  treehit->noise  = clusterInfo.noiseRescaledByGain();
-		  charge = clusterInfo.charge();
+		  //clusterInfo_.signalOverNoise();
+		  treehit->noise  = clusterInfo_.noiseRescaledByGain();
+		  charge = clusterInfo_.charge();
 		  treehit->chargeAngleCorr = charge*fabs(cos(angle));
 		  treehit->angleForCorr = angle;
 		  treehit->width = cluster->amplitudes().size();
 		  treehit->barycenter = cluster->barycenter();
-		  treehit->seed = clusterInfo.maxStrip();
-		  seedCharge = clusterInfo.maxCharge();
+		  treehit->seed = clusterInfo_.maxStrip();
+		  seedCharge = clusterInfo_.maxCharge();
 		  treehit->seedChargeAngleCorr = seedCharge*fabs(cos(angle));
 		  
 		  // strips infos ----
 		  if(stripInfos_)
 		  {
-		    treehit->stripCharges = clusterInfo.stripCharges();
-			treehit->stripGains = clusterInfo.stripGains();
-			treehit->stripNoises = clusterInfo.stripNoises();
-			treehit->stripQualitiesBad = clusterInfo.stripQualitiesBad();
+                        std::vector<uint8_t>::const_iterator begin(cluster->begin()), end(cluster->end()), it;
+                        std::vector<uint8_t> amplitudes;
+                        for(it = begin; it != end; ++it) amplitudes.push_back(*it);
+                        treehit->stripCharges = amplitudes;
+			treehit->stripGains = clusterInfo_.stripGains();
+			treehit->stripNoises = clusterInfo_.stripNoises();
+			treehit->stripQualitiesBad = clusterInfo_.stripQualitiesBad();
 		  }
 		  
     	  // cluster position ----
@@ -516,6 +518,19 @@ SignalBiasScan::endJob() {
   hPVr->Write();
 }
 
+void SignalBiasScan::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+  //The following says we do not know what parameters are allowed so do no validation
+  // Please change this to state exactly what you do use, even if it is no parameters
+  edm::ParameterSetDescription desc;
+  desc.setUnknown();
+  descriptions.addDefault(desc);
+  
+  //Specify that only 'tracks' is allowed
+  //To use, remove the default given above and uncomment below
+  //ParameterSetDescription desc;
+  //desc.addUntracked<edm::InputTag>("tracks","ctfWithMaterialTracks");
+  //descriptions.addWithDefaultLabel(desc);
+}
 
 //define this as a plug-in
 DEFINE_FWK_MODULE(SignalBiasScan);
