@@ -782,7 +782,7 @@ TGraphErrors* SavitzkyGolaySmoother(TGraphErrors* g, int npt=5, int deriv=0)
       coef[4]=2./10;      
     }
     if(deriv==2)
-      // rajouter division par le pas au carré
+      // rajouter division par le pas au carrï¿½
     {
       coef[0]=2./7;
       coef[1]=-1./7;
@@ -1216,8 +1216,9 @@ int CorrectGraphForLeakageCurrent(TGraph* g, double detid, string output_name)
   string filename="LeakCurCorr"+output_name+".root";
   //string filepath="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/"+filename;
   
- 
-  string filepath="../../../LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/"+filename;
+ string filepath = "/eos/user/j/jlagram/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/"+filename;
+  // string filepath = "../../../LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/"+filename;
+// string leakcurfilename=" /eos/user/j/jlagram/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
   
   if (filename.find("170000") != std::string::npos) {return 0;} //No leakage correction for this old run, neglected
   if(!Check_File_Existence(filepath)) {cout<<BOLD(FRED("No leakage current correction file : "))<<filepath<<endl; return 0;}

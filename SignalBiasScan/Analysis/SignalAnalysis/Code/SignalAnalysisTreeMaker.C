@@ -139,8 +139,8 @@ void SignalAnalysisTreeMaker::Loop()
     
     //if(event->run_nr != 295324) 
     
-
-    //cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
+    // if(event->ev_nr%1000==0)
+    // cout<<"run "<<event->run_nr<<" event "<<event->ev_nr<<" timestamp "<<event->ev_timestamp<<" V "<<theVoltage<<std::endl;
     
     if(theVoltage > 0) {nEntries_isPosV++;}    
     if(nEntries_isPosV % 5000 == 0)
@@ -152,10 +152,11 @@ void SignalAnalysisTreeMaker::Loop()
 
     // Get voltage setting for this event
 	theVoltage=-1;
-	if(usetimestamp) theVoltage = VSmaker.getVoltage_timestamp(event->ev_timestamp);
+  // std::cout<<"t_monitorstart"<<t_monitor_start<<"|| timsetamp"<< (int)(event->ev_timestamp)<<"|| tmonitorend"<<t_monitor_end<<std::endl;
+	if(usetimestamp) theVoltage = VSmaker.getVoltage_timestamp((int)(event->ev_timestamp));//error with timestamp
 	else theVoltage = VSmaker.getVoltage_evtnumber(event->run_nr, event->ev_nr, event->ev_timestamp);
 	
-	//cout<<"V = "<<theVoltage<<" -- Run : "<<event->run_nr<<" / Event : "<<event->ev_nr<<" / Timestamp : "<<event->ev_timestamp<<endl;
+	// cout<<"V = "<<theVoltage<<" -- Run : "<<event->run_nr<<" / Event : "<<event->ev_nr<<" / Timestamp : "<<event->ev_timestamp<<endl;
 	//if(theVoltage != 20) {continue;} //FIXME
 	
 	if(theVoltage<0) 
@@ -305,6 +306,7 @@ void SignalAnalysisTreeMaker::Loop()
 
   // If evtid selection used, print corresponding timestamp ranges
   if(!usetimestamp) VSmaker.printComputedSteps();
+  std::cout<< "help, DEAR GOD OF PHYSICS "<<VSmaker.t_monitor_start<<"PLS :"<<VSmaker.t_monitor_end<<std::endl;
   if(reclusterize) std::cout<<"N_clus "<<N_clus<<" lost : "<<N_clus_lost<<" split : "<<N_clus_split<<std::endl;
 
 }
@@ -632,7 +634,7 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
       
 	  
 	  if(SoNHisto->Integral()<20) //0.1
-	   { std::cout<<" Not enought entries for histo "<<thestring.Data()<<std::endl;
+	   { std::cout<<" Not enough entries for histo "<<thestring.Data()<<std::endl;
 	     i++; continue;
 	   }
  

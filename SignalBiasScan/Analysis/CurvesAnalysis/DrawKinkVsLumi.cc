@@ -53,6 +53,7 @@ double ComputeFluence(double lumi, ULong64_t detid, TString subdet)
 
 	double lumi_Run1 = 29.46;
 	double lumi_Run2 = lumi - lumi_Run1;
+	double lumi_Run3 = lumi - lumi_Run2;
 	double fluence = -1;
 
 	if(subdet == "TOB" || subdet == "TEC") {detid/= 10;}
@@ -62,19 +63,34 @@ double ComputeFluence(double lumi, ULong64_t detid, TString subdet)
 	DetFluenceRun1.loadFile("../CommonTools/modulesFluence_3500_sigmaTotem.root");
 	ModFluence DetFluenceRun2;
 	DetFluenceRun2.loadFile("../CommonTools/modulesFluence_7000.root");
+	ModFluence DetFluenceRun3;
+	DetFluenceRun3.loadFile("../CommonTools/modulesFluence_7000.root");
 
 
 	double fluenceRun1 = DetFluenceRun1.GetFluence(detid);
 	double fluenceRun2 = DetFluenceRun2.GetFluence(detid);
+	double fluenceRun3 = DetFluenceRun3.GetFluence(detid);
 
+		//FIXME
+	// if(lumi <= lumi_Run1)
+	// {
+	// 	fluence = CorrectForCME(lumi) * fluenceRun1;
+	// }
+	// else
+	// {
+	// 	fluence = CorrectForCME(lumi_Run1) * fluenceRun1 + lumi_Run2 * fluenceRun2;
+	// }
 
 	if(lumi <= lumi_Run1)
 	{
 		fluence = CorrectForCME(lumi) * fluenceRun1;
 	}
-	else
+	else if (lumi <= lumi_Run2 && lumi > lumi_Run1)
 	{
 		fluence = CorrectForCME(lumi_Run1) * fluenceRun1 + lumi_Run2 * fluenceRun2;
+	}
+	else{
+		fluence = CorrectForCME(lumi_Run1) * fluenceRun1 + lumi_Run2 * fluenceRun2+lumi_Run3 * fluenceRun3;
 	}
 
 	// cout<<"CorrectForCME(lumi_Run1) "<<CorrectForCME(lumi_Run1)<<endl;
@@ -98,9 +114,11 @@ double GetLumiFromFluence(double fluence, ULong64_t detid, TString subdet)
 	DetFluenceRun1.loadFile("../CommonTools/modulesFluence_3500_sigmaTotem.root");
 	ModFluence DetFluenceRun2;
 	DetFluenceRun2.loadFile("../CommonTools/modulesFluence_7000.root");
+	ModFluence DetFluenceRun3;
+	DetFluenceRun3.loadFile("../CommonTools/modulesFluence_7000.root");
 	double fluence_per_lumi_7tev = DetFluenceRun1.GetFluence(detid);
 	double fluence_per_lumi_13tev = DetFluenceRun2.GetFluence(detid);
-
+	double fluence_per_lumi_14tev = DetFluenceRun3.GetFluence(detid);
 
 	double lumi_7tev_total = 6.12;
 	double lumi_run1_total = 29.46;
@@ -249,7 +267,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 //----------------
 //CAN REMOVE DETIDS/RUNS/TYPE COMBINATIONS HERE (if bad curve --> not to appear on plot)
 
-    bool remove_badscans = true;
+    bool remove_badscans = false;
 
     if(remove_badscans)
     {
@@ -325,7 +343,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   //cout<<"--- Superimpose simulation : Fluence --> Lumi"<<endl;
 
-  int choice_simu = 3; //FIXME
+  int choice_simu = 4; //FIXME
   if(superimpose_simu)
   {
       if(subdet != "TIB" && choice_simu == 0) {cout<<"Can only plot this simulation for TIB ! Abort"<<endl; return;}
@@ -334,8 +352,8 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
     if(choice_simu == 0) {simufile_name = dirname+"/simulation/VdepGraphs_TIB_2017.root";}
     else if(choice_simu == 1) {simufile_name = dirname+"/simulation/Simu_JLA_v1.root";}
     else if(choice_simu == 2) {simufile_name = dirname+"/simulation/Simu_JLA_v2.root";}
-    else if(choice_simu == 3) {simufile_name = dirname+"/simulation/Graph_new_nico_thesis.root";}
-
+    else if(choice_simu == 3) {simufile_name = dirname+"/simulation/Graph_new_nico_thesis.rooDrawOneModulet";}
+	 else if(choice_simu == 4) {simufile_name = dirname+"/simulation/VdepGraphs_2022.root";}
 	if(Check_File_Existence(simufile_name) )
 	{
 		TFile* f_simu = TFile::Open(simufile_name);
@@ -1130,7 +1148,7 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 //----------------
 
 // -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
-
+	bool writeExtraText = false;
 	TString cmsText     = "CMS";
 	TLatex latex;
 	latex.SetNDC();
@@ -1139,14 +1157,15 @@ TGraphErrors* DrawDiffModules_SmallScan(string dirname, string subdet, string an
 	latex.SetTextFont(61);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
+	// latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
+if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin(),0.95,cmsText);
 
-	bool writeExtraText = false;
+	
 	TString extraText   = "Preliminary";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
-	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
-
+	// latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
+if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.953, extraText);
 
 	//TString fluence_label = "Fluence #scale[0.9]{[10^{12} . cm^{-2}]}";
 	TString fluence_label = "Simulated fluence [1 MeV neutron equivalent . cm^{-2} . 10^{12}]";
@@ -1648,7 +1667,7 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
   //TIB & TOB --> ref = 160497 -- TEC --> ref = 246963 (
   //DrawDiffModules_SmallScan(dirname, subdet, type, "160497", NF, runs, lumis, usefluence, use_curvature);
 
-  //Superimpose_DrawDiffModules_SmallScan(dirname, subdet, "280385", NF, runs, lumis, usefluence);
+  //Superimpose_DrawDiffModules_SmallScan(dirname, subdet, "362696", NF, runs, lumis, usefluence);
 
   return;
 }
@@ -1691,7 +1710,8 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 	vector<int> v_nofModules_layers(size);
 	vector<double> v_mean_fluence(size);
 
-	TString file_tmp = "./detid_lists/"+subdet+"_detid_list.txt";
+	TString file_tmp = "./detid_lists/"+subdet+"_detid_list.txt";//_detid_list_full.txt
+	// TString file_tmp = "./detid_lists/"+subdet+"_detid_list_full.txt";//_detid_list_full.txt
 	ifstream detid_list_small(file_tmp.Data() );
 
 	VdeplRef SubdetRef;
@@ -1857,7 +1877,8 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
     bool read_flu_from_file = true;
 	bool use_logScale = false;
 
-    ifstream file_in("fluence_per_layer.txt"); //read the mean fluences from txt file
+    // ifstream file_in("fluence_per_layer.txt"); //read the mean fluences from txt file
+	ifstream file_in("Fluence_perLayer_MultiScans.txt"); //temporary solution
 
 	vector<TString> v_subdet;
 	v_subdet.push_back("TIB");
@@ -1870,9 +1891,17 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	vector<double> lumis;
 	if(run == "")
 	{
-		v_runs.push_back("323374"); lumis.push_back(152.45+29.46);
-		v_runs.push_back("314574"); lumis.push_back(97.37+29.46);
-		v_runs.push_back("303824"); lumis.push_back(70.55+29.46);
+		// v_runs.push_back("323374"); lumis.push_back(152.45+29.46);
+		// v_runs.push_back("314574"); lumis.push_back(97.37+29.46);
+		// v_runs.push_back("303824"); lumis.push_back(70.55+29.46);
+		// v_runs.push_back("324841");	lumis.push_back(161.40+29.46);
+
+					//2021
+			// v_runs.push_back("346395");lumis.push_back(0.00000213+194.68); //----------------------------not working
+			//2022./z
+			// v_runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
+			// v_runs.push_back("359691");lumis.push_back(11.59+194.68); //----------------------
+			v_runs.push_back("362696");lumis.push_back(40.35+194.68); //----------------------
 	}
 	else {v_runs.push_back(run); lumis.push_back(lumi);}
 
@@ -1930,6 +1959,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 			{
                 if(!plot_fluence || !read_flu_from_file)
                 {
+					// std::cout<<" meanFluence : "<<v_mean_vfd_fluence.second[ibin]<<std::endl;
                     h_flu->SetBinContent(ibin_tmp + ibin + 1, v_mean_vfd_fluence.second[ibin]); //set layer fluence
                 }
                 else
@@ -2116,7 +2146,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	latex.SetTextSize(0.04);
 	if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
 
-    TString lumi_text   = "29.45 fb^{-1} (Run 1) + 70.55 fb^{-1} (Run 2)";
+    TString lumi_text   = "29.45 fb^{-1} (Run 1) + 40.35+194.68 fb^{-1} (Run 2)";
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.03);
 	latex.DrawLatex(0.55, 0.93, lumi_text);
@@ -2127,7 +2157,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	latex.DrawLatex(0.62, 0.85, fluka_text);
 
 	c1->SaveAs("Vfd_Drop_Per_Layer.pdf");
-	// c1->SaveAs("Vfd_Drop_Per_Layer.png");
+	c1->SaveAs("Vfd_Drop_Per_Layer.png");
 
 	delete c1; c1 = NULL;
 	for(int i=0; i<v_h.size(); i++)
@@ -2164,11 +2194,11 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
  */
 void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype="ClusterWidth")
 {
-	bool use_fluence = true; // false <-> do not superimpose fluence for each layer //faster
+	bool use_fluence = false; // false <-> do not superimpose fluence for each layer //faster
 	bool read_flu_from_file = true;
     bool use_logScale = false;
 
-	// ofstream file_out("fluence_per_layer.txt"); //write the mean fluences to txt file //NB : comment to avoid overwrite
+	ofstream file_out("fluence_per_layer.txt"); //write the mean fluences to txt file //NB : comment to avoid overwrite
 	ifstream file_in("Fluence_perLayer_MultiScans.txt"); //read the mean fluences from txt file
 	// ifstream file_in("Fluence_perLayer_MultiScans_TIBTOB.txt"); //read the mean fluences from txt file
 
@@ -2182,15 +2212,22 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	//If want to plot multiple runs at once, remove 'run' arg and list the runs here instead !
 	vector<TString> v_runs; vector<double> lumis;
 
-	// v_runs.push_back("170000");lumis.push_back(1.44); //not used for now, still missing files
+	v_runs.push_back("170000");lumis.push_back(1.44); //not used for now, still missing files
 	v_runs.push_back("190459");lumis.push_back(6.15);
 	v_runs.push_back("193928");lumis.push_back(7.41);
 	v_runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T
 	v_runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
 	v_runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
 	v_runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
-	// v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
-	// v_runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
+	v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
+	v_runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
+	v_runs.push_back("324841");	lumis.push_back(161.40+29.46);
+			//2021
+			v_runs.push_back("346395");lumis.push_back(0.00000213+194.68); //---------------------------
+			//2022./z
+			v_runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
+			v_runs.push_back("359691");lumis.push_back(11.59+194.68); //----------------------
+			v_runs.push_back("362696");lumis.push_back(40.35+194.68); //----------------------
 
 	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
 	c1->SetTopMargin(0.1);
@@ -2294,7 +2331,8 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 				else
 				{
 					x = v_meanFluence_PerLayer_PerSubdet[idet][ilayer];
-					// file_out<<v_runs[irun]<<" "<<v_subdet[idet]<<" "<<x<<endl; //write mean flu
+					// std::cout <<" x: "<<x<<std::endl;
+					file_out<<v_runs[irun]<<" "<<v_subdet[idet]<<" "<<x<<endl; //write mean flu
 				}
 
 				if(use_logScale) {v_graphs[index_layer]->SetPoint(irun, x, v_meanVfdDrop_PerLayer_PerSubdet[idet][ilayer]);}
@@ -2373,7 +2411,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 //----------------
 	// CAPTIONS //
 //----------------
-
+bool writeExtraText = false;
 	TString cmsText = "CMS";
 	TLatex latex;
 	latex.SetNDC();
@@ -2382,15 +2420,15 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	latex.SetTextFont(61);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
-
-	bool writeExtraText = false;
+	// latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
+if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
+	
 	TString extraText   = "Preliminary";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
-	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
-
-	TString lumi_text   = "29.45 fb^{-1} (Run 1) + 70.55 fb^{-1} (Run 2)";
+	// latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
+if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
+	TString lumi_text   = "29.45 fb^{-1} (Run 1) + 194.68 fb^{-1} (Run 2)";
 	latex.SetTextFont(42);
 	latex.SetTextSize(0.03);
 	latex.DrawLatex(0.60, 0.93, lumi_text);
@@ -2400,7 +2438,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	latex.SetTextSize(0.025);
 	latex.DrawLatex(0.62, 0.85, fluka_text);
 
-	// c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.png");
+	c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.png");
 	c1->SaveAs("Vfd_Drop_Per_Layer_MultiScans.pdf");
 
 	//Save rootfile containing each TGraph separately
@@ -2438,7 +2476,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 /*
 void Plot_CW300V_VS_Vfd(TString dirname, TString subdet, TString antype, TString run)
 {
-	// TString inputfile_name = dirname+"/all_modules/DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
+	TString inputfile_name = dirname+"/all_modules/DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
 	TString inputfile_name = "./DECO_allModules_"+antype+"_"+subdet+"_line_"+run+".root";
 
     TFile *f = TFile::Open(inputfile_name);
@@ -2566,9 +2604,13 @@ int main(int argc, char *argv[])
 {
   Modified_tdr_style();
 
-  string dirname="./DECO_files";
+//   string dirname=".";
+  string dirname="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/DECO_files_kink_range_fix";
+//   
 
-  bool use_curvature = false; //true-->kink ; false-->lines
+// ./DECO_files
+//nicolasdvpt
+  bool use_curvature = true; //true-->kink ; false-->lines
 
 //--------------------------------------------
   bool usefluence = true; //Draw fluence axis
@@ -2580,24 +2622,28 @@ int main(int argc, char *argv[])
 
   //--------------------------------------------
 //-- ACTIONS --//
-  bool draw_vfd_evolution_plots = false; //Vfd evol plots
+  bool draw_vfd_evolution_plots = true; //Vfd evol plots
   bool draw_vfd_relative_evolution_plots = false; //Vfd relative evol plots
-  bool draw_vfd_relative_evolution_superimposed_plots = false; //Vfd relative evol plots with both observables drawn
-  bool compute_mean_drop = false; //Compute mean Vfd drop for each Layer
+  bool draw_vfd_relative_evolution_superimposed_plots = true; //Vfd relative evol plots with both observables drawn
+  bool compute_mean_drop = true; //Compute mean Vfd drop for each Layer
   bool compute_mean_drop_multipleScans = false; //Compute mean Vfd drop for each Layer, for several scans
-  bool plot_cw_vs_vfd = false;
+  bool plot_cw_vs_vfd = true;
 //--------------------------------------------
 
 //-- Choose the observables
   vector<string> v_analysis;
-  // v_analysis.push_back("Signal");
+  v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
 
 //-- Choose the subdet
-  vector<string> v_subdet;
-  v_subdet.push_back("TIB");
-  //v_subdet.push_back("TOB");
-  //v_subdet.push_back("TEC");
+  vector<string> v_subdet;//FIXME only the first subdet is taken into account
+    v_subdet.push_back("TIB");
+//   v_subdet.push_back("TOB");
+//   v_subdet.push_back("TEC");
+
+
+  
+
 //--------------------------------------------
 
 
@@ -2607,7 +2653,7 @@ int main(int argc, char *argv[])
 //--- Automatized from here
 //--- Can remove/add below scans if desired
 	std::cout << endl << "Starting DrawKinkVsLumi.exe" << std::endl;
-
+	
 	for(int i=0; i<v_analysis.size(); i++)
 	{
 		for(int j=0; j<v_subdet.size(); j++)
@@ -2616,75 +2662,83 @@ int main(int argc, char *argv[])
 			vector<string> runs;
 			vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
 			//Old runs (10)
-			//runs.push_back("160497");lumis.push_back(0.045); //Full
-			runs.push_back("170000");lumis.push_back(1.44); //Full
+			// runs.push_back("160497");lumis.push_back(0.045); //Full
+			// runs.push_back("170000");lumis.push_back(1.44); //Full
 			runs.push_back("190459");lumis.push_back(6.15); //Full
 			runs.push_back("193541");lumis.push_back(7.19);
 			runs.push_back("193928");lumis.push_back(7.41); //Full
 			runs.push_back("199832");lumis.push_back(15.14);
-			//runs.push_back("200786");lumis.push_back(16.98); //Full
+			runs.push_back("200786");lumis.push_back(16.98); //Full
 			if(v_subdet[j] != "TOB" || v_analysis[i] != "Signal")
 			{runs.push_back("203832");lumis.push_back(21.18);}
-			runs.push_back("208339");lumis.push_back(28.57);
+			// runs.push_back("208339");lumis.push_back(28.57);
 			runs.push_back("211797");lumis.push_back(29.45);
 
 			//2015 (4) -- Run 2
-			runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T
+			// runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T
 			runs.push_back("254790");lumis.push_back(0.17+29.46);
-			if(v_subdet[j] != "TOB" || v_analysis[i] != "Signal")
-			{runs.push_back("258443");lumis.push_back(2.09+29.46);} //Mostly bad curves for TOB
+			// if(v_subdet[j] != "TOB" || v_analysis[i] != "Signal")
+			// {runs.push_back("258443");lumis.push_back(2.09+29.46);} //Mostly bad curves for TOB
 			runs.push_back("262254");lumis.push_back(4.23+29.46);
 
 			//2016 (5)
-			runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
+			// runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
 			runs.push_back("274969");lumis.push_back(7.58+29.46);
 			runs.push_back("276437");lumis.push_back(14.48+29.46);
 			// runs.push_back("276453");lumis.push_back(14.84+29.46); //Full, not completed (15v-195v)
 			runs.push_back("278167");lumis.push_back(23.64+29.46);
 			// runs.push_back("279865");lumis.push_back(32.12+29.46); //FUll, not completed (225-350V)
 			runs.push_back("280385");lumis.push_back(35.06+29.46);
-			//runs.push_back("285371");lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
-
+			// runs.push_back("285371");lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
+//
 			//2017 (5)
 			// runs.push_back("295324");lumis.push_back(45.71+29.46); //-- FULL -- some pixel FEDs missing, use 295376 instead
-			runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
+			// runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
 			runs.push_back("298996");lumis.push_back(52.18+29.46);
 			runs.push_back("302131");lumis.push_back(65.84+29.46);
-			runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
+			// runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
 			// if(v_subdet[j] != "TOB") {runs.push_back("305862");lumis.push_back(91.65+29.46);} //Low stat TOB -- (ALCARECO issue?)
 
 			//2018
-			runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20)
+			// runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20)
 			// runs.push_back("314755");lumis.push_back(97.37+29.46); //-- FULL (-10)
 			// runs.push_back("314756");lumis.push_back(97.37+29.46); //-- FULL (-10) -- few previously excluded PGs
 			// runs.push_back("317182");lumis.push_back(113.01+29.46); //-- (ALCARECO issue, not used)
             runs.push_back("317683");lumis.push_back(119.21+29.46);
 			runs.push_back("320674");lumis.push_back(127.08+29.46);
-            runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
-            runs.push_back("324841");lumis.push_back(161.40+29.46);
-            // runs.push_back("326883");lumis.push_back(xxx+29.46); //Heavy Ions
+            // runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
+            runs.push_back("324841");lumis.push_back(161.40+29.46); 
+            // runs.push_back("326883");lumis.push_back(165.22+29.46); //Heavy Ions
+
+			//Run 3 //Lumi  RUN II  = 165.22 fb-1: 
+			//2021
+			runs.push_back("346395");lumis.push_back(0.00000213+194.68); 
+			//2022
+			// runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
+			runs.push_back("359691");lumis.push_back(11.59+194.68); //----------------------
+			runs.push_back("362696");lumis.push_back(40.35+194.68); //----------------------
 
 			//--------------------------------------------
 			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);} //VFD EVOLUTION, SINGLE MODULES
 			if(compute_mean_drop)
 			{
-                // Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_analysis[i], "", 0);
-                Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_analysis[i], "303824", 70.55+29.46);
-				break; //Don't need to repeat for each subdet
+                Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_analysis[i], "",40.35+194.68);
+                // Plot_Mean_Vfd_Drop_Per_Layer(dirname, v_analysis[i], "303824", 70.55+29.46);
+				// break; //Don't need to repeat for each subdet
 			}
-			// if(plot_cw_vs_vfd) {Plot_CW300V_VS_Vfd(dirname, v_subdet[j], v_analysis[i], "314574");}
+			// if(plot_cw_vs_vfd) {Plot_CW300V_VS_Vfd(dirname, v_subdet[j], v_analysis[i], "359691");}
 
 
 			TString ref = "170000";
 			if(v_subdet[j] == "TEC" || v_subdet[j] == "TOB") {ref = "190459";} //170000 "bad scan"
 
 			if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, 0, draw_fit);}
+			if(draw_vfd_relative_evolution_superimposed_plots) {Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, draw_fit);} //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
 
 			for(int k=3; k<8; k++) //Relative plots for all TEC layers
 			{
 				if(draw_vfd_relative_evolution_plots) {DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, k, draw_fit);} //RELATIVE VFD EVOLUTION, AVERAGED OVER MODULES
-				if(draw_vfd_relative_evolution_superimposed_plots) {Superimpose_DrawDiffModules_SmallScan(dirname, v_subdet[j], v_analysis[i], ref.Data(), runs.size(), runs, lumis, false, use_curvature, draw_fit);} //RELATIVE VFD EVOL, SUPERIMPOSED FOR BOTH OBSERVABLES
-				if(v_subdet[j] != "TEC") {break;}
+				// if(v_subdet[j] != "TEC") {break;}
 			}
 			//--------------------------------------------
 		}

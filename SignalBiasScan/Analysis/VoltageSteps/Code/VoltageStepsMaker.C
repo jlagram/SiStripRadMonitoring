@@ -32,7 +32,7 @@ time_t convertTimestamp( std::string str){
   ctime(&out_time); // Have to let this line, otherwise 1 hour shift with gcc compared to AClic !!
   //2 hours shift, due to daylight saving time + shift of local time with UTC ?
   // only 1 hour shift starting from nov 2012
-  if(year==2013 || (year==2012 && month>=10)) out_time+=3600;
+  if(year==2013 || (year==2012 && month>=10) || (year==2022 && month>=10 )) out_time+=3600;
   else out_time+=7200;
   
   return out_time;
@@ -57,7 +57,8 @@ void VoltageStepsMaker::ComputeVoltageStepsIndex()
   for( itVolt=Voltage.begin(); itVolt!=Voltage.end(); itVolt++){
     VoltageStepsIndex.insert( std::make_pair(*itVolt, istep) );
 	istep++;
-  }   
+  }
+  
 }
 
 
@@ -74,9 +75,9 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
   time_t time_start=0;
   time_t time_end=0;
   std::string str_time;
-  int evt=-1;
-  int evt_start=-1;
-  int evt_end=-1;
+  unsigned int evt=0;
+  unsigned int evt_start=0;
+  unsigned int evt_end=0;
   std::string str_orbit;
   float voltage=0;
   float voltage_previous=0;
@@ -96,23 +97,24 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
 	  if(fin.eof()) continue;
 	  std::stringstream ss(line);
 
-	  
-	  ss >> step >> str_time >> evt >> str_orbit >> voltage >> run;
-	  
-	  
-
-	  ss >> step >> str_time >> evt >> str_orbit >> voltage >> run;
-
-	  //std::cout<<"Step "<<step<<" "<<str_time<<" "<<evt<<" "<<str_orbit<<" "<<voltage<<" "<<run<<std::endl;
-          //std::cout<<" previous_step : "<<step_previous<<std::endl; 	 
- 
+	  //------------Nicolasdpvt----------------//
+	  // ss >> step >> str_time >> evt >> str_orbit >> voltage >> run;
+	  // ss >> step >> str_time >> evt >> str_orbit >> voltage >> run;
+    //-------------Paul dpvt----------------------//
+    ss >> step >> str_time >> run >> evt >> voltage ;
+    // ss >> step >> str_time >> run >> evt >> voltage ;
+    //-------------------------------------------//
+	  // std::cout<<"Step "<<step<<" "<<str_time<<" "<<evt<<" "<<str_orbit<<" "<<voltage<<" "<<run<<std::endl;
+    //       std::cout<<" previous_step : "<<step_previous<<std::endl;
+    // std::cout<<line<<std::endl;
+   
 	  if(step_previous!=step) 
 	  {
 	    evt_start = evt;
 	    time_start = convertTimestamp( str_time );
 	    if(time_start<0) std::cout<<" >>> WARNING : wrong timestamp conversion."<<std::endl;
 		if(t_monitor_start>time_start) t_monitor_start=time_start;
-	    //std::cout<<step<<" t_start "<<time_start<<" "<<t_monitor_start<<std::endl;
+	    std::cout<<step<<" t_start "<<time_start<<" "<<t_monitor_start<<std::endl;
 	  }
 	  else
 	  {
@@ -131,8 +133,8 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
 		if(evt_end < evt_start) 
 		  std::cout<<" >>> ERROR : skip step "<<step<<". evt_end < evt_start !"<<std::endl;
 		if(time_end < time_start) 
-		  std::cout<<" >>> ERROR : skip step "<<step<<". time_end < time_start !"<<std::endl;
-		
+		  {std::cout<<" >>> ERROR : skip step "<<step<<". time_end < time_start !"<<std::endl;}
+		  // std::cout<<" >>> ERROR : time start "<<time_start<<". time_monitor_start "<<t_monitor_start<<std::endl;
 		// Store steps definitions
 		if(run_previous==run && evt_end >= evt_start && time_end >= time_start)
 		{
@@ -140,7 +142,7 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
           time_end-=1; // Prefer to loose 1 sec than to use data with wrong setting 
           if(usetimestamp)
 		  {
-		    std::cout<<" Step : "<<voltage<<" "<<time_start<<"-"<<time_end<<"  start : "<<ctime(&time_start);
+		    std::cout<<" Step : "<<step <<" voltage : "<<voltage<<" "<<time_start<<"-"<<time_end<<"  start : "<<ctime(&time_start);
 
    	        std::pair< int, int > time_pair( time_start, time_end );
 	        VoltageSteps_timestamp.insert(std::make_pair( voltage, time_pair));
@@ -169,10 +171,10 @@ void VoltageStepsMaker::readVoltageSteps(const char* inputfile, bool usetimestam
 	// Compute timestamps just before and just after the whole scan
 
 	// start monitoring 5 min before scan start
-	t_monitor_start-=60*5;
+	t_monitor_start-=60*5;//
 	t_monitor_start=t_monitor_start/60*60; // truncated to the lower minute
 	// stop monitoring 5 min after scan stop
-	t_monitor_end+=60*5;
+	t_monitor_end+=60*5;//
 	t_monitor_end=t_monitor_end/60*60 + 60; // rounded to the upper minute
 
 	std::cout<<" Monitor : t_start "<<t_monitor_start<<"  t_end "<<t_monitor_end<<std::endl;
@@ -312,8 +314,8 @@ int VoltageStepsMaker::getVoltage_evtnumber(int run, int evt, int timestamp){
 }
 
 
-// Returns voltage from timestamp
-int VoltageStepsMaker::getVoltage_timestamp(double timestamp) //changed : int -> double
+// Returns voltage from timestamp : FIXME => timestamp not being between start and end
+int VoltageStepsMaker::getVoltage_timestamp(int timestamp) //changed : int -> double
 { 
 
   std::multimap< int, std::pair< int,int > >::iterator itVStep_t;
@@ -323,7 +325,8 @@ int VoltageStepsMaker::getVoltage_timestamp(double timestamp) //changed : int ->
 	std::pair< int,int > time_pair = itVStep_t->second;
 	int time_start = time_pair.first;
 	int time_end = time_pair.second;
-	if ( timestamp>=time_start && timestamp<=time_end ) theVoltage=itVStep_t->first;
+  // std::cout<< "time_start: "<<time_start<<"|| "<<"timestamp: "<<timestamp<<"|| "<<"time_end: "<<time_end<<std::endl;
+	if ( timestamp>=time_start && timestamp<=time_end ) {theVoltage=itVStep_t->first;}
   }
   return theVoltage;
 }

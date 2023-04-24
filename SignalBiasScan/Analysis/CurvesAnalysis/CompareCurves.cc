@@ -275,8 +275,9 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(showfit) x = func[ifirst]->GetParameter(0);
 
 
- //TLegend *leg = new TLegend(0.65, 0.2, 0.85, 0.5);
- TLegend *leg = new TLegend(0.45, 0.15, 0.92, 0.55);
+//  TLegend *leg = new TLegend(0.6, 0.4, 0.95, 0.8);//en haut à droite => signal
+ TLegend *leg = new TLegend(0.6, 0.15, 0.95, 0.55);//en bas à droite => CW
+//  TLegend *leg = new TLegend(0.45, 0.15, 0.92, 0.55);//en bas à droite => CW
  //leg->SetBorderSize(0.1);
  leg->SetTextFont(42);
  leg->SetHeader("Bias voltage scans");
@@ -372,7 +373,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
 // -- using https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines
 
-	TString cmsText     = "CMS";
+	// TString cmsText     = "CMS";
+	TString cmsText     = "";
 	TLatex latex;
 	latex.SetNDC();
 	latex.SetTextAngle(0);
@@ -383,7 +385,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
 
 	bool writeExtraText = false;
-	TString extraText   = "Preliminary 2017";
+	// TString extraText   = "Preliminary 2017";
+	TString extraText   = "";
 	latex.SetTextFont(52);
 	latex.SetTextSize(0.04);
 	latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
@@ -419,7 +422,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  TString ext = ".png";
  // TString ext = ".pdf";
 
- name+= "compareCurve/compareCurves_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
+ name+= "compareCurve/compareCurves_2022_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
  if(print) {c1->SaveAs(name.Data());}
  //getchar();
  //c1->Close();
@@ -671,31 +674,31 @@ int main()
 
 
 	vector<string> v_analysis;
-	// v_analysis.push_back("Signal");
-	v_analysis.push_back("ClusterWidth");
+	v_analysis.push_back("Signal");
+	// v_analysis.push_back("ClusterWidth");
 
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
-	// v_subdet.push_back("TOB");
-	// v_subdet.push_back("TEC");
-	// v_subdet.push_back("TID");
+	v_subdet.push_back("TOB");
+	v_subdet.push_back("TEC");
+	v_subdet.push_back("TID");
 
 
 	vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
 	//--- RUN 2
 	//2015 (4)
 
-	runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
-	//runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
-	//runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
-	runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
+	// runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
+	// //runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
+	// //runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
+	// runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
 
-	//2016 (6)
-	runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
-	//runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
-	runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
-	//runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
-	runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
+	// //2016 (6)
+	// runs.push_back("271056");	dates.push_back("20160423");	lumis.push_back(4.26+29.46);
+	// //runs.push_back("274969");	dates.push_back("20160612");	lumis.push_back(7.58+29.46);
+	// runs.push_back("276437");	dates.push_back("20160706");	lumis.push_back(14.48+29.46);
+	// //runs.push_back("278167");	dates.push_back("20160803");	lumis.push_back(23.64+29.46);
+	// runs.push_back("280385");	dates.push_back("20160909");	lumis.push_back(35.06+29.46);
 	//-- runs.push_back("285371");	dates.push_back("20161116"); 		lumis.push_back(45.70+29.46); //P-pb collisions ; not shown in final results (~ outlier)
 	//2017 (5)
 	// runs.push_back("295324");	dates.push_back("20170527"); 	lumis.push_back(45.71+29.46); //Full
@@ -712,10 +715,19 @@ int main()
     // runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
     // runs.push_back("320674");	dates.push_back("20180801");	lumis.push_back(127.08+29.46);
     // runs.push_back("323374");	dates.push_back("20180923");	lumis.push_back(152.45+29.46); //Full
-    // runs.push_back("324841");	dates.push_back("20181018");	lumis.push_back(161.40+29.46);
+    runs.push_back("324841");	dates.push_back("20181018");	lumis.push_back(161.40+29.46);//---------------------------
     // runs.push_back("326883");	dates.push_back("20181118");	lumis.push_back(xxx+29.46); //HI
 
     //---------------------------
+
+		//Lumi  RUN II  = 165.22 fb-1: 
+	//2021
+
+	runs.push_back("346395");   dates.push_back("20211029"); lumis.push_back(0.00000213+194.68); //----------------------------
+	//2022
+	runs.push_back("353060");	dates.push_back("20220605");  lumis.push_back(0.00000534+194.68); // //-- FULL
+	runs.push_back("359691");	dates.push_back("20221001"); lumis.push_back(11.59+194.68); //----------------------
+	runs.push_back("362696");	dates.push_back("20221126"); lumis.push_back(40.35+194.68); //----------------------
 
 	int NF = runs.size();
 
@@ -732,7 +744,7 @@ int main()
   for(int i=0; i<v_analysis.size(); i++)
   {
      // directory of root files
-    string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs";
+    string dirname = "../"+v_analysis[i]+"Analysis/Code";
 
  	for(int j=0; j<v_subdet.size(); j++)
  	{

@@ -39,7 +39,7 @@ void FitTIBSmallScan(string dirname, string date, string run, string type, bool 
 	for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
 	{
 		FitOneCurve(dirname, "TIB", run, v_modids[i_modid], type, 1, date, 0);
-		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TIB_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For lines plots
+		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TIB_"+type+"_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For lines plots
 		//if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_curv.png Fit_kink_TIB_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For curv. plots
 	}
 }
@@ -99,7 +99,7 @@ void FitTOBSmallScan(string dirname, string date, string run, string type, bool 
 	for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
 	{
 		FitOneCurve(dirname, "TOB", run, v_modids[i_modid], type, 1, date, 0);
-		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TOB_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );}
+		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TOB_"+type+"_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );}
 	}
 }
 
@@ -155,7 +155,7 @@ void FitTECSmallScan(string dirname, string date, string run, string type, bool 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
   	FitOneCurve(dirname, "TEC", run, v_modids[i_modid], type, 1, date, 0);
-    if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TEC_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );}
+    if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TEC_"+type+"_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );}
   }
 }
 
@@ -171,14 +171,14 @@ int main()
   bool produce_multiple_plots = true;
 
 //--- Choose the observable
-  //string type = "Signal";
+//   string type = "Signal";
   string type = "ClusterWidth";
 
 //--- Choose the subdetector (modules are selected above)
 	vector<string> v_subdet;
-	//v_subdet.push_back("TIB");
+	v_subdet.push_back("TIB");
 	v_subdet.push_back("TOB");
-	//v_subdet.push_back("TEC");
+	v_subdet.push_back("TEC");
 
   vector<string> runs; vector<string> dates;
 
@@ -196,17 +196,17 @@ int main()
   //runs.push_back("211797");	dates.push_back("20130213");
 
 //2015 (4)
-  //runs.push_back("246963");	dates.push_back("20150603");
-  //runs.push_back("254790");	dates.push_back("20150821");
-  runs.push_back("258443");	dates.push_back("20151007");
-  //runs.push_back("262254");	dates.push_back("20151121");
+//   runs.push_back("246963");	dates.push_back("20150603");
+//   //runs.push_back("254790");	dates.push_back("20150821");
+// //   runs.push_back("258443");	dates.push_back("20151007");
+//   runs.push_back("262254");	dates.push_back("20151121");
 
-//2016 (5)
-  //runs.push_back("271056");	dates.push_back("20160423"); //Full
-  //runs.push_back("274969");	dates.push_back("20160612");
-  //runs.push_back("276437");	dates.push_back("20160706");
-  //runs.push_back("278167");	dates.push_back("20160803");
-  //runs.push_back("280385");	dates.push_back("20160909");
+// //2016 (5)
+//   runs.push_back("271056");	dates.push_back("20160423"); //Full
+//   //runs.push_back("274969");	dates.push_back("20160612");
+//   runs.push_back("276437");	dates.push_back("20160706");
+//   //runs.push_back("278167");	dates.push_back("20160803");
+//   runs.push_back("280385");	dates.push_back("20160909");
   //runs.push_back("285371");	dates.push_back("20161116");
 
   //2017
@@ -224,15 +224,25 @@ int main()
   //runs.push_back("317683");	dates.push_back("20180611"); 
   //runs.push_back("320674");	dates.push_back("20180801"); 
   //runs.push_back("323374");	dates.push_back("20180923"); //FULL
-  //runs.push_back("324841");	dates.push_back("20181018");
+//   runs.push_back("324841");	dates.push_back("20181018");
   // runs.push_back("326883");	dates.push_back("20181118"); //HI
 
+	//2021
+
+	// runs.push_back("346395");   dates.push_back("20211031");
+	//2022
+	// runs.push_back("353060");	dates.push_back("20220605");   //-- FULL
+	// runs.push_back("359691");	dates.push_back("20221001");	
+	runs.push_back("362696");	dates.push_back("20221126");
 //--------------------------------------------
   bool multiple_runs_selected = false;
   if(runs.size() > 1) {multiple_runs_selected = true;}
 
-  string dirname = "../"+type+"Analysis/Code/Outputs";
-
+//   string dirname = "../"+type+"Analysis/Code/Outputs";
+//  string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/"+type+"Curves";
+// string dirname ="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/SignalAnalysis/Code/Outputs";
+	// string dirname ="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/"+type+"Analysis/Code/Outputs"; //for 353060,346395 and 324841
+string dirname = "../"+type+"Analysis/Code";
   for(int irun = 0; irun < runs.size(); irun++)
   {
 	  for(int j=0; j<v_subdet.size(); j++)

@@ -129,8 +129,10 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 
   if(!nentries) {cout<<BOLD(FRED("WARNING : NO ENTRY FOUND !!"))<<endl<<endl;}
 
-  //string leakcurfilename="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/LeakCurCorr_"+SubDet+Run+".root";
-  string leakcurfilename="../../../LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
+  string leakcurfilename="/afs/cern.ch/work/j/jlagram/public/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
+  // string leakcurfilename="../../../LeakageCurrentBiasScan/Analysis/LeakCurCorr_files/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";//ntonon
+
+  // string leakcurfilename = " /eos/user/j/jlagram/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/LeakCurCorr_"+SubDet+"_"+date+"_run"+Run+".root";
 
   TFile* leakcurfile = 0;
   if(Check_File_Existence(leakcurfilename) ) leakcurfile = new TFile(leakcurfilename.c_str(), "read");
@@ -332,15 +334,15 @@ int main()
 {
   vector<string> v_analysis;
   v_analysis.push_back("Signal");
-  // v_analysis.push_back("ClusterWidth");
+  v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  // v_subdet.push_back("TOB");
-  // v_subdet.push_back("TEC");
-  // v_subdet.push_back("TID");
+  v_subdet.push_back("TOB");
+  v_subdet.push_back("TEC");
+  v_subdet.push_back("TID");
 
-  bool use_curvature = false; //true-->kink ; false-->lines
+  bool use_curvature = true; //true-->kink ; false-->lines
 
   bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
@@ -368,7 +370,7 @@ int main()
   // runs.push_back("262254");	dates.push_back("20151121");
 
 //2016 (5)
-  //runs.push_back("271056");	dates.push_back("20160423");
+  // runs.push_back("271056");	dates.push_back("20160423");
   // runs.push_back("274969");	dates.push_back("20160612");
   // runs.push_back("276437");	dates.push_back("20160706");
   // runs.push_back("278167");	dates.push_back("20160803");
@@ -389,9 +391,16 @@ int main()
   // runs.push_back("317182");	dates.push_back("20180530");
   // runs.push_back("317683");	dates.push_back("20180611");
   // runs.push_back("320674");	dates.push_back("20180801");
-  runs.push_back("323374");	dates.push_back("20180923"); //FULL
-  // runs.push_back("324841");	dates.push_back("20181018");
+  // runs.push_back("323374");	dates.push_back("20180923"); //FULL
+  runs.push_back("324841");	dates.push_back("20181018");
 
+	//2021
+
+	runs.push_back("346395");   dates.push_back("20211029");
+	//2022
+	runs.push_back("353060");	dates.push_back("20220605"); //-- FULL
+	runs.push_back("359691");	dates.push_back("20221001"); 
+  runs.push_back("362696");	dates.push_back("20221126"); 
 
 
   for(int i=0; i<v_analysis.size(); i++)
@@ -403,7 +412,9 @@ int main()
         if(v_subdet[j]=="TOB" && v_analysis[i]=="Signal" && runs[irun]=="203832") {continue;}
         else if(v_subdet[j]=="TEC" && v_analysis[i]=="Signal" && runs[irun]=="160497") {continue;}
 
-        string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";
+        // string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";
+        // string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/"+v_analysis[i]+"Curves/";
+        string dirname = "../"+v_analysis[i]+"Analysis/Code/";
         FitAllCurves(dirname, v_subdet[j], dates[irun], runs[irun], v_analysis[i], use_curvature, smallScan_modules_only);
       }
     }
