@@ -69,6 +69,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
  TFile* f[NF];
  TGraphErrors* g[NF];
+ TGraphErrors* g2[NF];
  TF1* func[NF];
  TLine* line[NF];
  float lastpoints[NF];
@@ -77,6 +78,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  {
  	f[i]=0;
  	g[i]=0;
+	g2[i]=0;
  	func[i]=0;
  	line[i]=0;
  	lastpoints[i]=0;
@@ -115,10 +117,15 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  double x0, y0, x1, y1, x2, y2;
  //float maxend=0;
  double ymin = 1000, ymax = -1;
+
+ 
+ bool compare_Ileak = true;
+
+
  for(int i=0; i<NF; i++)
  {
-   if(type=="Signal") g[i] = GetGraph(dirname, subdet, runs[i], modid, err_type);
-   if(type=="ClusterWidth") g[i] = GetClusterWidthGraph(dirname, subdet, runs[i], modid, err_type);
+   if(type=="Signal") {g[i] = GetGraph(dirname, subdet, runs[i], modid, err_type);g2[i] = GetGraph(dirname, subdet, runs[i], modid, err_type);}
+   if(type=="ClusterWidth") {g[i] = GetClusterWidthGraph(dirname, subdet, runs[i], modid, err_type);g2[i] = GetClusterWidthGraph(dirname, subdet, runs[i], modid, err_type);}
 
    if(ifirst<0) ifirst=i;
 
@@ -132,9 +139,10 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    if(subdet=="TOB" || subdet=="TEC") {temp_modid = modid / 10;} // In order to have the same correction for the two sensors of the same module
 
 
-   bool apply_Ileak_corr = true; //if true, will apply Ileak corrections
-
+	bool apply_Ileak_corr = true; //if true, will apply Ileak corrections
+	 // Better when looking at only one run since it comapres the same run with and witout leakage current corrections
    int corrected = -1;
+
    if(apply_Ileak_corr)
    {
    	corrected = CorrectGraphForLeakageCurrent(g[i], temp_modid, corr_name);
@@ -146,29 +154,39 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
 
    if(corrected) g[i]->SetMarkerColor(13); //Gray markers if corrected
+   if(corrected) g2[i]->SetMarkerColor(1); //Gray markers if corrected
    else cout<<"(run "<<runs[i]<<")"<<endl;
 
    g[i]->SetMarkerSize(0.8);
-
+   g2[i]->SetMarkerSize(0.8);
 
    if(i>=colors.size()) {cout<<"Error : need more colors !"<<endl;}
-   g[i]->SetLineColor(colors[i-nof_aborted_iterations]);
+   if(compare_Ileak){g[i]->SetLineColor(kBlue);}
+   else {g[i]->SetLineColor(colors[i-nof_aborted_iterations]);}
+   //colors[i-nof_aborted_iterations]
+   g2[i]->SetLineColor(kRed);
    g[i]->SetLineWidth(2);
+   g2[i]->SetLineWidth(2);
    int npt = g[i]->GetN();
    if(npt>2)
    {
      g[i]->GetPoint(npt-3, x0, y0);
      g[i]->GetPoint(npt-2, x1, y1);
      g[i]->GetPoint(npt-1, x2, y2);
+	 g2[i]->GetPoint(npt-3, x0, y0);
+     g2[i]->GetPoint(npt-2, x1, y1);
+     g2[i]->GetPoint(npt-1, x2, y2);
      lastpoints[i] = (y0+y1+y2)/3.;
 
 	 for(int k=0; k<g[i]->GetN(); k++)
 	 {
 	 	g[i]->GetPoint(k, x0, y0);
+		g2[i]->GetPoint(k, x0, y0);
 	 	{
 	 		if(y0 > ymax) ymax = y0;
 	 		else if(y0 < ymin) ymin = y0;
 	 	}
+		
 	 }
 
 	 //if(lastpoints[i]>maxend) maxend=lastpoints[i]; //Find maximum y-value
@@ -201,7 +219,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 	   {
 		 g[i]->GetPoint(ipt, x0, y0);
 		 g[i]->SetPoint(ipt, x0, y0/scale);
-
+		 g2[i]->GetPoint(ipt, x0, y0);
+		 g2[i]->SetPoint(ipt, x0, y0/scale);
 		 if(y0/scale > ymax) {ymax = y0/scale;}
 		 if(y0/scale < ymin) {ymin = y0/scale;}
 	   }
@@ -275,7 +294,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(showfit) x = func[ifirst]->GetParameter(0);
 
 
-//  TLegend *leg = new TLegend(0.6, 0.4, 0.95, 0.8);//en haut à droite => signal
+//  TLegend *leg = new TLegend(0.6, 0.6, 0.95, 0.8);//en haut à droite => signal
  TLegend *leg = new TLegend(0.6, 0.15, 0.95, 0.55);//en bas à droite => CW
 //  TLegend *leg = new TLegend(0.45, 0.15, 0.92, 0.55);//en bas à droite => CW
  //leg->SetBorderSize(0.1);
@@ -288,8 +307,10 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    if(!g[i]) continue;
    g[i]->SetLineWidth(3);
    g[i]->SetMarkerSize(1.4);
-
+   g2[i]->SetLineWidth(3);
+   g2[i]->SetMarkerSize(1.4);
    g[i]->Draw("LP");
+   if(compare_Ileak) {g2[i]->Draw("SAME");}
 
    if(showfit) func[i]->SetLineColor(colors[i]);
    if(showfit) func[i]->Draw("same");
@@ -299,11 +320,12 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
    line[i]->SetLineStyle(2);
    line[i]->SetLineColor(colors[i-nof_aborted_iterations]);
    if(g[i]->GetN() && showfit) line[i]->Draw();
-
+   if(g2[i]->GetN() && showfit && compare_Ileak) line[i]->Draw();
    color_vdep_line = colors[i-nof_aborted_iterations]; run_vdep = runs[i];
 
    TString legend = Change_Data_Format(dates[i]) + ", " + Convert_Number_To_TString(lumis[i]) + " fb^{-1}  ";
    leg->AddEntry(g[i], legend, "l");
+   if (compare_Ileak){leg->AddEntry(g2[i], "Without Leak. curr. corr.", "l");}
  }
 
  leg->Draw();
@@ -422,7 +444,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  TString ext = ".png";
  // TString ext = ".pdf";
 
- name+= "compareCurve/compareCurves_2022_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
+ name+= "compareCurve/368669_compareCurves_2023_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
  if(print) {c1->SaveAs(name.Data());}
  //getchar();
  //c1->Close();
@@ -487,37 +509,63 @@ void CompareTIBCurves(string dirname, const int NF, vector<string> dates, vector
  CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121386, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 
  //TIBminus_1_4_2_5
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121605, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121606, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121609, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121610, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121613, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121614, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121605, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121606, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121609, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121610, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121613, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369121614, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //removed
 
  //TIBplus_1_6_2_5
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125861, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
- CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125862, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125866, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- //CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125869, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125861, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125869, type, normalize, showfit, print, suffix, draw_plots, draw_vdep); //segfault
  CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125870, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 
 
 	//--Included in full scans
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124670, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	
 	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124666, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124662, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124669, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124665, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124661, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124654, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124650, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124646, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+//-------------to decomment when casual analysis -- 
+
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125862, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+ CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125866, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124670, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124669, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124665, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124661, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124654, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124650, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124646, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
 	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124422, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124653, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124649, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124645, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124421, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
-	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124758, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124653, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124649, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124645, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124421, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124758, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369141941, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369141942, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369141945, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369141946, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369141949, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369141950, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+	//-------------------------------------Ivan request 2-----------------------------
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124397, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124414, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124422, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124662, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124666, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124694, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124710, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124726, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369124774, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+	// CompareCurve(dirname, subdet, NF, dates, runs, lumis, 369125870, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
+
+
 }
 
 //-------------------------------
@@ -632,26 +680,48 @@ void CompareTIDCurves(string dirname, const int NF, vector<string> dates, vector
 
 //--- FULL LIST
 	//1 sensor (+0)
-	v_modids.push_back(402666145);
-	v_modids.push_back(402666141);
-	v_modids.push_back(402666137);
-	v_modids.push_back(402666782);
-	v_modids.push_back(402666146);
-	v_modids.push_back(402666142);
-	v_modids.push_back(402666138);
-	v_modids.push_back(402666781);
-	v_modids.push_back(402666265);
-	v_modids.push_back(402666261);
-	v_modids.push_back(402666257);
-	v_modids.push_back(402666277);
-	v_modids.push_back(402666273);
-	v_modids.push_back(402666269);
-	v_modids.push_back(402666133);
-	v_modids.push_back(402666129);
-	v_modids.push_back(402666125);
-	v_modids.push_back(402666134);
-	v_modids.push_back(402666130);
-	v_modids.push_back(402666126);
+
+	// v_modids.push_back(402666133);
+	// v_modids.push_back(402666129);
+	// v_modids.push_back(402666125);
+	// v_modids.push_back(402666134);
+	// v_modids.push_back(402666130);
+	// v_modids.push_back(402666126);
+
+	//------TID minus 
+	// TIDminus_4_2_1_1/
+	v_modids.push_back(402666258);//channel002 // done
+	v_modids.push_back(402666262);//channel002
+	v_modids.push_back(402666266);//channel002
+	// TIDminus_4_2_1_1/
+	v_modids.push_back(402666257);//channel003 //done
+	v_modids.push_back(402666261);//channel003
+	v_modids.push_back(402666265);//channel003
+	// TIDminus_4_2_1_2
+	v_modids.push_back(402666269);//channel003 // can be done
+	v_modids.push_back(402666273);//channel003
+	v_modids.push_back(402666277);//channel003
+	// TIDminus_4_2_1_2
+	v_modids.push_back(402666270);//channel002 //can be done
+	v_modids.push_back(402666274);//channel002
+	v_modids.push_back(402666278);//channel002
+	// TIDminus_4_2_1_4
+	v_modids.push_back(402666137);//channel003 // can be done
+	v_modids.push_back(402666141);//channel003
+	v_modids.push_back(402666145);//channel003
+	// TIDminus_4_2_1_4
+	v_modids.push_back(402666138);//channel002 // can be done
+	v_modids.push_back(402666142);//channel002
+	v_modids.push_back(402666146);//channel002
+
+	// TIDminus_4_2_2_1
+	v_modids.push_back(402666777);//channel003 // can be done
+	v_modids.push_back(402666781);//channel003
+	v_modids.push_back(402666785);//channel003
+	// TIDminus_4_2_2_1
+	v_modids.push_back(402666778);//channel002 // can be done
+	v_modids.push_back(402666782);//channel002
+	v_modids.push_back(402666786);//channel002
 
   for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
   {
@@ -715,7 +785,7 @@ int main()
     // runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
     // runs.push_back("320674");	dates.push_back("20180801");	lumis.push_back(127.08+29.46);
     // runs.push_back("323374");	dates.push_back("20180923");	lumis.push_back(152.45+29.46); //Full
-    runs.push_back("324841");	dates.push_back("20181018");	lumis.push_back(161.40+29.46);//---------------------------
+    // runs.push_back("324841");	dates.push_back("20181018");	lumis.push_back(161.40+29.46);//---------------------------
     // runs.push_back("326883");	dates.push_back("20181118");	lumis.push_back(xxx+29.46); //HI
 
     //---------------------------
@@ -723,18 +793,21 @@ int main()
 		//Lumi  RUN II  = 165.22 fb-1: 
 	//2021
 
-	runs.push_back("346395");   dates.push_back("20211029"); lumis.push_back(0.00000213+194.68); //----------------------------
+	// runs.push_back("346395");   dates.push_back("20211029"); lumis.push_back(0.00000213+194.68); //----------------------------
 	//2022
-	runs.push_back("353060");	dates.push_back("20220605");  lumis.push_back(0.00000534+194.68); // //-- FULL
-	runs.push_back("359691");	dates.push_back("20221001"); lumis.push_back(11.59+194.68); //----------------------
-	runs.push_back("362696");	dates.push_back("20221126"); lumis.push_back(40.35+194.68); //----------------------
+	//  runs.push_back("353060");	dates.push_back("20220605");  lumis.push_back(0.00000534+194.68); // //-- FULL
+	//  runs.push_back("359691");	dates.push_back("20221001"); lumis.push_back(11.59+194.68); //----------------------
+	// runs.push_back("362696");	dates.push_back("20221126"); lumis.push_back(40.35+194.68); //----------------------
+	// runs.push_back("365843");	dates.push_back("20230407"); lumis.push_back(41.42+194.68); //----------FULL
+	// runs.push_back("368669");	dates.push_back("20230609"); lumis.push_back(58.16+194.68); 
+	runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
 
 	int NF = runs.size();
 
 	bool normalize=true;
 	bool print=true;
 	bool showfit=false;
-	bool draw_plots = false;
+	bool draw_plots = true;
 	bool draw_vdep = false; //Draw vertical line which rpz the Vfd value obtained with lines method for "run_vdep"
 
 	// suffix for plot file name
@@ -743,7 +816,7 @@ int main()
 
   for(int i=0; i<v_analysis.size(); i++)
   {
-     // directory of root files
+    //  directory of root files
     string dirname = "../"+v_analysis[i]+"Analysis/Code";
 
  	for(int j=0; j<v_subdet.size(); j++)

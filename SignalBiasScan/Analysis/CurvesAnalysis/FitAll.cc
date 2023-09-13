@@ -338,13 +338,13 @@ int main()
 
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
-  v_subdet.push_back("TID");
+  // v_subdet.push_back("TOB");
+  // v_subdet.push_back("TEC");
+  // v_subdet.push_back("TID");
 
   bool use_curvature = true; //true-->kink ; false-->lines
 
-  bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
+  bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
 
   vector<string> runs; vector<string> dates;
@@ -392,16 +392,19 @@ int main()
   // runs.push_back("317683");	dates.push_back("20180611");
   // runs.push_back("320674");	dates.push_back("20180801");
   // runs.push_back("323374");	dates.push_back("20180923"); //FULL
-  runs.push_back("324841");	dates.push_back("20181018");
+  // runs.push_back("324841");	dates.push_back("20181018");
+  
 
 	//2021
 
-	runs.push_back("346395");   dates.push_back("20211029");
-	//2022
-	runs.push_back("353060");	dates.push_back("20220605"); //-- FULL
-	runs.push_back("359691");	dates.push_back("20221001"); 
-  runs.push_back("362696");	dates.push_back("20221126"); 
-
+	// runs.push_back("346395");   dates.push_back("20211029");
+	// //2022
+	// runs.push_back("353060");	dates.push_back("20220605"); //-- FULL
+	// runs.push_back("359691");	dates.push_back("20221001"); 
+  // runs.push_back("362696");	dates.push_back("20221126"); 
+  // runs.push_back("365843");	dates.push_back("20230407"); //----------FULL
+  // runs.push_back("368669");	dates.push_back("20230609");
+  runs.push_back("373060");	dates.push_back("20230907"); 
 
   for(int i=0; i<v_analysis.size(); i++)
   {

@@ -18,28 +18,41 @@ void FitTIBSmallScan(string dirname, string date, string run, string type, bool 
 	else
 	{
 		//TIBminus_1_2_2_1
-		v_modids.push_back(369121381);
-		v_modids.push_back(369121382);
-		v_modids.push_back(369121385);
-		v_modids.push_back(369121386);
+		// v_modids.push_back(369121381);
+		// v_modids.push_back(369121382);
+		// v_modids.push_back(369121385);
+		// v_modids.push_back(369121386);
 
-		v_modids.push_back(369121389);
-		v_modids.push_back(369121390);
-		//TIBminus_1_4_2_5
-		v_modids.push_back(369125861);
-		v_modids.push_back(369125865);
-		v_modids.push_back(369125869);
+		// v_modids.push_back(369121389);
+		// v_modids.push_back(369121390);
+		// //TIBminus_1_4_2_5
+		// v_modids.push_back(369125861);
+		// v_modids.push_back(369125865);
+		// v_modids.push_back(369125869);
 
-		//TIBplus_1_6_2_5
-		v_modids.push_back(369125862);
-		v_modids.push_back(369125866);
+		// //TIBplus_1_6_2_5
+		// v_modids.push_back(369125862);
+		// v_modids.push_back(369125866);
+		// v_modids.push_back(369125870);
+
+			//Ivan request
+		v_modids.push_back(369124397);
+		v_modids.push_back(369124414);
+		v_modids.push_back(369124422);
+		v_modids.push_back(369124662);
+		v_modids.push_back(369124666);
+		v_modids.push_back(369124694);
+		v_modids.push_back(369124710);
+		v_modids.push_back(369124726);
+		v_modids.push_back(369124774);
 		v_modids.push_back(369125870);
+
 	}
 
 	for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
 	{
 		FitOneCurve(dirname, "TIB", run, v_modids[i_modid], type, 1, date, 0);
-		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_line_TIB_"+type+"_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For lines plots
+		if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_IvanRequest_line_TIB_"+type+"_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For lines plots
 		//if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_curv.png Fit_kink_TIB_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );} //For curv. plots
 	}
 }
@@ -159,6 +172,61 @@ void FitTECSmallScan(string dirname, string date, string run, string type, bool 
   }
 }
 
+//-- CHOOSE HERE THE TID MODULE(S) FOR WHICH YOU WANT TO PLOT THE SCAN CURVE
+void FitTIDFullScan(string dirname, string date, string run, string type, bool produce_multiple_plots, bool multiple_runs_selected)
+{
+	vector<ULong64_t> v_modids;
+
+	if(!produce_multiple_plots || multiple_runs_selected)
+	{
+		v_modids.push_back(402666258);
+	}
+
+	else
+	{
+	//------TID minus 
+	// TIDminus_4_2_1_1/
+	v_modids.push_back(402666258);//channel002
+	v_modids.push_back(402666262);//channel002
+	v_modids.push_back(402666266);//channel002
+	// TIDminus_4_2_1_1/
+	v_modids.push_back(402666257);//channel003
+	v_modids.push_back(402666261);//channel003
+	v_modids.push_back(402666265);//channel003
+	// TIDminus_4_2_1_2
+	v_modids.push_back(402666269);//channel003
+	v_modids.push_back(402666273);//channel003
+	v_modids.push_back(402666277);//channel003
+	// TIDminus_4_2_1_2
+	v_modids.push_back(402666270);//channel002
+	v_modids.push_back(402666274);//channel002
+	v_modids.push_back(402666278);//channel002
+	// TIDminus_4_2_1_4
+	v_modids.push_back(402666137);//channel003
+	v_modids.push_back(402666141);//channel003
+	v_modids.push_back(402666145);//channel003
+	// TIDminus_4_2_1_4
+	v_modids.push_back(402666138);//channel002
+	v_modids.push_back(402666142);//channel002
+	v_modids.push_back(402666146);//channel002
+
+	// TIDminus_4_2_2_1
+	v_modids.push_back(402666777);//channel003
+	v_modids.push_back(402666781);//channel003
+	v_modids.push_back(402666785);//channel003
+	// TIDminus_4_2_2_1
+	v_modids.push_back(402666778);//channel002
+	v_modids.push_back(402666782);//channel002
+	v_modids.push_back(402666786);//channel002
+	}
+
+  for(int i_modid = 0; i_modid < v_modids.size(); i_modid++)
+  {
+  	FitOneCurve(dirname, "TID", run, v_modids[i_modid], type, 1, date, 0);
+    if(produce_multiple_plots || multiple_runs_selected) {system( ("mv Fit_line.png Fit_IvanRequest_line_TID_"+type+"_"+Convert_Number_To_TString(v_modids[i_modid])+"_"+run+".png").Data() );}
+  }
+}
+
 
 int main()
 {
@@ -171,14 +239,15 @@ int main()
   bool produce_multiple_plots = true;
 
 //--- Choose the observable
-//   string type = "Signal";
-  string type = "ClusterWidth";
+  string type = "Signal";
+//   string type = "ClusterWidth";
 
 //--- Choose the subdetector (modules are selected above)
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
 	v_subdet.push_back("TOB");
 	v_subdet.push_back("TEC");
+	v_subdet.push_back("TID");
 
   vector<string> runs; vector<string> dates;
 
@@ -196,44 +265,47 @@ int main()
   //runs.push_back("211797");	dates.push_back("20130213");
 
 //2015 (4)
-//   runs.push_back("246963");	dates.push_back("20150603");
-//   //runs.push_back("254790");	dates.push_back("20150821");
-// //   runs.push_back("258443");	dates.push_back("20151007");
-//   runs.push_back("262254");	dates.push_back("20151121");
+  runs.push_back("246963");	dates.push_back("20150603");
+  //runs.push_back("254790");	dates.push_back("20150821");
+//   runs.push_back("258443");	dates.push_back("20151007");
+  runs.push_back("262254");	dates.push_back("20151121");
 
 // //2016 (5)
 //   runs.push_back("271056");	dates.push_back("20160423"); //Full
-//   //runs.push_back("274969");	dates.push_back("20160612");
-//   runs.push_back("276437");	dates.push_back("20160706");
-//   //runs.push_back("278167");	dates.push_back("20160803");
-//   runs.push_back("280385");	dates.push_back("20160909");
-  //runs.push_back("285371");	dates.push_back("20161116");
+  //runs.push_back("274969");	dates.push_back("20160612");
+  runs.push_back("276437");	dates.push_back("20160706");
+  //runs.push_back("278167");	dates.push_back("20160803");
+  runs.push_back("280385");	dates.push_back("20160909");
+  runs.push_back("285371");	dates.push_back("20161116");
 
   //2017
   //runs.push_back("295324");	dates.push_back("20170527"); //Full
   //runs.push_back("295376");	dates.push_back("20170527"); //Full
-  //runs.push_back("298996");	dates.push_back("20170714");
-  //runs.push_back("302131");	dates.push_back("20170831");
+  runs.push_back("298996");	dates.push_back("20170714");
+  runs.push_back("302131");	dates.push_back("20170831");
   //runs.push_back("303824");	dates.push_back("20170924"); //Full
-  //runs.push_back("305862");	dates.push_back("20171030");
+  runs.push_back("305862");	dates.push_back("20171030");
 
   //2018
   //runs.push_back("314574");	dates.push_back("20180418"); //Full
   // runs.push_back("314755");	dates.push_back("20180420"); //Full, -10°
-  //runs.push_back("317182");	dates.push_back("20180530"); 
-  //runs.push_back("317683");	dates.push_back("20180611"); 
-  //runs.push_back("320674");	dates.push_back("20180801"); 
+  runs.push_back("317182");	dates.push_back("20180530"); 
+  runs.push_back("317683");	dates.push_back("20180611"); 
+  runs.push_back("320674");	dates.push_back("20180801"); 
   //runs.push_back("323374");	dates.push_back("20180923"); //FULL
-//   runs.push_back("324841");	dates.push_back("20181018");
+  runs.push_back("324841");	dates.push_back("20181018");
   // runs.push_back("326883");	dates.push_back("20181118"); //HI
 
 	//2021
 
-	// runs.push_back("346395");   dates.push_back("20211031");
+	runs.push_back("346395");   dates.push_back("20211031");
 	//2022
 	// runs.push_back("353060");	dates.push_back("20220605");   //-- FULL
-	// runs.push_back("359691");	dates.push_back("20221001");	
+	runs.push_back("359691");	dates.push_back("20221001");	
 	runs.push_back("362696");	dates.push_back("20221126");
+	runs.push_back("365843");	dates.push_back("20230407"); //----------FULL
+	runs.push_back("368669");	dates.push_back("20230609");
+	runs.push_back("373060");	dates.push_back("20230907"); 
 //--------------------------------------------
   bool multiple_runs_selected = false;
   if(runs.size() > 1) {multiple_runs_selected = true;}
@@ -250,7 +322,10 @@ string dirname = "../"+type+"Analysis/Code";
 		  if(v_subdet[j] == "TIB") {FitTIBSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots, multiple_runs_selected);}
 		  else if(v_subdet[j] == "TOB") {FitTOBSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots, multiple_runs_selected);}
 		  else if(v_subdet[j] == "TEC") {FitTECSmallScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots, multiple_runs_selected);}
+		  //Care, TID is for fullscans and the others are for both full and smallscans
+		  else if(v_subdet[j] == "TID") {FitTIDFullScan(dirname, dates[irun], runs[irun], type, produce_multiple_plots, multiple_runs_selected);}
 		  else {cout<<" Wrong subdet !"<<endl; return 0;}
+		  
 	  }
   }
 

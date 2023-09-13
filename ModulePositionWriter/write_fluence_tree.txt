@@ -1,5 +1,0 @@
-TFile f("fluenceTree_3500.root", "recreate");
-TTree flu("fluence","");
-flu.ReadFile("1MeVneq_3500_2-5cm_tracker.dat");
-f.Write();
-f.Close();

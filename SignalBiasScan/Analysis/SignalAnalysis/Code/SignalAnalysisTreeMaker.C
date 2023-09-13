@@ -31,6 +31,7 @@
 #include <TH2F.h>
 #include <TMath.h>
 #include <TRint.h>
+#include <TRandom3.h>
 
 //FIXME
 //int counter = 0;
@@ -633,7 +634,7 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
       if(SoNHisto->GetEntries()) hNhits->Fill(SoNHisto->Integral());
       
 	  
-	  if(SoNHisto->Integral()<20) //0.1
+	  if(SoNHisto->Integral()<20) //0.1 //20 by default
 	   { std::cout<<" Not enough entries for histo "<<thestring.Data()<<std::endl;
 	     i++; continue;
 	   }
@@ -690,7 +691,9 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
       detid==369121437 || detid==369142077 || detid==369121722 || 
       detid==369125534 || detid==369137018 || detid==369121689 ||
       detid==369121765 || detid==369137045 || detid==369169740 ||
-      detid==369121689 ||
+      detid==369121689 || detid==369141941 || detid==369141946 ||
+      detid==369141949 || detid==369141942 || detid==369141945 ||
+      detid==369141950 ||
       // TOB modules 
 	      // TOB + 4.3.3.8
       detid/10==436281512 || detid/10==436281528 || detid/10==436281508 ||
@@ -738,17 +741,21 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
           int TECgeom=0;
 
           if(subdet==6) TECgeom = ((detid>>5)&0x7); //TEC -> extract geometry (ring 5, ring6, ...)
-
-
+    TRandom3* Land = new TRandom3(0);
+    Land->SetSeed(0);
       // save values
 	  detid = iter->first;
 	  voltage  = *itVolt;
 	  index = i;
 	  errvoltage = 2 ;
 	  MPV = fitFunc->GetParameter(1);
+    // MPV = fitFunc->GetMaximumX();//low stat
 	  errMPV = fitFunc->GetParError(1);
+    // errMPV = Land->Landau(4.247,0.5);//low stat
 	  Width = fitFunc->GetParameter(2);
+    //  Width = SoNHisto->GetStdDev();//low stat
 	  errWidth = fitFunc->GetParError(2);
+    	  // errWidth = SoNHisto->GetStdDevError();//low stat
 	  // chi2overndf already set
 	  nhits = (int) SoNHisto->Integral();
       if(subdet==3 || subdet==4 || (subdet==6 && TECgeom<5))

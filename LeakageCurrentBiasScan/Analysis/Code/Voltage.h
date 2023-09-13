@@ -1,3 +1,6 @@
+#ifndef Voltage_h
+#define Voltage_h
+
 // Code to read voltage root file get from ConditionBrowser web page
 // Only for crosscheck of steps definition
 
@@ -7,6 +10,7 @@
 #include "TTree.h"
 #include "TGraph.h"
 #include "TH1F.h"
+#include <string>
 
 TString SecUTC(Int_t sec)
 {
@@ -20,10 +24,9 @@ TString SecUTC(Int_t sec)
   s(17, 2);
 }
 
-TGraph* ReadVoltage(string filename="Data/ConditionBrowser_1343662723590.root")
+TGraph* ReadVoltage(std::string filename="Data/ConditionBrowser_1343662723590.root")
 {
-  //char NAME[200];
-  string NAME;
+  char NAME[200];
   Int_t NROW;
   Double_t WEIGHT[20000];
   Int_t TIME[20000];
@@ -66,3 +69,5 @@ TGraph* ReadVoltage(string filename="Data/ConditionBrowser_1343662723590.root")
   
   return g;
 }
+
+#endif

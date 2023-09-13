@@ -10,11 +10,6 @@
 #include "TTree.h"
 #include "TGraph.h"
 #include "TH1F.h"
-#include "TString.h"
-#include <string>
-
-using namespace std;
-
 
 int convertTimestamp( std::string str){
 
@@ -24,30 +19,26 @@ int convertTimestamp( std::string str){
   int month=-1;
   int hour=-1;
   int day=-1;
-  
-  if(str == "") {cout<<"ERROR (Code/Steps.h) : time stamp wrong format ? Can't extract infos ! Probably first line of step file contains headers (remove them!)"<<endl; return 0;} 
 
   ss.clear(); ss << str.substr(0, 4); ss >> year;
   time.tm_year = year - 1900;
-  ss.clear(); ss << str.substr(4, 2); ss >> month; 
-  time.tm_mon = month - 1; 
-  ss.clear(); ss << str.substr(6, 2); ss >> day; time.tm_mday=day; 
+  ss.clear(); ss << str.substr(4, 2); ss >> month;
+  time.tm_mon = month - 1;
+  ss.clear(); ss << str.substr(6, 2); ss >> day; time.tm_mday=day;
   ss.clear(); ss << str.substr(8, 2); ss >> hour; time.tm_hour=hour;
   ss.clear(); ss << str.substr(10, 2); ss >> time.tm_min;
   ss.clear(); ss << str.substr(12, 2); ss >> time.tm_sec;
-  
   //time.tm_isdst=1;
 
-  if(year < 2000 || year > 2020) std::cout<<" Wrong year format : "<<year<<std::endl;
+  if(year < 2000 || year > 2028) std::cout<<" Wrong year format : "<<year<<std::endl;
   if(time.tm_sec < 0 || time.tm_sec > 61) std::cout<<" Wrong sec format : "<<year<<std::endl; 
   //cout<<" timestamp "<<year<<" "<<time.tm_mon<<" "<<time.tm_mday<<" "<<time.tm_hour<<" "<<time.tm_min<<" "<<time.tm_sec<<std::endl;
 
+  // linux time in s in UTC
   time_t out_time = mktime( &time );
   // Next lines to avoid random shifts of 1 hour that happen sometimes when doing conversion !!
   struct tm * timeinfo;
-  timeinfo = localtime(&out_time); 
-  
-  
+  timeinfo = localtime(&out_time);
   if(hour!=timeinfo->tm_hour) 
   {
     //std::cout<<"try to correct hour : origin "<<hour<<" bad "<<timeinfo->tm_hour<<std::endl;
@@ -57,10 +48,9 @@ int convertTimestamp( std::string str){
     timeinfo = localtime(&out_time);
   }
   if(hour!=timeinfo->tm_hour) {std::cout<<"ERROR in hour : "<<hour<<" "<<timeinfo->tm_hour<<std::endl; return 0;}
-  return out_time-3600; //->UTC
+  return out_time; // in UTC
   
 } 
-
 
 
 TGraph* ReadSteps(std::string filename, bool print=false)
@@ -69,9 +59,8 @@ TGraph* ReadSteps(std::string filename, bool print=false)
   //Read file with steps definition
   
   std::string line;
-  ifstream fin(filename.c_str());
-  if(!fin.is_open()) { std::cout<<"Error : file "<<std::string(filename)<<" not found."<<std::endl; return 0;}
- 
+  ifstream fin(filename);
+  if(!fin.is_open()) { std::cout<<"Error : file "<<filename<<" not found."<<std::endl; return 0;}
     
   int step=-1;
   int time=-1;
@@ -80,11 +69,9 @@ TGraph* ReadSteps(std::string filename, bool print=false)
   std::string orbit;
   float voltage=0;
   int run=-1;
-  int nof_events = -1;
 
   TGraph *g = new TGraph();
   g->SetName("VoltageSteps");
-  
 
   int i=0;
   if(fin.is_open())  {
@@ -92,20 +79,16 @@ TGraph* ReadSteps(std::string filename, bool print=false)
         {
           if(fin.eof()) continue;
           std::stringstream ss(line);
-          ss >> step >> str_time >> event >> orbit >> voltage >> run >> nof_events;
-          //cout<<step<<" / "<<time<<" / "<<event<<" / "<<orbit<<" / "<<voltage<<" / "<<run<<" / "<<nof_events<<endl;
+          ss >> step >> str_time >> event >> orbit >> voltage >> run;
           time = convertTimestamp( str_time );
           if(print) std::cout<<" Step : "<<voltage<<" "<<time<<std::endl;
           //time_t tt = time;
           //std::cout<<"  time : "<<ctime(&tt);
-
           g->SetPoint(i, time, voltage);
-
           i++;
         }
         fin.close();
   }
-  
 
   TH1F* h = g->GetHistogram();
   h->GetXaxis()->SetTimeDisplay(1);
@@ -116,15 +99,14 @@ TGraph* ReadSteps(std::string filename, bool print=false)
 }
 
 
-
 void ReadBadPeriodsOld(std::string filename, vector< int > &bad_periods_start, vector< int > &bad_periods_end)
 {
   
   //Read file with bad periods definition
   
   std::string line;
-  ifstream fin(filename.c_str());
-  if(!fin.is_open()) { std::cout<<"Error : file "<<std::string(filename)<<" not found."<<std::endl; return;}
+  ifstream fin(filename);
+  if(!fin.is_open()) { std::cout<<"Error : file "<<filename<<" not found."<<std::endl; return;}
     
   int time_start=-1;
   std::string str_time_start;

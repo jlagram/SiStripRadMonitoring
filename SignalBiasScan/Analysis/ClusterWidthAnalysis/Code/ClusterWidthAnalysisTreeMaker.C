@@ -828,7 +828,9 @@ void ClusterWidthAnalysisTreeMaker::FitProfiles(std::map<ULong64_t , std::vector
       detid==369121437 || detid==369142077 || detid==369121722 || 
       detid==369125534 || detid==369137018 || detid==369121689 ||
       detid==369121765 || detid==369137045 || detid==369169740 ||
-      detid==369121689 ||
+      detid==369121689 || detid==369141941 || detid==369141946 ||
+      detid==369141949 || detid==369141942 || detid==369141945 ||
+      detid==369141950 ||
       // TOB modules 
 	      // TOB + 4.3.3.8
       detid/10==436281512 || detid/10==436281528 || detid/10==436281508 ||

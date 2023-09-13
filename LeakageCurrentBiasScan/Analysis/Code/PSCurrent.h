@@ -1,13 +1,12 @@
 #include "DCUCurrent.h"
 
-TGraph* ReadPSCurrentTxt(string filename="Data/PS_I_TIB_L1_20120405_run190459.txt", int detid=369121605, string bad_periods="")
+TGraph* ReadPSCurrentTxt(std::string filename="Data/PS_I_TIB_L1_20120405_run190459.txt", int detid=369121605, std::string bad_periods="")
 {
   
   // Read bad periods
   vector< int > bad_periods_start;
   vector< int > bad_periods_end;
-  //if(strcmp(bad_periods, ""))
-  if(bad_periods != "")
+  if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
@@ -18,7 +17,7 @@ TGraph* ReadPSCurrentTxt(string filename="Data/PS_I_TIB_L1_20120405_run190459.tx
   }
 
   std::string line;
-  ifstream fin(filename.c_str());
+  ifstream fin(filename);
   std::string PS;
   std::string clob;
   std::string modids;
@@ -58,8 +57,7 @@ TGraph* ReadPSCurrentTxt(string filename="Data/PS_I_TIB_L1_20120405_run190459.tx
           if(str_am_pm=="PM") time += 12*3600;
 
           // Remove points during bad periods
-          //if(strcmp(bad_periods, ""))
-		  if(bad_periods != "")
+          if(bad_periods!="")
 		  {
 		     for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
 			   if(time>=bad_periods_start[ip] && time<=bad_periods_end[ip]) continue;
@@ -101,12 +99,12 @@ TGraph* ReadPSCurrentTxt(string filename="Data/PS_I_TIB_L1_20120405_run190459.tx
 
 }
 
-void ConvertPSCurrentTxtToRoot(string filename="Data/PS_I_TIB_L1_20120405_run190459.txt")
+void ConvertPSCurrentTxtToRoot(std::string filename="Data/PS_I_TIB_L1_20120405_run190459.txt")
 {
   cout<<"Converting file "<<filename<<" to root format."<<endl;
   
   // Create output file
-  TString file(filename);
+  TString file(filename.c_str());
   int dot=file.Index(".txt");
   file.Replace(dot,4,".root");
   TFile fout(file.Data(), "recreate");
@@ -126,7 +124,7 @@ void ConvertPSCurrentTxtToRoot(string filename="Data/PS_I_TIB_L1_20120405_run190
 
   // Read input file
   std::string line;
-  ifstream fin(filename.c_str());
+  ifstream fin(filename);
   std::string str_ps;
   std::string str_clob;
   std::string str_modids;
@@ -194,9 +192,9 @@ void ConvertPSCurrentTxtToRoot(string filename="Data/PS_I_TIB_L1_20120405_run190
   
 }
 
-TGraph* ReadPSCurrentRoot(string filename, int modid, int &nmodforchannel, 
-// string filename="Data/PS_I_TIB_L1_20120405_run190459.root", int modid=369121605
- string bad_periods="", bool print=false)
+TGraph* ReadPSCurrentRoot(std::string filename, int modid, int &nmodforchannel, 
+// std::string filename="Data/PS_I_TIB_L1_20120405_run190459.root", int modid=369121605
+ std::string bad_periods="", bool print=false)
 {
   
   TGraph* g = ReadCurrentRoot(filename, modid, nmodforchannel, "ps", bad_periods, print); // Same tree format for DCU and PS currents
