@@ -444,7 +444,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  TString ext = ".png";
  // TString ext = ".pdf";
 
- name+= "compareCurve/368669_compareCurves_2023_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
+ name+= "compareCurve/compareCurves_2023_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
  if(print) {c1->SaveAs(name.Data());}
  //getchar();
  //c1->Close();
@@ -750,8 +750,8 @@ int main()
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
 	v_subdet.push_back("TOB");
-	v_subdet.push_back("TEC");
-	v_subdet.push_back("TID");
+	// v_subdet.push_back("TEC");
+	// v_subdet.push_back("TID");
 
 
 	vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
@@ -801,6 +801,7 @@ int main()
 	// runs.push_back("365843");	dates.push_back("20230407"); lumis.push_back(41.42+194.68); //----------FULL
 	// runs.push_back("368669");	dates.push_back("20230609"); lumis.push_back(58.16+194.68); 
 	runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
+	runs.push_back("375658");   dates.push_back("20231025"); lumis.push_back(73.86+194.68);//HI
 
 	int NF = runs.size();
 

@@ -2803,6 +2803,7 @@ int main(int argc, char *argv[])
 			// runs.push_back("365843");lumis.push_back(41.42+194.68); //----------FULL
 			runs.push_back("368669"); lumis.push_back(58.16+194.68); 
 			runs.push_back("373060"); lumis.push_back(72.69+194.68);
+			runs.push_back("375658"); lumis.push_back(73.86+194.68);//HI
 			//--------------------------------------------
 			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);} //VFD EVOLUTION, SINGLE MODULES
 			if(compute_mean_drop)
