@@ -4,14 +4,12 @@
 
 TGraphErrors* GetIleakVsVbias(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS)
 {
-  
   if(!gsteps || !gcur_DCU || !gcur_PS) {std::cout<<" Missing input. Exiting GetIleakVsVbias()."<<std::endl; return 0;}
   if(!gsteps->GetN() || !gcur_PS->GetN()) {std::cout<<" Empty input. Exiting GetIleakVsVbias()."<<std::endl; return 0;}
-  //cout<<"steps: "<<gsteps->GetN()<<" dcu: "<<gcur_DCU->GetN()<<" ps: "<<gcur_PS->GetN()<<endl;
   if(gcur_PS->GetN()<8) {std::cout<<" Too few PS currents values. Exiting GetIleakVsVbias()."<<std::endl; return 0;}
 
   TGraphErrors* gout = new TGraphErrors();
-  
+
   double time=0;
   double current=0;
   double voltage=0;
@@ -27,45 +25,49 @@ TGraphErrors* GetIleakVsVbias(TGraph* gsteps, TGraph* gcur_DCU, TGraph* gcur_PS)
   TGraph* gcur = gcur_PS; //choose DCU or PS
   // Loop on DCU measurements
   int ipt=0;
-  for(int ic=0; ic<gcur->GetN(); ic++)
+  for(int ic=0; ic<gcur->GetN(); ic++)//loop over the detids
   {
     gcur->GetPoint(ic, time, current);
-    //current*=current;
+
     time_cur=int(time);
     if(time_cur==0) continue;
-    //cout<<time_cur<<" "<<current<<"uA"<<endl;
-    //if(time_cur>1333629950 && time_cur<1333647468) continue; // between 2 parts of 2012 april scan
        
     // Look for voltage step corresponding at time_cur
     previous_voltage=300;
     prev_time_volt=0;
-    for(int iv=0; iv<gsteps->GetN(); iv++)
-    {
-      gsteps->GetPoint(iv, time, voltage);
-      time_volt=int(time);
-      //cout<<"  "<<time_volt<<" "<<voltage<<"V"<<endl;
-      
-      // Fill graph Current vs Vbias
-      if(time_cur>=prev_time_volt && time_cur<time_volt)
+    for(int iv=0; iv<gsteps->GetN(); iv++)//loop over the steps
       {
-        //cout<<prev_time_volt<<" "<<previous_voltage<<"V - "<<time_volt<<" "<<voltage<<"V"<<endl;
-		volt=(previous_voltage+voltage)/2.;
-        volt_err=fabs(voltage-volt);
-        if(volt_err<1) volt_err=1;
-      }
+        gsteps->GetPoint(iv, time, voltage);
+        time_volt=int(time);
+        //cout<<"  "<<time_volt<<" "<<voltage<<"V"<<endl;
+      
+        // Fill graph Current vs Vbias
+        if(time_cur>=prev_time_volt && time_cur<time_volt)
+          {
+            //cout<<prev_time_volt<<" "<<previous_voltage<<"V - "<<time_volt<<" "<<voltage<<"V"<<endl;
+		        volt=(previous_voltage+voltage)/2.;//basically starts at 150 volts for some reasons
+            std::cout<<"volt: "<<volt<<std::endl;
+            volt_err=fabs(voltage-volt);
+            std::cout<<"volt_error: "<<volt_err<<std::endl;
+            if(volt_err<1) volt_err=1; // the error is either 12.5 volts when using the interpoalted steps or 0 when using the usual steps
+          }
 	  
-      previous_voltage=voltage;
-      prev_time_volt=time_volt;
-    }     
+        previous_voltage=voltage;// to iterate over all the voltage steps
+        prev_time_volt=time_volt;// to iterate over all the voltage steps
+      }     
 	 
     if(volt!=0)
-    // remove points not in a voltage step
-	if(volt_err<=15) //1 //15
+
+    //-------------------------------------------------------------//
+    // remove points not in a voltage step by using 1, else use 15 
+    //-------------------------------------------------------------//
+	if(volt_err<=1) //1 //15
 	{
 	  gout->SetPoint(ipt, volt, current);
       gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
       ipt++;
 	}
+
 	
   } // End of loop on DCU measurements
 
@@ -227,36 +229,36 @@ float GetStartFlat(TGraph* g, TH1F* &h, float &deriv_above_thresh, float &thresh
   // -> reordering using map
   map< double, double> points;
   for(int ip=0; ip<g->GetN(); ip++)
-  {
-    g->GetPoint(ip, voltage, deriv);
-	points[voltage]=deriv;
-  }
+    {
+      g->GetPoint(ip, voltage, deriv);
+	    points[voltage]=deriv;
+    }
   
   map< double, double>::iterator itPoints = points.end();
   while( itPoints!=points.begin() )
-  {
-    itPoints--;
-    voltage=itPoints->first;
-	deriv=itPoints->second;
-	cout<<" "<<voltage<<" "<<deriv<<endl;
-    if(voltage>200) h->Fill(deriv);
-	else
-	{
-	  ymean = h->GetMean();
-	  yrms = h->GetRMS();
-	  thresh_min = ymean-3.5*yrms;
-	  thresh_max = ymean+3.5*yrms;
-	  h->Fill(deriv);
-	  deriv_above_thresh = deriv;
-	  x_above_thresh = voltage;
-	  if(fabs(deriv)>thresh_max)
-	  {
-	    cout<<" first not flat point: "<<voltage<<" "<<deriv<<", thresh: "<<thresh_max<<endl;
-		break;
-	  }
-	  xstart = voltage;
-	}
-  }
+    {
+      itPoints--;
+      voltage=itPoints->first;
+	    deriv=itPoints->second;
+	    cout<<"Voltage : "<<voltage<<" with Ileak Deriv "<<deriv<<endl;
+      if(voltage>200) h->Fill(deriv);
+	    else
+	      {
+	        ymean = h->GetMean();
+	        yrms = h->GetRMS();
+	        thresh_min = ymean-3.5*yrms;
+	        thresh_max = ymean+3.5*yrms;
+	        h->Fill(deriv);
+	        deriv_above_thresh = deriv;
+	        x_above_thresh = voltage;
+	        if(fabs(deriv)>thresh_max)
+	          {
+	            cout<<" first not flat point: Voltage"<<voltage<<" with Ileak derivative : "<<deriv<<", thresh: "<<thresh_max<<endl;
+		          break;
+	          }
+	        xstart = voltage;
+	      }
+    }
   
   xstart_err = fabs(x_above_thresh - xstart);
   cout<<" xstart: "<<xstart<<"  err: "<<xstart_err<<endl;
@@ -297,7 +299,7 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
   tout->Branch("FITCHI2",&ofitchisquare,"FITCHI2/D");
   tout->Branch("FITSTATUS",&ofitstatus,"FITSTATUS/I");
   tout->Branch("LASTPOINTS",&olastpty,"LASTPOINTS/D");
-  tout->Branch("CHI2",&ochi2,"CHI2/D");
+  tout->Branch("CHI2",&ochi2,"CHI2/D");7
 
   Int_t kSubdetOffset = 25;
   Int_t subdet_i = 0;
@@ -306,7 +308,6 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
   
   double lastpty = 0;
 
-	std::cout<<"do somethign pls "<<std::endl;
   // Loop over modules
   int detid=0;
   int ifit=0;
@@ -320,22 +321,24 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     TGraph* gcur_DCU;
     TGraph* gcur_PS;
     TGraph* gvolt;
-	int nmodforchannel;
+	  int nmodforchannel;
     GetConditions(gsteps, gcur_DCU, gcur_PS, gvolt, nmodforchannel, subdet, run, detid, bad_periods);
     // Only gsteps and gcur_DCU really needed
   	if(!gcur_DCU && !gcur_PS) {std::cout<<" No DCU , neither PS currents graphs. Exiting."<<std::endl; continue;}
     if(!gcur_DCU && gcur_PS) 
-	{
-	   std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl; 
-	   gcur_DCU = (TGraph*) gcur_PS->Clone();
-	   Scale( gcur_DCU, 1./nmodforchannel);
-	 }
+	    {
+	      std::cout<<" No DCU current info, will try to use PS current instead."<<std::endl; 
+	      gcur_DCU = (TGraph*) gcur_PS->Clone();
+	      Scale( gcur_DCU, 1./nmodforchannel);
+	    }
     
 	// Exclude n last points due to thermal runaway ?
 	
 	
 	double Steps_max = GetMaximum(gsteps);
+  std::cout<<"Step max : "<<Steps_max<<std::endl;
 	double PS_max = GetMaximum(gcur_PS);
+  std::cout<<"PS_max : "<<PS_max<<std::endl;
 	TGraph* gcur_PS_unscaled = (TGraph*) gcur_PS->Clone();
 	double scale_PS = 0.9*Steps_max/PS_max;
 	Scale( gcur_PS, scale_PS);
@@ -344,14 +347,13 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
 	double scale_DCU = 0.45*Steps_max/DCU_max;
 	Scale( gcur_DCU, scale_DCU);
 		
-    
     // Draw conditions for monitoring
     TCanvas* c1 = new TCanvas("c1", "Currents");
     gsteps->Draw("APL");
     if(gvolt) gvolt->Draw("P");
     gcur_DCU->Draw("P");
     gcur_PS->Draw("PL");
-    gcur_DCU->Draw("P");
+    // gcur_DCU->Draw("P");
     TH1F* h = gsteps->GetHistogram();
     h->SetTitle(Form("DetID %i", detid));
     h->GetYaxis()->SetTitle("[V or #muA]");
@@ -361,17 +363,19 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     // Get leakage current vs Vbias
     TCanvas* c2 = new TCanvas("c2", "Ileak", 200, 0, 700, 500);
     TGraphErrors* gIleak = GetIleakVsVbias(gsteps, gcur_DCU_unscaled, gcur_PS_unscaled);
-	if(!gIleak) {cout<<"Skipping detid"<<endl; continue;}
-	gIleak = AverageIleakVsVbias(gIleak);
+	  if(!gIleak) {cout<<"Skipping detid"<<endl; continue;}
+	  gIleak = AverageIleakVsVbias(gIleak);
     gIleak->SetMarkerStyle(20);
     gIleak->Draw("AP");
-	gIleak->SetTitle(Form("DetID %i", detid));
+	  gIleak->SetTitle(Form("DetID %i", detid));
     TH1F* hleak = gIleak->GetHistogram();
+
     hleak->GetXaxis()->SetTitle("V_{bias} [V]");
     hleak->GetYaxis()->SetTitle("I_{leak} [#muA]");
-	c2->Print(Form("IleakVsVbias_raw_%s_detid_%i.pdf", run, detid));
+    int npt = gIleak->GetN();
+	  c2->Print(Form("IleakVsVbias_raw_%i_%s_detid_%i.pdf",npt, run, detid));
 	
-	int npt = gIleak->GetN();
+
 	if(npt<3) continue;
 	double x,y;
 	lastpty = 0;
@@ -383,8 +387,8 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
 	lastpty += y;
 	lastpty /= 3.;
 	
-    
-    // Fit leakage current
+    //---------------------Leakage current vs Vbiais-----//
+    // Fit leakage current vsVbiais
     // function with curve in 2 parts : x^1/2 + x^3/2 and pol1 for 'plateau'
     // 5 parameters, so need more points
     /*TF1* fvdrop = new TF1("fvdrop", fitfunction, 5, 360, 5);
@@ -399,22 +403,22 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
      fvdrop->SetParameter(0, 200.);
      fvdrop->SetParameter(1, 0.02);
      fvdrop->SetParameter(2, 150);
-	 fvdrop->SetParLimits(2, 10, 250);
+	   fvdrop->SetParLimits(2, 10, 250);
      fvdrop->SetParameter(4, 0.1);
      int status = gIleak->Fit("fvdrop", "R");
-	 if(status==4) {fvdrop->SetParameter(2, 100); status = gIleak->Fit("fvdrop", "R");}
-	 //if(status==4  || fvdrop->GetChisquare()/fvdrop->GetNDF()>) {fvdrop->SetParameter(2, 100); status = gIleak->Fit("fvdrop");}
-	 cout<<"Fit status: "<<status;
-	 if(fvdrop->GetNDF()) cout<<" chi2/ndf: "<<fvdrop->GetChisquare()/fvdrop->GetNDF();
-	 cout<<endl;
+	  if(status==4) {fvdrop->SetParameter(2, 100); status = gIleak->Fit("fvdrop", "R");}
+	  //if(status==4  || fvdrop->GetChisquare()/fvdrop->GetNDF()>) {fvdrop->SetParameter(2, 100); status = gIleak->Fit("fvdrop");}
+	  cout<<"Fit status: "<<status;
+	  if(fvdrop->GetNDF()) cout<<" chi2/ndf: "<<fvdrop->GetChisquare()/fvdrop->GetNDF();
+	  cout<<endl;
 	 
     double ymin = gIleak->GetYaxis()->GetXmin();
     double ymax = gIleak->GetYaxis()->GetXmax();
 
-	fvdrop->Draw("same");
+	  fvdrop->Draw("same");
     TLine* lvdrop = new TLine(fvdrop->GetParameter(2), ymin, fvdrop->GetParameter(2), ymax);
     lvdrop->SetLineStyle(2);
-    lvdrop->SetLineColor(2);
+    lvdrop->SetLineColor(2);//red
     lvdrop->Draw();
     
     // function with curve in 2 parts : atan and pol1
@@ -422,21 +426,25 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     fvdrop3->SetParameter(0, 1.);
     fvdrop3->SetParameter(1, 200.);
     fvdrop3->SetParameter(2, 150);
-	fvdrop3->SetParLimits(2, 10, 250);
+	  fvdrop3->SetParLimits(2, 10, 250);
     fvdrop3->SetParameter(3, 1.);
-	fvdrop3->SetLineColor(4);
-    status = gIleak->Fit("fvdrop3", "Rsame");
-	if(status==4) {fvdrop3->SetParameter(2, 100); status = gIleak->Fit("fvdrop3", "Rsame");}
-	cout<<"Fit status: "<<status;
-	if(fvdrop3->GetNDF()) cout<<" chi2/ndf: "<<fvdrop3->GetChisquare()/fvdrop3->GetNDF();
-	cout<<endl;
+	  fvdrop3->SetLineColor(4);//blue
+    status = gIleak->Fit("fvdrop3", "Rsame")  ;
+	  if(status==4) {fvdrop3->SetParameter(2, 100); status = gIleak->Fit("fvdrop3", "Rsame");}
+	  cout<<"Fit status: "<<status;
+	  if(fvdrop3->GetNDF()) cout<<" chi2/ndf: "<<fvdrop3->GetChisquare()/fvdrop3->GetNDF();
+	  cout<<endl;
 
     TLine* lvdrop3 = new TLine(fvdrop3->GetParameter(2), ymin, fvdrop3->GetParameter(2), ymax);
     lvdrop3->SetLineStyle(2);
-    lvdrop3->SetLineColor(4);
+    lvdrop3->SetLineColor(4);//blue
     lvdrop3->Draw();
-    
+        //---------------------Leakage current vs Vbiais-----//
+
+
+
 	
+  // --------2D Derivative part ---------------------//
 	// Look at derivative as second part of the curve is a line
     
     TCanvas* cd = new TCanvas("cd", "Derivative", 300, 0, 700, 500);
@@ -470,19 +478,26 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     double ymax_deriv = gderivative->GetYaxis()->GetXmax();
 	TLine* lstart = new TLine(xstart, ymin_deriv, xstart, ymax_deriv*0.8);
     lstart->SetLineStyle(2);
-    lstart->SetLineColor(kViolet);
+    lstart->SetLineColor(kBlue);
     lstart->Draw();
-	cd->Print(Form("IleakDerivative_%s_detid_%i.pdf", run, detid));
+	cd->Print(Form("IleakDerivative_%i_%s_detid_%i.pdf",npt, run, detid));
 	
+  //---------1D Derivative--------------//
     TCanvas* cd2 = new TCanvas("cd2", "Derivative", 350, 0, 700, 500);
 	hd->Draw();
 	TLine* lthresh = new TLine(thresh_min, 0, thresh_min, hd->GetMaximum()*0.8);
     lthresh->SetLineStyle(2);
+    
 	lthresh->Draw();
 	lthresh->DrawLine(thresh_max, 0, thresh_max, hd->GetMaximum()*0.8);
-	cd2->Print(Form("IleakDerivativeHisto_%s_detid_%i.pdf", run, detid));
+  lthresh->SetLineColor(kBlack);
+	cd2->Print(Form("IleakDerivativeHisto_%i_%s_detid_%i.pdf",npt, run, detid));
 	
-	
+	//---------------------------//
+
+
+
+//-----------------Curvature-------------------//
     // function with curve in 2 parts: exp(-x) and pol1
     /*TF1* fderiv = new TF1("fderiv", fitfunctionderiv, 5, 360, 5);
     //TF1* fderiv = new TF1("fderiv", "[0] + [1]*exp(-1*[3]*x)", 10, 360);
@@ -510,7 +525,7 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
     lstart->DrawLine(xstart, ymin, xstart, ymax);
   	c2->Modified();
 	c2->Update();
-    c2->Print(Form("IleakVsVbias_%s_detid_%i.pdf", run, detid));
+    c2->Print(Form("IleakVsVbias_%i_%s_detid_%i.pdf",npt, run, detid));
 
     // Find Kink
 	
@@ -569,7 +584,7 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
 
     TLine* lopt = new TLine(xopt, ymin, xopt, ymax);
     lopt->SetLineStyle(1);
-    lopt->SetLineColor(1);
+    lopt->SetLineColor(1);//black
     lopt->Draw();
     cout<<endl<<"Kink : "<<xopt<<" V"<<endl;
 	
@@ -584,11 +599,11 @@ void Fit(char* subdet, char* run, int* detids, const int N, char* bad_periods=""
 
   	c3->Modified();
 	c3->Update();
-
+  c4->Print(Form("IleakCurvatureHisto_%i_%s_detid_%i.pdf",npt, run, detid));
     //c3->Print(Form("IleakVsVbias_%s_detid_%i.pdf", run, detid));
     //c4->Print(Form("IleakVsVbias_curv_%s_detid_%i.pdf", run, detid));
 	
-	
+	//-----------------------------------//
 	
 	// STORING RESULTS
 
@@ -748,8 +763,8 @@ void FitLeakageCurrent(char* subdet="TIB_L1", char* run="20120506_run193541")
   //Fit("TIB", "20180418_run314574", detids_1PS, 2, "");
   //Fit("TIB", "20180418_run314574", detids_2012, N_2012, "");
   //Fit("TIB", "20180418_run314574", detids_test, N_test, "");
-  //Fit("TIB", "20180419_run314755", detids_test, N_test, "");
-  //Fit("TIB", "20180530_run317182", detids_test, N_test, ""); 
+  // Fit("TIB", "20180419_run314755", detids_test, N_test, "");
+
   //Fit("TIB", "20180801_run320674", detids_test, N_test, "Steps/bad_periods_20180801_run320674.txt"); 
   //Fit("TIB", "20180923_run323370", detids_test, N_test, "Steps/bad_periods_20180923_run323370.txt");
   //Fit("TIB", "20211029_run346395", detids_test, N_test, "");
@@ -768,7 +783,8 @@ void FitLeakageCurrent(char* subdet="TIB_L1", char* run="20120506_run193541")
   int detids_hot[N_hot]={369124397, 369124414, 369124422, 369124662, 369124666, 369124694, 369124710, 369124726,
   369124774, 369125870};
   Fit("TIB", "20230407_run365843", detids_hot, N_hot, "");
-  
+  // Fit("TIB", "20231025_run375658", detids_1PS, N_1PS, ""); 
+  //  Fit("TIB", "20170831_run302131", detids_1PS, N_1PS, ""); 
   
   
   // TOB

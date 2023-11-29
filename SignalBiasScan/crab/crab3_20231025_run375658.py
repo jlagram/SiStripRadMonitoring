@@ -2,7 +2,7 @@ from CRABClient.UserUtilities import config
 # ,getUsernameFromSiteDB
 config = config()
 
-config.General.requestName = 'HVscan_20231025_run375658'
+config.General.requestName = 'HVscan_20231025_run375658_v2'
 config.General.workArea = 'crab_projects'
 config.General.transferOutputs = True
 config.General.transferLogs = False
@@ -10,13 +10,13 @@ config.General.transferLogs = False
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'signalbiasscan_20231025_run375658_cfg.py'
 
-config.Data.inputDataset = '/StreamHIExpress/HIRun2023A-SiStripCalMinBias-Express-v2/ALCARECO'
+config.Data.inputDataset = '/HIMinimumBias0/HIRun2023A-SiStripCalMinBias-PromptReco-v2/ALCARECO'
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'LumiBased'
 config.Data.unitsPerJob = 10 #Change to optimize file size
 config.Data.lumiMask = 'DecoSmallHVScan_20231025_run375658_JSON.txt'
 config.Data.runRange = '375658' 
-config.Data.outLFNDirBase = '/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/DecoSmallHVscan_20231025_run375658'
+config.Data.outLFNDirBase = '/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/DecoSmallHVscan_20231025_run375658_v2'
 config.Data.publication = False
 #config.Data.outputDatasetTag = ''
 

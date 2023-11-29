@@ -7,7 +7,7 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
  # Conditions (Global Tag is used here):
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag.globaltag = '132X_dataRun3_Express_v4'
+process.GlobalTag.globaltag = '132X_dataRun3_Prompt_v4'
 
 process.load('Configuration.StandardSequences.Services_cff')
 
@@ -27,7 +27,7 @@ process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(1000)
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:/store/express/HIRun2023A/StreamHIExpress/ALCARECO/SiStripCalMinBias-Express-v2/000/375/658/00000/0249c458-c7b8-489c-9d63-d594e78962b3.root'))
+    fileNames = cms.untracked.vstring('file:/store/hidata/HIRun2023A/HIMinimumBias0/ALCARECO/SiStripCalMinBias-PromptReco-v2/000/375/658/00000/d582365f-31b4-4fab-9271-a362d56863ad.root'))
 
 
 #name of the output file containing the tree

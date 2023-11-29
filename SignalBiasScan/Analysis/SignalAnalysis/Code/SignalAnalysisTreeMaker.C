@@ -727,7 +727,7 @@ void SignalAnalysisTreeMaker::FitHistos(std::map<ULong64_t , std::vector<TH1F*> 
 	  detid==470148336 || detid==470148340 )  { 
 	    SoNHisto->Write();
         std::cout << " Saving histo : " << thestring.Data() << std::endl;
-	    if(fitStatus!=0) std::cout << " fit status : " << fitStatus << std::endl;
+	    // if(fitStatus!=0) std::cout << " fit status : " << fitStatus << std::endl;
       }  
 
 

@@ -15,6 +15,7 @@ map< int, TGraph*> map_DCU_currents;
 map< int, TGraph*> map_PS_currents;
 map< int, int> map_NMOD;
 
+using namespace std;
 
 double GetMaximum(TGraph* g)
 {
@@ -58,9 +59,10 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
   //gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
   //gcur_DCU = ReadDCUCurrentFromGB("~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", detid, bad_periods);
   gcur_DCU = ReadDCUCurrentFromGB(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/DCU/DCU_I_%s.root", run.c_str()), detid, bad_periods);
+  if(!gcur_DCU) {std::cout<<" No DCU info. Exit."<<std::endl; return;}
   //gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
   gcur_PS = ReadPSCurrentRoot(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/PS/PS_I_%s_%s.root", subdet.c_str(), run.c_str()), detid, nmodforchannel, bad_periods, false); // last argument for prints
-
+  if(!gcur_PS) {std::cout<<" No PS info. Exit."<<std::endl; return;}
   return;
 }
 
@@ -1223,9 +1225,9 @@ int detids1[N1]={436311928};
   //ComputeDCUOverPSRatios("TIB", "20221001_run359691", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20221001_run359691.txt");
   //ComputeCorrections("TIB", "20221001_run359691", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20221001_run359691.txt");
   //ComputeCorrections("TIB", "20221126_run362696", detids_2012_bis, N_2012_bis, "");
-  //ComputeCorrections("TIB", "20230407_run365843", detids_2012_bis, N_2012_bis, "");
-  //ComputeAllDCUOverPSRatios("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "");
-  //ComputeAllCorrections("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "", 9, 50);
+  ComputeCorrections("TIB", "20230407_run365843", detids_2012_bis, N_2012_bis, "");
+  ComputeAllDCUOverPSRatios("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "");
+  ComputeAllCorrections("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "", 9, 50);
 
 
   //noise
