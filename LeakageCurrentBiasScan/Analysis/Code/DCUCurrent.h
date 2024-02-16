@@ -14,7 +14,7 @@
 #include "TH1F.h"
 // for timestamp conversion
 #include "./Steps.h"
-
+using namespace std;
 Long64_t convertDate( std::string str_date, std::string str_time){
 
   std::stringstream ss;
@@ -78,13 +78,13 @@ Long64_t convertDate( std::string str_date, std::string str_time){
 
 } 
 
-void ReadBadPeriods(std::string filename, vector< int > &bad_periods_start, vector< int > &bad_periods_end)
+void ReadBadPeriods(std::string filename, std::vector< int > &bad_periods_start, std::vector< int > &bad_periods_end)
 {
   
   //Read file with bad periods definition
   
   std::string line;
-  ifstream fin(filename.c_str());
+  std::ifstream fin(filename.c_str());
   if(!fin.is_open()) { std::cout<<"Error : file "<<filename<<" not found."<<std::endl; return;}
     
   int time_start=-1;
@@ -118,8 +118,8 @@ TGraph* ReadDCUCurrentTxt(std::string filename="Data/DCU_I_TIB_L1_20120405_run19
 {
   
   // Read bad periods
-  vector< int > bad_periods_start;
-  vector< int > bad_periods_end;
+  std::vector< int > bad_periods_start;
+  std::vector< int > bad_periods_end;
   if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
@@ -131,7 +131,7 @@ TGraph* ReadDCUCurrentTxt(std::string filename="Data/DCU_I_TIB_L1_20120405_run19
   }
 
   std::string line;
-  ifstream fin(filename);
+  std::ifstream fin(filename);
   std::string ps;
   int modid=-1;
   std::string str_date;
@@ -180,7 +180,7 @@ TGraph* ReadDCUCurrentTxt(std::string filename="Data/DCU_I_TIB_L1_20120405_run19
 void ConvertDCUCurrentTxtToRoot(std::string filename="Data/DCU_I_TIB_L1_20120405_run190459.txt")
 {
   
-  cout<<"Converting file "<<filename<<" to root format."<<endl;
+  std::cout<<"Converting file "<<filename<<" to root format."<<std::endl;
   
   // Create output file
   TString file(filename.c_str());
@@ -201,7 +201,7 @@ void ConvertDCUCurrentTxtToRoot(std::string filename="Data/DCU_I_TIB_L1_20120405
 
   // Read input file
   std::string line;
-  ifstream fin(filename);
+  std::ifstream fin(filename);
   std::string str_ps;
   std::string str_date;
   std::string str_time;
@@ -236,18 +236,18 @@ TGraph* ReadCurrentRoot(std::string filename, int modid, int &nmodforchannel,
 {
 
   // Read bad periods
-  vector< int > bad_periods_start;
-  vector< int > bad_periods_end;
+  std::vector< int > bad_periods_start;
+  std::vector< int > bad_periods_end;
   if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
 	{
-	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<endl;
+	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<std::endl;
 	  bad_periods="";
 	}
 	for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
-	  cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<endl;
+	  std::cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<std::endl;
   }
 
   // Open file and set tree
@@ -291,11 +291,11 @@ TGraph* ReadCurrentRoot(std::string filename, int modid, int &nmodforchannel,
 	   }
 	}
 	if(remove_point) continue;
-	if(current<20) {cout<<"Warning: removing current: "<<current<<"uA"<<endl; continue;}
+	if(current<20) {/*cout<<"Warning: removing current: "<<current<<"uA"<<endl;*/ continue;}
 
     if(detid==modid) 
 	{ 
-	  if(print) cout<<" I_dcu "<<current<<" t "<<time<<endl;
+	  if(print) std::cout<<" I_dcu "<<current<<" t "<<time<<std::endl;
 	  nmodforchannel=nmod;
 	  g->SetPoint(ipt, time, current);
 	  ipt++;
@@ -332,18 +332,18 @@ void ReadCurrentRootForAllDetids(std::string filename, map< int, TGraph*> &map_c
 {
 
   // Read bad periods
-  vector< int > bad_periods_start;
-  vector< int > bad_periods_end;
+  std::vector< int > bad_periods_start;
+  std::vector< int > bad_periods_end;
   if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
 	{
-	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<endl;
+	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<std::endl;
 	  bad_periods="";
 	}
 	for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
-	  cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<endl;
+	  std::cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<std::endl;
   }
 
   // Open file and set tree
@@ -384,7 +384,7 @@ void ReadCurrentRootForAllDetids(std::string filename, map< int, TGraph*> &map_c
 	   }
 	}
 	if(remove_point) continue;
-	if(current<20) {cout<<"Warning: removing current: "<<current<<"uA"<<endl; continue;}
+	if(current<20) {/*cout<<"Warning: removing current: "<<current<<"uA"<<endl;*/ continue;}
 	
 	if(map_currents.find(detid)==map_currents.end())
 	{
@@ -412,18 +412,18 @@ TGraph* ReadDCUCurrentFromGB(std::string filename="~/work/DCU_TIBD_TOB_from_1348
 {
 
   // Read bad periods
-  vector< int > bad_periods_start;
-  vector< int > bad_periods_end;
+  std::vector< int > bad_periods_start;
+  std::vector< int > bad_periods_end;
   if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
 	{
-	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<endl;
+	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<std::endl;
 	  bad_periods="";
 	}
 	for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
-	  cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<endl;
+	  std::cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<std::endl;
   }
 
   // Open file and set tree
@@ -475,7 +475,7 @@ TGraph* ReadDCUCurrentFromGB(std::string filename="~/work/DCU_TIBD_TOB_from_1348
 
     if(Detid==modid) 
 	{ 
-	  if(print)  cout<<" I_dcu "<<Ileak<<" t "<<time<<" :  "<<ctime(&print_time)<<endl;
+	  if(print)  std::cout<<" I_dcu "<<Ileak<<" t "<<time<<" :  "<<ctime(&print_time)<<std::endl;
 	  if(Ileak<20) continue;
 	  g->SetPoint(ipt, time, Ileak);
 	  if(gtemp) gtemp->SetPoint(ipt, time, TemperatureSi);
@@ -502,18 +502,18 @@ void ReadDCUCurrentFromDCUDataForAllDetids(map< int, TGraph*> &map_currents, std
 {
 
   // Read bad periods
-  vector< int > bad_periods_start;
-  vector< int > bad_periods_end;
+  std::vector< int > bad_periods_start;
+  std::vector< int > bad_periods_end;
   if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
 	if(bad_periods_start.size() != bad_periods_end.size())
 	{
-	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<endl;
+	  std::cerr<<"Wrong definition of bad periods : size of starts != size of ends. Will not use them."<<std::endl;
 	  bad_periods="";
 	}
 	for(unsigned int ip=0; ip<bad_periods_start.size(); ip++)
-	  cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<endl;
+	  std::cout<<"bad period "<<ip<<" :  start "<<bad_periods_start[ip]<<"  end "<<bad_periods_end[ip]<<std::endl;
   }
 
   // Open file and set tree

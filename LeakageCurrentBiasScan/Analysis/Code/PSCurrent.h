@@ -1,11 +1,11 @@
 #include "DCUCurrent.h"
-
+using namespace std;
 TGraph* ReadPSCurrentTxt(std::string filename="Data/PS_I_TIB_L1_20120405_run190459.txt", int detid=369121605, std::string bad_periods="")
 {
   
   // Read bad periods
-  vector< int > bad_periods_start;
-  vector< int > bad_periods_end;
+  std::vector< int > bad_periods_start;
+  std::vector< int > bad_periods_end;
   if(bad_periods!="")
   {
     ReadBadPeriods(bad_periods, bad_periods_start, bad_periods_end);
@@ -17,7 +17,7 @@ TGraph* ReadPSCurrentTxt(std::string filename="Data/PS_I_TIB_L1_20120405_run1904
   }
 
   std::string line;
-  ifstream fin(filename);
+  std::ifstream fin(filename);
   std::string PS;
   std::string clob;
   std::string modids;
@@ -69,7 +69,7 @@ TGraph* ReadPSCurrentTxt(std::string filename="Data/PS_I_TIB_L1_20120405_run1904
           int nid = modids.size()/10+1;
           if(nid>8) 
           {
-            cout<<"Warning : array limited to 8 modules/channel"<<endl;
+            std::cout<<"Warning : array limited to 8 modules/channel"<<std::endl;
             nid=8;
           }
           for(int idet=0; idet<nid; idet++)
@@ -101,7 +101,7 @@ TGraph* ReadPSCurrentTxt(std::string filename="Data/PS_I_TIB_L1_20120405_run1904
 
 void ConvertPSCurrentTxtToRoot(std::string filename="Data/PS_I_TIB_L1_20120405_run190459.txt")
 {
-  cout<<"Converting file "<<filename<<" to root format."<<endl;
+  std::cout<<"Converting file "<<filename<<" to root format."<<std::endl;
   
   // Create output file
   TString file(filename.c_str());
@@ -124,7 +124,7 @@ void ConvertPSCurrentTxtToRoot(std::string filename="Data/PS_I_TIB_L1_20120405_r
 
   // Read input file
   std::string line;
-  ifstream fin(filename);
+  std::ifstream fin(filename);
   std::string str_ps;
   std::string str_clob;
   std::string str_modids;
@@ -166,7 +166,7 @@ void ConvertPSCurrentTxtToRoot(std::string filename="Data/PS_I_TIB_L1_20120405_r
           nmod = str_modids.size()/10+1;
           if(nmod>8)
           {
-            cout<<"Warning : array limited to 8 modules/channel"<<endl;
+            std::cout<<"Warning : array limited to 8 modules/channel"<<std::endl;
             nmod=8;
           }
           for(int idet=0; idet<nmod; idet++)
