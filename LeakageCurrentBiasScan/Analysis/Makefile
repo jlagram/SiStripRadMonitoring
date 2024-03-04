@@ -9,28 +9,28 @@
 #Define variables
 CC=g++ #Compiler used
 DEBUG = -g
-CFLAGS = -c  $(DEBUG) #Compilation options
+CFLAGS = -I  $(DEBUG) #Compilation options
 # LFLAGS = $(DEBUG) -L/home/nico/root/lib -lTMVA -lTMVAGui
-LFLAGS = -lTMVA #-lTMVAGui
+# LFLAGS = -lTMVA #-lTMVAGui
 ROOTFLAGS = `root-config --glibs --cflags`
 
-SRCS = $(wildcard *.cc) #Source files are all files with .cc extension
-HDRS = $(wildcard *.h) #Header files are all files with .h extension
+SRCS = FitLeakageCurrent.C GetKink.C ComputeILeakCorrections.C #Source files are all files with .cc extension
+HDRS = ../../SignalBiasScan/Analysis/CommonTools/CurvesFunctions.h  Code/Steps.h Code/Voltage.h Code/DCUCurrent.h Code/PSCurrent.h Code/FitFunctions.h #Header files are all files with .h extension
 OBJS = $(SRCS:.cc=.o) #Object files are all files with .o extension, which have same names as source files
 
-COMPUTEILEAKCORR = ComputeILeakCorrections.exe
+COMPUTEILEAKFIT = FitLeakageCurrent.exe
 
 #.PHONY : $(wildcard *.o)  #Force to always recompile object
 
 
 #Instructions
-all: $(COMPUTEILEAKCORR)
+all: $(COMPUTEILEAKFIT)
 
 #Obtain executables from object files
 
-$(COMPUTEILEAKCORR): ComputeILeakCorrections.cc Code/Steps.h Code/Voltage.h Code/DCUCurrent.h Code/PSCurrent.h Code/FitFunctions.h
-	@echo "-- Creating executable ./$(COMPUTEILEAKCORR) --"
-	@$(CC) ComputeILeakCorrections.cc -o $@ $(ROOTFLAGS) $(LFLAGS)
+$(COMPUTEILEAKFIT):  FitLeakageCurrent.C ../../SignalBiasScan/Analysis/CommonTools/CurvesFunctions.h Code/Steps.h Code/Voltage.h Code/DCUCurrent.h Code/PSCurrent.h Code/FitFunctions.h
+	@echo "-- Creating executable ./$(COMPUTEILEAKFIT) --"
+	@$(CC) FitLeakageCurrent.C -o $@ $(ROOTFLAGS)
 	@echo "-- Done --"
 	
 

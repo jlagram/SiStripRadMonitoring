@@ -334,7 +334,7 @@ int main()
 {
   vector<string> v_analysis;
   v_analysis.push_back("Signal");
-  v_analysis.push_back("ClusterWidth");
+  // v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
@@ -395,16 +395,16 @@ int main()
   // runs.push_back("324841");	dates.push_back("20181018");
   
 
-	//2021
+	// //2021
 
 	// runs.push_back("346395");   dates.push_back("20211029");
-	// //2022
+	// // //2022
 	// runs.push_back("353060");	dates.push_back("20220605"); //-- FULL
 	// runs.push_back("359691");	dates.push_back("20221001"); 
   // runs.push_back("362696");	dates.push_back("20221126"); 
   // runs.push_back("365843");	dates.push_back("20230407"); //----------FULL
-  // runs.push_back("368669");	dates.push_back("20230609");
-  // runs.push_back("373060");	dates.push_back("20230907"); 
+  runs.push_back("368669");	dates.push_back("20230609");
+  runs.push_back("373060");	dates.push_back("20230907"); 
   runs.push_back("375658"); dates.push_back("20231025"); //HI
 
   for(int i=0; i<v_analysis.size(); i++)

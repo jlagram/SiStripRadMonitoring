@@ -1,0 +1,87 @@
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 369121301
+Hot Mean Vfd 128.11 and cold Mean Vfd : 66.3339
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 369121305
+Hot Mean Vfd 128.11 and cold Mean Vfd : 67.3303
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121350
+Hot Mean Vfd 53.8021 and cold Mean Vfd : 114.869
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121353
+Hot Mean Vfd 53.3387 and cold Mean Vfd : 114.869
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121354
+Hot Mean Vfd 53.4932 and cold Mean Vfd : 114.869
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121357
+Hot Mean Vfd 53.3387 and cold Mean Vfd : 114.869
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121358
+Hot Mean Vfd 53.4314 and cold Mean Vfd : 114.869
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121381
+Hot Mean Vfd 51.54 and cold Mean Vfd : 144.97
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121385
+Hot Mean Vfd 51.54 and cold Mean Vfd : 144.957
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121389
+Hot Mean Vfd 51.54 and cold Mean Vfd : 144.944
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121477
+Hot Mean Vfd 51.3484 and cold Mean Vfd : 145.24
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121481
+Hot Mean Vfd 51.2334 and cold Mean Vfd : 145.255
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121485
+Hot Mean Vfd 51.1568 and cold Mean Vfd : 145.269
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121573
+Hot Mean Vfd 50.9919 and cold Mean Vfd : 145.728
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121577
+Hot Mean Vfd 50.8682 and cold Mean Vfd : 145.742
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121581
+Hot Mean Vfd 50.7719 and cold Mean Vfd : 145.755
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121605
+Hot Mean Vfd 50.6953 and cold Mean Vfd : 145.819
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121609
+Hot Mean Vfd 50.6325 and cold Mean Vfd : 145.809
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369121613
+Hot Mean Vfd 50.5802 and cold Mean Vfd : 145.8
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121718
+Hot Mean Vfd 53.0816 and cold Mean Vfd : 114.569
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121722
+Hot Mean Vfd 52.8317 and cold Mean Vfd : 114.553
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369121726
+Hot Mean Vfd 52.6443 and cold Mean Vfd : 114.538
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 369121749
+Hot Mean Vfd 129.233 and cold Mean Vfd : 71.4688
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 369124613
+Hot Mean Vfd 130.458 and cold Mean Vfd : 73.6616
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 369124617
+Hot Mean Vfd 131.193 and cold Mean Vfd : 73.9799
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369125558
+Hot Mean Vfd 50.536 and cold Mean Vfd : 145.668
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369125562
+Hot Mean Vfd 50.498 and cold Mean Vfd : 145.648
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369125566
+Hot Mean Vfd 50.4652 and cold Mean Vfd : 145.628
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369125573
+Hot Mean Vfd 50.6817 and cold Mean Vfd : 145.628
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369125577
+Hot Mean Vfd 50.8728 and cold Mean Vfd : 145.634
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 369125581
+Hot Mean Vfd 51.0427 and cold Mean Vfd : 145.639
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369125589
+Hot Mean Vfd 52.4364 and cold Mean Vfd : 113.325
+Run : 20180923_run323370 for fit 2deriv gaussian  with Hot detid : 369125590
+Hot Mean Vfd 50.0082 and cold Mean Vfd : 113.245
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369125593
+Hot Mean Vfd 52.27 and cold Mean Vfd : 113.23
+Run : 20180923_run323370 for fit 2deriv gaussian  with Hot detid : 369125594
+Hot Mean Vfd 50.0082 and cold Mean Vfd : 113.259
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369125597
+Hot Mean Vfd 52.1339 and cold Mean Vfd : 113.135
+Run : 20180923_run323370 for fit 2deriv gaussian  with Hot detid : 369125598
+Hot Mean Vfd 50.0082 and cold Mean Vfd : 113.272
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369125653
+Hot Mean Vfd 52.0799 and cold Mean Vfd : 112.884
+Run : 20180923_run323370 for fit deriv exp  with Hot detid : 369125654
+Hot Mean Vfd 126.897 and cold Mean Vfd : 65.2208
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369125657
+Hot Mean Vfd 52.0342 and cold Mean Vfd : 112.884
+Run : 20180923_run323370 for fit deriv exp  with Hot detid : 369125658
+Hot Mean Vfd 126.897 and cold Mean Vfd : 65.208
+Run : 20180923_run323370 for fit 2deriv Gen  with Hot detid : 369125661
+Hot Mean Vfd 51.995 and cold Mean Vfd : 112.884
+Run : 20180923_run323370 for fit deriv exp  with Hot detid : 369125662
+Hot Mean Vfd 126.897 and cold Mean Vfd : 65.1951
+//----------------------------//

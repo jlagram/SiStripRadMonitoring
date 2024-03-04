@@ -749,7 +749,7 @@ int main()
 
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
-	v_subdet.push_back("TOB");
+	// v_subdet.push_back("TOB");
 	// v_subdet.push_back("TEC");
 	// v_subdet.push_back("TID");
 
@@ -785,7 +785,7 @@ int main()
     // runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
     // runs.push_back("320674");	dates.push_back("20180801");	lumis.push_back(127.08+29.46);
     // runs.push_back("323374");	dates.push_back("20180923");	lumis.push_back(152.45+29.46); //Full
-    // runs.push_back("324841");	dates.push_back("20181018");	lumis.push_back(161.40+29.46);//---------------------------
+    runs.push_back("324841");	dates.push_back("20181018");	lumis.push_back(161.40+29.46);//---------------------------
     // runs.push_back("326883");	dates.push_back("20181118");	lumis.push_back(xxx+29.46); //HI
 
     //---------------------------
@@ -793,12 +793,12 @@ int main()
 		//Lumi  RUN II  = 165.22 fb-1: 
 	//2021
 
-	// runs.push_back("346395");   dates.push_back("20211029"); lumis.push_back(0.00000213+194.68); //----------------------------
+	runs.push_back("346395");   dates.push_back("20211029"); lumis.push_back(0.00000213+194.68); //----------------------------
 	//2022
-	//  runs.push_back("353060");	dates.push_back("20220605");  lumis.push_back(0.00000534+194.68); // //-- FULL
-	//  runs.push_back("359691");	dates.push_back("20221001"); lumis.push_back(11.59+194.68); //----------------------
-	// runs.push_back("362696");	dates.push_back("20221126"); lumis.push_back(40.35+194.68); //----------------------
-	// runs.push_back("365843");	dates.push_back("20230407"); lumis.push_back(41.42+194.68); //----------FULL
+	 runs.push_back("353060");	dates.push_back("20220605");  lumis.push_back(0.00000534+194.68); // //-- FULL
+	 runs.push_back("359691");	dates.push_back("20221001"); lumis.push_back(11.59+194.68); //----------------------
+	runs.push_back("362696");	dates.push_back("20221126"); lumis.push_back(40.35+194.68); //----------------------
+	runs.push_back("365843");	dates.push_back("20230407"); lumis.push_back(41.42+194.68); //----------FULL
 	runs.push_back("368669");	dates.push_back("20230609"); lumis.push_back(58.16+194.68); 
 	runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
 	runs.push_back("375658");   dates.push_back("20231025"); lumis.push_back(73.86+194.68);//HI

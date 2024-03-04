@@ -1,0 +1,73 @@
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232901
+Hot Mean Vfd 132.189 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232901
+Hot Mean Vfd 137.265 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232901
+Hot Mean Vfd 123.075 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232902
+Hot Mean Vfd 132.189 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232902
+Hot Mean Vfd 137.265 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232902
+Hot Mean Vfd 123.075 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232905
+Hot Mean Vfd 134.484 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232905
+Hot Mean Vfd 139.873 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232905
+Hot Mean Vfd 120.963 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232906
+Hot Mean Vfd 135.631 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232906
+Hot Mean Vfd 141.176 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232906
+Hot Mean Vfd 119.907 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232909
+Hot Mean Vfd 134.943 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232909
+Hot Mean Vfd 140.394 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232909
+Hot Mean Vfd 120.541 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232910
+Hot Mean Vfd 134.484 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232910
+Hot Mean Vfd 139.873 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232910
+Hot Mean Vfd 120.963 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232913
+Hot Mean Vfd 135.139 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232913
+Hot Mean Vfd 140.618 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232913
+Hot Mean Vfd 120.36 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232914
+Hot Mean Vfd 135.631 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232914
+Hot Mean Vfd 141.176 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232914
+Hot Mean Vfd 119.908 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232917
+Hot Mean Vfd 135.249 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232917
+Hot Mean Vfd 140.742 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232917
+Hot Mean Vfd 120.259 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232918
+Hot Mean Vfd 134.943 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232918
+Hot Mean Vfd 140.394 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232918
+Hot Mean Vfd 120.541 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232921
+Hot Mean Vfd 135.318 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232921
+Hot Mean Vfd 140.821 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232921
+Hot Mean Vfd 120.195 and cold Mean Vfd : 50.9213
+Run : 20181115_run326776 for fit deriv exp  with Hot detid : 436232922
+Hot Mean Vfd 135.631 and cold Mean Vfd : 58.2306
+Run : 20181115_run326776 for fit deriv Gen  with Hot detid : 436232922
+Hot Mean Vfd 141.176 and cold Mean Vfd : 62.0473
+Run : 20181115_run326776 for fit 2deriv Gen  with Hot detid : 436232922
+Hot Mean Vfd 119.908 and cold Mean Vfd : 50.9213
+//----------------------------//

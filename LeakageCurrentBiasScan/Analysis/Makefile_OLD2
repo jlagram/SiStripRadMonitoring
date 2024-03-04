@@ -1,0 +1,34 @@
+GCC = g++
+LD = g++
+CXXFLAGS = $(shell root-config --cflags) 
+LIBS = $(shell root-config --libs)
+SRCS = FitLeakageCurrent.C GetKink.C ComputeILeakCorrections.C
+OBJS = FitLeakageCurrent.o GetKink.o  ComputeILeakCorrections.o 
+PROGRAM = Run_TreeMaker_compiled
+HEADERS = ../../SignalBiasScan/Analysis/CommonTools/CurvesFunctions.h
+DEFINES = -DNO_ORCA_CLASSES
+
+
+all:	Dict compile_dict compile link
+
+compile:	$(OBJS)
+
+compile_dict: 	Dict.C
+	$(LD) -c Dict.C $(CXXFLAGS) -o Dict.o
+#Need to compile Dict.C separately (Makefile can't find rule ?)
+
+all:	Dict compile link
+
+compile:	$(OBJS)
+
+link:	$(OBJS)
+	@echo "Linking object files ..."
+	$(LD) $(OBJS) $(LIBS) -o $(PROGRAM)
+
+Dict: $(HEADERS) LinkDef.h
+	@echo "Generating dictionary Dict.C ..."
+	rootcint -f Dict.C -c $(DEFINES) $(HEADERS) LinkDef.h
+	@echo "Compiling source files ..."
+
+clean:; @rm -f $(OBJS) Dict.h Dict.C $(PROGRAM) *~ */*~
+

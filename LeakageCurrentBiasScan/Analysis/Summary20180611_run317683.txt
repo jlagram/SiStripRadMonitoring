@@ -1,0 +1,39 @@
+Run : 20180611_run317683 for fit sigmoid+pol1  with Hot detid : 436232901
+Hot Mean Vfd 85.0216 and cold Mean Vfd : 149.724
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232901
+Hot Mean Vfd 70.5709 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232902
+Hot Mean Vfd 70.5709 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232905
+Hot Mean Vfd 72.4634 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit GenFunc  with Hot detid : 436232905
+Hot Mean Vfd 251.258 and cold Mean Vfd : 327.607
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232906
+Hot Mean Vfd 73.4097 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit GenFunc  with Hot detid : 436232906
+Hot Mean Vfd 251.258 and cold Mean Vfd : 327.607
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232909
+Hot Mean Vfd 72.8419 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232910
+Hot Mean Vfd 72.4634 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232913
+Hot Mean Vfd 73.0041 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit GenFunc  with Hot detid : 436232913
+Hot Mean Vfd 251.258 and cold Mean Vfd : 327.607
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232914
+Hot Mean Vfd 73.4097 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit GenFunc  with Hot detid : 436232914
+Hot Mean Vfd 251.258 and cold Mean Vfd : 327.607
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232917
+Hot Mean Vfd 73.0942 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232918
+Hot Mean Vfd 72.8419 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232921
+Hot Mean Vfd 73.1516 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit GenFunc  with Hot detid : 436232921
+Hot Mean Vfd 251.258 and cold Mean Vfd : 327.607
+Run : 20180611_run317683 for fit sigmoid+pol2  with Hot detid : 436232922
+Hot Mean Vfd 73.4096 and cold Mean Vfd : 148.38
+Run : 20180611_run317683 for fit GenFunc  with Hot detid : 436232922
+Hot Mean Vfd 251.258 and cold Mean Vfd : 327.607
+//----------------------------//
