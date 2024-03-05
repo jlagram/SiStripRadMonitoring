@@ -145,7 +145,7 @@ Double_t fitfunctionderiv3(Double_t *x, Double_t *par){ //gauss for run 3
 
 }
 
-Double_t fitfunctionderiv4(Double_t *x, Double_t *par){ //gauss for run 3 
+Double_t fitfunctionderiv4(Double_t *x, Double_t *par){ //tril for run 3 
   Double_t value, value_th, value_0;
   
   if (x[0]<par[2]) {

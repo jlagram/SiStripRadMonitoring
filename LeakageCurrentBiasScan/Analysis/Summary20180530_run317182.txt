@@ -1,13 +1,1 @@
-Run : 20180530_run317182 for fit GenFunc  with Hot detid : 436232905
-Hot Mean Vfd 311.058 and cold Mean Vfd : 212.764
-Run : 20180530_run317182 for fit GenFunc  with Hot detid : 436232906
-Hot Mean Vfd 311.058 and cold Mean Vfd : 212.764
-Run : 20180530_run317182 for fit GenFunc  with Hot detid : 436232913
-Hot Mean Vfd 311.058 and cold Mean Vfd : 212.764
-Run : 20180530_run317182 for fit GenFunc  with Hot detid : 436232914
-Hot Mean Vfd 311.058 and cold Mean Vfd : 212.764
-Run : 20180530_run317182 for fit GenFunc  with Hot detid : 436232921
-Hot Mean Vfd 311.058 and cold Mean Vfd : 212.764
-Run : 20180530_run317182 for fit GenFunc  with Hot detid : 436232922
-Hot Mean Vfd 311.058 and cold Mean Vfd : 212.764
 //----------------------------//
