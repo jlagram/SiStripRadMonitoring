@@ -1,0 +1,59 @@
+/* Title */
+README File for determining the full depletion volatge using the leakage current.
+
+/* Context */
+-The leakage current information comes from DCU and/or PS measurement.
+It can happen that the PS measurement is not available for many reasons. When this happens,
+the DCU information is used and the following assumption is made : the amount of current is 
+equally divided the modules associated to the APV.
+- The leakage current method is implemented to be complementary w.r.t the cluster width and 
+cluster charge methods. Saturation/ change of regime is also expected in the leakage current
+figures.
+
+/*  Code  */
+
+- Main file is FitLeakageCurrent.C
+        / ----- Main Idea ----- /
+        |    There are 3 curves that are being analyzed ILeak VS Vbias, the associated first and 
+        |    second derivative. We will try ot fit each of these curves with different functions
+        |    available in the ./FitFunctions.h file. There are 10 functions that are used at the 
+        |    moment.
+        |    / ---- Compilation ---- /
+        |    |    There are two ways of compiling the FitLeakageCurrent.C file that corresponds to
+        |    |   two ways of running the code.
+        |    |        / ----- First ---- /
+        |    |        |    Decomment the getchar() line. then 
+        |    |        |    $ root
+        |    |        |    $ .L FitLeakageCurrent.C
+        |    |        |    $ FitLeakageCurrent("TOB") (or "TIB")
+        |    |        |
+        |    |        |    Be careful, this will not run the main() the function FitLeakageCurrent 
+        |    |        |    You can choose the runs to be analyzed, TIB or TOB (TEC and TID are not
+        |    |        |    yet implemented). With getchar() being decommented, you will get the 
+        |    |        |    3 curves with all the fits displayed for each detid of each run.
+        |    |        |    This is good if you want to change the parameters of a fit or 
+        |    |        |    check what is happening for a given run. 
+        |    |        |    !!! Do not use this method when you want to compute the Full depletion 
+        |    |        |    voltage of all the runs (especially for full scans), see next method
+        |    |        / ----- Second ---- /
+        |    |        |    Comment the getchar() line
+        |    |        |     $ make
+        |    |        |     $ ./FitLeakageCurrent.exe 
+        |    |        |
+        |    |        |     This method will run the main() of the FitLeakageCurrent.C file.
+        |    |        |     This is used to analyze many runs with many detids since there is no 
+        |    |        |     display of the fits.
+        |    |        |     You can use the Plot.. function to register the VFD values for either
+        |    |        |     small or full scans (there is a boolean :D ). A full scan
+        |    |        |     is about 30-45 min, so be sure of what you want. A small scan is 
+        |    |        |     about 1 min.(Considering the current amount of runs being analyzed)
+        |    |        |     The DeltaVFD means that we are doing the difference between the current
+        |    |        |     value and the initial value of Vfd.
+        |----|--------| ----- END ------ /
+
+    The lists of detids for TIB and TOB are avaialble in this directory as TIB_list.txt and TOB_list.txt :DCU
+    Happy Coding !
+
+    Paul
+  
+

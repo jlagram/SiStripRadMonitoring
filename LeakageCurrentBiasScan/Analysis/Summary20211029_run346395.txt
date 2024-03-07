@@ -1,3 +1,1 @@
-Run : 20211029_run346395 for fit atan+pol2  with Hot detid : 436232905
-Hot Mean Vfd 127.887 and cold Mean Vfd : 188.806
 //----------------------------//

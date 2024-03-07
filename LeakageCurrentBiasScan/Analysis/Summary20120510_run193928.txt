@@ -1,511 +1,2139 @@
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120294
-Hot Mean Vfd 200 and cold Mean Vfd : 299.982
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120298
-Hot Mean Vfd 200 and cold Mean Vfd : 299.982
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120302
-Hot Mean Vfd 200 and cold Mean Vfd : 299.982
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120310
-Hot Mean Vfd 200 and cold Mean Vfd : 292.83
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369120310
-Hot Mean Vfd 277.581 and cold Mean Vfd : 337.727
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120314
-Hot Mean Vfd 200 and cold Mean Vfd : 287.465
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369120314
-Hot Mean Vfd 277.581 and cold Mean Vfd : 338.842
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120318
-Hot Mean Vfd 200 and cold Mean Vfd : 283.293
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369120318
-Hot Mean Vfd 277.581 and cold Mean Vfd : 339.771
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120326
-Hot Mean Vfd 200 and cold Mean Vfd : 284.962
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120330
-Hot Mean Vfd 200 and cold Mean Vfd : 286.328
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120334
-Hot Mean Vfd 200 and cold Mean Vfd : 287.465
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120373
-Hot Mean Vfd 214.923 and cold Mean Vfd : 284.135
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120377
-Hot Mean Vfd 227.133 and cold Mean Vfd : 284.135
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120381
-Hot Mean Vfd 237.308 and cold Mean Vfd : 284.135
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120389
-Hot Mean Vfd 245.787 and cold Mean Vfd : 284.135
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120393
-Hot Mean Vfd 253.054 and cold Mean Vfd : 284.135
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120397
-Hot Mean Vfd 259.353 and cold Mean Vfd : 284.135
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120406
-Hot Mean Vfd 236.189 and cold Mean Vfd : 317.358
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120410
-Hot Mean Vfd 236.189 and cold Mean Vfd : 317.358
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120414
-Hot Mean Vfd 236.189 and cold Mean Vfd : 317.358
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120438
-Hot Mean Vfd 264.898 and cold Mean Vfd : 276.777
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120442
-Hot Mean Vfd 269.791 and cold Mean Vfd : 276.543
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120446
-Hot Mean Vfd 274.141 and cold Mean Vfd : 276.321
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120454
-Hot Mean Vfd 278.351 and cold Mean Vfd : 276.353
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120454
-Hot Mean Vfd 237.429 and cold Mean Vfd : 316.396
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120458
-Hot Mean Vfd 282.141 and cold Mean Vfd : 276.383
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120458
-Hot Mean Vfd 238.173 and cold Mean Vfd : 316.002
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120462
-Hot Mean Vfd 285.57 and cold Mean Vfd : 276.412
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120462
-Hot Mean Vfd 238.669 and cold Mean Vfd : 315.621
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369120502
-Hot Mean Vfd 350.966 and cold Mean Vfd : 252.472
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120502
-Hot Mean Vfd 288.888 and cold Mean Vfd : 278.505
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369120506
-Hot Mean Vfd 350.966 and cold Mean Vfd : 253.573
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120506
-Hot Mean Vfd 291.918 and cold Mean Vfd : 278.115
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369120510
-Hot Mean Vfd 350.966 and cold Mean Vfd : 254.623
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120510
-Hot Mean Vfd 294.695 and cold Mean Vfd : 277.74
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120517
-Hot Mean Vfd 296.919 and cold Mean Vfd : 277.74
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120521
-Hot Mean Vfd 298.973 and cold Mean Vfd : 277.497
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120525
-Hot Mean Vfd 300.874 and cold Mean Vfd : 277.262
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120533
-Hot Mean Vfd 240.539 and cold Mean Vfd : 313.052
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120534
-Hot Mean Vfd 239.471 and cold Mean Vfd : 313.052
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120537
-Hot Mean Vfd 240.836 and cold Mean Vfd : 313.052
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120538
-Hot Mean Vfd 239.952 and cold Mean Vfd : 313.052
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120541
-Hot Mean Vfd 241.026 and cold Mean Vfd : 313.052
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120542
-Hot Mean Vfd 240.273 and cold Mean Vfd : 313.052
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120629
-Hot Mean Vfd 297.271 and cold Mean Vfd : 277.82
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120630
-Hot Mean Vfd 239.868 and cold Mean Vfd : 313.112
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120633
-Hot Mean Vfd 293.917 and cold Mean Vfd : 278.177
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120634
-Hot Mean Vfd 239.521 and cold Mean Vfd : 313.171
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120637
-Hot Mean Vfd 290.786 and cold Mean Vfd : 278.524
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369120638
-Hot Mean Vfd 239.22 and cold Mean Vfd : 313.228
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120646
-Hot Mean Vfd 288.367 and cold Mean Vfd : 279.184
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120650
-Hot Mean Vfd 286.098 and cold Mean Vfd : 279.5
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120654
-Hot Mean Vfd 283.967 and cold Mean Vfd : 279.805
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120677
-Hot Mean Vfd 281.711 and cold Mean Vfd : 277.418
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120678
-Hot Mean Vfd 279.376 and cold Mean Vfd : 277.418
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369120678
-Hot Mean Vfd 258.185 and cold Mean Vfd : 317.747
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120681
-Hot Mean Vfd 277.373 and cold Mean Vfd : 277.418
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120682
-Hot Mean Vfd 275.282 and cold Mean Vfd : 277.418
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369120682
-Hot Mean Vfd 246.548 and cold Mean Vfd : 317.747
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120685
-Hot Mean Vfd 273.492 and cold Mean Vfd : 277.418
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369120686
-Hot Mean Vfd 271.607 and cold Mean Vfd : 277.418
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369120686
-Hot Mean Vfd 238.79 and cold Mean Vfd : 317.747
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121301
-Hot Mean Vfd 238.643 and cold Mean Vfd : 314.108
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121301
-Hot Mean Vfd 35.4875 and cold Mean Vfd : 203.583
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121302
-Hot Mean Vfd 238.135 and cold Mean Vfd : 314.108
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121302
-Hot Mean Vfd 41.7967 and cold Mean Vfd : 203.583
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121305
-Hot Mean Vfd 237.683 and cold Mean Vfd : 314.108
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121305
-Hot Mean Vfd 39.6936 and cold Mean Vfd : 203.583
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121306
-Hot Mean Vfd 237.279 and cold Mean Vfd : 314.108
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121306
-Hot Mean Vfd 41.7967 and cold Mean Vfd : 203.583
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121309
-Hot Mean Vfd 236.915 and cold Mean Vfd : 314.108
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121309
-Hot Mean Vfd 40.5348 and cold Mean Vfd : 203.583
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121310
-Hot Mean Vfd 236.585 and cold Mean Vfd : 314.108
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121310
-Hot Mean Vfd 41.7967 and cold Mean Vfd : 203.583
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121350
-Hot Mean Vfd 269.881 and cold Mean Vfd : 279.441
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121353
-Hot Mean Vfd 237.041 and cold Mean Vfd : 312.923
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121354
-Hot Mean Vfd 268.238 and cold Mean Vfd : 279.42
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121357
-Hot Mean Vfd 237.456 and cold Mean Vfd : 312.897
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121358
-Hot Mean Vfd 266.674 and cold Mean Vfd : 279.4
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121381
-Hot Mean Vfd 268.556 and cold Mean Vfd : 279.285
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121385
-Hot Mean Vfd 270.352 and cold Mean Vfd : 279.492
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121389
-Hot Mean Vfd 272.069 and cold Mean Vfd : 279.695
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121397
-Hot Mean Vfd 273.744 and cold Mean Vfd : 279.894
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121401
-Hot Mean Vfd 275.347 and cold Mean Vfd : 279.872
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121405
-Hot Mean Vfd 276.884 and cold Mean Vfd : 279.85
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121413
-Hot Mean Vfd 275.315 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121414
-Hot Mean Vfd 273.808 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121414
-Hot Mean Vfd 55.3127 and cold Mean Vfd : 203.618
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121417
-Hot Mean Vfd 272.361 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121418
-Hot Mean Vfd 270.97 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121418
-Hot Mean Vfd 65.4497 and cold Mean Vfd : 203.619
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121421
-Hot Mean Vfd 269.631 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121422
-Hot Mean Vfd 268.341 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121422
-Hot Mean Vfd 73.3341 and cold Mean Vfd : 203.619
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121429
-Hot Mean Vfd 269.823 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121430
-Hot Mean Vfd 271.197 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121430
-Hot Mean Vfd 237.156 and cold Mean Vfd : 312.619
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121433
-Hot Mean Vfd 272.577 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121434
-Hot Mean Vfd 273.856 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121434
-Hot Mean Vfd 236.88 and cold Mean Vfd : 312.658
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121437
-Hot Mean Vfd 275.144 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121438
-Hot Mean Vfd 276.338 and cold Mean Vfd : 279.828
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121438
-Hot Mean Vfd 236.625 and cold Mean Vfd : 312.697
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121461
-Hot Mean Vfd 236.783 and cold Mean Vfd : 312.78
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121465
-Hot Mean Vfd 236.93 and cold Mean Vfd : 312.815
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121469
-Hot Mean Vfd 237.066 and cold Mean Vfd : 312.851
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121509
-Hot Mean Vfd 277.703 and cold Mean Vfd : 279.185
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121509
-Hot Mean Vfd 70.0961 and cold Mean Vfd : 203.638
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121510
-Hot Mean Vfd 348.818 and cold Mean Vfd : 256.434
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121513
-Hot Mean Vfd 279.024 and cold Mean Vfd : 278.978
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121513
-Hot Mean Vfd 67.4469 and cold Mean Vfd : 203.638
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121514
-Hot Mean Vfd 347.529 and cold Mean Vfd : 257.076
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121517
-Hot Mean Vfd 280.303 and cold Mean Vfd : 278.774
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369121517
-Hot Mean Vfd 65.2393 and cold Mean Vfd : 203.639
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121518
-Hot Mean Vfd 346.67 and cold Mean Vfd : 257.706
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121558
-Hot Mean Vfd 279.205 and cold Mean Vfd : 279.617
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121562
-Hot Mean Vfd 278.141 and cold Mean Vfd : 279.912
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121566
-Hot Mean Vfd 277.11 and cold Mean Vfd : 280.203
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121590
-Hot Mean Vfd 347.16 and cold Mean Vfd : 257.807
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121594
-Hot Mean Vfd 347.527 and cold Mean Vfd : 258.153
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121598
-Hot Mean Vfd 347.813 and cold Mean Vfd : 258.493
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121621
-Hot Mean Vfd 275.959 and cold Mean Vfd : 279.801
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121621
-Hot Mean Vfd 236.965 and cold Mean Vfd : 312.05
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121625
-Hot Mean Vfd 274.842 and cold Mean Vfd : 279.801
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121625
-Hot Mean Vfd 236.87 and cold Mean Vfd : 312.077
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121629
-Hot Mean Vfd 273.757 and cold Mean Vfd : 279.801
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121629
-Hot Mean Vfd 236.781 and cold Mean Vfd : 312.103
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121685
-Hot Mean Vfd 274.739 and cold Mean Vfd : 279.951
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121689
-Hot Mean Vfd 275.694 and cold Mean Vfd : 279.852
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121693
-Hot Mean Vfd 276.622 and cold Mean Vfd : 279.753
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121733
-Hot Mean Vfd 275.572 and cold Mean Vfd : 278.759
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121734
-Hot Mean Vfd 236.949 and cold Mean Vfd : 312.76
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121737
-Hot Mean Vfd 274.551 and cold Mean Vfd : 278.55
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121738
-Hot Mean Vfd 237.108 and cold Mean Vfd : 312.783
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121741
-Hot Mean Vfd 273.557 and cold Mean Vfd : 278.343
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369121742
-Hot Mean Vfd 237.257 and cold Mean Vfd : 312.805
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121766
-Hot Mean Vfd 346.776 and cold Mean Vfd : 258.783
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121766
-Hot Mean Vfd 272.589 and cold Mean Vfd : 278.049
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121770
-Hot Mean Vfd 345.927 and cold Mean Vfd : 259.183
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121770
-Hot Mean Vfd 271.646 and cold Mean Vfd : 277.97
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369121774
-Hot Mean Vfd 345.219 and cold Mean Vfd : 259.577
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369121774
-Hot Mean Vfd 270.728 and cold Mean Vfd : 277.892
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124421
-Hot Mean Vfd 237.229 and cold Mean Vfd : 313.286
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124422
-Hot Mean Vfd 237.034 and cold Mean Vfd : 313.286
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124425
-Hot Mean Vfd 237.013 and cold Mean Vfd : 313.286
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124426
-Hot Mean Vfd 236.834 and cold Mean Vfd : 313.286
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124429
-Hot Mean Vfd 236.819 and cold Mean Vfd : 313.286
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124430
-Hot Mean Vfd 236.653 and cold Mean Vfd : 313.286
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124454
-Hot Mean Vfd 271.709 and cold Mean Vfd : 277.892
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124458
-Hot Mean Vfd 272.665 and cold Mean Vfd : 277.892
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124462
-Hot Mean Vfd 273.597 and cold Mean Vfd : 277.892
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124517
-Hot Mean Vfd 274.65 and cold Mean Vfd : 277.991
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124521
-Hot Mean Vfd 275.677 and cold Mean Vfd : 278.099
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124525
-Hot Mean Vfd 276.679 and cold Mean Vfd : 278.205
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124549
-Hot Mean Vfd 275.819 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369124549
-Hot Mean Vfd 233.249 and cold Mean Vfd : 318.57
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369124549
-Hot Mean Vfd 66.0791 and cold Mean Vfd : 203.676
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124550
-Hot Mean Vfd 274.938 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124553
-Hot Mean Vfd 274.118 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369124553
-Hot Mean Vfd 229.093 and cold Mean Vfd : 318.57
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369124553
-Hot Mean Vfd 66.7989 and cold Mean Vfd : 203.676
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124554
-Hot Mean Vfd 273.275 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124557
-Hot Mean Vfd 272.493 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369124557
-Hot Mean Vfd 225.86 and cold Mean Vfd : 318.57
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369124557
-Hot Mean Vfd 67.4228 and cold Mean Vfd : 203.677
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124558
-Hot Mean Vfd 271.687 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124565
-Hot Mean Vfd 270.899 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124569
-Hot Mean Vfd 270.129 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124573
-Hot Mean Vfd 269.375 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124598
-Hot Mean Vfd 236.519 and cold Mean Vfd : 312.971
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124602
-Hot Mean Vfd 236.392 and cold Mean Vfd : 312.985
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124606
-Hot Mean Vfd 236.271 and cold Mean Vfd : 312.999
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124629
-Hot Mean Vfd 270.156 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124630
-Hot Mean Vfd 236.132 and cold Mean Vfd : 312.945
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124633
-Hot Mean Vfd 270.921 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124634
-Hot Mean Vfd 235.998 and cold Mean Vfd : 312.803
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369124637
-Hot Mean Vfd 271.67 and cold Mean Vfd : 278.171
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124638
-Hot Mean Vfd 235.871 and cold Mean Vfd : 312.662
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124646
-Hot Mean Vfd 236.191 and cold Mean Vfd : 312.662
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124650
-Hot Mean Vfd 236.498 and cold Mean Vfd : 312.662
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124654
-Hot Mean Vfd 236.793 and cold Mean Vfd : 312.662
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124677
-Hot Mean Vfd 236.782 and cold Mean Vfd : 312.766
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124681
-Hot Mean Vfd 236.772 and cold Mean Vfd : 312.796
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124685
-Hot Mean Vfd 236.762 and cold Mean Vfd : 312.826
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124710
-Hot Mean Vfd 236.645 and cold Mean Vfd : 312.903
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124714
-Hot Mean Vfd 236.531 and cold Mean Vfd : 312.963
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124718
-Hot Mean Vfd 236.422 and cold Mean Vfd : 313.023
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369124742
-Hot Mean Vfd 345.724 and cold Mean Vfd : 257.69
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369124746
-Hot Mean Vfd 346.156 and cold Mean Vfd : 257.878
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369124750
-Hot Mean Vfd 346.53 and cold Mean Vfd : 258.065
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124757
-Hot Mean Vfd 236.418 and cold Mean Vfd : 313.405
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124761
-Hot Mean Vfd 236.413 and cold Mean Vfd : 313.435
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369124765
-Hot Mean Vfd 236.409 and cold Mean Vfd : 313.466
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125477
-Hot Mean Vfd 347.001 and cold Mean Vfd : 257.517
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125477
-Hot Mean Vfd 270.944 and cold Mean Vfd : 278.478
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125481
-Hot Mean Vfd 347.416 and cold Mean Vfd : 257.701
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125481
-Hot Mean Vfd 270.233 and cold Mean Vfd : 278.478
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125485
-Hot Mean Vfd 347.785 and cold Mean Vfd : 257.884
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125485
-Hot Mean Vfd 269.537 and cold Mean Vfd : 278.478
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125493
-Hot Mean Vfd 236.664 and cold Mean Vfd : 313.13
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125497
-Hot Mean Vfd 236.91 and cold Mean Vfd : 313.143
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125501
-Hot Mean Vfd 237.148 and cold Mean Vfd : 313.156
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125510
-Hot Mean Vfd 237.06 and cold Mean Vfd : 313.181
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125514
-Hot Mean Vfd 236.974 and cold Mean Vfd : 313.194
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125518
-Hot Mean Vfd 236.892 and cold Mean Vfd : 313.207
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125557
-Hot Mean Vfd 270.441 and cold Mean Vfd : 278.994
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125557
-Hot Mean Vfd 236.928 and cold Mean Vfd : 312.446
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125558
-Hot Mean Vfd 236.904 and cold Mean Vfd : 312.446
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125561
-Hot Mean Vfd 271.328 and cold Mean Vfd : 278.767
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125561
-Hot Mean Vfd 236.939 and cold Mean Vfd : 312.446
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125562
-Hot Mean Vfd 236.916 and cold Mean Vfd : 312.446
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125565
-Hot Mean Vfd 272.197 and cold Mean Vfd : 278.542
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125565
-Hot Mean Vfd 236.95 and cold Mean Vfd : 312.446
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125566
-Hot Mean Vfd 236.928 and cold Mean Vfd : 312.446
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125574
-Hot Mean Vfd 347.962 and cold Mean Vfd : 257.9
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125578
-Hot Mean Vfd 348.12 and cold Mean Vfd : 258.085
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125582
-Hot Mean Vfd 348.264 and cold Mean Vfd : 258.268
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125589
-Hot Mean Vfd 273.02 and cold Mean Vfd : 278.072
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125590
-Hot Mean Vfd 273.76 and cold Mean Vfd : 278.072
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125593
-Hot Mean Vfd 274.552 and cold Mean Vfd : 278.072
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125594
-Hot Mean Vfd 275.264 and cold Mean Vfd : 278.072
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125597
-Hot Mean Vfd 276.027 and cold Mean Vfd : 278.072
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125598
-Hot Mean Vfd 276.712 and cold Mean Vfd : 278.072
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125606
-Hot Mean Vfd 111.257 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369125606
-Hot Mean Vfd 66.7289 and cold Mean Vfd : 203.541
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125610
-Hot Mean Vfd 111.257 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369125610
-Hot Mean Vfd 66.1167 and cold Mean Vfd : 203.542
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125614
-Hot Mean Vfd 111.257 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 369125614
-Hot Mean Vfd 65.5725 and cold Mean Vfd : 203.542
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125637
-Hot Mean Vfd 348.374 and cold Mean Vfd : 258.863
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125638
-Hot Mean Vfd 277.406 and cold Mean Vfd : 278.153
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369125638
-Hot Mean Vfd 223.274 and cold Mean Vfd : 316.139
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125641
-Hot Mean Vfd 348.475 and cold Mean Vfd : 259.043
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125642
-Hot Mean Vfd 278.088 and cold Mean Vfd : 278.239
-Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 369125642
-Hot Mean Vfd 221.158 and cold Mean Vfd : 316.088
-Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 369125645
-Hot Mean Vfd 348.568 and cold Mean Vfd : 259.223
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125653
-Hot Mean Vfd 236.842 and cold Mean Vfd : 312.335
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125657
-Hot Mean Vfd 236.759 and cold Mean Vfd : 312.348
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125661
-Hot Mean Vfd 236.678 and cold Mean Vfd : 312.361
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125701
-Hot Mean Vfd 101.992 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125701
-Hot Mean Vfd 236.589 and cold Mean Vfd : 312.508
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125702
-Hot Mean Vfd 107.033 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125705
-Hot Mean Vfd 101.561 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125705
-Hot Mean Vfd 236.502 and cold Mean Vfd : 312.467
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125706
-Hot Mean Vfd 105.224 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125709
-Hot Mean Vfd 101.345 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125709
-Hot Mean Vfd 236.418 and cold Mean Vfd : 312.427
-Run : 20120510_run193928 for fit GenFunc  with Hot detid : 369125710
-Hot Mean Vfd 104.218 and cold Mean Vfd : 253.279
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125829
-Hot Mean Vfd 236.416 and cold Mean Vfd : 312.605
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125830
-Hot Mean Vfd 277.385 and cold Mean Vfd : 278.46
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125833
-Hot Mean Vfd 236.413 and cold Mean Vfd : 312.527
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125834
-Hot Mean Vfd 276.694 and cold Mean Vfd : 278.46
-Run : 20120510_run193928 for fit deriv exp  with Hot detid : 369125837
-Hot Mean Vfd 236.411 and cold Mean Vfd : 312.451
-Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 369125838
-Hot Mean Vfd 276.015 and cold Mean Vfd : 278.46
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310088
+Hot Mean Vfd 273.665 and cold Mean Vfd : 200
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310088
+Hot Mean Vfd 200 and cold Mean Vfd : 293.45
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310096
+Hot Mean Vfd 200 and cold Mean Vfd : 262.3
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310116
+Hot Mean Vfd 285.647 and cold Mean Vfd : 236.832
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310116
+Hot Mean Vfd 359.608 and cold Mean Vfd : 208.085
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310116
+Hot Mean Vfd 249.893 and cold Mean Vfd : 246.725
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310116
+Hot Mean Vfd 33.1194 and cold Mean Vfd : 138.025
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310120
+Hot Mean Vfd 41.0251 and cold Mean Vfd : 123.039
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310124
+Hot Mean Vfd 359.608 and cold Mean Vfd : 231.221
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310124
+Hot Mean Vfd 274.84 and cold Mean Vfd : 258.959
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310124
+Hot Mean Vfd 38.3899 and cold Mean Vfd : 123.039
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310128
+Hot Mean Vfd 41.0251 and cold Mean Vfd : 111.799
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310132
+Hot Mean Vfd 359.608 and cold Mean Vfd : 245.102
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310132
+Hot Mean Vfd 289.808 and cold Mean Vfd : 266.3
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310132
+Hot Mean Vfd 39.444 and cold Mean Vfd : 111.799
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310148
+Hot Mean Vfd 299.506 and cold Mean Vfd : 271.194
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310148
+Hot Mean Vfd 38.393 and cold Mean Vfd : 103.057
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310152
+Hot Mean Vfd 349.099 and cold Mean Vfd : 250.175
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310152
+Hot Mean Vfd 342.13 and cold Mean Vfd : 267.979
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310156
+Hot Mean Vfd 306.433 and cold Mean Vfd : 276.059
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310156
+Hot Mean Vfd 37.6424 and cold Mean Vfd : 96.0648
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310160
+Hot Mean Vfd 342.793 and cold Mean Vfd : 251.323
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310160
+Hot Mean Vfd 342.13 and cold Mean Vfd : 272.562
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310164
+Hot Mean Vfd 311.629 and cold Mean Vfd : 279.707
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310168
+Hot Mean Vfd 338.59 and cold Mean Vfd : 252.201
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310168
+Hot Mean Vfd 342.13 and cold Mean Vfd : 276.066
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310184
+Hot Mean Vfd 289.699 and cold Mean Vfd : 233.622
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310184
+Hot Mean Vfd 299.226 and cold Mean Vfd : 281.59
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310192
+Hot Mean Vfd 291.725 and cold Mean Vfd : 235.077
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310192
+Hot Mean Vfd 289.303 and cold Mean Vfd : 276.887
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310200
+Hot Mean Vfd 292.941 and cold Mean Vfd : 236.279
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310200
+Hot Mean Vfd 281.185 and cold Mean Vfd : 273.001
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310212
+Hot Mean Vfd 300.368 and cold Mean Vfd : 238.843
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310212
+Hot Mean Vfd 274.419 and cold Mean Vfd : 269.959
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310220
+Hot Mean Vfd 305.673 and cold Mean Vfd : 243.653
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310220
+Hot Mean Vfd 268.695 and cold Mean Vfd : 266.848
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310228
+Hot Mean Vfd 309.652 and cold Mean Vfd : 247.776
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310228
+Hot Mean Vfd 263.788 and cold Mean Vfd : 264.18
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310244
+Hot Mean Vfd 259.535 and cold Mean Vfd : 261.869
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436310248
+Hot Mean Vfd 217.192 and cold Mean Vfd : 290.724
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436310256
+Hot Mean Vfd 217.192 and cold Mean Vfd : 287.752
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436310264
+Hot Mean Vfd 217.192 and cold Mean Vfd : 285.151
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310280
+Hot Mean Vfd 310.163 and cold Mean Vfd : 241.635
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310280
+Hot Mean Vfd 50.1448 and cold Mean Vfd : 60.1609
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310288
+Hot Mean Vfd 310.571 and cold Mean Vfd : 242.429
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310288
+Hot Mean Vfd 59.869 and cold Mean Vfd : 62.9288
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310296
+Hot Mean Vfd 310.905 and cold Mean Vfd : 243.146
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310296
+Hot Mean Vfd 67.6483 and cold Mean Vfd : 65.5058
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310308
+Hot Mean Vfd 264.238 and cold Mean Vfd : 249.652
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310316
+Hot Mean Vfd 268.388 and cold Mean Vfd : 252.185
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310324
+Hot Mean Vfd 272.076 and cold Mean Vfd : 254.497
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310340
+Hot Mean Vfd 332.591 and cold Mean Vfd : 231.857
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310348
+Hot Mean Vfd 328.091 and cold Mean Vfd : 234.064
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310356
+Hot Mean Vfd 324.592 and cold Mean Vfd : 236.102
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310372
+Hot Mean Vfd 74.3731 and cold Mean Vfd : 65.828
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310376
+Hot Mean Vfd 79.9678 and cold Mean Vfd : 68.0572
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310380
+Hot Mean Vfd 84.7103 and cold Mean Vfd : 70.1559
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310384
+Hot Mean Vfd 88.7674 and cold Mean Vfd : 72.141
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310388
+Hot Mean Vfd 92.291 and cold Mean Vfd : 74.0158
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310392
+Hot Mean Vfd 95.3672 and cold Mean Vfd : 75.7949
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310408
+Hot Mean Vfd 325.883 and cold Mean Vfd : 237.325
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310408
+Hot Mean Vfd 340.974 and cold Mean Vfd : 272.922
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310416
+Hot Mean Vfd 326.939 and cold Mean Vfd : 239.451
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310416
+Hot Mean Vfd 340.28 and cold Mean Vfd : 273.305
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310424
+Hot Mean Vfd 327.819 and cold Mean Vfd : 241.446
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310424
+Hot Mean Vfd 339.817 and cold Mean Vfd : 273.665
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310436
+Hot Mean Vfd 328.42 and cold Mean Vfd : 242.902
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310436
+Hot Mean Vfd 276.417 and cold Mean Vfd : 254.536
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310436
+Hot Mean Vfd 339.486 and cold Mean Vfd : 274.633
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310440
+Hot Mean Vfd 314.565 and cold Mean Vfd : 239.152
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310440
+Hot Mean Vfd 278.461 and cold Mean Vfd : 256.028
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310440
+Hot Mean Vfd 340.674 and cold Mean Vfd : 275.571
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310440
+Hot Mean Vfd 98.1783 and cold Mean Vfd : 73.8194
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310444
+Hot Mean Vfd 328.935 and cold Mean Vfd : 243.741
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310444
+Hot Mean Vfd 282.084 and cold Mean Vfd : 256.929
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310444
+Hot Mean Vfd 340.322 and cold Mean Vfd : 276.651
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310448
+Hot Mean Vfd 317.663 and cold Mean Vfd : 241.385
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310448
+Hot Mean Vfd 341.188 and cold Mean Vfd : 277.533
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310448
+Hot Mean Vfd 100.677 and cold Mean Vfd : 75.3268
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310452
+Hot Mean Vfd 329.382 and cold Mean Vfd : 244.533
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310452
+Hot Mean Vfd 285.378 and cold Mean Vfd : 259.186
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310456
+Hot Mean Vfd 320.317 and cold Mean Vfd : 243.492
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310456
+Hot Mean Vfd 341.898 and cold Mean Vfd : 279.384
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310456
+Hot Mean Vfd 102.913 and cold Mean Vfd : 76.7699
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310468
+Hot Mean Vfd 288.592 and cold Mean Vfd : 261.318
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310468
+Hot Mean Vfd 104.863 and cold Mean Vfd : 78.153
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310472
+Hot Mean Vfd 106.657 and cold Mean Vfd : 79.4543
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310476
+Hot Mean Vfd 291.539 and cold Mean Vfd : 262.634
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310476
+Hot Mean Vfd 108.26 and cold Mean Vfd : 79.4543
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310480
+Hot Mean Vfd 109.751 and cold Mean Vfd : 80.7036
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310484
+Hot Mean Vfd 294.25 and cold Mean Vfd : 263.881
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310484
+Hot Mean Vfd 111.091 and cold Mean Vfd : 80.7036
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310488
+Hot Mean Vfd 112.349 and cold Mean Vfd : 81.9039
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310500
+Hot Mean Vfd 290.723 and cold Mean Vfd : 265.064
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310500
+Hot Mean Vfd 330.282 and cold Mean Vfd : 278.976
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310500
+Hot Mean Vfd 113.561 and cold Mean Vfd : 81.9039
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310504
+Hot Mean Vfd 322.108 and cold Mean Vfd : 246.748
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310504
+Hot Mean Vfd 292.818 and cold Mean Vfd : 264.272
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310504
+Hot Mean Vfd 114.731 and cold Mean Vfd : 83.0954
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310508
+Hot Mean Vfd 289.593 and cold Mean Vfd : 265.31
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310508
+Hot Mean Vfd 320.454 and cold Mean Vfd : 277.627
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310508
+Hot Mean Vfd 115.771 and cold Mean Vfd : 83.0954
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310512
+Hot Mean Vfd 323.675 and cold Mean Vfd : 248.248
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310512
+Hot Mean Vfd 291.583 and cold Mean Vfd : 264.535
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310512
+Hot Mean Vfd 116.784 and cold Mean Vfd : 84.2419
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310516
+Hot Mean Vfd 288.614 and cold Mean Vfd : 265.544
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310516
+Hot Mean Vfd 312.029 and cold Mean Vfd : 276.344
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310520
+Hot Mean Vfd 325.057 and cold Mean Vfd : 249.676
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310520
+Hot Mean Vfd 290.507 and cold Mean Vfd : 264.785
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310536
+Hot Mean Vfd 331.188 and cold Mean Vfd : 244.776
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310536
+Hot Mean Vfd 304.561 and cold Mean Vfd : 274.729
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310544
+Hot Mean Vfd 332.781 and cold Mean Vfd : 246.09
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310544
+Hot Mean Vfd 298.026 and cold Mean Vfd : 273.489
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310552
+Hot Mean Vfd 334.198 and cold Mean Vfd : 247.342
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310552
+Hot Mean Vfd 292.26 and cold Mean Vfd : 272.306
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310564
+Hot Mean Vfd 287.678 and cold Mean Vfd : 265.424
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436310564
+Hot Mean Vfd 249.572 and cold Mean Vfd : 280.261
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310568
+Hot Mean Vfd 335.03 and cold Mean Vfd : 248.837
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310568
+Hot Mean Vfd 285.022 and cold Mean Vfd : 264.705
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310568
+Hot Mean Vfd 287.134 and cold Mean Vfd : 270.909
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310576
+Hot Mean Vfd 335.778 and cold Mean Vfd : 249.973
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310576
+Hot Mean Vfd 282.521 and cold Mean Vfd : 264.002
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310576
+Hot Mean Vfd 282.548 and cold Mean Vfd : 270.138
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310580
+Hot Mean Vfd 280.163 and cold Mean Vfd : 263.314
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436310580
+Hot Mean Vfd 269 and cold Mean Vfd : 281.614
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310584
+Hot Mean Vfd 336.456 and cold Mean Vfd : 251.27
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310584
+Hot Mean Vfd 277.936 and cold Mean Vfd : 262.64
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310584
+Hot Mean Vfd 278.421 and cold Mean Vfd : 268.832
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310596
+Hot Mean Vfd 281.805 and cold Mean Vfd : 268.107
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310600
+Hot Mean Vfd 278.2 and cold Mean Vfd : 268.955
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310604
+Hot Mean Vfd 281.3 and cold Mean Vfd : 268.27
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310608
+Hot Mean Vfd 278.016 and cold Mean Vfd : 269.099
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310612
+Hot Mean Vfd 280.875 and cold Mean Vfd : 268.426
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310616
+Hot Mean Vfd 277.861 and cold Mean Vfd : 269.237
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310664
+Hot Mean Vfd 275.83 and cold Mean Vfd : 260.806
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310672
+Hot Mean Vfd 273.834 and cold Mean Vfd : 260.286
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310692
+Hot Mean Vfd 325.705 and cold Mean Vfd : 242.563
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310692
+Hot Mean Vfd 337.476 and cold Mean Vfd : 247.659
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310692
+Hot Mean Vfd 275.017 and cold Mean Vfd : 259.255
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310692
+Hot Mean Vfd 117.73 and cold Mean Vfd : 74.6781
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310696
+Hot Mean Vfd 118.669 and cold Mean Vfd : 74.6781
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310700
+Hot Mean Vfd 326.285 and cold Mean Vfd : 243.629
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310700
+Hot Mean Vfd 338.407 and cold Mean Vfd : 248.784
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310700
+Hot Mean Vfd 276.141 and cold Mean Vfd : 259.764
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310700
+Hot Mean Vfd 119.497 and cold Mean Vfd : 75.6033
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310704
+Hot Mean Vfd 120.326 and cold Mean Vfd : 75.6033
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310708
+Hot Mean Vfd 326.807 and cold Mean Vfd : 244.66
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310708
+Hot Mean Vfd 339.26 and cold Mean Vfd : 249.871
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310708
+Hot Mean Vfd 121.056 and cold Mean Vfd : 76.5051
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310712
+Hot Mean Vfd 121.793 and cold Mean Vfd : 76.5051
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310756
+Hot Mean Vfd 339.193 and cold Mean Vfd : 251.95
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310756
+Hot Mean Vfd 278.003 and cold Mean Vfd : 258.987
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310756
+Hot Mean Vfd 280.07 and cold Mean Vfd : 265.72
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436310764
+Hot Mean Vfd 339.13 and cold Mean Vfd : 252.221
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310764
+Hot Mean Vfd 279.776 and cold Mean Vfd : 259.631
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310764
+Hot Mean Vfd 282.122 and cold Mean Vfd : 266.555
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310788
+Hot Mean Vfd 277.92 and cold Mean Vfd : 260.256
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310820
+Hot Mean Vfd 328.382 and cold Mean Vfd : 244.193
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310820
+Hot Mean Vfd 279.783 and cold Mean Vfd : 257.928
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310820
+Hot Mean Vfd 122.444 and cold Mean Vfd : 74.1567
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310824
+Hot Mean Vfd 284.031 and cold Mean Vfd : 266.661
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310824
+Hot Mean Vfd 123.063 and cold Mean Vfd : 74.8895
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310828
+Hot Mean Vfd 329.815 and cold Mean Vfd : 244.734
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310828
+Hot Mean Vfd 281.563 and cold Mean Vfd : 258.25
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310828
+Hot Mean Vfd 123.647 and cold Mean Vfd : 75.6087
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310832
+Hot Mean Vfd 285.813 and cold Mean Vfd : 267.281
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310832
+Hot Mean Vfd 124.204 and cold Mean Vfd : 76.312
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310836
+Hot Mean Vfd 331.123 and cold Mean Vfd : 245.259
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310836
+Hot Mean Vfd 283.266 and cold Mean Vfd : 258.562
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436310836
+Hot Mean Vfd 124.73 and cold Mean Vfd : 77.0025
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310856
+Hot Mean Vfd 288.148 and cold Mean Vfd : 267.564
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310864
+Hot Mean Vfd 290.337 and cold Mean Vfd : 267.885
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310872
+Hot Mean Vfd 292.393 and cold Mean Vfd : 268.198
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310920
+Hot Mean Vfd 331.247 and cold Mean Vfd : 245.055
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310920
+Hot Mean Vfd 284.346 and cold Mean Vfd : 256.727
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310920
+Hot Mean Vfd 289.681 and cold Mean Vfd : 267.17
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310928
+Hot Mean Vfd 331.361 and cold Mean Vfd : 245.339
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310928
+Hot Mean Vfd 285.381 and cold Mean Vfd : 257.263
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310928
+Hot Mean Vfd 287.124 and cold Mean Vfd : 266.472
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436310936
+Hot Mean Vfd 331.466 and cold Mean Vfd : 245.616
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436310936
+Hot Mean Vfd 286.373 and cold Mean Vfd : 257.785
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436310936
+Hot Mean Vfd 284.709 and cold Mean Vfd : 265.792
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436311012
+Hot Mean Vfd 255.833 and cold Mean Vfd : 282.294
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311016
+Hot Mean Vfd 282.42 and cold Mean Vfd : 264.758
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436311020
+Hot Mean Vfd 246.429 and cold Mean Vfd : 281.998
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311024
+Hot Mean Vfd 280.251 and cold Mean Vfd : 264.453
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436311028
+Hot Mean Vfd 239.375 and cold Mean Vfd : 281.709
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311032
+Hot Mean Vfd 278.193 and cold Mean Vfd : 264.156
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311044
+Hot Mean Vfd 339.07 and cold Mean Vfd : 246.072
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311044
+Hot Mean Vfd 287.796 and cold Mean Vfd : 256.479
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311044
+Hot Mean Vfd 279.676 and cold Mean Vfd : 263.789
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311052
+Hot Mean Vfd 339.014 and cold Mean Vfd : 246.6
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311052
+Hot Mean Vfd 289.163 and cold Mean Vfd : 257.053
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311052
+Hot Mean Vfd 281.086 and cold Mean Vfd : 264.208
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311060
+Hot Mean Vfd 338.962 and cold Mean Vfd : 246.853
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311060
+Hot Mean Vfd 290.477 and cold Mean Vfd : 257.333
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311060
+Hot Mean Vfd 282.429 and cold Mean Vfd : 264.357
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311080
+Hot Mean Vfd 338.914 and cold Mean Vfd : 246.836
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311080
+Hot Mean Vfd 291.356 and cold Mean Vfd : 257.836
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311080
+Hot Mean Vfd 283.71 and cold Mean Vfd : 264.699
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311088
+Hot Mean Vfd 338.869 and cold Mean Vfd : 247.08
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311088
+Hot Mean Vfd 292.201 and cold Mean Vfd : 258.494
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311088
+Hot Mean Vfd 284.933 and cold Mean Vfd : 265.29
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311096
+Hot Mean Vfd 338.826 and cold Mean Vfd : 247.318
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311096
+Hot Mean Vfd 293.017 and cold Mean Vfd : 259.138
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311096
+Hot Mean Vfd 286.101 and cold Mean Vfd : 265.868
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311108
+Hot Mean Vfd 338.79 and cold Mean Vfd : 247.811
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311108
+Hot Mean Vfd 294.12 and cold Mean Vfd : 259.557
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311116
+Hot Mean Vfd 338.755 and cold Mean Vfd : 248.447
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311116
+Hot Mean Vfd 295.185 and cold Mean Vfd : 259.839
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311124
+Hot Mean Vfd 338.722 and cold Mean Vfd : 249.07
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311124
+Hot Mean Vfd 296.213 and cold Mean Vfd : 260.116
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311140
+Hot Mean Vfd 287.231 and cold Mean Vfd : 265.222
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311140
+Hot Mean Vfd 125.156 and cold Mean Vfd : 69.8953
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311144
+Hot Mean Vfd 339.27 and cold Mean Vfd : 249.975
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311144
+Hot Mean Vfd 296.912 and cold Mean Vfd : 260.088
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311148
+Hot Mean Vfd 288.313 and cold Mean Vfd : 265.505
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311148
+Hot Mean Vfd 125.561 and cold Mean Vfd : 70.4117
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311152
+Hot Mean Vfd 339.789 and cold Mean Vfd : 250.83
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311152
+Hot Mean Vfd 297.587 and cold Mean Vfd : 260.189
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311156
+Hot Mean Vfd 289.35 and cold Mean Vfd : 265.783
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311156
+Hot Mean Vfd 125.948 and cold Mean Vfd : 70.9208
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311160
+Hot Mean Vfd 340.28 and cold Mean Vfd : 251.668
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311160
+Hot Mean Vfd 298.241 and cold Mean Vfd : 260.289
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311176
+Hot Mean Vfd 340.715 and cold Mean Vfd : 252.215
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311180
+Hot Mean Vfd 331.688 and cold Mean Vfd : 240.126
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311180
+Hot Mean Vfd 340.629 and cold Mean Vfd : 252.751
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311180
+Hot Mean Vfd 296.656 and cold Mean Vfd : 260.926
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311184
+Hot Mean Vfd 341.034 and cold Mean Vfd : 253.18
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311188
+Hot Mean Vfd 331.893 and cold Mean Vfd : 240.882
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311188
+Hot Mean Vfd 340.945 and cold Mean Vfd : 253.706
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311188
+Hot Mean Vfd 295.122 and cold Mean Vfd : 260.867
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311192
+Hot Mean Vfd 341.324 and cold Mean Vfd : 254.126
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311204
+Hot Mean Vfd 341.743 and cold Mean Vfd : 254.641
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311204
+Hot Mean Vfd 295.644 and cold Mean Vfd : 260.809
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311208
+Hot Mean Vfd 294.172 and cold Mean Vfd : 261.141
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311212
+Hot Mean Vfd 342.144 and cold Mean Vfd : 255.2
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311212
+Hot Mean Vfd 294.693 and cold Mean Vfd : 260.842
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311216
+Hot Mean Vfd 293.28 and cold Mean Vfd : 261.171
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311220
+Hot Mean Vfd 342.528 and cold Mean Vfd : 255.747
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311220
+Hot Mean Vfd 293.798 and cold Mean Vfd : 260.875
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311224
+Hot Mean Vfd 292.439 and cold Mean Vfd : 261.201
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311240
+Hot Mean Vfd 287.579 and cold Mean Vfd : 266.252
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311248
+Hot Mean Vfd 285.879 and cold Mean Vfd : 266.003
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311256
+Hot Mean Vfd 284.245 and cold Mean Vfd : 265.759
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311268
+Hot Mean Vfd 332.502 and cold Mean Vfd : 241.165
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311268
+Hot Mean Vfd 342.75 and cold Mean Vfd : 255.588
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311268
+Hot Mean Vfd 293.264 and cold Mean Vfd : 259.599
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311268
+Hot Mean Vfd 126.283 and cold Mean Vfd : 69.3913
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311272
+Hot Mean Vfd 333.138 and cold Mean Vfd : 241.667
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311272
+Hot Mean Vfd 342.845 and cold Mean Vfd : 256.045
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311272
+Hot Mean Vfd 293.738 and cold Mean Vfd : 260.019
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311272
+Hot Mean Vfd 126.591 and cold Mean Vfd : 69.8425
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311276
+Hot Mean Vfd 333.667 and cold Mean Vfd : 242.173
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311276
+Hot Mean Vfd 343.051 and cold Mean Vfd : 256.471
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311276
+Hot Mean Vfd 294.523 and cold Mean Vfd : 260.327
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311276
+Hot Mean Vfd 126.898 and cold Mean Vfd : 70.2847
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311280
+Hot Mean Vfd 334.226 and cold Mean Vfd : 242.666
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311280
+Hot Mean Vfd 343.137 and cold Mean Vfd : 256.92
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311280
+Hot Mean Vfd 294.966 and cold Mean Vfd : 260.739
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311280
+Hot Mean Vfd 127.179 and cold Mean Vfd : 70.7247
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311284
+Hot Mean Vfd 334.691 and cold Mean Vfd : 243.163
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311284
+Hot Mean Vfd 343.329 and cold Mean Vfd : 257.339
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311284
+Hot Mean Vfd 295.713 and cold Mean Vfd : 261.041
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311284
+Hot Mean Vfd 127.461 and cold Mean Vfd : 71.1559
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311288
+Hot Mean Vfd 335.187 and cold Mean Vfd : 243.647
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311288
+Hot Mean Vfd 343.406 and cold Mean Vfd : 257.779
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311288
+Hot Mean Vfd 296.129 and cold Mean Vfd : 261.447
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311288
+Hot Mean Vfd 127.72 and cold Mean Vfd : 71.5851
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311300
+Hot Mean Vfd 294.864 and cold Mean Vfd : 261.743
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311300
+Hot Mean Vfd 127.904 and cold Mean Vfd : 72.0057
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311304
+Hot Mean Vfd 343.509 and cold Mean Vfd : 258.243
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311304
+Hot Mean Vfd 293.632 and cold Mean Vfd : 261.465
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311308
+Hot Mean Vfd 292.431 and cold Mean Vfd : 261.189
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311308
+Hot Mean Vfd 128.081 and cold Mean Vfd : 72.0057
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311312
+Hot Mean Vfd 343.607 and cold Mean Vfd : 258.705
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311312
+Hot Mean Vfd 291.261 and cold Mean Vfd : 260.916
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311316
+Hot Mean Vfd 290.121 and cold Mean Vfd : 260.645
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311316
+Hot Mean Vfd 128.252 and cold Mean Vfd : 72.0057
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311320
+Hot Mean Vfd 343.702 and cold Mean Vfd : 259.159
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311320
+Hot Mean Vfd 289.008 and cold Mean Vfd : 260.377
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311332
+Hot Mean Vfd 287.923 and cold Mean Vfd : 260.111
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311332
+Hot Mean Vfd 285.329 and cold Mean Vfd : 265.687
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311336
+Hot Mean Vfd 343.591 and cold Mean Vfd : 259.611
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311336
+Hot Mean Vfd 286.409 and cold Mean Vfd : 266.018
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311340
+Hot Mean Vfd 287.412 and cold Mean Vfd : 266.355
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311344
+Hot Mean Vfd 343.483 and cold Mean Vfd : 260.004
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311344
+Hot Mean Vfd 288.415 and cold Mean Vfd : 266.681
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311348
+Hot Mean Vfd 289.346 and cold Mean Vfd : 267.012
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311352
+Hot Mean Vfd 343.378 and cold Mean Vfd : 260.39
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311352
+Hot Mean Vfd 290.28 and cold Mean Vfd : 267.332
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311364
+Hot Mean Vfd 340.948 and cold Mean Vfd : 260.725
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311364
+Hot Mean Vfd 288.483 and cold Mean Vfd : 259.101
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311364
+Hot Mean Vfd 288.723 and cold Mean Vfd : 267.658
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311368
+Hot Mean Vfd 338.599 and cold Mean Vfd : 260.462
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311372
+Hot Mean Vfd 336.327 and cold Mean Vfd : 260.202
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311372
+Hot Mean Vfd 289.029 and cold Mean Vfd : 259.37
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311372
+Hot Mean Vfd 287.22 and cold Mean Vfd : 267.152
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311396
+Hot Mean Vfd 285.808 and cold Mean Vfd : 266.655
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311404
+Hot Mean Vfd 284.443 and cold Mean Vfd : 266.383
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311412
+Hot Mean Vfd 283.122 and cold Mean Vfd : 266.114
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311416
+Hot Mean Vfd 289.509 and cold Mean Vfd : 259.069
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311416
+Hot Mean Vfd 284.342 and cold Mean Vfd : 265.847
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311428
+Hot Mean Vfd 283.025 and cold Mean Vfd : 266.241
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311436
+Hot Mean Vfd 281.747 and cold Mean Vfd : 265.95
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311444
+Hot Mean Vfd 280.509 and cold Mean Vfd : 265.665
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311492
+Hot Mean Vfd 335.572 and cold Mean Vfd : 240.468
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311496
+Hot Mean Vfd 279.345 and cold Mean Vfd : 265.517
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311500
+Hot Mean Vfd 335.935 and cold Mean Vfd : 240.92
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311504
+Hot Mean Vfd 278.216 and cold Mean Vfd : 265.258
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311508
+Hot Mean Vfd 336.279 and cold Mean Vfd : 241.365
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311512
+Hot Mean Vfd 277.12 and cold Mean Vfd : 265.002
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311524
+Hot Mean Vfd 335.682 and cold Mean Vfd : 241.803
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311524
+Hot Mean Vfd 128.458 and cold Mean Vfd : 69.1219
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311532
+Hot Mean Vfd 335.115 and cold Mean Vfd : 241.918
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311532
+Hot Mean Vfd 128.657 and cold Mean Vfd : 69.4888
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311540
+Hot Mean Vfd 334.576 and cold Mean Vfd : 242.031
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311540
+Hot Mean Vfd 128.849 and cold Mean Vfd : 69.8519
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311556
+Hot Mean Vfd 335.103 and cold Mean Vfd : 242.142
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311556
+Hot Mean Vfd 290.284 and cold Mean Vfd : 255.993
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311560
+Hot Mean Vfd 335.337 and cold Mean Vfd : 242.571
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311564
+Hot Mean Vfd 335.822 and cold Mean Vfd : 242.954
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311564
+Hot Mean Vfd 291.042 and cold Mean Vfd : 256.159
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311568
+Hot Mean Vfd 336.028 and cold Mean Vfd : 243.377
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311572
+Hot Mean Vfd 336.476 and cold Mean Vfd : 243.754
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311572
+Hot Mean Vfd 291.782 and cold Mean Vfd : 256.322
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311576
+Hot Mean Vfd 336.659 and cold Mean Vfd : 244.171
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311588
+Hot Mean Vfd 128.974 and cold Mean Vfd : 69.9653
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311592
+Hot Mean Vfd 278.215 and cold Mean Vfd : 264.585
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311596
+Hot Mean Vfd 129.095 and cold Mean Vfd : 70.1123
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311600
+Hot Mean Vfd 279.28 and cold Mean Vfd : 264.939
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311604
+Hot Mean Vfd 129.211 and cold Mean Vfd : 70.2564
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311608
+Hot Mean Vfd 280.315 and cold Mean Vfd : 265.288
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311624
+Hot Mean Vfd 336.208 and cold Mean Vfd : 244.228
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311624
+Hot Mean Vfd 336.172 and cold Mean Vfd : 255.701
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311632
+Hot Mean Vfd 335.775 and cold Mean Vfd : 244.324
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311632
+Hot Mean Vfd 336.022 and cold Mean Vfd : 255.985
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311636
+Hot Mean Vfd 335.36 and cold Mean Vfd : 244.577
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311636
+Hot Mean Vfd 335.876 and cold Mean Vfd : 256.239
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311640
+Hot Mean Vfd 334.961 and cold Mean Vfd : 244.828
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311640
+Hot Mean Vfd 335.735 and cold Mean Vfd : 256.492
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311652
+Hot Mean Vfd 335.712 and cold Mean Vfd : 256.742
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311656
+Hot Mean Vfd 335.895 and cold Mean Vfd : 257.018
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311656
+Hot Mean Vfd 280.974 and cold Mean Vfd : 265.774
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311660
+Hot Mean Vfd 335.87 and cold Mean Vfd : 257.341
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311664
+Hot Mean Vfd 336.046 and cold Mean Vfd : 257.612
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311664
+Hot Mean Vfd 281.614 and cold Mean Vfd : 265.979
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311668
+Hot Mean Vfd 336.019 and cold Mean Vfd : 257.93
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311672
+Hot Mean Vfd 336.188 and cold Mean Vfd : 258.198
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311672
+Hot Mean Vfd 282.238 and cold Mean Vfd : 266.181
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311720
+Hot Mean Vfd 336.489 and cold Mean Vfd : 258.308
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311720
+Hot Mean Vfd 292.113 and cold Mean Vfd : 256.559
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311728
+Hot Mean Vfd 336.782 and cold Mean Vfd : 258.451
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311728
+Hot Mean Vfd 292.437 and cold Mean Vfd : 256.85
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311736
+Hot Mean Vfd 337.068 and cold Mean Vfd : 258.592
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311736
+Hot Mean Vfd 292.754 and cold Mean Vfd : 257.137
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311780
+Hot Mean Vfd 336.873 and cold Mean Vfd : 257.745
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311780
+Hot Mean Vfd 282.857 and cold Mean Vfd : 265.446
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311784
+Hot Mean Vfd 337.112 and cold Mean Vfd : 257.962
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311788
+Hot Mean Vfd 336.921 and cold Mean Vfd : 258.285
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311788
+Hot Mean Vfd 283.461 and cold Mean Vfd : 265.698
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311792
+Hot Mean Vfd 337.153 and cold Mean Vfd : 258.498
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311796
+Hot Mean Vfd 336.967 and cold Mean Vfd : 258.818
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311796
+Hot Mean Vfd 284.049 and cold Mean Vfd : 265.947
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311800
+Hot Mean Vfd 337.193 and cold Mean Vfd : 259.028
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311816
+Hot Mean Vfd 337.197 and cold Mean Vfd : 259.149
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311816
+Hot Mean Vfd 284.883 and cold Mean Vfd : 266.181
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311824
+Hot Mean Vfd 337.201 and cold Mean Vfd : 259.212
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311824
+Hot Mean Vfd 285.697 and cold Mean Vfd : 266.441
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436311832
+Hot Mean Vfd 337.204 and cold Mean Vfd : 259.274
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311832
+Hot Mean Vfd 286.49 and cold Mean Vfd : 266.697
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311848
+Hot Mean Vfd 293.322 and cold Mean Vfd : 256.161
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311848
+Hot Mean Vfd 287.112 and cold Mean Vfd : 266.965
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436311848
+Hot Mean Vfd 252.314 and cold Mean Vfd : 280.745
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311864
+Hot Mean Vfd 293.878 and cold Mean Vfd : 256.264
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436311864
+Hot Mean Vfd 287.719 and cold Mean Vfd : 267.274
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436311864
+Hot Mean Vfd 262.665 and cold Mean Vfd : 280.921
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311876
+Hot Mean Vfd 334.775 and cold Mean Vfd : 244.027
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311880
+Hot Mean Vfd 294.132 and cold Mean Vfd : 256.561
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311880
+Hot Mean Vfd 129.297 and cold Mean Vfd : 66.748
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311884
+Hot Mean Vfd 334.597 and cold Mean Vfd : 244.145
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311888
+Hot Mean Vfd 294.381 and cold Mean Vfd : 256.769
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311888
+Hot Mean Vfd 129.381 and cold Mean Vfd : 66.6621
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311892
+Hot Mean Vfd 334.425 and cold Mean Vfd : 244.261
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436311896
+Hot Mean Vfd 294.624 and cold Mean Vfd : 256.973
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311896
+Hot Mean Vfd 129.462 and cold Mean Vfd : 66.577
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311912
+Hot Mean Vfd 130.66 and cold Mean Vfd : 66.577
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311920
+Hot Mean Vfd 131.819 and cold Mean Vfd : 66.577
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436311928
+Hot Mean Vfd 132.943 and cold Mean Vfd : 66.577
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311972
+Hot Mean Vfd 333.933 and cold Mean Vfd : 244.403
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436311988
+Hot Mean Vfd 333.459 and cold Mean Vfd : 244.596
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312008
+Hot Mean Vfd 333.597 and cold Mean Vfd : 244.673
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312008
+Hot Mean Vfd 133.121 and cold Mean Vfd : 66.1152
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312016
+Hot Mean Vfd 333.731 and cold Mean Vfd : 244.85
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312016
+Hot Mean Vfd 133.293 and cold Mean Vfd : 66.4404
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312024
+Hot Mean Vfd 333.861 and cold Mean Vfd : 245.025
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312024
+Hot Mean Vfd 133.46 and cold Mean Vfd : 66.7629
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312068
+Hot Mean Vfd 295.183 and cold Mean Vfd : 256.385
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312068
+Hot Mean Vfd 288.312 and cold Mean Vfd : 267.695
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312072
+Hot Mean Vfd 333.534 and cold Mean Vfd : 245.321
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312072
+Hot Mean Vfd 295.798 and cold Mean Vfd : 256.655
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312072
+Hot Mean Vfd 288.891 and cold Mean Vfd : 267.9
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312076
+Hot Mean Vfd 296.334 and cold Mean Vfd : 256.942
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312076
+Hot Mean Vfd 289.457 and cold Mean Vfd : 268.104
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312080
+Hot Mean Vfd 333.218 and cold Mean Vfd : 245.615
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312080
+Hot Mean Vfd 296.924 and cold Mean Vfd : 257.208
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312080
+Hot Mean Vfd 290.01 and cold Mean Vfd : 268.306
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312084
+Hot Mean Vfd 297.439 and cold Mean Vfd : 257.492
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312084
+Hot Mean Vfd 290.549 and cold Mean Vfd : 268.507
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312088
+Hot Mean Vfd 332.912 and cold Mean Vfd : 245.906
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312088
+Hot Mean Vfd 298.007 and cold Mean Vfd : 257.755
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312088
+Hot Mean Vfd 291.078 and cold Mean Vfd : 268.707
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312168
+Hot Mean Vfd 333.147 and cold Mean Vfd : 245.835
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312168
+Hot Mean Vfd 298.481 and cold Mean Vfd : 258.285
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312176
+Hot Mean Vfd 333.374 and cold Mean Vfd : 246.204
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312176
+Hot Mean Vfd 298.946 and cold Mean Vfd : 258.537
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312184
+Hot Mean Vfd 333.594 and cold Mean Vfd : 246.569
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312184
+Hot Mean Vfd 299.403 and cold Mean Vfd : 258.786
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436312196
+Hot Mean Vfd 337.208 and cold Mean Vfd : 256.034
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312196
+Hot Mean Vfd 291.81 and cold Mean Vfd : 267.969
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436312204
+Hot Mean Vfd 337.211 and cold Mean Vfd : 256.276
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312204
+Hot Mean Vfd 292.525 and cold Mean Vfd : 268.116
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436312212
+Hot Mean Vfd 337.214 and cold Mean Vfd : 256.517
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312212
+Hot Mean Vfd 293.226 and cold Mean Vfd : 268.262
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312228
+Hot Mean Vfd 333.245 and cold Mean Vfd : 246.085
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436312228
+Hot Mean Vfd 337.217 and cold Mean Vfd : 256.754
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312228
+Hot Mean Vfd 299.762 and cold Mean Vfd : 258.069
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312228
+Hot Mean Vfd 133.529 and cold Mean Vfd : 64.8928
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312232
+Hot Mean Vfd 270.85 and cold Mean Vfd : 281.456
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312232
+Hot Mean Vfd 133.604 and cold Mean Vfd : 65.1642
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312236
+Hot Mean Vfd 332.907 and cold Mean Vfd : 246.248
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436312236
+Hot Mean Vfd 337.22 and cold Mean Vfd : 256.933
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312236
+Hot Mean Vfd 300.115 and cold Mean Vfd : 258.239
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312236
+Hot Mean Vfd 133.669 and cold Mean Vfd : 65.4354
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312240
+Hot Mean Vfd 277.671 and cold Mean Vfd : 281.548
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312240
+Hot Mean Vfd 133.739 and cold Mean Vfd : 65.7028
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436312244
+Hot Mean Vfd 332.578 and cold Mean Vfd : 246.409
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436312244
+Hot Mean Vfd 337.222 and cold Mean Vfd : 257.109
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312244
+Hot Mean Vfd 300.461 and cold Mean Vfd : 258.407
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312244
+Hot Mean Vfd 133.801 and cold Mean Vfd : 65.97
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312248
+Hot Mean Vfd 283.442 and cold Mean Vfd : 281.639
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312248
+Hot Mean Vfd 133.867 and cold Mean Vfd : 66.2335
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312292
+Hot Mean Vfd 293.838 and cold Mean Vfd : 268.481
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312296
+Hot Mean Vfd 294.462 and cold Mean Vfd : 268.699
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312296
+Hot Mean Vfd 133.955 and cold Mean Vfd : 66.4238
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312300
+Hot Mean Vfd 295.048 and cold Mean Vfd : 268.922
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312304
+Hot Mean Vfd 295.646 and cold Mean Vfd : 269.139
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312304
+Hot Mean Vfd 134.04 and cold Mean Vfd : 66.6175
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312308
+Hot Mean Vfd 296.209 and cold Mean Vfd : 269.36
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312312
+Hot Mean Vfd 296.782 and cold Mean Vfd : 269.573
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312312
+Hot Mean Vfd 134.123 and cold Mean Vfd : 66.8084
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312332
+Hot Mean Vfd 300.787 and cold Mean Vfd : 258.46
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312332
+Hot Mean Vfd 288.322 and cold Mean Vfd : 281.991
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312336
+Hot Mean Vfd 134.165 and cold Mean Vfd : 66.9499
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312340
+Hot Mean Vfd 301.106 and cold Mean Vfd : 258.632
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312340
+Hot Mean Vfd 292.552 and cold Mean Vfd : 282.163
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312344
+Hot Mean Vfd 134.206 and cold Mean Vfd : 66.8306
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312356
+Hot Mean Vfd 301.579 and cold Mean Vfd : 258.804
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312364
+Hot Mean Vfd 302.043 and cold Mean Vfd : 259.004
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436312372
+Hot Mean Vfd 302.499 and cold Mean Vfd : 259.203
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312388
+Hot Mean Vfd 297.242 and cold Mean Vfd : 269.483
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312388
+Hot Mean Vfd 295.974 and cold Mean Vfd : 282.274
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312388
+Hot Mean Vfd 134.204 and cold Mean Vfd : 66.8306
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312396
+Hot Mean Vfd 297.692 and cold Mean Vfd : 269.598
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312396
+Hot Mean Vfd 298.993 and cold Mean Vfd : 282.428
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312396
+Hot Mean Vfd 134.202 and cold Mean Vfd : 67.0672
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436312404
+Hot Mean Vfd 298.133 and cold Mean Vfd : 269.711
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436312404
+Hot Mean Vfd 301.676 and cold Mean Vfd : 282.582
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436312404
+Hot Mean Vfd 134.201 and cold Mean Vfd : 67.3023
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314152
+Hot Mean Vfd 298.55 and cold Mean Vfd : 269.805
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314152
+Hot Mean Vfd 134.249 and cold Mean Vfd : 67.4632
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314160
+Hot Mean Vfd 298.959 and cold Mean Vfd : 269.965
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314160
+Hot Mean Vfd 134.296 and cold Mean Vfd : 67.6363
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314168
+Hot Mean Vfd 299.36 and cold Mean Vfd : 270.123
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314168
+Hot Mean Vfd 134.342 and cold Mean Vfd : 67.8069
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314180
+Hot Mean Vfd 332.808 and cold Mean Vfd : 245.863
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314180
+Hot Mean Vfd 302.984 and cold Mean Vfd : 258.385
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314180
+Hot Mean Vfd 134.383 and cold Mean Vfd : 68.0479
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314184
+Hot Mean Vfd 134.423 and cold Mean Vfd : 68.286
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314188
+Hot Mean Vfd 333.03 and cold Mean Vfd : 246.002
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314188
+Hot Mean Vfd 303.461 and cold Mean Vfd : 258.661
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314188
+Hot Mean Vfd 134.462 and cold Mean Vfd : 68.5224
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314192
+Hot Mean Vfd 134.499 and cold Mean Vfd : 68.7572
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314196
+Hot Mean Vfd 333.246 and cold Mean Vfd : 246.14
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314196
+Hot Mean Vfd 303.929 and cold Mean Vfd : 258.934
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314196
+Hot Mean Vfd 134.536 and cold Mean Vfd : 68.9905
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314212
+Hot Mean Vfd 337.226 and cold Mean Vfd : 256.134
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314212
+Hot Mean Vfd 304.254 and cold Mean Vfd : 259.177
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314220
+Hot Mean Vfd 337.23 and cold Mean Vfd : 256.478
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314220
+Hot Mean Vfd 304.573 and cold Mean Vfd : 259.234
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314228
+Hot Mean Vfd 337.234 and cold Mean Vfd : 256.819
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314228
+Hot Mean Vfd 304.888 and cold Mean Vfd : 259.291
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314244
+Hot Mean Vfd 333.469 and cold Mean Vfd : 245.718
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314244
+Hot Mean Vfd 337.237 and cold Mean Vfd : 257.157
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314244
+Hot Mean Vfd 305.155 and cold Mean Vfd : 259.348
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314244
+Hot Mean Vfd 299.9 and cold Mean Vfd : 270.104
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314244
+Hot Mean Vfd 134.581 and cold Mean Vfd : 68.8736
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314252
+Hot Mean Vfd 333.686 and cold Mean Vfd : 245.856
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314252
+Hot Mean Vfd 337.24 and cold Mean Vfd : 257.27
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314252
+Hot Mean Vfd 305.419 and cold Mean Vfd : 259.552
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314252
+Hot Mean Vfd 300.43 and cold Mean Vfd : 270.361
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314252
+Hot Mean Vfd 134.624 and cold Mean Vfd : 69.105
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314260
+Hot Mean Vfd 333.897 and cold Mean Vfd : 246.104
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314260
+Hot Mean Vfd 337.243 and cold Mean Vfd : 257.464
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314260
+Hot Mean Vfd 305.678 and cold Mean Vfd : 259.738
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314260
+Hot Mean Vfd 300.95 and cold Mean Vfd : 270.567
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314260
+Hot Mean Vfd 134.666 and cold Mean Vfd : 69.3348
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314276
+Hot Mean Vfd 337.245 and cold Mean Vfd : 257.575
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314276
+Hot Mean Vfd 305.936 and cold Mean Vfd : 259.938
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314276
+Hot Mean Vfd 301.289 and cold Mean Vfd : 270.82
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314276
+Hot Mean Vfd 304.699 and cold Mean Vfd : 283.121
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314276
+Hot Mean Vfd 134.715 and cold Mean Vfd : 69.5631
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314280
+Hot Mean Vfd 306.085 and cold Mean Vfd : 260.123
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314280
+Hot Mean Vfd 134.783 and cold Mean Vfd : 69.7921
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314284
+Hot Mean Vfd 337.247 and cold Mean Vfd : 257.823
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314284
+Hot Mean Vfd 306.336 and cold Mean Vfd : 260.276
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314284
+Hot Mean Vfd 301.621 and cold Mean Vfd : 270.959
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314284
+Hot Mean Vfd 307.419 and cold Mean Vfd : 283.29
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314284
+Hot Mean Vfd 134.829 and cold Mean Vfd : 69.7921
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314288
+Hot Mean Vfd 306.479 and cold Mean Vfd : 260.459
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314288
+Hot Mean Vfd 134.895 and cold Mean Vfd : 70.0196
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314292
+Hot Mean Vfd 337.249 and cold Mean Vfd : 258.069
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314292
+Hot Mean Vfd 306.723 and cold Mean Vfd : 260.61
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314292
+Hot Mean Vfd 301.947 and cold Mean Vfd : 271.097
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314292
+Hot Mean Vfd 309.88 and cold Mean Vfd : 283.457
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314292
+Hot Mean Vfd 134.939 and cold Mean Vfd : 70.0196
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314296
+Hot Mean Vfd 306.86 and cold Mean Vfd : 260.791
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314296
+Hot Mean Vfd 135.002 and cold Mean Vfd : 70.2456
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314308
+Hot Mean Vfd 302.24 and cold Mean Vfd : 271.234
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314316
+Hot Mean Vfd 302.527 and cold Mean Vfd : 271.313
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314324
+Hot Mean Vfd 302.81 and cold Mean Vfd : 271.392
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314340
+Hot Mean Vfd 306.032 and cold Mean Vfd : 260.652
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314340
+Hot Mean Vfd 305.582 and cold Mean Vfd : 283.584
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314344
+Hot Mean Vfd 337.472 and cold Mean Vfd : 257.437
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314348
+Hot Mean Vfd 305.216 and cold Mean Vfd : 260.601
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314348
+Hot Mean Vfd 301.657 and cold Mean Vfd : 283.398
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314352
+Hot Mean Vfd 337.69 and cold Mean Vfd : 257.616
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314356
+Hot Mean Vfd 304.413 and cold Mean Vfd : 260.55
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314356
+Hot Mean Vfd 298.059 and cold Mean Vfd : 283.214
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314360
+Hot Mean Vfd 337.904 and cold Mean Vfd : 257.792
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314376
+Hot Mean Vfd 303.622 and cold Mean Vfd : 260.457
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314376
+Hot Mean Vfd 303.259 and cold Mean Vfd : 271.286
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314384
+Hot Mean Vfd 302.843 and cold Mean Vfd : 260.277
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314384
+Hot Mean Vfd 303.7 and cold Mean Vfd : 271.407
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314392
+Hot Mean Vfd 302.076 and cold Mean Vfd : 260.098
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314392
+Hot Mean Vfd 304.133 and cold Mean Vfd : 271.527
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314404
+Hot Mean Vfd 135.081 and cold Mean Vfd : 69.0564
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314408
+Hot Mean Vfd 338.112 and cold Mean Vfd : 257.964
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314408
+Hot Mean Vfd 135.144 and cold Mean Vfd : 69.2875
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314412
+Hot Mean Vfd 135.219 and cold Mean Vfd : 69.2875
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314416
+Hot Mean Vfd 338.315 and cold Mean Vfd : 258.244
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314416
+Hot Mean Vfd 135.28 and cold Mean Vfd : 69.5171
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314420
+Hot Mean Vfd 135.352 and cold Mean Vfd : 69.5171
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314424
+Hot Mean Vfd 338.514 and cold Mean Vfd : 258.521
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314424
+Hot Mean Vfd 135.41 and cold Mean Vfd : 69.7453
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314436
+Hot Mean Vfd 304.578 and cold Mean Vfd : 271.57
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314440
+Hot Mean Vfd 338.455 and cold Mean Vfd : 258.62
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314444
+Hot Mean Vfd 305.015 and cold Mean Vfd : 271.823
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314448
+Hot Mean Vfd 338.396 and cold Mean Vfd : 258.658
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314452
+Hot Mean Vfd 305.445 and cold Mean Vfd : 272.074
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314456
+Hot Mean Vfd 338.338 and cold Mean Vfd : 258.695
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314468
+Hot Mean Vfd 135.462 and cold Mean Vfd : 69.2015
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314472
+Hot Mean Vfd 338.412 and cold Mean Vfd : 258.78
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314472
+Hot Mean Vfd 135.519 and cold Mean Vfd : 69.2015
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314476
+Hot Mean Vfd 135.569 and cold Mean Vfd : 69.4216
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314480
+Hot Mean Vfd 338.485 and cold Mean Vfd : 258.896
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314480
+Hot Mean Vfd 135.623 and cold Mean Vfd : 69.4216
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314484
+Hot Mean Vfd 135.671 and cold Mean Vfd : 69.6405
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314488
+Hot Mean Vfd 338.556 and cold Mean Vfd : 259.011
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314488
+Hot Mean Vfd 135.723 and cold Mean Vfd : 69.6405
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314532
+Hot Mean Vfd 338.747 and cold Mean Vfd : 259.073
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314532
+Hot Mean Vfd 302.504 and cold Mean Vfd : 259.656
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314536
+Hot Mean Vfd 302.762 and cold Mean Vfd : 259.87
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314536
+Hot Mean Vfd 305.789 and cold Mean Vfd : 271.849
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314540
+Hot Mean Vfd 338.934 and cold Mean Vfd : 259.209
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314540
+Hot Mean Vfd 303.179 and cold Mean Vfd : 260.036
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314544
+Hot Mean Vfd 303.428 and cold Mean Vfd : 260.249
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314544
+Hot Mean Vfd 306.126 and cold Mean Vfd : 272.019
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314548
+Hot Mean Vfd 339.117 and cold Mean Vfd : 259.344
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314548
+Hot Mean Vfd 303.834 and cold Mean Vfd : 260.413
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314552
+Hot Mean Vfd 304.075 and cold Mean Vfd : 260.623
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314552
+Hot Mean Vfd 306.459 and cold Mean Vfd : 272.189
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314568
+Hot Mean Vfd 339.213 and cold Mean Vfd : 259.404
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314568
+Hot Mean Vfd 304.222 and cold Mean Vfd : 260.79
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314568
+Hot Mean Vfd 135.78 and cold Mean Vfd : 69.2026
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314576
+Hot Mean Vfd 339.307 and cold Mean Vfd : 259.523
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314576
+Hot Mean Vfd 304.366 and cold Mean Vfd : 260.928
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314576
+Hot Mean Vfd 135.836 and cold Mean Vfd : 69.4187
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314596
+Hot Mean Vfd 333.966 and cold Mean Vfd : 245.49
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314596
+Hot Mean Vfd 339.266 and cold Mean Vfd : 259.642
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314596
+Hot Mean Vfd 306.848 and cold Mean Vfd : 272.229
+Run : 20120510_run193928 for fit GenFunc  with Hot detid : 436314596
+Hot Mean Vfd 0.709659 and cold Mean Vfd : 90.3527
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314596
+Hot Mean Vfd 135.916 and cold Mean Vfd : 69.6336
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314600
+Hot Mean Vfd 303.637 and cold Mean Vfd : 261.105
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314604
+Hot Mean Vfd 334.033 and cold Mean Vfd : 245.689
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314604
+Hot Mean Vfd 339.226 and cold Mean Vfd : 259.775
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314604
+Hot Mean Vfd 307.232 and cold Mean Vfd : 272.349
+Run : 20120510_run193928 for fit GenFunc  with Hot detid : 436314604
+Hot Mean Vfd 0.709659 and cold Mean Vfd : 90.1855
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314604
+Hot Mean Vfd 135.996 and cold Mean Vfd : 69.8558
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314608
+Hot Mean Vfd 302.917 and cold Mean Vfd : 261.019
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314612
+Hot Mean Vfd 334.099 and cold Mean Vfd : 245.886
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314612
+Hot Mean Vfd 339.186 and cold Mean Vfd : 259.906
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314612
+Hot Mean Vfd 307.609 and cold Mean Vfd : 272.468
+Run : 20120510_run193928 for fit GenFunc  with Hot detid : 436314612
+Hot Mean Vfd 0.709658 and cold Mean Vfd : 90.0197
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314612
+Hot Mean Vfd 136.074 and cold Mean Vfd : 70.0767
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314616
+Hot Mean Vfd 302.207 and cold Mean Vfd : 260.933
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314628
+Hot Mean Vfd 334.416 and cold Mean Vfd : 246.082
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314628
+Hot Mean Vfd 302.592 and cold Mean Vfd : 260.808
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314628
+Hot Mean Vfd 136.151 and cold Mean Vfd : 70.2963
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314636
+Hot Mean Vfd 334.725 and cold Mean Vfd : 246.304
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314636
+Hot Mean Vfd 302.972 and cold Mean Vfd : 260.969
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314636
+Hot Mean Vfd 136.228 and cold Mean Vfd : 70.4496
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314644
+Hot Mean Vfd 335.027 and cold Mean Vfd : 246.525
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314644
+Hot Mean Vfd 303.346 and cold Mean Vfd : 261.129
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314644
+Hot Mean Vfd 136.302 and cold Mean Vfd : 70.6011
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314664
+Hot Mean Vfd 302.652 and cold Mean Vfd : 261.289
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314672
+Hot Mean Vfd 301.968 and cold Mean Vfd : 261.167
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314680
+Hot Mean Vfd 301.293 and cold Mean Vfd : 261.045
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314692
+Hot Mean Vfd 300.626 and cold Mean Vfd : 260.922
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314692
+Hot Mean Vfd 308.023 and cold Mean Vfd : 272.236
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314692
+Hot Mean Vfd 136.345 and cold Mean Vfd : 70.7509
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314696
+Hot Mean Vfd 136.357 and cold Mean Vfd : 70.9539
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314700
+Hot Mean Vfd 299.969 and cold Mean Vfd : 260.764
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314700
+Hot Mean Vfd 308.43 and cold Mean Vfd : 272.345
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314700
+Hot Mean Vfd 136.399 and cold Mean Vfd : 71.1454
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314704
+Hot Mean Vfd 136.41 and cold Mean Vfd : 71.3462
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314708
+Hot Mean Vfd 299.32 and cold Mean Vfd : 260.608
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314708
+Hot Mean Vfd 308.83 and cold Mean Vfd : 272.453
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314708
+Hot Mean Vfd 136.451 and cold Mean Vfd : 71.5354
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314712
+Hot Mean Vfd 136.462 and cold Mean Vfd : 71.7339
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314724
+Hot Mean Vfd 136.528 and cold Mean Vfd : 71.921
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314728
+Hot Mean Vfd 298.679 and cold Mean Vfd : 260.526
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314732
+Hot Mean Vfd 136.593 and cold Mean Vfd : 72.0171
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314736
+Hot Mean Vfd 298.046 and cold Mean Vfd : 260.478
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314740
+Hot Mean Vfd 136.658 and cold Mean Vfd : 72.1122
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314744
+Hot Mean Vfd 297.422 and cold Mean Vfd : 260.431
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314756
+Hot Mean Vfd 296.805 and cold Mean Vfd : 260.312
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314756
+Hot Mean Vfd 309.149 and cold Mean Vfd : 272.615
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314760
+Hot Mean Vfd 309.525 and cold Mean Vfd : 272.767
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314764
+Hot Mean Vfd 296.196 and cold Mean Vfd : 260.094
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314764
+Hot Mean Vfd 309.833 and cold Mean Vfd : 272.935
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314768
+Hot Mean Vfd 310.198 and cold Mean Vfd : 273.086
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314772
+Hot Mean Vfd 310.497 and cold Mean Vfd : 273.253
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314776
+Hot Mean Vfd 310.852 and cold Mean Vfd : 273.403
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314788
+Hot Mean Vfd 339.354 and cold Mean Vfd : 257.789
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314788
+Hot Mean Vfd 296.523 and cold Mean Vfd : 259.664
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314792
+Hot Mean Vfd 311.174 and cold Mean Vfd : 273.517
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314796
+Hot Mean Vfd 339.519 and cold Mean Vfd : 257.968
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314796
+Hot Mean Vfd 296.846 and cold Mean Vfd : 259.759
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314800
+Hot Mean Vfd 311.491 and cold Mean Vfd : 273.623
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314804
+Hot Mean Vfd 339.681 and cold Mean Vfd : 258.145
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314804
+Hot Mean Vfd 297.165 and cold Mean Vfd : 259.853
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314808
+Hot Mean Vfd 311.804 and cold Mean Vfd : 273.728
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314852
+Hot Mean Vfd 335.333 and cold Mean Vfd : 244.336
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314852
+Hot Mean Vfd 297.547 and cold Mean Vfd : 259.553
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314856
+Hot Mean Vfd 335.383 and cold Mean Vfd : 244.554
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314856
+Hot Mean Vfd 136.735 and cold Mean Vfd : 71.0652
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314864
+Hot Mean Vfd 335.431 and cold Mean Vfd : 244.734
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314864
+Hot Mean Vfd 136.812 and cold Mean Vfd : 71.2667
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314872
+Hot Mean Vfd 335.478 and cold Mean Vfd : 244.913
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314872
+Hot Mean Vfd 136.888 and cold Mean Vfd : 71.4671
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314884
+Hot Mean Vfd 335.426 and cold Mean Vfd : 245.091
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314884
+Hot Mean Vfd 339.62 and cold Mean Vfd : 257.793
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314888
+Hot Mean Vfd 335.31 and cold Mean Vfd : 245.253
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314888
+Hot Mean Vfd 339.738 and cold Mean Vfd : 257.935
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314892
+Hot Mean Vfd 335.262 and cold Mean Vfd : 245.404
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314892
+Hot Mean Vfd 339.678 and cold Mean Vfd : 258.117
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314896
+Hot Mean Vfd 335.151 and cold Mean Vfd : 245.565
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314896
+Hot Mean Vfd 339.793 and cold Mean Vfd : 258.258
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314900
+Hot Mean Vfd 335.105 and cold Mean Vfd : 245.715
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314900
+Hot Mean Vfd 339.734 and cold Mean Vfd : 258.44
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314904
+Hot Mean Vfd 334.998 and cold Mean Vfd : 245.874
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314904
+Hot Mean Vfd 339.847 and cold Mean Vfd : 258.579
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314920
+Hot Mean Vfd 334.734 and cold Mean Vfd : 246.023
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314924
+Hot Mean Vfd 293.736 and cold Mean Vfd : 282.344
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314928
+Hot Mean Vfd 334.476 and cold Mean Vfd : 246.059
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436314932
+Hot Mean Vfd 289.746 and cold Mean Vfd : 282.148
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314936
+Hot Mean Vfd 334.223 and cold Mean Vfd : 246.094
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314948
+Hot Mean Vfd 339.689 and cold Mean Vfd : 258.477
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314948
+Hot Mean Vfd 297.762 and cold Mean Vfd : 258.747
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314948
+Hot Mean Vfd 311.963 and cold Mean Vfd : 273.33
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314948
+Hot Mean Vfd 136.935 and cold Mean Vfd : 71.1769
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314952
+Hot Mean Vfd 334.223 and cold Mean Vfd : 246.318
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314952
+Hot Mean Vfd 339.798 and cold Mean Vfd : 258.591
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314952
+Hot Mean Vfd 298.107 and cold Mean Vfd : 258.884
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314952
+Hot Mean Vfd 312.245 and cold Mean Vfd : 273.441
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314956
+Hot Mean Vfd 339.643 and cold Mean Vfd : 258.768
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314956
+Hot Mean Vfd 298.317 and cold Mean Vfd : 259.06
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314956
+Hot Mean Vfd 312.398 and cold Mean Vfd : 273.585
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314956
+Hot Mean Vfd 136.983 and cold Mean Vfd : 71.2645
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314960
+Hot Mean Vfd 334.224 and cold Mean Vfd : 246.583
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314960
+Hot Mean Vfd 339.751 and cold Mean Vfd : 258.881
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314960
+Hot Mean Vfd 298.654 and cold Mean Vfd : 259.196
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314960
+Hot Mean Vfd 312.673 and cold Mean Vfd : 273.696
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314964
+Hot Mean Vfd 339.599 and cold Mean Vfd : 259.057
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314964
+Hot Mean Vfd 298.858 and cold Mean Vfd : 259.371
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436314964
+Hot Mean Vfd 137.029 and cold Mean Vfd : 71.3513
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436314968
+Hot Mean Vfd 334.224 and cold Mean Vfd : 246.846
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314968
+Hot Mean Vfd 339.705 and cold Mean Vfd : 259.169
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436314968
+Hot Mean Vfd 299.188 and cold Mean Vfd : 259.506
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436314968
+Hot Mean Vfd 312.944 and cold Mean Vfd : 273.948
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314980
+Hot Mean Vfd 339.819 and cold Mean Vfd : 259.344
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314988
+Hot Mean Vfd 339.931 and cold Mean Vfd : 259.411
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436314996
+Hot Mean Vfd 340.041 and cold Mean Vfd : 259.477
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315012
+Hot Mean Vfd 340.114 and cold Mean Vfd : 259.543
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315012
+Hot Mean Vfd 299.516 and cold Mean Vfd : 259.697
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315016
+Hot Mean Vfd 313.123 and cold Mean Vfd : 273.864
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315020
+Hot Mean Vfd 340.186 and cold Mean Vfd : 259.686
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315020
+Hot Mean Vfd 299.84 and cold Mean Vfd : 259.761
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315024
+Hot Mean Vfd 313.299 and cold Mean Vfd : 273.934
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315028
+Hot Mean Vfd 340.256 and cold Mean Vfd : 259.828
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315028
+Hot Mean Vfd 300.16 and cold Mean Vfd : 259.824
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315032
+Hot Mean Vfd 313.474 and cold Mean Vfd : 274.002
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315044
+Hot Mean Vfd 340.326 and cold Mean Vfd : 259.969
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315048
+Hot Mean Vfd 137.074 and cold Mean Vfd : 70.4544
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315052
+Hot Mean Vfd 340.395 and cold Mean Vfd : 260.108
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315056
+Hot Mean Vfd 137.119 and cold Mean Vfd : 70.5419
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315064
+Hot Mean Vfd 137.163 and cold Mean Vfd : 70.7201
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315076
+Hot Mean Vfd 340.463 and cold Mean Vfd : 260.224
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315084
+Hot Mean Vfd 340.53 and cold Mean Vfd : 260.385
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315088
+Hot Mean Vfd 340.595 and cold Mean Vfd : 260.545
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315092
+Hot Mean Vfd 340.661 and cold Mean Vfd : 260.704
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315096
+Hot Mean Vfd 340.725 and cold Mean Vfd : 260.863
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315108
+Hot Mean Vfd 137.207 and cold Mean Vfd : 70.5001
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315112
+Hot Mean Vfd 334.13 and cold Mean Vfd : 245.344
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315112
+Hot Mean Vfd 340.611 and cold Mean Vfd : 261.091
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315112
+Hot Mean Vfd 313.774 and cold Mean Vfd : 273.649
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315112
+Hot Mean Vfd 137.255 and cold Mean Vfd : 70.6758
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315116
+Hot Mean Vfd 137.298 and cold Mean Vfd : 70.6758
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315120
+Hot Mean Vfd 334.039 and cold Mean Vfd : 245.405
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315120
+Hot Mean Vfd 340.498 and cold Mean Vfd : 261.27
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315120
+Hot Mean Vfd 314.071 and cold Mean Vfd : 273.844
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315120
+Hot Mean Vfd 137.344 and cold Mean Vfd : 70.8507
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315124
+Hot Mean Vfd 137.386 and cold Mean Vfd : 70.8507
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315128
+Hot Mean Vfd 333.949 and cold Mean Vfd : 245.465
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315128
+Hot Mean Vfd 340.387 and cold Mean Vfd : 261.449
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315128
+Hot Mean Vfd 314.363 and cold Mean Vfd : 274.038
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315128
+Hot Mean Vfd 137.431 and cold Mean Vfd : 71.0248
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315140
+Hot Mean Vfd 339.451 and cold Mean Vfd : 261.559
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315148
+Hot Mean Vfd 338.528 and cold Mean Vfd : 261.386
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315156
+Hot Mean Vfd 337.616 and cold Mean Vfd : 261.213
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315176
+Hot Mean Vfd 336.717 and cold Mean Vfd : 260.978
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315184
+Hot Mean Vfd 335.829 and cold Mean Vfd : 260.808
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315192
+Hot Mean Vfd 334.953 and cold Mean Vfd : 260.64
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315204
+Hot Mean Vfd 137.465 and cold Mean Vfd : 70.4967
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315212
+Hot Mean Vfd 137.498 and cold Mean Vfd : 70.5785
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315220
+Hot Mean Vfd 137.531 and cold Mean Vfd : 70.6596
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315236
+Hot Mean Vfd 334.088 and cold Mean Vfd : 260.174
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315236
+Hot Mean Vfd 300.405 and cold Mean Vfd : 257.819
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315236
+Hot Mean Vfd 314.518 and cold Mean Vfd : 274.826
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315240
+Hot Mean Vfd 334.11 and cold Mean Vfd : 260.072
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315240
+Hot Mean Vfd 300.733 and cold Mean Vfd : 257.961
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315240
+Hot Mean Vfd 314.671 and cold Mean Vfd : 274.933
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315244
+Hot Mean Vfd 333.261 and cold Mean Vfd : 260.203
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315244
+Hot Mean Vfd 300.972 and cold Mean Vfd : 258.128
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315244
+Hot Mean Vfd 314.823 and cold Mean Vfd : 275.04
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315248
+Hot Mean Vfd 333.288 and cold Mean Vfd : 260.101
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315248
+Hot Mean Vfd 301.292 and cold Mean Vfd : 258.27
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315248
+Hot Mean Vfd 314.972 and cold Mean Vfd : 275.146
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315252
+Hot Mean Vfd 332.455 and cold Mean Vfd : 260.232
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315252
+Hot Mean Vfd 301.526 and cold Mean Vfd : 258.436
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315252
+Hot Mean Vfd 315.119 and cold Mean Vfd : 275.252
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315256
+Hot Mean Vfd 332.487 and cold Mean Vfd : 260.13
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315256
+Hot Mean Vfd 301.839 and cold Mean Vfd : 258.577
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315256
+Hot Mean Vfd 315.265 and cold Mean Vfd : 275.357
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315268
+Hot Mean Vfd 314.525 and cold Mean Vfd : 275.462
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315268
+Hot Mean Vfd 137.561 and cold Mean Vfd : 70.3174
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315276
+Hot Mean Vfd 313.794 and cold Mean Vfd : 275.336
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315276
+Hot Mean Vfd 137.591 and cold Mean Vfd : 70.4809
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315280
+Hot Mean Vfd 334.206 and cold Mean Vfd : 244.294
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315280
+Hot Mean Vfd 302.033 and cold Mean Vfd : 258.546
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315280
+Hot Mean Vfd 137.596 and cold Mean Vfd : 70.6436
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315284
+Hot Mean Vfd 313.073 and cold Mean Vfd : 275.188
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315284
+Hot Mean Vfd 137.626 and cold Mean Vfd : 70.6436
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315288
+Hot Mean Vfd 334.458 and cold Mean Vfd : 244.412
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315288
+Hot Mean Vfd 302.224 and cold Mean Vfd : 258.578
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315288
+Hot Mean Vfd 137.631 and cold Mean Vfd : 70.8056
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315300
+Hot Mean Vfd 334.705 and cold Mean Vfd : 244.602
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315300
+Hot Mean Vfd 302.54 and cold Mean Vfd : 258.707
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315300
+Hot Mean Vfd 137.652 and cold Mean Vfd : 70.8056
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315304
+Hot Mean Vfd 332.595 and cold Mean Vfd : 259.963
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315308
+Hot Mean Vfd 334.947 and cold Mean Vfd : 244.726
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315308
+Hot Mean Vfd 302.852 and cold Mean Vfd : 258.892
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315308
+Hot Mean Vfd 137.673 and cold Mean Vfd : 70.8801
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315312
+Hot Mean Vfd 332.702 and cold Mean Vfd : 260.117
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315320
+Hot Mean Vfd 332.807 and cold Mean Vfd : 260.266
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315332
+Hot Mean Vfd 334.999 and cold Mean Vfd : 244.782
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315332
+Hot Mean Vfd 303.067 and cold Mean Vfd : 259.092
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315332
+Hot Mean Vfd 137.649 and cold Mean Vfd : 70.8702
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315340
+Hot Mean Vfd 335.05 and cold Mean Vfd : 245.036
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315340
+Hot Mean Vfd 303.28 and cold Mean Vfd : 259.209
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315340
+Hot Mean Vfd 137.626 and cold Mean Vfd : 71.012
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315348
+Hot Mean Vfd 335.1 and cold Mean Vfd : 245.288
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315348
+Hot Mean Vfd 303.491 and cold Mean Vfd : 259.325
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315348
+Hot Mean Vfd 137.604 and cold Mean Vfd : 71.1532
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315364
+Hot Mean Vfd 335.034 and cold Mean Vfd : 245.538
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315364
+Hot Mean Vfd 137.621 and cold Mean Vfd : 71.2937
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315368
+Hot Mean Vfd 335.183 and cold Mean Vfd : 245.672
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315368
+Hot Mean Vfd 303.626 and cold Mean Vfd : 259.372
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315368
+Hot Mean Vfd 313.227 and cold Mean Vfd : 274.735
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315368
+Hot Mean Vfd 137.625 and cold Mean Vfd : 71.4473
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315372
+Hot Mean Vfd 335.118 and cold Mean Vfd : 245.843
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315372
+Hot Mean Vfd 137.642 and cold Mean Vfd : 71.5959
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315376
+Hot Mean Vfd 335.264 and cold Mean Vfd : 245.976
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315376
+Hot Mean Vfd 303.76 and cold Mean Vfd : 259.416
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315376
+Hot Mean Vfd 313.38 and cold Mean Vfd : 274.818
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315376
+Hot Mean Vfd 137.646 and cold Mean Vfd : 71.7482
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315380
+Hot Mean Vfd 335.199 and cold Mean Vfd : 246.146
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315380
+Hot Mean Vfd 137.662 and cold Mean Vfd : 71.8954
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315384
+Hot Mean Vfd 335.342 and cold Mean Vfd : 246.278
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315384
+Hot Mean Vfd 303.892 and cold Mean Vfd : 259.46
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315384
+Hot Mean Vfd 313.531 and cold Mean Vfd : 274.901
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315384
+Hot Mean Vfd 137.666 and cold Mean Vfd : 72.0463
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315396
+Hot Mean Vfd 137.673 and cold Mean Vfd : 72.1923
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315400
+Hot Mean Vfd 137.683 and cold Mean Vfd : 72.3384
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315404
+Hot Mean Vfd 137.689 and cold Mean Vfd : 72.4853
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315408
+Hot Mean Vfd 137.699 and cold Mean Vfd : 72.6301
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315412
+Hot Mean Vfd 137.705 and cold Mean Vfd : 72.7757
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315416
+Hot Mean Vfd 137.714 and cold Mean Vfd : 72.9193
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315432
+Hot Mean Vfd 332.954 and cold Mean Vfd : 259.173
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315440
+Hot Mean Vfd 333.099 and cold Mean Vfd : 259.336
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315448
+Hot Mean Vfd 333.243 and cold Mean Vfd : 259.497
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315460
+Hot Mean Vfd 304.156 and cold Mean Vfd : 259.097
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315468
+Hot Mean Vfd 304.418 and cold Mean Vfd : 259.251
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315476
+Hot Mean Vfd 304.676 and cold Mean Vfd : 259.405
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315492
+Hot Mean Vfd 313.737 and cold Mean Vfd : 274.513
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315500
+Hot Mean Vfd 313.94 and cold Mean Vfd : 274.608
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315508
+Hot Mean Vfd 314.141 and cold Mean Vfd : 274.703
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315524
+Hot Mean Vfd 335.519 and cold Mean Vfd : 245.577
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315524
+Hot Mean Vfd 304.94 and cold Mean Vfd : 259.47
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315528
+Hot Mean Vfd 335.592 and cold Mean Vfd : 245.747
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315528
+Hot Mean Vfd 305.141 and cold Mean Vfd : 259.618
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315532
+Hot Mean Vfd 335.764 and cold Mean Vfd : 245.899
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315532
+Hot Mean Vfd 305.399 and cold Mean Vfd : 259.749
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315536
+Hot Mean Vfd 335.834 and cold Mean Vfd : 246.067
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315536
+Hot Mean Vfd 305.596 and cold Mean Vfd : 259.896
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315540
+Hot Mean Vfd 336.001 and cold Mean Vfd : 246.218
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315540
+Hot Mean Vfd 305.849 and cold Mean Vfd : 260.025
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315544
+Hot Mean Vfd 336.068 and cold Mean Vfd : 246.385
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315544
+Hot Mean Vfd 306.042 and cold Mean Vfd : 260.172
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315556
+Hot Mean Vfd 336.141 and cold Mean Vfd : 246.535
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315556
+Hot Mean Vfd 306.237 and cold Mean Vfd : 260.3
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315560
+Hot Mean Vfd 336.256 and cold Mean Vfd : 246.686
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315564
+Hot Mean Vfd 336.326 and cold Mean Vfd : 246.844
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315564
+Hot Mean Vfd 306.429 and cold Mean Vfd : 260.391
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315568
+Hot Mean Vfd 336.437 and cold Mean Vfd : 246.993
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315572
+Hot Mean Vfd 336.505 and cold Mean Vfd : 247.15
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315572
+Hot Mean Vfd 306.62 and cold Mean Vfd : 260.482
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315576
+Hot Mean Vfd 336.613 and cold Mean Vfd : 247.299
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315592
+Hot Mean Vfd 306.09 and cold Mean Vfd : 260.497
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315600
+Hot Mean Vfd 305.565 and cold Mean Vfd : 260.332
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315608
+Hot Mean Vfd 305.045 and cold Mean Vfd : 260.168
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315620
+Hot Mean Vfd 336.79 and cold Mean Vfd : 247.084
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315620
+Hot Mean Vfd 305.307 and cold Mean Vfd : 260.077
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315628
+Hot Mean Vfd 336.964 and cold Mean Vfd : 247.252
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315628
+Hot Mean Vfd 305.566 and cold Mean Vfd : 260.225
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315632
+Hot Mean Vfd 337.044 and cold Mean Vfd : 247.419
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315640
+Hot Mean Vfd 337.124 and cold Mean Vfd : 247.569
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315652
+Hot Mean Vfd 305.054 and cold Mean Vfd : 260.289
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315652
+Hot Mean Vfd 314.311 and cold Mean Vfd : 274.195
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315656
+Hot Mean Vfd 314.451 and cold Mean Vfd : 274.297
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315660
+Hot Mean Vfd 304.547 and cold Mean Vfd : 260.168
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315660
+Hot Mean Vfd 314.617 and cold Mean Vfd : 274.393
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315664
+Hot Mean Vfd 314.754 and cold Mean Vfd : 274.495
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315668
+Hot Mean Vfd 304.044 and cold Mean Vfd : 260.048
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315668
+Hot Mean Vfd 314.917 and cold Mean Vfd : 274.59
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315672
+Hot Mean Vfd 315.05 and cold Mean Vfd : 274.692
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315716
+Hot Mean Vfd 303.546 and cold Mean Vfd : 260.074
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315728
+Hot Mean Vfd 314.389 and cold Mean Vfd : 274.306
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315736
+Hot Mean Vfd 313.735 and cold Mean Vfd : 274.115
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315748
+Hot Mean Vfd 303.745 and cold Mean Vfd : 259.977
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315748
+Hot Mean Vfd 137.718 and cold Mean Vfd : 71.8545
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315752
+Hot Mean Vfd 303.997 and cold Mean Vfd : 260.101
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315752
+Hot Mean Vfd 137.729 and cold Mean Vfd : 71.9883
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315756
+Hot Mean Vfd 304.191 and cold Mean Vfd : 260.243
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315756
+Hot Mean Vfd 137.733 and cold Mean Vfd : 72.1239
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315760
+Hot Mean Vfd 304.439 and cold Mean Vfd : 260.366
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315760
+Hot Mean Vfd 137.743 and cold Mean Vfd : 72.2567
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315764
+Hot Mean Vfd 304.63 and cold Mean Vfd : 260.507
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315764
+Hot Mean Vfd 137.747 and cold Mean Vfd : 72.3912
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315768
+Hot Mean Vfd 304.873 and cold Mean Vfd : 260.63
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315768
+Hot Mean Vfd 137.757 and cold Mean Vfd : 72.5229
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315780
+Hot Mean Vfd 305.063 and cold Mean Vfd : 260.769
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315784
+Hot Mean Vfd 313.132 and cold Mean Vfd : 273.919
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315788
+Hot Mean Vfd 305.251 and cold Mean Vfd : 260.952
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315792
+Hot Mean Vfd 312.536 and cold Mean Vfd : 273.788
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315796
+Hot Mean Vfd 305.438 and cold Mean Vfd : 261.133
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315800
+Hot Mean Vfd 311.946 and cold Mean Vfd : 273.656
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315812
+Hot Mean Vfd 305.597 and cold Mean Vfd : 261.313
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315816
+Hot Mean Vfd 337.269 and cold Mean Vfd : 247.177
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315816
+Hot Mean Vfd 305.117 and cold Mean Vfd : 261.427
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315820
+Hot Mean Vfd 305.277 and cold Mean Vfd : 261.339
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315824
+Hot Mean Vfd 337.412 and cold Mean Vfd : 247.265
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315824
+Hot Mean Vfd 304.803 and cold Mean Vfd : 261.452
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315828
+Hot Mean Vfd 304.962 and cold Mean Vfd : 261.364
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315832
+Hot Mean Vfd 337.553 and cold Mean Vfd : 247.352
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315832
+Hot Mean Vfd 304.494 and cold Mean Vfd : 261.477
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315848
+Hot Mean Vfd 304.029 and cold Mean Vfd : 261.356
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315848
+Hot Mean Vfd 311.321 and cold Mean Vfd : 273.394
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315856
+Hot Mean Vfd 303.569 and cold Mean Vfd : 261.236
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315856
+Hot Mean Vfd 310.703 and cold Mean Vfd : 273.276
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315864
+Hot Mean Vfd 303.113 and cold Mean Vfd : 261.116
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315864
+Hot Mean Vfd 310.092 and cold Mean Vfd : 273.16
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315876
+Hot Mean Vfd 302.66 and cold Mean Vfd : 261.03
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315884
+Hot Mean Vfd 302.212 and cold Mean Vfd : 260.878
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315908
+Hot Mean Vfd 310.354 and cold Mean Vfd : 273.071
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315912
+Hot Mean Vfd 337.534 and cold Mean Vfd : 246.854
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315912
+Hot Mean Vfd 302.346 and cold Mean Vfd : 260.728
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315912
+Hot Mean Vfd 310.629 and cold Mean Vfd : 273.189
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315912
+Hot Mean Vfd 137.726 and cold Mean Vfd : 72.1228
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315916
+Hot Mean Vfd 310.885 and cold Mean Vfd : 273.311
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315920
+Hot Mean Vfd 337.516 and cold Mean Vfd : 247.057
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315920
+Hot Mean Vfd 302.479 and cold Mean Vfd : 260.895
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315920
+Hot Mean Vfd 311.154 and cold Mean Vfd : 273.429
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315920
+Hot Mean Vfd 137.696 and cold Mean Vfd : 72.1753
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315924
+Hot Mean Vfd 311.405 and cold Mean Vfd : 273.551
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315928
+Hot Mean Vfd 337.498 and cold Mean Vfd : 247.259
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315928
+Hot Mean Vfd 302.611 and cold Mean Vfd : 261.06
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315928
+Hot Mean Vfd 311.668 and cold Mean Vfd : 273.668
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436315928
+Hot Mean Vfd 137.666 and cold Mean Vfd : 72.2274
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315940
+Hot Mean Vfd 337.326 and cold Mean Vfd : 247.381
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315940
+Hot Mean Vfd 302.171 and cold Mean Vfd : 261.16
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315948
+Hot Mean Vfd 337.156 and cold Mean Vfd : 247.466
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315948
+Hot Mean Vfd 301.734 and cold Mean Vfd : 261.048
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436315956
+Hot Mean Vfd 336.989 and cold Mean Vfd : 247.551
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315956
+Hot Mean Vfd 301.301 and cold Mean Vfd : 260.937
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315972
+Hot Mean Vfd 333.268 and cold Mean Vfd : 256.475
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315972
+Hot Mean Vfd 300.872 and cold Mean Vfd : 260.826
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315972
+Hot Mean Vfd 311.809 and cold Mean Vfd : 273.67
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436315972
+Hot Mean Vfd 292.023 and cold Mean Vfd : 281.383
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315980
+Hot Mean Vfd 333.293 and cold Mean Vfd : 256.567
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315980
+Hot Mean Vfd 300.446 and cold Mean Vfd : 260.716
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315980
+Hot Mean Vfd 311.947 and cold Mean Vfd : 273.714
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436315980
+Hot Mean Vfd 294.137 and cold Mean Vfd : 281.476
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436315988
+Hot Mean Vfd 333.318 and cold Mean Vfd : 256.658
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436315988
+Hot Mean Vfd 300.024 and cold Mean Vfd : 260.607
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436315988
+Hot Mean Vfd 312.085 and cold Mean Vfd : 273.758
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436315988
+Hot Mean Vfd 296.105 and cold Mean Vfd : 281.568
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316004
+Hot Mean Vfd 333.429 and cold Mean Vfd : 256.749
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316004
+Hot Mean Vfd 300.24 and cold Mean Vfd : 260.498
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316004
+Hot Mean Vfd 292.969 and cold Mean Vfd : 281.659
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316008
+Hot Mean Vfd 333.525 and cold Mean Vfd : 256.88
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316008
+Hot Mean Vfd 299.823 and cold Mean Vfd : 260.622
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316008
+Hot Mean Vfd 312.32 and cold Mean Vfd : 273.796
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316008
+Hot Mean Vfd 289.945 and cold Mean Vfd : 281.544
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316012
+Hot Mean Vfd 333.634 and cold Mean Vfd : 257.008
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316012
+Hot Mean Vfd 300.037 and cold Mean Vfd : 260.54
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316012
+Hot Mean Vfd 287.197 and cold Mean Vfd : 281.425
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316016
+Hot Mean Vfd 333.728 and cold Mean Vfd : 257.139
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316016
+Hot Mean Vfd 299.624 and cold Mean Vfd : 260.664
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316016
+Hot Mean Vfd 312.553 and cold Mean Vfd : 273.904
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316016
+Hot Mean Vfd 284.531 and cold Mean Vfd : 281.31
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316020
+Hot Mean Vfd 333.834 and cold Mean Vfd : 257.267
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316020
+Hot Mean Vfd 299.838 and cold Mean Vfd : 260.581
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316020
+Hot Mean Vfd 282.104 and cold Mean Vfd : 281.192
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316024
+Hot Mean Vfd 333.926 and cold Mean Vfd : 257.397
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316024
+Hot Mean Vfd 299.429 and cold Mean Vfd : 260.705
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316024
+Hot Mean Vfd 312.783 and cold Mean Vfd : 274.012
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316024
+Hot Mean Vfd 279.735 and cold Mean Vfd : 281.078
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316040
+Hot Mean Vfd 281.962 and cold Mean Vfd : 280.952
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316048
+Hot Mean Vfd 284.068 and cold Mean Vfd : 281.056
+Run : 20120510_run193928 for fit deriv exp  with Hot detid : 436316056
+Hot Mean Vfd 286.064 and cold Mean Vfd : 281.16
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316068
+Hot Mean Vfd 336.958 and cold Mean Vfd : 246.817
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316076
+Hot Mean Vfd 336.927 and cold Mean Vfd : 246.869
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316084
+Hot Mean Vfd 336.897 and cold Mean Vfd : 246.922
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316100
+Hot Mean Vfd 299.023 and cold Mean Vfd : 260.08
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316100
+Hot Mean Vfd 313.024 and cold Mean Vfd : 273.711
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316104
+Hot Mean Vfd 334.072 and cold Mean Vfd : 257.264
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316104
+Hot Mean Vfd 299.234 and cold Mean Vfd : 260
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316108
+Hot Mean Vfd 298.832 and cold Mean Vfd : 260.121
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316108
+Hot Mean Vfd 313.263 and cold Mean Vfd : 273.821
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316112
+Hot Mean Vfd 334.218 and cold Mean Vfd : 257.325
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316112
+Hot Mean Vfd 299.042 and cold Mean Vfd : 260.041
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316116
+Hot Mean Vfd 298.644 and cold Mean Vfd : 260.161
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316116
+Hot Mean Vfd 313.5 and cold Mean Vfd : 273.929
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316120
+Hot Mean Vfd 334.361 and cold Mean Vfd : 257.386
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316120
+Hot Mean Vfd 298.853 and cold Mean Vfd : 260.082
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316132
+Hot Mean Vfd 299.02 and cold Mean Vfd : 260.202
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316132
+Hot Mean Vfd 313.737 and cold Mean Vfd : 274.037
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316136
+Hot Mean Vfd 337.001 and cold Mean Vfd : 246.539
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316136
+Hot Mean Vfd 298.627 and cold Mean Vfd : 260.308
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316136
+Hot Mean Vfd 313.187 and cold Mean Vfd : 274.151
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316140
+Hot Mean Vfd 298.794 and cold Mean Vfd : 260.229
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316140
+Hot Mean Vfd 313.423 and cold Mean Vfd : 274.062
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316144
+Hot Mean Vfd 337.103 and cold Mean Vfd : 246.616
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316144
+Hot Mean Vfd 298.405 and cold Mean Vfd : 260.335
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316144
+Hot Mean Vfd 312.88 and cold Mean Vfd : 274.175
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316148
+Hot Mean Vfd 298.572 and cold Mean Vfd : 260.256
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316148
+Hot Mean Vfd 313.115 and cold Mean Vfd : 274.086
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316152
+Hot Mean Vfd 337.204 and cold Mean Vfd : 246.692
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316152
+Hot Mean Vfd 298.187 and cold Mean Vfd : 260.362
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316152
+Hot Mean Vfd 312.58 and cold Mean Vfd : 274.199
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316164
+Hot Mean Vfd 298.332 and cold Mean Vfd : 260.282
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316164
+Hot Mean Vfd 312.813 and cold Mean Vfd : 274.11
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316164
+Hot Mean Vfd 137.657 and cold Mean Vfd : 70.2851
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316168
+Hot Mean Vfd 297.951 and cold Mean Vfd : 260.381
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316168
+Hot Mean Vfd 137.643 and cold Mean Vfd : 70.4022
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316172
+Hot Mean Vfd 298.097 and cold Mean Vfd : 260.302
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316172
+Hot Mean Vfd 313.044 and cold Mean Vfd : 274.167
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316172
+Hot Mean Vfd 137.634 and cold Mean Vfd : 70.5172
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316176
+Hot Mean Vfd 297.719 and cold Mean Vfd : 260.401
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316176
+Hot Mean Vfd 137.62 and cold Mean Vfd : 70.6334
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316184
+Hot Mean Vfd 297.345 and cold Mean Vfd : 260.322
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316184
+Hot Mean Vfd 137.606 and cold Mean Vfd : 70.7476
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316200
+Hot Mean Vfd 337.206 and cold Mean Vfd : 246.705
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316200
+Hot Mean Vfd 297.435 and cold Mean Vfd : 260.19
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316200
+Hot Mean Vfd 312.481 and cold Mean Vfd : 274.154
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316208
+Hot Mean Vfd 337.208 and cold Mean Vfd : 246.763
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316208
+Hot Mean Vfd 297.525 and cold Mean Vfd : 260.216
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316208
+Hot Mean Vfd 311.925 and cold Mean Vfd : 274.041
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316216
+Hot Mean Vfd 337.209 and cold Mean Vfd : 246.82
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316216
+Hot Mean Vfd 297.613 and cold Mean Vfd : 260.242
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316216
+Hot Mean Vfd 311.373 and cold Mean Vfd : 273.929
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316232
+Hot Mean Vfd 334.379 and cold Mean Vfd : 257.065
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316232
+Hot Mean Vfd 297.245 and cold Mean Vfd : 260.321
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316232
+Hot Mean Vfd 311.501 and cold Mean Vfd : 273.832
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316236
+Hot Mean Vfd 311.661 and cold Mean Vfd : 273.915
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316240
+Hot Mean Vfd 334.396 and cold Mean Vfd : 257.096
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316240
+Hot Mean Vfd 296.88 and cold Mean Vfd : 260.268
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316240
+Hot Mean Vfd 311.785 and cold Mean Vfd : 274.007
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316244
+Hot Mean Vfd 311.942 and cold Mean Vfd : 274.089
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316248
+Hot Mean Vfd 334.413 and cold Mean Vfd : 257.126
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316248
+Hot Mean Vfd 296.517 and cold Mean Vfd : 260.216
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316248
+Hot Mean Vfd 312.064 and cold Mean Vfd : 274.181
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316260
+Hot Mean Vfd 337.248 and cold Mean Vfd : 246.635
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316260
+Hot Mean Vfd 296.157 and cold Mean Vfd : 260.138
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316264
+Hot Mean Vfd 334.498 and cold Mean Vfd : 257.156
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316264
+Hot Mean Vfd 295.799 and cold Mean Vfd : 260.061
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316268
+Hot Mean Vfd 337.286 and cold Mean Vfd : 246.699
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316276
+Hot Mean Vfd 337.324 and cold Mean Vfd : 246.822
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316280
+Hot Mean Vfd 334.582 and cold Mean Vfd : 257.129
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316292
+Hot Mean Vfd 137.602 and cold Mean Vfd : 70.1632
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316296
+Hot Mean Vfd 137.596 and cold Mean Vfd : 70.278
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316300
+Hot Mean Vfd 137.591 and cold Mean Vfd : 70.392
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316304
+Hot Mean Vfd 137.585 and cold Mean Vfd : 70.506
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316312
+Hot Mean Vfd 137.579 and cold Mean Vfd : 70.6192
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316324
+Hot Mean Vfd 137.587 and cold Mean Vfd : 70.732
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316328
+Hot Mean Vfd 295.929 and cold Mean Vfd : 259.589
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316332
+Hot Mean Vfd 137.595 and cold Mean Vfd : 70.8487
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316336
+Hot Mean Vfd 296.057 and cold Mean Vfd : 259.656
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316340
+Hot Mean Vfd 137.602 and cold Mean Vfd : 70.9651
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316344
+Hot Mean Vfd 296.185 and cold Mean Vfd : 259.723
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316360
+Hot Mean Vfd 337.32 and cold Mean Vfd : 246.334
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316368
+Hot Mean Vfd 337.316 and cold Mean Vfd : 246.389
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316376
+Hot Mean Vfd 337.312 and cold Mean Vfd : 246.444
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316392
+Hot Mean Vfd 312.271 and cold Mean Vfd : 273.796
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316400
+Hot Mean Vfd 312.477 and cold Mean Vfd : 273.885
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316408
+Hot Mean Vfd 312.68 and cold Mean Vfd : 273.973
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316420
+Hot Mean Vfd 137.587 and cold Mean Vfd : 70.5837
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316424
+Hot Mean Vfd 137.578 and cold Mean Vfd : 70.6913
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316428
+Hot Mean Vfd 137.564 and cold Mean Vfd : 70.8003
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316432
+Hot Mean Vfd 137.555 and cold Mean Vfd : 70.9072
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316436
+Hot Mean Vfd 137.541 and cold Mean Vfd : 71.0155
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316440
+Hot Mean Vfd 137.533 and cold Mean Vfd : 71.1217
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316452
+Hot Mean Vfd 312.903 and cold Mean Vfd : 273.832
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316452
+Hot Mean Vfd 137.527 and cold Mean Vfd : 71.2292
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316456
+Hot Mean Vfd 334.681 and cold Mean Vfd : 256.788
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316456
+Hot Mean Vfd 296.336 and cold Mean Vfd : 259.473
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316460
+Hot Mean Vfd 313.123 and cold Mean Vfd : 273.944
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316460
+Hot Mean Vfd 137.521 and cold Mean Vfd : 71.3373
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316464
+Hot Mean Vfd 334.778 and cold Mean Vfd : 256.837
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316464
+Hot Mean Vfd 296.485 and cold Mean Vfd : 259.496
+Run : 20120510_run193928 for fit atan+pol2  with Hot detid : 436316468
+Hot Mean Vfd 313.342 and cold Mean Vfd : 274.054
+Run : 20120510_run193928 for fit deriv Gen  with Hot detid : 436316468
+Hot Mean Vfd 137.515 and cold Mean Vfd : 71.445
+Run : 20120510_run193928 for fit atan+pol1  with Hot detid : 436316472
+Hot Mean Vfd 334.875 and cold Mean Vfd : 256.885
+Run : 20120510_run193928 for fit sigmoid+pol2  with Hot detid : 436316472
+Hot Mean Vfd 296.634 and cold Mean Vfd : 259.518
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316488
+Hot Mean Vfd 337.297 and cold Mean Vfd : 245.781
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316496
+Hot Mean Vfd 337.283 and cold Mean Vfd : 245.834
+Run : 20120510_run193928 for fit sigmoid+pol1  with Hot detid : 436316504
+Hot Mean Vfd 337.269 and cold Mean Vfd : 245.887
 //----------------------------//

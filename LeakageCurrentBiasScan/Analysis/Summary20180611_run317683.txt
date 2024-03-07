@@ -1,1 +1,3 @@
+Run : 20180611_run317683 for fit 2deriv gaussian  with Hot detid : 369125861
+Hot Mean Vfd 50 and cold Mean Vfd : 119.97
 //----------------------------//

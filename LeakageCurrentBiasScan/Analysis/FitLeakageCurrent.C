@@ -346,7 +346,7 @@ float GetStartFlat(TGraph* g, TH1F* &h, float &deriv_above_thresh, float &thresh
 }
 //------------------------------------------------------------------------------
 
-std::vector<float> Fit(char* subdet, char* run,int LAY, int* detids, const int N, char* bad_periods="", float* Vinit = nullptr)
+std::pair<std::vector<float>,std::vector<float>> Fit(char* subdet, char* run,int LAY, int* detids, const int N, char* bad_periods="", float* Vinit = nullptr)
 {
   
   // Histos and output file
@@ -403,7 +403,21 @@ std::vector<float> Fit(char* subdet, char* run,int LAY, int* detids, const int N
   VfdOutput.push_back(0);
   VfdOutput.push_back(0);
   VfdOutput.push_back(0);
+
+  std::vector<float> DeltaVfdOutput ;
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
+  DeltaVfdOutput.push_back(0);
   int COUNT[10]= {0};
+
+  std::pair<std::vector<float>,std::vector<float>> VfdData;
 
   std::vector<float> HotVfdOutput ;
   HotVfdOutput.push_back(0);
@@ -772,6 +786,8 @@ if (subdet=="TIB")
             if (!skip)
               {
                 VfdOutput[0]+=fvdrop->GetParameter(2);
+                
+                DeltaVfdOutput[0]+= (fvdrop->GetParameter(2)-Vinit[idet]);
                 COUNT[0]++;
               }
           }
@@ -830,6 +846,7 @@ if (subdet=="TIB")
             if (!skip)
               {
                 VfdOutput[1]+=fvdrop3->GetParameter(2);
+                DeltaVfdOutput[1]+= (fvdrop->GetParameter(2)-Vinit[idet]);
                 COUNT[1]++;
               }
           }
@@ -885,6 +902,7 @@ if (subdet=="TIB")
             if (!skip)
               {
                 VfdOutput[2]+=fvdrop6->GetParameter(2);
+                DeltaVfdOutput[2]+= (fvdrop->GetParameter(2)-Vinit[idet]);
                 COUNT[2]++;
               }
           }
@@ -944,6 +962,7 @@ if (subdet=="TIB")
             if (!skip)
               {
                 VfdOutput[3]+=fvdrop4->GetParameter(2);
+                DeltaVfdOutput[3]+= (fvdrop->GetParameter(2)-Vinit[idet]);
                 COUNT[3]++;
               }
           }
@@ -1085,6 +1104,7 @@ if (subdet=="TIB")
             if (!skip)
               {
                 VfdOutput[7]+=Vfdgen;
+                DeltaVfdOutput[7]+= (Vfdgen-Vinit[idet]);
                 COUNT[7]++;
               }
           }
@@ -1249,6 +1269,7 @@ if (subdet=="TOB")
             if (!skip)
               {
                 VfdOutput[4]+=Vfd;
+                DeltaVfdOutput[4]+= (Vfd-Vinit[idet]);
                 COUNT[4]++;
               }
           }
@@ -1315,6 +1336,7 @@ if (subdet=="TOB")
             if (!skip)
               {
                 VfdOutput[4]+=Vfd;
+                DeltaVfdOutput[4]+= (Vfd-Vinit[idet]);
                 COUNT[4]++;
               }
           }
@@ -1398,6 +1420,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
             if (!skip)
               {
                 VfdOutput[4]+=Vfd;
+                DeltaVfdOutput[4]+= (Vfd-Vinit[idet]);
                 COUNT[4]++;
               }
           }
@@ -1467,6 +1490,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
             if (!skip)
               {
                 VfdOutput[5]+=TriL->GetParameter(3);
+                DeltaVfdOutput[5]+= (TriL->GetParameter(3)-Vinit[idet]);
                 COUNT[5]++;
               }
           }
@@ -1531,6 +1555,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
             if (!skip && status != 4)
               {
                 VfdOutput[8]+=Vfd;
+                DeltaVfdOutput[8]+= (Vfd-Vinit[idet]);
                 COUNT[8]++;
               }
           }
@@ -1718,6 +1743,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
             if (!skip)
               {
                 VfdOutput[6]+=fcurv->GetParameter(2);
+                DeltaVfdOutput[6]+= (fcurv->GetParameter(2)-Vinit[idet]);
                 COUNT[6]++;
               }
           }
@@ -1782,6 +1808,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
             if (!skip)
               {
                 VfdOutput[9]+=fcurvGen->GetParameter(2);
+                DeltaVfdOutput[9]+= (fcurvGen->GetParameter(2)-Vinit[idet]);
                 COUNT[9]++;
               }
           }
@@ -1931,7 +1958,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
     // delete cd2;
     delete c3;
     delete c4;
-    
+      std::cout<<" Vinit[idet] : "<<Vinit[idet]<<std::endl;
   } // End of loop over modules
 
   
@@ -1941,6 +1968,13 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
       else VfdOutput[i]=VfdOutput[i]/COUNT[i];
     }
 
+  for (unsigned int i = 0 ; i < DeltaVfdOutput.size() ; i++)
+    {
+      if (DeltaVfdOutput[i]==0) continue;
+      else DeltaVfdOutput[i]=DeltaVfdOutput[i]/COUNT[i];
+    }
+
+
   for (unsigned int i = 0 ; i < HotVfdOutput.size() ; i++)
     {
       if (HotVfdOutput[i]==0) continue;
@@ -1949,7 +1983,8 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
 
     ofs <<"//----------------------------//"<<std::endl;
     ofs.close();
-  return VfdOutput;//returns the mean value for each fit methods for a given run
+    VfdData = std::make_pair(VfdOutput,DeltaVfdOutput);
+
 
 
   
@@ -1971,11 +2006,12 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
   tout->Write();
   //gDirectory->Write();
   output->Close();
+  return VfdData;//returns the mean value for each fit methods for a given run
 }
 
 //------------------------------------------------------------------------------
 
-std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run="20230907_run373060", int LAY=1 , bool Small = true)
+std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLeakageCurrent(char* subdet="TIB",  char* run="20230907_run373060", int LAY=1 , bool Small = true)
 {
 
   // Many points needed, works well only for august 2012 scan
@@ -1991,7 +2027,20 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
   std::vector<std::vector<float>> DeltaVfdFits;
   std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> VfdPair;
 
-
+  std::pair<std::vector<float>,std::vector<float>> Fit0;
+  std::pair<std::vector<float>,std::vector<float>> Fit1;
+  std::pair<std::vector<float>,std::vector<float>> Fit2;
+  std::pair<std::vector<float>,std::vector<float>> Fit3;
+  std::pair<std::vector<float>,std::vector<float>> Fit4;
+  std::pair<std::vector<float>,std::vector<float>> Fit5;
+  std::pair<std::vector<float>,std::vector<float>> Fit6;
+  std::pair<std::vector<float>,std::vector<float>> Fit7;
+  std::pair<std::vector<float>,std::vector<float>> Fit8;
+  std::pair<std::vector<float>,std::vector<float>> Fit9;
+  std::pair<std::vector<float>,std::vector<float>> Fit10;
+  std::pair<std::vector<float>,std::vector<float>> Fit11;
+  std::pair<std::vector<float>,std::vector<float>> Fit12;
+  std::pair<std::vector<float>,std::vector<float>> Fit13;
 
   // 2012
   if (Small)
@@ -2001,35 +2050,53 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
           const int N_2012=18;
           int detids_2012[N_2012]={369121381,369121382,369121385,369121386,369121389,369121390,369121605,369121606,369121609,369121610,
           369121613,369121614,369125861,369125862,369125865,369125866,369125869,369125870}; 
-          float  Vinit[N_2012] = {0};
+          float  Vinit[N_2012] = {220,230,270,260,270,270,280,270,270,260,231.71,245.52,280,280,279.71,270,280,270};
+
+          Fit0 = Fit("TIB", "20120506_run193541", LAY , detids_2012, N_2012, "",Vinit);
+          Fit1 = Fit("TIB", "20151121_run262254", LAY , detids_2012, N_2012, "",Vinit);
+          Fit2 = Fit("TIB", "20160706_run276437", LAY , detids_2012, N_2012, "",Vinit);
+          Fit3 = Fit("TIB", "20160909_run280385", LAY , detids_2012, N_2012, "",Vinit);
+          Fit4 = Fit("TIB", "20171030_run305862", LAY , detids_2012, N_2012, "",Vinit);
+          Fit5 = Fit("TIB", "20180530_run317182", LAY , detids_2012, N_2012, "",Vinit);
+          Fit6 = Fit("TIB", "20180611_run317683", LAY , detids_2012, N_2012, "",Vinit);
+          Fit7 = Fit("TIB", "20181018_run324841", LAY , detids_2012, N_2012, "",Vinit);
+          Fit8 = Fit("TIB", "20181115_run326776", LAY , detids_2012, N_2012, "",Vinit);
+          Fit9 = Fit("TIB", "20211029_run346395", LAY , detids_2012, N_2012, "",Vinit);
+          Fit10 = Fit("TIB", "20220605_run353060", LAY , detids_2012, N_2012, "",Vinit);
+          Fit11 = Fit("TIB", "20230407_run365843", LAY , detids_2012, N_2012, "",Vinit);
+          Fit12 = Fit("TIB", "20230609_run368669", LAY , detids_2012, N_2012, "",Vinit);
+          Fit13 = Fit("TIB", "20230907_run373060", LAY , detids_2012, N_2012, "",Vinit);
+
+            VfdFits.push_back(Fit0.first);
+            VfdFits.push_back(Fit1.first);
+            VfdFits.push_back(Fit2.first);
+            VfdFits.push_back(Fit3.first);
+            VfdFits.push_back(Fit4.first);
+            VfdFits.push_back(Fit5.first);
+            VfdFits.push_back(Fit6.first);
+            VfdFits.push_back(Fit7.first);
+            VfdFits.push_back(Fit8.first);
+            VfdFits.push_back(Fit9.first);
+            VfdFits.push_back(Fit10.first);//Full
+            VfdFits.push_back(Fit11.first);//FUll
+            VfdFits.push_back(Fit12.first);
+            VfdFits.push_back(Fit13.first);
 
 
-          VfdFits.push_back(Fit("TIB", "20120506_run193541", LAY , detids_2012, N_2012, "",Vinit));
-          // // // VfdFits.push_back(Fit("TIB", "20120728_run199832", LAY , detids_2012, N_2012, "",Vinit));
-          // // // VfdFits.push_back(Fit("TIB", "20120928_run203832", LAY , detids_2012, N_2012, "",Vinit));
-          // // // VfdFits.push_back(Fit("TIB", "20121130_run208339", LAY , detids_2012, N_2012, "",Vinit));
-
-
-            VfdFits.push_back(Fit("TIB", "20151121_run262254", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20160706_run276437", LAY , detids_2012, N_2012, "",Vinit));
-            // VfdFits.push_back(Fit("TIB", "20160803_run278167", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20160909_run280385", LAY , detids_2012, N_2012, "",Vinit));
-            // VfdFits.push_back(Fit("TIB", "20170527_run295324", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20171030_run305862", LAY , detids_2012, N_2012, "",Vinit));
-
-            VfdFits.push_back(Fit("TIB", "20180530_run317182", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20180611_run317683", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20181018_run324841", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20181115_run326776", LAY , detids_2012, N_2012, "",Vinit));
-
-            VfdFits.push_back(Fit("TIB", "20211029_run346395", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20220605_run353060", LAY , detids_2012, N_2012, "",Vinit));//Full
-            // Fit("TIB", "20220922_run359691", LAY , detids_2012, N_2012, "");//do not run on detids_2012
-            // Fit("TIB", "20221126_run362696", LAY , detids_2012, N_2012, "");//do not run on detids_2012
-            VfdFits.push_back(Fit("TIB", "20230407_run365843", LAY , detids_2012, N_2012, "",Vinit));//FUll
-            VfdFits.push_back(Fit("TIB", "20230609_run368669", LAY , detids_2012, N_2012, "",Vinit));
-            VfdFits.push_back(Fit("TIB", "20230907_run373060", LAY , detids_2012, N_2012, "",Vinit));
-
+            DeltaVfdFits.push_back(Fit0.second);
+            DeltaVfdFits.push_back(Fit1.second);
+            DeltaVfdFits.push_back(Fit2.second);
+            DeltaVfdFits.push_back(Fit3.second);
+            DeltaVfdFits.push_back(Fit4.second);
+            DeltaVfdFits.push_back(Fit5.second);
+            DeltaVfdFits.push_back(Fit6.second);
+            DeltaVfdFits.push_back(Fit7.second);
+            DeltaVfdFits.push_back(Fit8.second);
+            DeltaVfdFits.push_back(Fit9.second);
+            DeltaVfdFits.push_back(Fit10.second);//Full
+            DeltaVfdFits.push_back(Fit11.second);//FUll
+            DeltaVfdFits.push_back(Fit12.second);
+            DeltaVfdFits.push_back(Fit13.second);
 
             for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
               {
@@ -2038,7 +2105,8 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
                     std::cout<<"Run "<<i<<" , Fit : "<<j<<", Vfd value : "<<VfdFits[i][j]<<std::endl;
                   }
               }
-              return VfdFits;
+            VfdPair = make_pair(VfdFits,DeltaVfdFits);
+            return VfdPair;
         }
       	     
       if (subdet == "TOB")
@@ -2049,32 +2117,56 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
           int detids_TOB_2012[N_TOB_2012]={436281508, 436281512, 436281516, 436281520, 436281524, 436281528,
                                             436232901, 436232902, 436232905, 436232906, 436232909, 436232910,
                                             436232913, 436232914, 436232917, 436232918, 436232921, 436232922};
-          float  Vinit[N_TOB_2012] = {0};
-          VfdFits.push_back(Fit("TOB", "20120506_run193541", LAY , detids_TOB_2012, N_TOB_2012, ""));
-          // // VfdFits.push_back(Fit("TOB", "20120728_run199832", LAY , detids_TOB_2012, N_TOB_2012, ""));
-          // // VfdFits.push_back(Fit("TOB", "20120928_run203832", LAY , detids_TOB_2012, N_TOB_2012, ""));
-          // // VfdFits.push_back(Fit("TOB", "20121130_run208339", LAY , detids_TOB_2012, N_TOB_2012, ""));
+          float  Vinit[N_TOB_2012] = {216.5,210,244.5,217.565,230,230.5,
+                                      190,190,180,200,170,195,
+                                      190,171,190,190,185,155};
 
 
-            VfdFits.push_back(Fit("TOB", "20151121_run262254", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            VfdFits.push_back(Fit("TOB", "20160706_run276437", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            // VfdFits.push_back(Fit("TOB", "20160803_run278167", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            VfdFits.push_back(Fit("TOB", "20160909_run280385", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            // VfdFits.push_back(Fit("TOB", "20170527_run295324", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            VfdFits.push_back(Fit("TOB", "20171030_run305862", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
+          Fit0 = Fit("TOB", "20120506_run193541", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit1 = Fit("TOB", "20151121_run262254", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit2 = Fit("TOB", "20160706_run276437", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit3 = Fit("TOB", "20160909_run280385", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit4 = Fit("TOB", "20171030_run305862", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit5 = Fit("TOB", "20180530_run317182", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit6 = Fit("TOB", "20180611_run317683", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit7 = Fit("TOB", "20181018_run324841", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit8 = Fit("TOB", "20181115_run326776", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit9 = Fit("TOB", "20211029_run346395", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit10 = Fit("TOB", "20220605_run353060", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit11 = Fit("TOB", "20230407_run365843", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit12 = Fit("TOB", "20230609_run368669", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          Fit13 = Fit("TOB", "20230907_run373060", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
 
-            VfdFits.push_back(Fit("TOB", "20180530_run317182", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));// this run is doomed for TOBL4 without extra points
-            VfdFits.push_back(Fit("TOB", "20180611_run317683", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));// this run is doomed for TOBL4 without extra points
-            VfdFits.push_back(Fit("TOB", "20181018_run324841", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            VfdFits.push_back(Fit("TOB", "20181115_run326776", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
+            VfdFits.push_back(Fit0.first);
+            VfdFits.push_back(Fit1.first);
+            VfdFits.push_back(Fit2.first);
+            VfdFits.push_back(Fit3.first);
+            VfdFits.push_back(Fit4.first);
+            VfdFits.push_back(Fit5.first);
+            VfdFits.push_back(Fit6.first);
+            VfdFits.push_back(Fit7.first);
+            VfdFits.push_back(Fit8.first);
+            VfdFits.push_back(Fit9.first);
+            VfdFits.push_back(Fit10.first);//Full
+            VfdFits.push_back(Fit11.first);//FUll
+            VfdFits.push_back(Fit12.first);
+            VfdFits.push_back(Fit13.first);
 
-            VfdFits.push_back(Fit("TOB", "20211029_run346395", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            VfdFits.push_back(Fit("TOB", "20220605_run353060", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));// this run is doomed for TOBL4 without extra points
-              // Fit("TOB", "20220922_run359691", LAY , detids_TOB_2012, N_TOB_2012, "");//do not run on detids_2012
-              // Fit("TOB", "20221126_run362696", LAY , detids_TOB_2012, N_TOB_2012, "");//do not run on detids_2012
-            VfdFits.push_back(Fit("TOB", "20230407_run365843", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            VfdFits.push_back(Fit("TOB", "20230609_run368669", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
-            VfdFits.push_back(Fit("TOB", "20230907_run373060", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit));
+            DeltaVfdFits.push_back(Fit0.second);
+            DeltaVfdFits.push_back(Fit1.second);
+            DeltaVfdFits.push_back(Fit2.second);
+            DeltaVfdFits.push_back(Fit3.second);
+            DeltaVfdFits.push_back(Fit4.second);
+            DeltaVfdFits.push_back(Fit5.second);
+            DeltaVfdFits.push_back(Fit6.second);
+            DeltaVfdFits.push_back(Fit7.second);
+            DeltaVfdFits.push_back(Fit8.second);
+            DeltaVfdFits.push_back(Fit9.second);
+            DeltaVfdFits.push_back(Fit10.second);//Full
+            DeltaVfdFits.push_back(Fit11.second);//FUll
+            DeltaVfdFits.push_back(Fit12.second);
+            DeltaVfdFits.push_back(Fit13.second);
+
 
             //     // Missign leakae current information
             //       // VfdFits.push_back(Fit("TOB", "20231025_run375658", LAY , detids_2012, N_TOB_2012, ""));
@@ -2086,7 +2178,8 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
                     std::cout<<"Run "<<i<<" , Fit : "<<j<<", Vfd value : "<<VfdFits[i][j]<<std::endl;
                   }
               }
-              return VfdFits;
+            VfdPair = make_pair(VfdFits,DeltaVfdFits);
+            return VfdPair;
         }
 
     }
@@ -2105,21 +2198,40 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
                 
                 std::istringstream iss(line);
                 if (!(iss >> ID >> vinit)) { break; } // error
-                if (369175436 < vinit ){break;} 
+                if (369175436 < ID ){break;} 
                 Full_detid[cnt]=ID;
                 Full_Vinit[cnt]= vinit;
                 cnt+=1;
 
               }
-            // // VfdFits.push_back(Fit("TIB", "20110315_run160497",  Full_detid, N_Full, ""));
-            VfdFits.push_back(Fit("TIB", "20120510_run193928", LAY,  Full_detid, N_Full, "",Full_Vinit));
-            VfdFits.push_back(Fit("TIB", "20160423_run271056", LAY, Full_detid, N_Full, "",Full_Vinit));
-            VfdFits.push_back(Fit("TIB", "20170527_run295376", LAY, Full_detid, N_Full, "",Full_Vinit));
-            VfdFits.push_back(Fit("TIB", "20170924_run303824", LAY, Full_detid, N_Full, "",Full_Vinit));
-            VfdFits.push_back(Fit("TIB", "20180418_run314574", LAY, Full_detid, N_Full, "",Full_Vinit));
-            VfdFits.push_back(Fit("TIB", "20180923_run323370", LAY, Full_detid, N_Full, "",Full_Vinit));
-            VfdFits.push_back(Fit("TIB", "20220605_run353060", LAY, Full_detid, N_Full, "",Full_Vinit));
-            VfdFits.push_back(Fit("TIB", "20230407_run365843", LAY,  Full_detid, N_Full, "",Full_Vinit));
+          
+            Fit0 = Fit("TIB", "20120510_run193928", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit1 = Fit("TIB", "20160423_run271056", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit2 = Fit("TIB", "20170527_run295376", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit3 = Fit("TIB", "20170924_run303824", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit4 = Fit("TIB", "20180418_run314574", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit5 = Fit("TIB", "20180923_run323370", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit6 = Fit("TIB", "20220605_run353060", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit7 = Fit("TIB", "20230407_run365843", LAY, Full_detid, N_Full, "",Full_Vinit);
+
+            VfdFits.push_back(Fit0.first);
+            VfdFits.push_back(Fit1.first);
+            VfdFits.push_back(Fit2.first);
+            VfdFits.push_back(Fit3.first);
+            VfdFits.push_back(Fit4.first);
+            VfdFits.push_back(Fit5.first);
+            VfdFits.push_back(Fit6.first);
+            VfdFits.push_back(Fit7.first);
+
+            DeltaVfdFits.push_back(Fit0.second);
+            DeltaVfdFits.push_back(Fit1.second);
+            DeltaVfdFits.push_back(Fit2.second);
+            DeltaVfdFits.push_back(Fit3.second);
+            DeltaVfdFits.push_back(Fit4.second);
+            DeltaVfdFits.push_back(Fit5.second);
+            DeltaVfdFits.push_back(Fit6.second);
+            DeltaVfdFits.push_back(Fit7.second);
+
             for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
               {
                 for (unsigned int j = 0 ; j < NFit; j++)//loop on fits
@@ -2127,35 +2239,60 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
                     std::cout<<"Run "<<i<<" , Fit : "<<j<<", Vfd value : "<<VfdFits[i][j]<<std::endl;
                   }
               }
-              return VfdFits;
+            VfdPair = make_pair(VfdFits,DeltaVfdFits);
+            return VfdPair;
             //------------------------------------------------//
             // Missign leakae current information
             // VfdFits.push_back(Fit("TIB", "20231025_run375658", detids_2012, N_2012, ""));
         }
       if (subdet == "TOB")
         {
-          std::ifstream input( "TOB_list.txt" );
+          std::ifstream input( "TOB_list.txt" );//TOB_list
           const int N_FullTOB_2012=5057;//
           int detids_FullTOB_2012[N_FullTOB_2012]={0};
           float Full_Vinit[N_FullTOB_2012]= {0};
             //--------------Full Scans -----------------//
+            bool SKIP = false;
           while (std::getline(input, line) )
               {
                 std::istringstream iss(line);
                 if (!(iss >> ID >> vinit)) { break; } // error
-                if (436228133 < vinit && vinit < 436316504){break;} 
-                detids_FullTOB_2012[cnt]=ID;
-                Full_Vinit[cnt]= vinit;
-                cnt+=1;
+                if (436228133 > ID || ID > 436316504){SKIP = true;} 
+                if (!SKIP)
+                  {
+                    detids_FullTOB_2012[cnt]=ID;
+                    Full_Vinit[cnt]= vinit;
+                    cnt+=1;
+                  }
+ 
               }
-          VfdFits.push_back(Fit("TOB", "20120510_run193928", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
-          VfdFits.push_back(Fit("TOB", "20160423_run271056", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
-          VfdFits.push_back(Fit("TOB", "20170527_run295376", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
-          VfdFits.push_back(Fit("TOB", "20170924_run303824", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
-          VfdFits.push_back(Fit("TOB", "20180418_run314574", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
-          VfdFits.push_back(Fit("TOB", "20180923_run323370", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
-          VfdFits.push_back(Fit("TOB", "20220605_run353060", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
-          VfdFits.push_back(Fit("TOB", "20230407_run365843", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit));
+
+            Fit0 = Fit("TOB", "20120510_run193928", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit1 = Fit("TOB", "20160423_run271056", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit2 = Fit("TOB", "20170527_run295376", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit3 = Fit("TOB", "20170924_run303824", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit4 = Fit("TOB", "20180418_run314574", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit5 = Fit("TOB", "20180923_run323370", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit6 = Fit("TOB", "20220605_run353060", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit7 = Fit("TOB", "20230407_run365843", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+
+            VfdFits.push_back(Fit0.first);
+            VfdFits.push_back(Fit1.first);
+            VfdFits.push_back(Fit2.first);
+            VfdFits.push_back(Fit3.first);
+            VfdFits.push_back(Fit4.first);
+            VfdFits.push_back(Fit5.first);
+            VfdFits.push_back(Fit6.first);
+            VfdFits.push_back(Fit7.first);
+
+            DeltaVfdFits.push_back(Fit0.second);
+            DeltaVfdFits.push_back(Fit1.second);
+            DeltaVfdFits.push_back(Fit2.second);
+            DeltaVfdFits.push_back(Fit3.second);
+            DeltaVfdFits.push_back(Fit4.second);
+            DeltaVfdFits.push_back(Fit5.second);
+            DeltaVfdFits.push_back(Fit6.second);
+            DeltaVfdFits.push_back(Fit7.second);
 
           for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
             {
@@ -2165,11 +2302,9 @@ std::vector<std::vector<float>> FitLeakageCurrent(char* subdet="TIB",  char* run
                   std::cout<<"Run "<<i<<" , Fit : "<<j<<", Vfd value : "<<VfdFits[i][j]<<std::endl;
                 }
             }
-        return VfdFits;
-        }
-
-
-        
+          VfdPair = make_pair(VfdFits,DeltaVfdFits);
+          return VfdPair;
+        }  
     }
   
   
@@ -2461,12 +2596,215 @@ int PlotMeanVfdPerRunwPerFit (std::vector<std::vector<float>> VFD, std::vector<f
     return 1;
   }
 
+
+int PlotDeltaMeanVfdPerRunPerFit (std::vector<std::vector<float>> VFD, std::vector<float> LUMI,TString subdet , TString LAY, bool SMALL) 
+  {
+    if (VFD.size()==0)// number of runs
+      {
+        std::cout<<"Number of Runs to be analyzed is 0. Please look a the FitLeakageCurrent function"<<std::endl;
+        return 0;
+      }
+    TCanvas* c1 = new TCanvas("c1","c1", 1000, 800);
+    const unsigned int Npts = VFD.size();// number of runs
+    const int Nfit = 10;
+    std::vector<std::vector<float>> FitX ;
+    std::vector<float> fitx;
+    for (unsigned int i = 0; i < Nfit ; i++)
+      {
+        for (unsigned int j = 0 ; j < Npts; j++)
+          {
+            fitx.push_back(VFD[j][i]);
+            // FitX.push_back({VFD[0][0],VFD[1][0],VFD[2][0],VFD[3][0]});
+          }
+          FitX.push_back(fitx);
+          fitx.clear();
+      }
+
+    float *graphy[Nfit];
+    float *graphx  = LUMI.data();
+    TGraph *gX[Nfit];
+
+    for (unsigned int i = 0 ; i < Nfit ; i++)
+      {
+        graphy[i] = FitX[i].data();
+        gX[i] = new TGraph(Npts,graphx,graphy[i]);
+        gX[i]->SetLineWidth(2);
+        gX[i]->SetMarkerColor(4);
+        gX[i]->SetMarkerSize(1.5);
+        gX[i]->SetMarkerStyle(21);
+      }
+    gX[7]->SetLineStyle(2);
+    gX[7]->SetLineColor(1);
+
+    gX[0]->SetLineStyle(1);
+    gX[0]->SetLineColor(1);
+    gX[2]->SetLineStyle(5);
+    gX[2]->SetLineColor(1);
+
+    gX[1]->SetLineStyle(9);
+    gX[1]->SetLineColor(4);
+    gX[3]->SetLineStyle(10);
+    gX[3]->SetLineColor(4);
+
+    gX[4]->SetLineStyle(5);
+    gX[4]->SetLineColor(8);
+    gX[5]->SetLineStyle(1);
+    gX[5]->SetLineColor(8);
+    gX[8]->SetLineStyle(2);
+    gX[8]->SetLineColor(8);
+
+    gX[6]->SetLineStyle(1);
+    gX[6]->SetLineColor(46);
+    gX[9]->SetLineStyle(2);
+    gX[9]->SetLineColor(46);
+
+    for (unsigned int i = 0 ; i < Nfit ; i++)
+      {
+        if ( i == 0) {gX[i]->Draw("AL");}
+        else {gX[i]->Draw("SAME");}
+      }
+    gX[0]->SetTitle("Delta Full Depletion Voltage Average");
+    gX[0]->GetXaxis()->SetTitle("Int. Lumi [fb^{-1}]");
+    gX[0]->GetYaxis()->SetTitle("Delta Full Depletion Voltage [V]");
+    gX[0]->GetXaxis()->SetRangeUser(0,280);
+    gX[0]->SetMaximum(200);
+    gX[0]->SetMinimum(-250);
+
+    TLegend *leg = new TLegend(0.55, 0.7, 0.9, 0.9);
+    leg->SetTextFont(42);
+    leg->SetHeader("Fitting Methods");
+    leg->AddEntry(gX[7], "General", "l");
+    leg->AddEntry(gX[0], "sigmoid + pol1", "l");
+    leg->AddEntry(gX[2], "sigmoid + pol2", "l");
+    leg->AddEntry(gX[1], "atan + pol1", "l");
+    leg->AddEntry(gX[3], "atan + pol2", "l");
+
+    leg->AddEntry(gX[8], "1st Order Deriv : General", "l");
+    leg->AddEntry(gX[4], "1st Order Deriv : exp or gaussian", "l");
+    leg->AddEntry(gX[5], "1st Order Deriv : Trilinear", "l");
+
+    leg->AddEntry(gX[9], "2nd Order Deriv.:  General", "l");
+    leg->AddEntry(gX[6], "2nd Order Deriv.:  Gaussian", "l");
+
+
+    leg->Draw("SAME");
+
+        TLatex *t = new TLatex(5,205,"CMS");
+        t->SetTextFont(61);
+        t->SetTextAlign(11);
+        float fac = c1->GetTopMargin();
+        t->SetTextSize(fac*0.5);
+        t->Draw();
+
+      //  TLatex *t2 = new TLatex();
+      //  t2->SetTextFont(52);
+      //  t2->SetTextAlign(11);
+      //  t2->SetTextSize(0.5);
+      //  t2->DrawLatex(18,310," L_{int} = 260 fb^{-1}");
+
+        TLatex *t3 = new TLatex(37.5,205,"Preliminary");
+        t3->SetTextFont(52);
+        t3->SetTextAlign(11);
+        t3->SetTextSize(fac*0.3);
+        t3->Draw();
+        TString text = "Tracker Inner Barrel Layer L"+LAY;
+        float dx = 174;
+        if (subdet=="TOB") {text = "Tracker Outer Barrel L"+LAY;dx = 174;}
+
+        TLatex *t4 = new TLatex(dx,205,text);
+        t4->SetTextFont(61);
+        t4->SetTextAlign(11);
+        t4->SetTextSize(fac*0.3);
+        t4->Draw();
+
+    TLine* lvdrop = new TLine(195, -250, 195, 60);
+    lvdrop->SetLineStyle(6);
+    lvdrop->SetLineColor(1);
+    lvdrop->Draw("SAME");
+
+    TLine* lvdrop2 = new TLine(30, -250, 30, 200);
+    lvdrop2->SetLineStyle(6);
+    lvdrop2->SetLineColor(1);
+    lvdrop2->Draw("SAME");
+
+
+    TGraph* g_simu = 0;
+
+  //cout<<"--- Superimpose simulation : Fluence --> Lumi"<<endl;
+
+  int choice_simu =5 ; // 5 is the most up-to-date choise (Paul development).
+  //  It comes from the  /afs/cern.ch/user/p/pvaucell/public/VdepEvo/VdepEvolution/Predictions/ envrionment
+  //where predictions where made for differnet scenarios of lumi temperature and dismantling time.
+  // Predictions have been made for run3 or Run 3 and dismantling
+  TString dirname="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/DECO_files_kink_range_fix";
+  bool superimpose_simu = false;
+  TString FILE = "";
+  if(superimpose_simu)
+  {
+      if(subdet != "TIB" && choice_simu == 0) {cout<<"Can only plot this simulation for TIB ! Abort"<<endl; return 0;}
+      TString simufile_name = "";
+      if(choice_simu == 0) {simufile_name = dirname+"/simulation/VdepGraphs_TIB_2017.root";}
+      else if(choice_simu == 1) {simufile_name = dirname+"/simulation/Simu_JLA_v1.root";}
+      else if(choice_simu == 2) {simufile_name = dirname+"/simulation/Simu_JLA_v2.root";}
+      else if(choice_simu == 3) {simufile_name = dirname+"/simulation/Graph_new_nico_thesis.root";}
+      else if(choice_simu == 4) {simufile_name = dirname+"/simulation/VdepGraphs_2022.root";}
+      else if(choice_simu == 5) 
+        {
+          if (subdet == "TIB")
+            {
+              simufile_name = "/afs/cern.ch/user/p/pvaucell/public/VdepEvo/VdepEvolution/Predictions/lumigr_TIB_L"+LAY+".root";
+              FILE = "lumigr_TIB_L"+LAY;
+            }
+          if (subdet == "TOB")
+            {
+              simufile_name = "/afs/cern.ch/user/p/pvaucell/public/VdepEvo/VdepEvolution/Predictions/lumigr_TOB_L"+LAY+".root";
+              FILE = "lumigr_TOB_L"+LAY;
+            }
+
+        }
+
+    TFile* file = new TFile(simufile_name, "READ");
+
+    if (!file || file->IsZombie()) {
+        std::cerr << "Error opening file: " << file << std::endl;
+        return 0;
+    }
+
+      TGraph* histogram = nullptr;
+      histogram = dynamic_cast<TGraph*>(file->Get(FILE));//lumigr_TIB_L1.png
+
+    if (!histogram) {
+        std::cerr << "Error: Histogram not found in the file." << std::endl;
+        file->Close();
+        return 0;
+    }
+    std::cout<<"Obtain Simugraph "<<std::endl;
+    histogram->Draw("SAME");
+    histogram->SetLineColor(kRed);
+    leg->AddEntry(histogram, "Prediction", "L");
+        
+  }
+
+    TString save_text = "DeltaTIB_L"+LAY;
+    if (subdet=="TOB") {save_text = "DeltaTOB_L"+LAY;}
+    if (SMALL){save_text = save_text+"SMALLSCAN";}
+    else {save_text = save_text+"FULLSCAN";}
+    c1->SaveAs(save_text+".root");
+    c1->SaveAs(save_text+".pdf");
+       
+    delete c1;
+    return 1;
+  }
+
+
 int main()
   {
     std::vector<std::vector<float>> MeanVfdTOB;
     std::vector<std::vector<float>> MeanVfdTIB;
     std::vector<float> Lumi;
-    bool SmallScan = false;
+    std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATIB;
+    std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATOB;
+    bool SmallScan = true;
 
     if (SmallScan)
       {
@@ -2515,18 +2853,81 @@ else
         Lumi.push_back(235);//run :20230407_run365843: Full
   }
 
-
-
-    // MeanVfdTOB = FitLeakageCurrent("TOB","",1,SmallScan);
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
-
-    // MeanVfdTOB = FitLeakageCurrent("TOB","",4,SmallScan);
+    // //--------------------------------------------------------//
+    // // Vfd
+    // //--------------------------------------------------------//
+    DATATOB = FitLeakageCurrent("TOB","",1,SmallScan);
+    MeanVfdTOB = DATATOB.first;
+    PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTOB = DATATOB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
+    //     //--------------------------------------------------------//
+    // // Vfd
+    // //--------------------------------------------------------//
+    // DATATOB = FitLeakageCurrent("TOB","",4,SmallScan);
+    // MeanVfdTOB = DATATOB.first;
     // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTOB = DATATOB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
 
-    MeanVfdTIB = FitLeakageCurrent("TIB","",1,SmallScan);
+    //--------------------------------------------------------//
+    // Vfd
+    //--------------------------------------------------------//
+    // DATATOB = FitLeakageCurrent("TOB","",5,SmallScan);
+    // MeanVfdTOB = DATATOB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","5",SmallScan);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTOB = DATATOB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","5",SmallScan);
+    
+    // //--------------------------------------------------------//
+    // // Vfd
+    // //--------------------------------------------------------//
+    // DATATOB = FitLeakageCurrent("TOB","",6,SmallScan);
+    // MeanVfdTOB = DATATOB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","6",SmallScan);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTOB = DATATOB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","6",SmallScan);
+
+//-----------------------------------------------------------------------//
+
+    //--------------------------------------------------------//
+    // Vfd
+    //--------------------------------------------------------//
+    DATATIB = FitLeakageCurrent("TIB","",1,SmallScan);
+    MeanVfdTIB = DATATIB.first;
     PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTIB = DATATIB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
 
-    // MeanVfdTIB = FitLeakageCurrent("TIB","",4,SmallScan);
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan);
+//         //--------------------------------------------------------//
+//     // Vfd
+//     //--------------------------------------------------------//
+//     DATATIB = FitLeakageCurrent("TIB","",4,SmallScan);
+//     MeanVfdTIB = DATATIB.first;
+//     PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan);
+//     //--------------------------------------------------------//
+//     // Delta Vfd-Vinit mean
+//     //--------------------------------------------------------//
+//     MeanVfdTIB = DATATIB.second;
+//     PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan);
+// //-----------------------------------------------------------------------//
+
+
+
     return 0;
   }
