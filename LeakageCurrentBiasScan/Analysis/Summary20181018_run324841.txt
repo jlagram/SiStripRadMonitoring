@@ -1,3 +1,1 @@
-Run : 20181018_run324841 for fit GenFunc  with Hot detid : 369121382
-Hot Mean Vfd 58.5393 and cold Mean Vfd : 126.749
 //----------------------------//

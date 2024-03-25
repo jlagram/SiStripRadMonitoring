@@ -1,3 +1,1 @@
-Run : 20171030_run305862 for fit deriv exp  with Hot detid : 369125862
-Hot Mean Vfd 135.018 and cold Mean Vfd : 65.9583
 //----------------------------//

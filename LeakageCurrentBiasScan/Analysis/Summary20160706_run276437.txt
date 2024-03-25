@@ -1,13 +1,1 @@
-Run : 20160706_run276437 for fit sigmoid+pol1  with Hot detid : 369121382
-Hot Mean Vfd 82.538 and cold Mean Vfd : 170
-Run : 20160706_run276437 for fit atan+pol2  with Hot detid : 369121382
-Hot Mean Vfd 108.062 and cold Mean Vfd : 200
-Run : 20160706_run276437 for fit atan+pol2  with Hot detid : 369121386
-Hot Mean Vfd 108.062 and cold Mean Vfd : 169.354
-Run : 20160706_run276437 for fit GenFunc  with Hot detid : 369125862
-Hot Mean Vfd 366.961 and cold Mean Vfd : 159.028
-Run : 20160706_run276437 for fit GenFunc  with Hot detid : 369125866
-Hot Mean Vfd 366.961 and cold Mean Vfd : 188.733
-Run : 20160706_run276437 for fit GenFunc  with Hot detid : 369125870
-Hot Mean Vfd 366.961 and cold Mean Vfd : 211.011
 //----------------------------//

@@ -1,1 +1,23 @@
+Run : 20180418_run314574 for fit atan+pol1  with Hot detid : 436281764
+Hot Mean Vfd 53.1095 and cold Mean Vfd : 120.192
+Run : 20180418_run314574 for fit atan+pol2  with Hot detid : 436281764
+Hot Mean Vfd 120 and cold Mean Vfd : 50.0922
+Run : 20180418_run314574 for fit atan+pol1  with Hot detid : 436281772
+Hot Mean Vfd 53.1095 and cold Mean Vfd : 116.803
+Run : 20180418_run314574 for fit atan+pol1  with Hot detid : 436281780
+Hot Mean Vfd 53.1095 and cold Mean Vfd : 114.457
+Run : 20180418_run314574 for fit sigmoid+pol1  with Hot detid : 436282280
+Hot Mean Vfd 68.3512 and cold Mean Vfd : 149.487
+Run : 20180418_run314574 for fit sigmoid+pol2  with Hot detid : 436282280
+Hot Mean Vfd 60 and cold Mean Vfd : 150
+Run : 20180418_run314574 for fit GenFunc  with Hot detid : 436282280
+Hot Mean Vfd 117.832 and cold Mean Vfd : 36.7465
+Run : 20180418_run314574 for fit sigmoid+pol1  with Hot detid : 436282288
+Hot Mean Vfd 68.3512 and cold Mean Vfd : 137.896
+Run : 20180418_run314574 for fit sigmoid+pol2  with Hot detid : 436282288
+Hot Mean Vfd 60 and cold Mean Vfd : 127.5
+Run : 20180418_run314574 for fit GenFunc  with Hot detid : 436282288
+Hot Mean Vfd 117.832 and cold Mean Vfd : 57.0178
+Run : 20180418_run314574 for fit sigmoid+pol1  with Hot detid : 436282296
+Hot Mean Vfd 68.3512 and cold Mean Vfd : 129.203
 //----------------------------//

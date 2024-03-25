@@ -1,449 +1,597 @@
-Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436310120
-Hot Mean Vfd 141.734 and cold Mean Vfd : 70.4082
-Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436310128
-Hot Mean Vfd 141.734 and cold Mean Vfd : 79.9392
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436310180
-Hot Mean Vfd 134.355 and cold Mean Vfd : 56.8173
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436310188
-Hot Mean Vfd 134.355 and cold Mean Vfd : 61.7648
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436310196
-Hot Mean Vfd 134.355 and cold Mean Vfd : 65.8129
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436310344
-Hot Mean Vfd 149.407 and cold Mean Vfd : 68.4846
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436310352
-Hot Mean Vfd 158.439 and cold Mean Vfd : 70.8403
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436310360
-Hot Mean Vfd 164.459 and cold Mean Vfd : 73.0183
-Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436310436
-Hot Mean Vfd 111.156 and cold Mean Vfd : 117.876
-Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436310444
-Hot Mean Vfd 95.8669 and cold Mean Vfd : 117.212
-Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436310452
-Hot Mean Vfd 86.6935 and cold Mean Vfd : 116.587
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311716
-Hot Mean Vfd 169.139 and cold Mean Vfd : 73.4745
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311724
-Hot Mean Vfd 172.648 and cold Mean Vfd : 75.7316
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311732
-Hot Mean Vfd 175.378 and cold Mean Vfd : 77.8698
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311748
-Hot Mean Vfd 172.896 and cold Mean Vfd : 79.8984
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311752
-Hot Mean Vfd 175.561 and cold Mean Vfd : 80.7929
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311756
-Hot Mean Vfd 173.478 and cold Mean Vfd : 82.3106
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311760
-Hot Mean Vfd 175.688 and cold Mean Vfd : 83.1532
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311764
-Hot Mean Vfd 173.894 and cold Mean Vfd : 84.6052
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311768
-Hot Mean Vfd 175.782 and cold Mean Vfd : 85.3998
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311784
-Hot Mean Vfd 177.323 and cold Mean Vfd : 86.516
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311792
-Hot Mean Vfd 178.682 and cold Mean Vfd : 87.5605
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311800
-Hot Mean Vfd 179.891 and cold Mean Vfd : 88.558
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311812
-Hot Mean Vfd 180.924 and cold Mean Vfd : 89.8011
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311820
-Hot Mean Vfd 181.855 and cold Mean Vfd : 90.6714
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311828
-Hot Mean Vfd 182.696 and cold Mean Vfd : 91.5046
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311848
-Hot Mean Vfd 183.763 and cold Mean Vfd : 92.3031
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436311852
-Hot Mean Vfd 150 and cold Mean Vfd : 60.0487
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311852
-Hot Mean Vfd 184.457 and cold Mean Vfd : 93.4769
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311864
-Hot Mean Vfd 185.361 and cold Mean Vfd : 94.561
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311880
-Hot Mean Vfd 186.034 and cold Mean Vfd : 95.4982
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311888
-Hot Mean Vfd 186.655 and cold Mean Vfd : 96.3596
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311896
-Hot Mean Vfd 187.23 and cold Mean Vfd : 97.188
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311908
-Hot Mean Vfd 192.273 and cold Mean Vfd : 98.1879
-Run : 20180923_run323370 for fit deriv Gen  with Hot detid : 436311912
-Hot Mean Vfd 206.797 and cold Mean Vfd : 47.2798
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311916
-Hot Mean Vfd 196.969 and cold Mean Vfd : 100.36
-Run : 20180923_run323370 for fit deriv Gen  with Hot detid : 436311920
-Hot Mean Vfd 206.797 and cold Mean Vfd : 48.7296
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311924
-Hot Mean Vfd 201.351 and cold Mean Vfd : 102.492
-Run : 20180923_run323370 for fit deriv Gen  with Hot detid : 436311928
-Hot Mean Vfd 206.797 and cold Mean Vfd : 50.1266
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311940
-Hot Mean Vfd 196.261 and cold Mean Vfd : 104.584
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436311948
-Hot Mean Vfd 191.489 and cold Mean Vfd : 103.734
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312004
-Hot Mean Vfd 191.697 and cold Mean Vfd : 101.769
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312012
-Hot Mean Vfd 191.893 and cold Mean Vfd : 102.169
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312020
-Hot Mean Vfd 192.077 and cold Mean Vfd : 102.556
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312036
-Hot Mean Vfd 191.792 and cold Mean Vfd : 102.931
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312044
-Hot Mean Vfd 191.522 and cold Mean Vfd : 103.966
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312052
-Hot Mean Vfd 191.267 and cold Mean Vfd : 104.968
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312104
-Hot Mean Vfd 191.87 and cold Mean Vfd : 106.283
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312168
-Hot Mean Vfd 187.869 and cold Mean Vfd : 104.017
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312176
-Hot Mean Vfd 184.062 and cold Mean Vfd : 103.126
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312184
-Hot Mean Vfd 180.437 and cold Mean Vfd : 102.259
-Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436312200
-Hot Mean Vfd 149.938 and cold Mean Vfd : 56.8277
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436312200
-Hot Mean Vfd 150 and cold Mean Vfd : 62.1041
-Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436312208
-Hot Mean Vfd 149.938 and cold Mean Vfd : 57.4468
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436312208
-Hot Mean Vfd 150 and cold Mean Vfd : 62.6576
-Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436312216
-Hot Mean Vfd 149.938 and cold Mean Vfd : 58.0502
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436312216
-Hot Mean Vfd 150 and cold Mean Vfd : 63.1969
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312228
-Hot Mean Vfd 177.18 and cold Mean Vfd : 101.86
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312232
-Hot Mean Vfd 173.823 and cold Mean Vfd : 101.466
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312236
-Hot Mean Vfd 170.858 and cold Mean Vfd : 101.007
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312240
-Hot Mean Vfd 167.784 and cold Mean Vfd : 100.624
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436312248
-Hot Mean Vfd 164.841 and cold Mean Vfd : 99.8026
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314312
-Hot Mean Vfd 164.872 and cold Mean Vfd : 93.8936
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314320
-Hot Mean Vfd 164.901 and cold Mean Vfd : 94.2664
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314328
-Hot Mean Vfd 164.929 and cold Mean Vfd : 94.6322
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314340
-Hot Mean Vfd 165.001 and cold Mean Vfd : 94.9625
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314348
-Hot Mean Vfd 165.07 and cold Mean Vfd : 95.0905
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314356
-Hot Mean Vfd 165.137 and cold Mean Vfd : 95.2161
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314376
-Hot Mean Vfd 162.402 and cold Mean Vfd : 95.5106
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314384
-Hot Mean Vfd 159.767 and cold Mean Vfd : 95.3339
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314392
-Hot Mean Vfd 157.225 and cold Mean Vfd : 95.1603
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314536
-Hot Mean Vfd 159.039 and cold Mean Vfd : 93.6176
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314544
-Hot Mean Vfd 160.791 and cold Mean Vfd : 94.1911
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314552
-Hot Mean Vfd 162.484 and cold Mean Vfd : 94.7556
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314564
-Hot Mean Vfd 164.102 and cold Mean Vfd : 95.4036
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314568
-Hot Mean Vfd 165.789 and cold Mean Vfd : 96.0424
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314572
-Hot Mean Vfd 167.302 and cold Mean Vfd : 96.7052
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314576
-Hot Mean Vfd 168.885 and cold Mean Vfd : 97.3341
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314580
-Hot Mean Vfd 170.303 and cold Mean Vfd : 97.9868
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436314596
-Hot Mean Vfd 146.973 and cold Mean Vfd : 62.2169
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314596
-Hot Mean Vfd 171.665 and cold Mean Vfd : 98.606
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436314604
-Hot Mean Vfd 144.956 and cold Mean Vfd : 62.4788
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314604
-Hot Mean Vfd 172.985 and cold Mean Vfd : 99.2145
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436314612
-Hot Mean Vfd 143.515 and cold Mean Vfd : 62.7367
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314612
-Hot Mean Vfd 174.266 and cold Mean Vfd : 99.8138
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314628
-Hot Mean Vfd 172.268 and cold Mean Vfd : 100.404
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314636
-Hot Mean Vfd 170.328 and cold Mean Vfd : 99.9502
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314644
-Hot Mean Vfd 168.444 and cold Mean Vfd : 99.503
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314692
-Hot Mean Vfd 168.68 and cold Mean Vfd : 98.7976
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314700
-Hot Mean Vfd 168.911 and cold Mean Vfd : 98.9248
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314708
-Hot Mean Vfd 169.135 and cold Mean Vfd : 99.0501
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314728
-Hot Mean Vfd 171.189 and cold Mean Vfd : 98.9776
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314736
-Hot Mean Vfd 173.189 and cold Mean Vfd : 99.5552
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314744
-Hot Mean Vfd 175.137 and cold Mean Vfd : 100.125
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314756
-Hot Mean Vfd 173.387 and cold Mean Vfd : 100.884
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314764
-Hot Mean Vfd 171.682 and cold Mean Vfd : 100.663
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314772
-Hot Mean Vfd 170.02 and cold Mean Vfd : 100.445
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314824
-Hot Mean Vfd 168.383 and cold Mean Vfd : 99.7542
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314832
-Hot Mean Vfd 166.786 and cold Mean Vfd : 99.5786
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314840
-Hot Mean Vfd 165.229 and cold Mean Vfd : 99.4052
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314884
-Hot Mean Vfd 163.7 and cold Mean Vfd : 99.1417
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314892
-Hot Mean Vfd 162.208 and cold Mean Vfd : 98.9574
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314900
-Hot Mean Vfd 160.751 and cold Mean Vfd : 98.7754
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314924
-Hot Mean Vfd 161.873 and cold Mean Vfd : 98.4162
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314932
-Hot Mean Vfd 162.969 and cold Mean Vfd : 98.7317
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314948
-Hot Mean Vfd 163.228 and cold Mean Vfd : 99.0433
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314952
-Hot Mean Vfd 163.898 and cold Mean Vfd : 99.3099
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314956
-Hot Mean Vfd 164.14 and cold Mean Vfd : 99.6889
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314960
-Hot Mean Vfd 164.785 and cold Mean Vfd : 99.9519
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314964
-Hot Mean Vfd 165.012 and cold Mean Vfd : 100.327
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314968
-Hot Mean Vfd 165.634 and cold Mean Vfd : 100.586
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436314980
-Hot Mean Vfd 144.325 and cold Mean Vfd : 62.6616
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314980
-Hot Mean Vfd 165.797 and cold Mean Vfd : 100.957
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436314988
-Hot Mean Vfd 144.955 and cold Mean Vfd : 62.9121
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314988
-Hot Mean Vfd 165.956 and cold Mean Vfd : 101.023
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436314996
-Hot Mean Vfd 145.459 and cold Mean Vfd : 63.1597
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436314996
-Hot Mean Vfd 166.111 and cold Mean Vfd : 101.088
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315088
-Hot Mean Vfd 166.895 and cold Mean Vfd : 100.949
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315096
-Hot Mean Vfd 167.663 and cold Mean Vfd : 101.398
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315140
-Hot Mean Vfd 168.341 and cold Mean Vfd : 101.27
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315148
-Hot Mean Vfd 169.006 and cold Mean Vfd : 101.741
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315156
-Hot Mean Vfd 169.657 and cold Mean Vfd : 102.207
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315208
-Hot Mean Vfd 170.209 and cold Mean Vfd : 102.033
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315216
-Hot Mean Vfd 170.75 and cold Mean Vfd : 102.346
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315224
-Hot Mean Vfd 171.281 and cold Mean Vfd : 102.655
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315236
-Hot Mean Vfd 171.784 and cold Mean Vfd : 102.983
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315240
-Hot Mean Vfd 172.321 and cold Mean Vfd : 103.304
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315244
-Hot Mean Vfd 172.805 and cold Mean Vfd : 103.636
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315248
-Hot Mean Vfd 173.322 and cold Mean Vfd : 103.954
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315252
-Hot Mean Vfd 173.788 and cold Mean Vfd : 104.282
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315256
-Hot Mean Vfd 174.287 and cold Mean Vfd : 104.597
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315280
-Hot Mean Vfd 174.318 and cold Mean Vfd : 104.81
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315288
-Hot Mean Vfd 174.348 and cold Mean Vfd : 104.944
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315300
-Hot Mean Vfd 174.493 and cold Mean Vfd : 105.132
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315308
-Hot Mean Vfd 174.635 and cold Mean Vfd : 105.297
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315428
-Hot Mean Vfd 174.841 and cold Mean Vfd : 104.717
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315432
-Hot Mean Vfd 175.204 and cold Mean Vfd : 104.945
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315436
-Hot Mean Vfd 175.401 and cold Mean Vfd : 105.217
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315440
-Hot Mean Vfd 175.754 and cold Mean Vfd : 105.442
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315444
-Hot Mean Vfd 175.944 and cold Mean Vfd : 105.712
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315448
-Hot Mean Vfd 176.286 and cold Mean Vfd : 105.935
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315524
-Hot Mean Vfd 176.57 and cold Mean Vfd : 105.823
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315532
-Hot Mean Vfd 176.85 and cold Mean Vfd : 105.97
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315540
-Hot Mean Vfd 177.125 and cold Mean Vfd : 106.116
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315560
-Hot Mean Vfd 177.41 and cold Mean Vfd : 106.216
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315568
-Hot Mean Vfd 177.69 and cold Mean Vfd : 106.414
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315576
-Hot Mean Vfd 177.966 and cold Mean Vfd : 106.611
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315588
-Hot Mean Vfd 178.176 and cold Mean Vfd : 106.851
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315596
-Hot Mean Vfd 178.382 and cold Mean Vfd : 107.124
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315604
-Hot Mean Vfd 178.585 and cold Mean Vfd : 107.394
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315620
-Hot Mean Vfd 177.471 and cold Mean Vfd : 107.661
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315628
-Hot Mean Vfd 176.373 and cold Mean Vfd : 107.496
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315684
-Hot Mean Vfd 175.318 and cold Mean Vfd : 106.518
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315688
-Hot Mean Vfd 175.605 and cold Mean Vfd : 106.366
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315692
-Hot Mean Vfd 174.571 and cold Mean Vfd : 106.6
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315696
-Hot Mean Vfd 174.86 and cold Mean Vfd : 106.448
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315700
-Hot Mean Vfd 173.847 and cold Mean Vfd : 106.681
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315704
-Hot Mean Vfd 174.136 and cold Mean Vfd : 106.53
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315716
-Hot Mean Vfd 174.41 and cold Mean Vfd : 106.762
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315724
-Hot Mean Vfd 174.679 and cold Mean Vfd : 106.989
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315728
-Hot Mean Vfd 174.975 and cold Mean Vfd : 107.215
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315732
-Hot Mean Vfd 175.236 and cold Mean Vfd : 107.449
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315736
-Hot Mean Vfd 175.524 and cold Mean Vfd : 107.673
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315812
-Hot Mean Vfd 175.687 and cold Mean Vfd : 107.764
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315820
-Hot Mean Vfd 175.847 and cold Mean Vfd : 108.024
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315828
-Hot Mean Vfd 176.006 and cold Mean Vfd : 108.282
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436315844
-Hot Mean Vfd 145.872 and cold Mean Vfd : 62.6213
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315844
-Hot Mean Vfd 176.146 and cold Mean Vfd : 108.538
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436315852
-Hot Mean Vfd 146.216 and cold Mean Vfd : 62.7932
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315852
-Hot Mean Vfd 176.283 and cold Mean Vfd : 108.693
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436315860
-Hot Mean Vfd 146.507 and cold Mean Vfd : 62.9638
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315860
-Hot Mean Vfd 176.419 and cold Mean Vfd : 108.847
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315876
-Hot Mean Vfd 176.554 and cold Mean Vfd : 108.999
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315880
-Hot Mean Vfd 176.767 and cold Mean Vfd : 109.177
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315884
-Hot Mean Vfd 176.898 and cold Mean Vfd : 109.379
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315888
-Hot Mean Vfd 177.106 and cold Mean Vfd : 109.555
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315896
-Hot Mean Vfd 177.312 and cold Mean Vfd : 109.755
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315972
-Hot Mean Vfd 177.447 and cold Mean Vfd : 109.95
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315976
-Hot Mean Vfd 177.627 and cold Mean Vfd : 110.124
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315980
-Hot Mean Vfd 177.759 and cold Mean Vfd : 110.311
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315984
-Hot Mean Vfd 177.935 and cold Mean Vfd : 110.482
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315988
-Hot Mean Vfd 178.063 and cold Mean Vfd : 110.668
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436315992
-Hot Mean Vfd 178.235 and cold Mean Vfd : 110.838
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316040
-Hot Mean Vfd 178.416 and cold Mean Vfd : 110.96
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316048
-Hot Mean Vfd 178.594 and cold Mean Vfd : 111.035
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316056
-Hot Mean Vfd 178.77 and cold Mean Vfd : 111.109
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316068
-Hot Mean Vfd 178.942 and cold Mean Vfd : 111.291
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316076
-Hot Mean Vfd 179.111 and cold Mean Vfd : 111.509
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316084
-Hot Mean Vfd 179.277 and cold Mean Vfd : 111.724
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316100
-Hot Mean Vfd 179.423 and cold Mean Vfd : 111.938
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436316104
-Hot Mean Vfd 146.756 and cold Mean Vfd : 63.5551
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316108
-Hot Mean Vfd 179.567 and cold Mean Vfd : 112.127
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436316112
-Hot Mean Vfd 146.972 and cold Mean Vfd : 63.744
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316116
-Hot Mean Vfd 179.709 and cold Mean Vfd : 112.313
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436316120
-Hot Mean Vfd 147.161 and cold Mean Vfd : 63.9315
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316132
-Hot Mean Vfd 179.845 and cold Mean Vfd : 112.499
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316140
-Hot Mean Vfd 179.978 and cold Mean Vfd : 112.624
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316148
-Hot Mean Vfd 180.11 and cold Mean Vfd : 112.748
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316164
-Hot Mean Vfd 180.239 and cold Mean Vfd : 112.872
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316172
-Hot Mean Vfd 180.365 and cold Mean Vfd : 112.986
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436316200
-Hot Mean Vfd 147.328 and cold Mean Vfd : 64.0333
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316200
-Hot Mean Vfd 179.561 and cold Mean Vfd : 112.984
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436316208
-Hot Mean Vfd 147.476 and cold Mean Vfd : 64.2118
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316208
-Hot Mean Vfd 178.766 and cold Mean Vfd : 112.788
-Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436316216
-Hot Mean Vfd 147.608 and cold Mean Vfd : 64.3891
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316216
-Hot Mean Vfd 177.98 and cold Mean Vfd : 112.593
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316236
-Hot Mean Vfd 177.231 and cold Mean Vfd : 112.398
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316244
-Hot Mean Vfd 176.49 and cold Mean Vfd : 112.213
-Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436316264
-Hot Mean Vfd 149.951 and cold Mean Vfd : 56.7088
-Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436316280
-Hot Mean Vfd 149.96 and cold Mean Vfd : 56.9518
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316292
-Hot Mean Vfd 175.699 and cold Mean Vfd : 111.838
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316300
-Hot Mean Vfd 174.916 and cold Mean Vfd : 111.641
-Run : 20180923_run323370 for fit deriv TriL  with Hot detid : 436316360
-Hot Mean Vfd 135.099 and cold Mean Vfd : 56.0084
-Run : 20180923_run323370 for fit deriv TriL  with Hot detid : 436316368
-Hot Mean Vfd 135.099 and cold Mean Vfd : 56.1556
-Run : 20180923_run323370 for fit deriv TriL  with Hot detid : 436316376
-Hot Mean Vfd 135.099 and cold Mean Vfd : 56.3017
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316420
-Hot Mean Vfd 174.197 and cold Mean Vfd : 110.605
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316428
-Hot Mean Vfd 173.486 and cold Mean Vfd : 110.437
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316436
-Hot Mean Vfd 172.783 and cold Mean Vfd : 110.271
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316456
-Hot Mean Vfd 172.016 and cold Mean Vfd : 110.021
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316464
-Hot Mean Vfd 171.257 and cold Mean Vfd : 109.807
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316472
-Hot Mean Vfd 170.506 and cold Mean Vfd : 109.594
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316484
-Hot Mean Vfd 169.757 and cold Mean Vfd : 109.464
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316492
-Hot Mean Vfd 169.017 and cold Mean Vfd : 109.299
-Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436316500
-Hot Mean Vfd 168.284 and cold Mean Vfd : 109.136
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436277288
+Hot Mean Vfd 52.3734 and cold Mean Vfd : 128.467
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277288
+Hot Mean Vfd 144.315 and cold Mean Vfd : 216.186
+Run : 20180923_run323370 for fit atan+pol2  with Hot detid : 436277316
+Hot Mean Vfd 120 and cold Mean Vfd : 52.1956
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277316
+Hot Mean Vfd 131.175 and cold Mean Vfd : 180.25
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277324
+Hot Mean Vfd 126.796 and cold Mean Vfd : 178.382
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277348
+Hot Mean Vfd 113.491 and cold Mean Vfd : 176.514
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277356
+Hot Mean Vfd 105.508 and cold Mean Vfd : 168.108
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277364
+Hot Mean Vfd 100.186 and cold Mean Vfd : 161.803
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277380
+Hot Mean Vfd 97.2468 and cold Mean Vfd : 156.9
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277384
+Hot Mean Vfd 89.7118 and cold Mean Vfd : 152.832
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277388
+Hot Mean Vfd 88.5897 and cold Mean Vfd : 147.039
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277392
+Hot Mean Vfd 83.4274 and cold Mean Vfd : 143.828
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277400
+Hot Mean Vfd 79.2037 and cold Mean Vfd : 136.39
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277412
+Hot Mean Vfd 91.6474 and cold Mean Vfd : 132.247
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277416
+Hot Mean Vfd 102.431 and cold Mean Vfd : 136.098
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277420
+Hot Mean Vfd 111.438 and cold Mean Vfd : 139.781
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277424
+Hot Mean Vfd 119.464 and cold Mean Vfd : 143.067
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277428
+Hot Mean Vfd 126.281 and cold Mean Vfd : 146.238
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436277432
+Hot Mean Vfd 132.49 and cold Mean Vfd : 149.075
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278404
+Hot Mean Vfd 128.669 and cold Mean Vfd : 151.834
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278412
+Hot Mean Vfd 125.251 and cold Mean Vfd : 150.164
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278420
+Hot Mean Vfd 122.174 and cold Mean Vfd : 148.691
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278436
+Hot Mean Vfd 126.434 and cold Mean Vfd : 147.382
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278440
+Hot Mean Vfd 130.576 and cold Mean Vfd : 149.118
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278444
+Hot Mean Vfd 134.1 and cold Mean Vfd : 150.919
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278448
+Hot Mean Vfd 137.577 and cold Mean Vfd : 152.476
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278456
+Hot Mean Vfd 140.776 and cold Mean Vfd : 155.506
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278468
+Hot Mean Vfd 137.428 and cold Mean Vfd : 156.983
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436278472
+Hot Mean Vfd 52.9651 and cold Mean Vfd : 121.072
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278472
+Hot Mean Vfd 135.75 and cold Mean Vfd : 154.582
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278476
+Hot Mean Vfd 132.82 and cold Mean Vfd : 153.163
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436278480
+Hot Mean Vfd 53.1624 and cold Mean Vfd : 119.093
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278484
+Hot Mean Vfd 130.093 and cold Mean Vfd : 149.674
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436278488
+Hot Mean Vfd 53.261 and cold Mean Vfd : 117.283
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278504
+Hot Mean Vfd 132.808 and cold Mean Vfd : 147.681
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278512
+Hot Mean Vfd 135.348 and cold Mean Vfd : 150.068
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278596
+Hot Mean Vfd 133.711 and cold Mean Vfd : 163.169
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278604
+Hot Mean Vfd 132.172 and cold Mean Vfd : 162.426
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278612
+Hot Mean Vfd 130.724 and cold Mean Vfd : 161.725
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278628
+Hot Mean Vfd 129.784 and cold Mean Vfd : 161.063
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278636
+Hot Mean Vfd 128.896 and cold Mean Vfd : 159.539
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278644
+Hot Mean Vfd 128.056 and cold Mean Vfd : 158.095
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436278888
+Hot Mean Vfd 149.961 and cold Mean Vfd : 62.5642
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278888
+Hot Mean Vfd 130.475 and cold Mean Vfd : 157.421
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436278896
+Hot Mean Vfd 149.961 and cold Mean Vfd : 63.691
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278896
+Hot Mean Vfd 132.77 and cold Mean Vfd : 158.864
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436278904
+Hot Mean Vfd 149.961 and cold Mean Vfd : 64.7634
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278948
+Hot Mean Vfd 130.671 and cold Mean Vfd : 161.636
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278952
+Hot Mean Vfd 128.801 and cold Mean Vfd : 160.396
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278956
+Hot Mean Vfd 126.896 and cold Mean Vfd : 159.24
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278960
+Hot Mean Vfd 125.201 and cold Mean Vfd : 158.052
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278964
+Hot Mean Vfd 123.464 and cold Mean Vfd : 156.945
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278968
+Hot Mean Vfd 121.922 and cold Mean Vfd : 155.807
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278980
+Hot Mean Vfd 120.082 and cold Mean Vfd : 154.746
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278984
+Hot Mean Vfd 119.114 and cold Mean Vfd : 153.536
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278988
+Hot Mean Vfd 117.41 and cold Mean Vfd : 152.73
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278992
+Hot Mean Vfd 116.536 and cold Mean Vfd : 151.564
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436278996
+Hot Mean Vfd 114.952 and cold Mean Vfd : 150.795
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279000
+Hot Mean Vfd 114.16 and cold Mean Vfd : 149.671
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279012
+Hot Mean Vfd 116.127 and cold Mean Vfd : 148.935
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279016
+Hot Mean Vfd 118.123 and cold Mean Vfd : 149.59
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279020
+Hot Mean Vfd 119.943 and cold Mean Vfd : 150.286
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279024
+Hot Mean Vfd 121.798 and cold Mean Vfd : 150.915
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279028
+Hot Mean Vfd 123.487 and cold Mean Vfd : 151.586
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279032
+Hot Mean Vfd 125.215 and cold Mean Vfd : 152.191
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279044
+Hot Mean Vfd 126.783 and cold Mean Vfd : 152.837
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279048
+Hot Mean Vfd 128.35 and cold Mean Vfd : 153.418
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279052
+Hot Mean Vfd 129.814 and cold Mean Vfd : 154.017
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279056
+Hot Mean Vfd 131.28 and cold Mean Vfd : 154.577
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279060
+Hot Mean Vfd 132.649 and cold Mean Vfd : 155.154
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279064
+Hot Mean Vfd 134.023 and cold Mean Vfd : 155.694
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279140
+Hot Mean Vfd 135.411 and cold Mean Vfd : 155.437
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279148
+Hot Mean Vfd 136.757 and cold Mean Vfd : 155.851
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279156
+Hot Mean Vfd 138.061 and cold Mean Vfd : 156.252
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279172
+Hot Mean Vfd 137.166 and cold Mean Vfd : 156.64
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279176
+Hot Mean Vfd 138.458 and cold Mean Vfd : 156.05
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279180
+Hot Mean Vfd 137.583 and cold Mean Vfd : 156.565
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279184
+Hot Mean Vfd 138.833 and cold Mean Vfd : 155.983
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279188
+Hot Mean Vfd 137.977 and cold Mean Vfd : 156.491
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436279192
+Hot Mean Vfd 139.186 and cold Mean Vfd : 155.919
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436281412
+Hot Mean Vfd 149.97 and cold Mean Vfd : 64.439
+Run : 20180923_run323370 for fit deriv TriL  with Hot detid : 436281412
+Hot Mean Vfd 148.507 and cold Mean Vfd : 58.2714
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436281420
+Hot Mean Vfd 149.976 and cold Mean Vfd : 64.9946
+Run : 20180923_run323370 for fit deriv TriL  with Hot detid : 436281420
+Hot Mean Vfd 148.507 and cold Mean Vfd : 58.8569
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436281428
+Hot Mean Vfd 149.98 and cold Mean Vfd : 65.5352
+Run : 20180923_run323370 for fit deriv TriL  with Hot detid : 436281428
+Hot Mean Vfd 148.507 and cold Mean Vfd : 59.4259
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281444
+Hot Mean Vfd 140.776 and cold Mean Vfd : 153.028
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281448
+Hot Mean Vfd 142.346 and cold Mean Vfd : 153.705
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281452
+Hot Mean Vfd 143.851 and cold Mean Vfd : 154.384
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281456
+Hot Mean Vfd 145.339 and cold Mean Vfd : 155.043
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281460
+Hot Mean Vfd 146.766 and cold Mean Vfd : 155.705
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281464
+Hot Mean Vfd 148.179 and cold Mean Vfd : 156.347
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281508
+Hot Mean Vfd 147.455 and cold Mean Vfd : 155.612
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281516
+Hot Mean Vfd 146.749 and cold Mean Vfd : 154.93
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281524
+Hot Mean Vfd 146.06 and cold Mean Vfd : 154.265
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281540
+Hot Mean Vfd 144.639 and cold Mean Vfd : 153.616
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281544
+Hot Mean Vfd 143.495 and cold Mean Vfd : 152.881
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281548
+Hot Mean Vfd 142.137 and cold Mean Vfd : 152.274
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281552
+Hot Mean Vfd 141.049 and cold Mean Vfd : 151.556
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281556
+Hot Mean Vfd 139.752 and cold Mean Vfd : 150.964
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281560
+Hot Mean Vfd 138.717 and cold Mean Vfd : 150.262
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281572
+Hot Mean Vfd 137.943 and cold Mean Vfd : 149.683
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281580
+Hot Mean Vfd 137.186 and cold Mean Vfd : 148.902
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281588
+Hot Mean Vfd 136.446 and cold Mean Vfd : 148.139
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281604
+Hot Mean Vfd 52.9366 and cold Mean Vfd : 125.817
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281604
+Hot Mean Vfd 135.9 and cold Mean Vfd : 147.392
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281612
+Hot Mean Vfd 52.7203 and cold Mean Vfd : 125.37
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281612
+Hot Mean Vfd 135.365 and cold Mean Vfd : 147.055
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281620
+Hot Mean Vfd 52.5659 and cold Mean Vfd : 124.932
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281620
+Hot Mean Vfd 134.842 and cold Mean Vfd : 146.724
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281636
+Hot Mean Vfd 136.476 and cold Mean Vfd : 146.401
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281640
+Hot Mean Vfd 138.019 and cold Mean Vfd : 147.161
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281644
+Hot Mean Vfd 139.586 and cold Mean Vfd : 147.884
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281648
+Hot Mean Vfd 141.066 and cold Mean Vfd : 148.627
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281652
+Hot Mean Vfd 142.57 and cold Mean Vfd : 149.335
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281656
+Hot Mean Vfd 143.989 and cold Mean Vfd : 150.064
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281668
+Hot Mean Vfd 52.2451 and cold Mean Vfd : 124.118
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281668
+Hot Mean Vfd 143.16 and cold Mean Vfd : 150.757
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281672
+Hot Mean Vfd 52.1913 and cold Mean Vfd : 123.734
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281672
+Hot Mean Vfd 142.505 and cold Mean Vfd : 150.292
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281676
+Hot Mean Vfd 51.9722 and cold Mean Vfd : 123.363
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281676
+Hot Mean Vfd 141.707 and cold Mean Vfd : 149.914
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281680
+Hot Mean Vfd 51.953 and cold Mean Vfd : 122.986
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281680
+Hot Mean Vfd 141.079 and cold Mean Vfd : 149.459
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281684
+Hot Mean Vfd 51.7903 and cold Mean Vfd : 122.623
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281684
+Hot Mean Vfd 140.31 and cold Mean Vfd : 149.089
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436281688
+Hot Mean Vfd 51.788 and cold Mean Vfd : 122.254
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281688
+Hot Mean Vfd 139.707 and cold Mean Vfd : 148.642
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281700
+Hot Mean Vfd 138.72 and cold Mean Vfd : 148.281
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281704
+Hot Mean Vfd 138.07 and cold Mean Vfd : 147.712
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281708
+Hot Mean Vfd 137.116 and cold Mean Vfd : 147.319
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281712
+Hot Mean Vfd 136.492 and cold Mean Vfd : 146.761
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281716
+Hot Mean Vfd 135.571 and cold Mean Vfd : 146.376
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281720
+Hot Mean Vfd 134.972 and cold Mean Vfd : 145.828
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281732
+Hot Mean Vfd 134.066 and cold Mean Vfd : 145.452
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281736
+Hot Mean Vfd 135.253 and cold Mean Vfd : 144.906
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281740
+Hot Mean Vfd 134.361 and cold Mean Vfd : 145.505
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281744
+Hot Mean Vfd 135.525 and cold Mean Vfd : 144.964
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281748
+Hot Mean Vfd 134.646 and cold Mean Vfd : 145.556
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281752
+Hot Mean Vfd 135.788 and cold Mean Vfd : 145.02
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436281764
+Hot Mean Vfd 149.983 and cold Mean Vfd : 65.0506
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281768
+Hot Mean Vfd 134.86 and cold Mean Vfd : 145.4
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436281772
+Hot Mean Vfd 149.985 and cold Mean Vfd : 65.4275
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281776
+Hot Mean Vfd 133.947 and cold Mean Vfd : 144.637
+Run : 20180923_run323370 for fit sigmoid+pol2  with Hot detid : 436281780
+Hot Mean Vfd 149.986 and cold Mean Vfd : 65.7973
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436281784
+Hot Mean Vfd 133.05 and cold Mean Vfd : 143.887
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282052
+Hot Mean Vfd 132.577 and cold Mean Vfd : 143.343
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282056
+Hot Mean Vfd 131.978 and cold Mean Vfd : 143.032
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282060
+Hot Mean Vfd 131.522 and cold Mean Vfd : 142.648
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282064
+Hot Mean Vfd 130.94 and cold Mean Vfd : 142.344
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282068
+Hot Mean Vfd 130.5 and cold Mean Vfd : 141.967
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282072
+Hot Mean Vfd 129.935 and cold Mean Vfd : 141.668
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282120
+Hot Mean Vfd 129.317 and cold Mean Vfd : 141.52
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282128
+Hot Mean Vfd 128.708 and cold Mean Vfd : 141.278
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282136
+Hot Mean Vfd 128.109 and cold Mean Vfd : 141.041
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282152
+Hot Mean Vfd 128.818 and cold Mean Vfd : 140.473
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282160
+Hot Mean Vfd 129.516 and cold Mean Vfd : 140.628
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282168
+Hot Mean Vfd 130.203 and cold Mean Vfd : 140.78
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282184
+Hot Mean Vfd 130.956 and cold Mean Vfd : 140.919
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282192
+Hot Mean Vfd 131.698 and cold Mean Vfd : 141.098
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282200
+Hot Mean Vfd 132.429 and cold Mean Vfd : 141.274
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282212
+Hot Mean Vfd 131.734 and cold Mean Vfd : 141.636
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282220
+Hot Mean Vfd 131.05 and cold Mean Vfd : 141.165
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282228
+Hot Mean Vfd 130.375 and cold Mean Vfd : 140.701
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282244
+Hot Mean Vfd 131.039 and cold Mean Vfd : 140.245
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282248
+Hot Mean Vfd 131.73 and cold Mean Vfd : 140.57
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282252
+Hot Mean Vfd 132.374 and cold Mean Vfd : 140.913
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282256
+Hot Mean Vfd 133.046 and cold Mean Vfd : 141.234
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282260
+Hot Mean Vfd 133.672 and cold Mean Vfd : 141.572
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282264
+Hot Mean Vfd 134.326 and cold Mean Vfd : 141.887
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282340
+Hot Mean Vfd 133.9 and cold Mean Vfd : 141.566
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282344
+Hot Mean Vfd 134.531 and cold Mean Vfd : 141.309
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282348
+Hot Mean Vfd 134.11 and cold Mean Vfd : 141.623
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282352
+Hot Mean Vfd 134.731 and cold Mean Vfd : 141.368
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282356
+Hot Mean Vfd 134.314 and cold Mean Vfd : 141.68
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282360
+Hot Mean Vfd 134.926 and cold Mean Vfd : 141.426
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282372
+Hot Mean Vfd 135.453 and cold Mean Vfd : 141.736
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282376
+Hot Mean Vfd 136 and cold Mean Vfd : 142.002
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282380
+Hot Mean Vfd 136.514 and cold Mean Vfd : 142.28
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282384
+Hot Mean Vfd 137.046 and cold Mean Vfd : 142.542
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282388
+Hot Mean Vfd 137.547 and cold Mean Vfd : 142.817
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282392
+Hot Mean Vfd 138.066 and cold Mean Vfd : 143.075
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282404
+Hot Mean Vfd 137.688 and cold Mean Vfd : 143.345
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282408
+Hot Mean Vfd 137.332 and cold Mean Vfd : 143.115
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282412
+Hot Mean Vfd 136.964 and cold Mean Vfd : 142.895
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282416
+Hot Mean Vfd 136.617 and cold Mean Vfd : 142.668
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282420
+Hot Mean Vfd 136.258 and cold Mean Vfd : 142.452
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282424
+Hot Mean Vfd 135.92 and cold Mean Vfd : 142.228
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436282436
+Hot Mean Vfd 51.9744 and cold Mean Vfd : 117.26
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282436
+Hot Mean Vfd 135.448 and cold Mean Vfd : 142.015
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282440
+Hot Mean Vfd 135.015 and cold Mean Vfd : 141.724
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436282444
+Hot Mean Vfd 52.136 and cold Mean Vfd : 116.999
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282444
+Hot Mean Vfd 134.554 and cold Mean Vfd : 141.455
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282448
+Hot Mean Vfd 134.131 and cold Mean Vfd : 141.168
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436282452
+Hot Mean Vfd 52.2774 and cold Mean Vfd : 116.741
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282452
+Hot Mean Vfd 133.681 and cold Mean Vfd : 140.903
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282456
+Hot Mean Vfd 133.269 and cold Mean Vfd : 140.62
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282468
+Hot Mean Vfd 132.675 and cold Mean Vfd : 140.358
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282472
+Hot Mean Vfd 132.139 and cold Mean Vfd : 139.99
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282476
+Hot Mean Vfd 131.559 and cold Mean Vfd : 139.655
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282480
+Hot Mean Vfd 131.036 and cold Mean Vfd : 139.291
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282484
+Hot Mean Vfd 130.469 and cold Mean Vfd : 138.96
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282488
+Hot Mean Vfd 129.958 and cold Mean Vfd : 138.602
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282500
+Hot Mean Vfd 129.467 and cold Mean Vfd : 138.276
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282508
+Hot Mean Vfd 128.981 and cold Mean Vfd : 138.157
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282516
+Hot Mean Vfd 128.5 and cold Mean Vfd : 138.04
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282532
+Hot Mean Vfd 128.198 and cold Mean Vfd : 137.925
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282536
+Hot Mean Vfd 127.867 and cold Mean Vfd : 137.717
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282540
+Hot Mean Vfd 127.571 and cold Mean Vfd : 137.491
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282544
+Hot Mean Vfd 127.247 and cold Mean Vfd : 137.286
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282548
+Hot Mean Vfd 126.958 and cold Mean Vfd : 137.063
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282552
+Hot Mean Vfd 126.641 and cold Mean Vfd : 136.861
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282564
+Hot Mean Vfd 126.189 and cold Mean Vfd : 136.64
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282568
+Hot Mean Vfd 125.762 and cold Mean Vfd : 136.34
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282572
+Hot Mean Vfd 125.319 and cold Mean Vfd : 136.053
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282576
+Hot Mean Vfd 124.901 and cold Mean Vfd : 135.756
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282580
+Hot Mean Vfd 124.468 and cold Mean Vfd : 135.473
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282584
+Hot Mean Vfd 124.059 and cold Mean Vfd : 135.18
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282596
+Hot Mean Vfd 123.68 and cold Mean Vfd : 134.901
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282600
+Hot Mean Vfd 123.221 and cold Mean Vfd : 134.639
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282604
+Hot Mean Vfd 122.85 and cold Mean Vfd : 134.328
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282608
+Hot Mean Vfd 122.401 and cold Mean Vfd : 134.069
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282612
+Hot Mean Vfd 122.038 and cold Mean Vfd : 133.762
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282616
+Hot Mean Vfd 121.597 and cold Mean Vfd : 133.506
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282628
+Hot Mean Vfd 122.009 and cold Mean Vfd : 133.203
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282632
+Hot Mean Vfd 122.442 and cold Mean Vfd : 133.417
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282636
+Hot Mean Vfd 122.845 and cold Mean Vfd : 133.646
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282640
+Hot Mean Vfd 123.27 and cold Mean Vfd : 133.858
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282644
+Hot Mean Vfd 123.665 and cold Mean Vfd : 134.084
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282648
+Hot Mean Vfd 124.081 and cold Mean Vfd : 134.293
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282692
+Hot Mean Vfd 123.673 and cold Mean Vfd : 133.471
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282696
+Hot Mean Vfd 123.421 and cold Mean Vfd : 133.197
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282700
+Hot Mean Vfd 123.021 and cold Mean Vfd : 133.015
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282704
+Hot Mean Vfd 122.774 and cold Mean Vfd : 132.744
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282708
+Hot Mean Vfd 122.38 and cold Mean Vfd : 132.564
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282724
+Hot Mean Vfd 122.034 and cold Mean Vfd : 132.119
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282732
+Hot Mean Vfd 121.69 and cold Mean Vfd : 131.722
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282740
+Hot Mean Vfd 121.35 and cold Mean Vfd : 131.33
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282756
+Hot Mean Vfd 121.041 and cold Mean Vfd : 130.942
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282760
+Hot Mean Vfd 120.626 and cold Mean Vfd : 130.727
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282764
+Hot Mean Vfd 120.324 and cold Mean Vfd : 130.446
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282768
+Hot Mean Vfd 119.916 and cold Mean Vfd : 130.234
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282772
+Hot Mean Vfd 119.62 and cold Mean Vfd : 129.957
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282776
+Hot Mean Vfd 119.219 and cold Mean Vfd : 129.747
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436282792
+Hot Mean Vfd 52.1435 and cold Mean Vfd : 115.624
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436282800
+Hot Mean Vfd 52.0244 and cold Mean Vfd : 115.356
+Run : 20180923_run323370 for fit atan+pol1  with Hot detid : 436282808
+Hot Mean Vfd 51.9179 and cold Mean Vfd : 115.091
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282820
+Hot Mean Vfd 118.961 and cold Mean Vfd : 129.528
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282824
+Hot Mean Vfd 118.722 and cold Mean Vfd : 129.344
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282828
+Hot Mean Vfd 118.469 and cold Mean Vfd : 129.17
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282832
+Hot Mean Vfd 118.234 and cold Mean Vfd : 128.988
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282836
+Hot Mean Vfd 117.986 and cold Mean Vfd : 128.816
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282840
+Hot Mean Vfd 117.755 and cold Mean Vfd : 128.636
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282852
+Hot Mean Vfd 117.404 and cold Mean Vfd : 128.467
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282856
+Hot Mean Vfd 117.068 and cold Mean Vfd : 128.223
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282860
+Hot Mean Vfd 116.723 and cold Mean Vfd : 127.988
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282864
+Hot Mean Vfd 116.393 and cold Mean Vfd : 127.747
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282868
+Hot Mean Vfd 116.054 and cold Mean Vfd : 127.515
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282872
+Hot Mean Vfd 115.729 and cold Mean Vfd : 127.276
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282884
+Hot Mean Vfd 115.37 and cold Mean Vfd : 127.046
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282888
+Hot Mean Vfd 115.116 and cold Mean Vfd : 126.794
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282892
+Hot Mean Vfd 114.762 and cold Mean Vfd : 126.606
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282896
+Hot Mean Vfd 114.513 and cold Mean Vfd : 126.357
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282900
+Hot Mean Vfd 114.164 and cold Mean Vfd : 126.171
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282904
+Hot Mean Vfd 113.92 and cold Mean Vfd : 125.924
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282984
+Hot Mean Vfd 113.682 and cold Mean Vfd : 124.66
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436282992
+Hot Mean Vfd 113.446 and cold Mean Vfd : 124.43
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283000
+Hot Mean Vfd 113.212 and cold Mean Vfd : 124.202
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283012
+Hot Mean Vfd 113.622 and cold Mean Vfd : 124.034
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283016
+Hot Mean Vfd 139.411 and cold Mean Vfd : 63.5664
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283016
+Hot Mean Vfd 113.338 and cold Mean Vfd : 124.253
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283020
+Hot Mean Vfd 113.744 and cold Mean Vfd : 124.055
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283024
+Hot Mean Vfd 139.411 and cold Mean Vfd : 63.7625
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283024
+Hot Mean Vfd 113.462 and cold Mean Vfd : 124.273
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283028
+Hot Mean Vfd 113.864 and cold Mean Vfd : 124.076
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283032
+Hot Mean Vfd 139.411 and cold Mean Vfd : 63.9566
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283032
+Hot Mean Vfd 113.584 and cold Mean Vfd : 124.293
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283044
+Hot Mean Vfd 113.26 and cold Mean Vfd : 124.097
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283048
+Hot Mean Vfd 113.735 and cold Mean Vfd : 123.874
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283052
+Hot Mean Vfd 113.413 and cold Mean Vfd : 124.136
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283056
+Hot Mean Vfd 113.883 and cold Mean Vfd : 123.914
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283060
+Hot Mean Vfd 113.564 and cold Mean Vfd : 124.175
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283064
+Hot Mean Vfd 114.029 and cold Mean Vfd : 123.954
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283080
+Hot Mean Vfd 142.058 and cold Mean Vfd : 64.0605
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283088
+Hot Mean Vfd 143.646 and cold Mean Vfd : 64.2491
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283096
+Hot Mean Vfd 144.705 and cold Mean Vfd : 64.4359
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283108
+Hot Mean Vfd 113.786 and cold Mean Vfd : 123.565
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283116
+Hot Mean Vfd 113.544 and cold Mean Vfd : 123.32
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283124
+Hot Mean Vfd 113.305 and cold Mean Vfd : 123.077
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283204
+Hot Mean Vfd 145.462 and cold Mean Vfd : 64.3869
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283208
+Hot Mean Vfd 113.015 and cold Mean Vfd : 121.826
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283212
+Hot Mean Vfd 146.029 and cold Mean Vfd : 64.5741
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283216
+Hot Mean Vfd 112.727 and cold Mean Vfd : 121.584
+Run : 20180923_run323370 for fit sigmoid+pol1  with Hot detid : 436283220
+Hot Mean Vfd 146.47 and cold Mean Vfd : 64.7597
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283224
+Hot Mean Vfd 112.441 and cold Mean Vfd : 121.345
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283236
+Hot Mean Vfd 112.14 and cold Mean Vfd : 121.158
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283244
+Hot Mean Vfd 111.842 and cold Mean Vfd : 120.916
+Run : 20180923_run323370 for fit GenFunc  with Hot detid : 436283252
+Hot Mean Vfd 111.546 and cold Mean Vfd : 120.676
 //----------------------------//

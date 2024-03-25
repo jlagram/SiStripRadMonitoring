@@ -351,6 +351,7 @@ std::pair<std::vector<float>,std::vector<float>> Fit(char* subdet, char* run,int
   
   // Histos and output file
   TString RUN = run;
+  subdet = "TIB";
   TFile* fout = new TFile(Form("LeakageCurrent_%s_%s.root", subdet, run),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 5);
   TH1F* hparam0 = new TH1F("hparam0", "param0", 100, 0, 50);
@@ -1941,7 +1942,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
     c3->Update();
     c4->Modified();
     c4->Update();
-    // getchar();//to desactivate when running on all the modules and all the runs
+    getchar();//to desactivate when running on all the modules and all the runs
     
  
     delete fvdrop;
@@ -2122,6 +2123,9 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
                                       190,171,190,190,185,155};
 
 
+          // Perform fitting for different runs and store the results in Fit0, Fit1, Fit2, ...
+          // The Fit function is called with the parameters "TOB", run number, LAY, detids_TOB_2012, N_TOB_2012, "", and Vinit.
+          // Each Fit call corresponds to a specific run and the results are stored in the respective Fit variable.
           Fit0 = Fit("TOB", "20120506_run193541", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
           Fit1 = Fit("TOB", "20151121_run262254", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
           Fit2 = Fit("TOB", "20160706_run276437", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
@@ -2856,25 +2860,25 @@ else
     // //--------------------------------------------------------//
     // // Vfd
     // //--------------------------------------------------------//
-    DATATOB = FitLeakageCurrent("TOB","",1,SmallScan);
-    MeanVfdTOB = DATATOB.first;
-    PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
-    //--------------------------------------------------------//
-    // Delta Vfd-Vinit mean
-    //--------------------------------------------------------//
-    MeanVfdTOB = DATATOB.second;
-    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
-    //     //--------------------------------------------------------//
-    // // Vfd
-    // //--------------------------------------------------------//
-    // DATATOB = FitLeakageCurrent("TOB","",4,SmallScan);
+    // DATATOB = FitLeakageCurrent("TOB","",1,SmallScan);
     // MeanVfdTOB = DATATOB.first;
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
     // //--------------------------------------------------------//
     // // Delta Vfd-Vinit mean
     // //--------------------------------------------------------//
     // MeanVfdTOB = DATATOB.second;
-    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
+    //     //--------------------------------------------------------//
+    // // Vfd
+    // //--------------------------------------------------------//
+    DATATOB = FitLeakageCurrent("TOB","",4,SmallScan);
+    MeanVfdTOB = DATATOB.first;
+    PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTOB = DATATOB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
 
     //--------------------------------------------------------//
     // Vfd
@@ -2905,14 +2909,14 @@ else
     //--------------------------------------------------------//
     // Vfd
     //--------------------------------------------------------//
-    DATATIB = FitLeakageCurrent("TIB","",1,SmallScan);
-    MeanVfdTIB = DATATIB.first;
-    PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
-    //--------------------------------------------------------//
-    // Delta Vfd-Vinit mean
-    //--------------------------------------------------------//
-    MeanVfdTIB = DATATIB.second;
-    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
+    // DATATIB = FitLeakageCurrent("TIB","",1,SmallScan);
+    // MeanVfdTIB = DATATIB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTIB = DATATIB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
 
 //         //--------------------------------------------------------//
 //     // Vfd
