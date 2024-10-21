@@ -11,6 +11,7 @@ config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'signalbiasscan_20240702_run382655_cfg.py'
 
 config.Data.inputDataset = '/ZeroBias/Run2024F-SiStripCalMinBias-PromptReco-v1/ALCARECO'
+config.Data.inputBlocks = ['/ZeroBias/Run2024F-SiStripCalMinBias-PromptReco-v1/ALCARECO#9917ddf9-bdc5-4409-882d-3e3c582975c0']
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'LumiBased'
 config.Data.unitsPerJob = 10 #Change to optimize file size

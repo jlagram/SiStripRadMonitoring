@@ -32,9 +32,9 @@ time_t convertTimestamp( std::string str){
   ctime(&out_time); // Have to let this line, otherwise 1 hour shift with gcc compared to AClic !!
   //2 hours shift, due to daylight saving time + shift of local time with UTC ?
   // only 1 hour shift starting from nov 2012
-  if(year==2013 || (year==2012 && month>=10) || (year==2022 && month>=10 ) || (year==2023 && month<=5 ) || (year==2023 && month==6 )|| (year==2023 && month==9 )|| (year==2023 && month==10 ) ) out_time+=3600;//FIXME : these conditions should alwayds be verfied (monitored)
+  if(year==2013 || (year==2012 && month>=10) || (year==2022 && month>=10 ) || (year==2023 && month<=5 ) || (year==2023 && month==6 )|| (year==2023 && month==9 )|| (year==2023 && month==10 )    ) out_time+=3600;//FIXME : these conditions should alwayds be verfied (monitored)
   //They work for specific cases.
-  // else if (year==2023 && month==9 ){out_time+=3600;}
+  else if (year==2024 && month==9 ){out_time+=0;}//when running on ui2
   else out_time+=7200;
   
   return out_time;

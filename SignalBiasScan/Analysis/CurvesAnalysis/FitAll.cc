@@ -333,14 +333,14 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  // v_analysis.push_back("Signal");
+  v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
-  // v_subdet.push_back("TIB");
-  v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
-  v_subdet.push_back("TID");
+  v_subdet.push_back("TIB");
+  // v_subdet.push_back("TOB");
+  // v_subdet.push_back("TEC");
+  // v_subdet.push_back("TID");
 
   bool use_curvature = false; //true-->kink ; false-->lines
 
@@ -402,10 +402,14 @@ int main()
 	// runs.push_back("353060");	dates.push_back("20220605"); //-- FULL
 	// runs.push_back("359691");	dates.push_back("20221001"); 
   // runs.push_back("362696");	dates.push_back("20221126"); 
-  runs.push_back("365843");	dates.push_back("20230407"); //----------FULL
-  runs.push_back("368669");	dates.push_back("20230609");
-  runs.push_back("373060");	dates.push_back("20230907"); 
-  runs.push_back("375658"); dates.push_back("20231025"); //HI
+  // runs.push_back("365843");	dates.push_back("20230407"); //----------FULL
+  // runs.push_back("368669");	dates.push_back("20230609");
+  // runs.push_back("373060");	dates.push_back("20230907"); 
+  // runs.push_back("375658"); dates.push_back("20231025"); //HI
+
+  // runs.push_back("382655"); dates.push_back("20240702"); //small
+  runs.push_back("385515"); dates.push_back("20240910"); //small
+
 
   for(int i=0; i<v_analysis.size(); i++)
   {
