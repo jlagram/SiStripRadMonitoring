@@ -348,7 +348,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   //cout<<"--- Superimpose simulation : Fluence --> Lumi"<<endl;
 
-  int choice_simu =4 ; //FIXME
+  int choice_simu = 5 ; //FIXME
   if(superimpose_simu)
   {
       if(subdet != "TIB" && choice_simu == 0) {cout<<"Can only plot this simulation for TIB ! Abort"<<endl; return;}
@@ -359,6 +359,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
     else if(choice_simu == 2) {simufile_name = dirname+"/simulation/Simu_JLA_v2.root";}
     else if(choice_simu == 3) {simufile_name = dirname+"/simulation/Graph_new_nico_thesis.root";}
 	 else if(choice_simu == 4) {simufile_name = dirname+"/simulation/VdepGraphs_2022.root";}
+	 else if(choice_simu == 5) {simufile_name = dirname+"/simulation/simulation2025.root";}
 	if(Check_File_Existence(simufile_name) )
 	{
 		TFile* f_simu = TFile::Open(simufile_name);
@@ -706,7 +707,7 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
 
   	if(superimpose_simu) {output_name+= "simu/";}
 
-  	output_name+= "KinkVSLumi_CSI_"+subdet;
+  	output_name+= "KinkVSLumi_2024_"+subdet;
 
    	if(use_curvature) {output_name+="_kink";}
   	else {output_name+="_line";}
@@ -2739,7 +2740,7 @@ int main(int argc, char *argv[])
 
 //--------------------------------------------
   bool usefluence = true; //Draw fluence axis
-  bool superimpose_simu = false; //Superimpose simulation curves (only TIB for now)
+  bool superimpose_simu = true; //Superimpose simulation curves (only TIB for now)
   bool draw_vdep_lab = true; //Draw lab measurement of initial Vfd
   bool draw_fit = false; //Draw linear fit of vfd evolution
   bool draw_gray_band = true; //Add gray band at low V to emphasize our insensitivity
@@ -2757,13 +2758,13 @@ int main(int argc, char *argv[])
 
 //-- Choose the observables
   vector<string> v_analysis;
-//   v_analysis.push_back("Signal");
+  v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
 
 //-- Choose the subdet
   vector<string> v_subdet;//FIXME only the first subdet is taken into account
-    // v_subdet.push_back("TIB");
-  v_subdet.push_back("TOB");
+    v_subdet.push_back("TIB");
+//   v_subdet.push_back("TOB");
 //   v_subdet.push_back("TEC");
 //   v_subdet.push_back("TID");
 
@@ -2848,7 +2849,8 @@ int main(int argc, char *argv[])
 			runs.push_back("368669"); lumis.push_back(58.16+194.68); // OK
 			runs.push_back("373060"); lumis.push_back(72.69+194.68);// OK
 			// runs.push_back("375658"); lumis.push_back(73.86+194.68);//HI
-
+	  runs.push_back("382655");  lumis.push_back(194.68+111.53); //small
+  	runs.push_back("385515");  lumis.push_back(194.68+172.75);//small
 			//--------------------------------------------
 			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);} //VFD EVOLUTION, SINGLE MODULES
 			if(compute_mean_drop)

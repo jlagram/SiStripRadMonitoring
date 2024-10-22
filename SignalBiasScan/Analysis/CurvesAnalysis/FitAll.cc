@@ -334,7 +334,7 @@ int main()
 {
   vector<string> v_analysis;
   v_analysis.push_back("Signal");
-  v_analysis.push_back("ClusterWidth");
+  // v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
@@ -342,7 +342,7 @@ int main()
   // v_subdet.push_back("TEC");
   // v_subdet.push_back("TID");
 
-  bool use_curvature = false; //true-->kink ; false-->lines
+  bool use_curvature = true; //true-->kink ; false-->lines
 
   bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
@@ -407,8 +407,8 @@ int main()
   // runs.push_back("373060");	dates.push_back("20230907"); 
   // runs.push_back("375658"); dates.push_back("20231025"); //HI
 
-  // runs.push_back("382655"); dates.push_back("20240702"); //small
-  runs.push_back("385515"); dates.push_back("20240910"); //small
+  runs.push_back("382655"); dates.push_back("20240702"); //small
+  // runs.push_back("385515"); dates.push_back("20240910"); //small
 
 
   for(int i=0; i<v_analysis.size(); i++)
@@ -422,6 +422,7 @@ int main()
 
         // string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";
         // string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/"+v_analysis[i]+"Curves/";
+        // string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/DECO_files_kink_range_fix/" ; // to store theDECO_files for fit all
         string dirname = "../"+v_analysis[i]+"Analysis/Code/";
         FitAllCurves(dirname, v_subdet[j], dates[irun], runs[irun], v_analysis[i], use_curvature, smallScan_modules_only);
       }

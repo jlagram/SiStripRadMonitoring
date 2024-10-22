@@ -240,8 +240,8 @@ int main()
   bool produce_multiple_plots = true;
 
 //--- Choose the observable
-//   string type = "Signal";
-  string type = "ClusterWidth";
+  string type = "Signal";
+//   string type = "ClusterWidth";
 
 //--- Choose the subdetector (modules are selected above)
 	vector<string> v_subdet;
@@ -307,9 +307,9 @@ int main()
 	// runs.push_back("365843");	dates.push_back("20230407"); //----------FULL
 	// runs.push_back("368669");	dates.push_back("20230609");
 	// runs.push_back("373060");	dates.push_back("20230907"); 
-	runs.push_back("375658");   dates.push_back("20231025"); //HI
+	// runs.push_back("375658");   dates.push_back("20231025"); //HI
 
-	  // runs.push_back("382655"); dates.push_back("20240702"); //small
+	  runs.push_back("382655"); dates.push_back("20240702"); //small
   runs.push_back("385515"); dates.push_back("20240910"); //small
 //--------------------------------------------
   bool multiple_runs_selected =false;

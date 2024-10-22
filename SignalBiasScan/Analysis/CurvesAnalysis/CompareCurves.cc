@@ -294,8 +294,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(showfit) x = func[ifirst]->GetParameter(0);
 
 
-//  TLegend *leg = new TLegend(0.6, 0.6, 0.95, 0.8);//en haut à droite => signal
- TLegend *leg = new TLegend(0.6, 0.15, 0.95, 0.55);//en bas à droite => CW
+ TLegend *leg = new TLegend(0.6, 0.6, 0.95, 0.8);//en haut à droite => signal
+//  TLegend *leg = new TLegend(0.6, 0.15, 0.95, 0.55);//en bas à droite => CW
 //  TLegend *leg = new TLegend(0.45, 0.15, 0.92, 0.55);//en bas à droite => CW
  //leg->SetBorderSize(0.1);
  leg->SetTextFont(42);
@@ -334,7 +334,6 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
 //-- Add line representing Vfd value for one run
 // NB : draw line up to ymax --> more readable if the vdep is rpz for "highest" curve !
-
   int olayer_detid = 0; //save layer info for display
   if(draw_vdep)
   {
@@ -444,7 +443,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  TString ext = ".png";
  // TString ext = ".pdf";
 
- name+= "compareCurve/compareCurves_2023_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
+ name+= "compareCurve/compareCurves_2024_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
  if(print) {c1->SaveAs(name.Data());}
  //getchar();
  //c1->Close();
@@ -731,8 +730,6 @@ void CompareTIDCurves(string dirname, const int NF, vector<string> dates, vector
 }
 
 
-
-
 //-------------------------------
 //-------------------------------
 int main()
@@ -744,8 +741,8 @@ int main()
 
 
 	vector<string> v_analysis;
-	v_analysis.push_back("Signal");
-	// v_analysis.push_back("ClusterWidth");
+	// v_analysis.push_back("Signal");
+	v_analysis.push_back("ClusterWidth");
 
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
@@ -799,11 +796,11 @@ int main()
 	//  runs.push_back("359691");	dates.push_back("20221001"); lumis.push_back(11.59+194.68); //----------------------
 	// runs.push_back("362696");	dates.push_back("20221126"); lumis.push_back(40.35+194.68); //----------------------
 	// runs.push_back("365843");	dates.push_back("20230407"); lumis.push_back(41.42+194.68); //----------FULL
-	// runs.push_back("368669");	dates.push_back("20230609"); lumis.push_back(58.16+194.68); 
-	// runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
-	// runs.push_back("375658");   dates.push_back("20231025"); lumis.push_back(73.86+194.68);//HI
+	runs.push_back("368669");	dates.push_back("20230609"); lumis.push_back(58.16+194.68); 
+	runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
+	runs.push_back("375658");   dates.push_back("20231025"); lumis.push_back(73.86+194.68);//HI
 
-	  // runs.push_back("382655"); dates.push_back("20240702"); //small
+	  runs.push_back("382655"); dates.push_back("20240702"); lumis.push_back(194.68+111.53); //small
   	runs.push_back("385515"); dates.push_back("20240910"); lumis.push_back(194.68+172.75);//small
 
 	int NF = runs.size();
@@ -821,7 +818,12 @@ int main()
   for(int i=0; i<v_analysis.size(); i++)
   {
     //  directory of root files
-    string dirname = "../"+v_analysis[i]+"Analysis/Code";
+    // string dirname = "../"+v_analysis[i]+"Analysis/Code";
+
+	string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/"+v_analysis[i]+"Analysis/Code/Outputs"; // path to all root files
+// !! Important : each time you analyze a scan, pls upload the T**_output_DECO_*******.root files in this directory above (TEC and TID files are not mandaotry for small scans)
+// !! same for the DECO_files for the fit_all.cc function
+// !! Avoids havingg local depedance to the root files and the file sare all stored in the same place
 
  	for(int j=0; j<v_subdet.size(); j++)
  	{
