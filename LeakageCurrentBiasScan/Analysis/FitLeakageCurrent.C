@@ -1942,7 +1942,7 @@ else if (RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| R
     c3->Update();
     c4->Modified();
     c4->Update();
-    getchar();//to desactivate when running on all the modules and all the runs
+    // getchar();//to desactivate when running on all the modules and all the runs
     
  
     delete fvdrop;
@@ -2042,6 +2042,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
   std::pair<std::vector<float>,std::vector<float>> Fit11;
   std::pair<std::vector<float>,std::vector<float>> Fit12;
   std::pair<std::vector<float>,std::vector<float>> Fit13;
+  std::pair<std::vector<float>,std::vector<float>> Fit14;
+  std::pair<std::vector<float>,std::vector<float>> Fit15;
 
   // 2012
   if (Small)
@@ -2067,6 +2069,11 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
           Fit11 = Fit("TIB", "20230407_run365843", LAY , detids_2012, N_2012, "",Vinit);
           Fit12 = Fit("TIB", "20230609_run368669", LAY , detids_2012, N_2012, "",Vinit);
           Fit13 = Fit("TIB", "20230907_run373060", LAY , detids_2012, N_2012, "",Vinit);
+	  
+	  /*
+	  Fit14 = Fit("TIB", "20240702_run382622", LAY , detids_2012, N_2012, "",Vinit);
+          Fit15 = Fit("TIB", "20240910_run385515", LAY , detids_2012, N_2012, "",Vinit);
+	  */
 
             VfdFits.push_back(Fit0.first);
             VfdFits.push_back(Fit1.first);
@@ -2082,6 +2089,9 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             VfdFits.push_back(Fit11.first);//FUll
             VfdFits.push_back(Fit12.first);
             VfdFits.push_back(Fit13.first);
+	    
+	    //VfdFits.push_back(Fit14.first);
+	    //VfdFits.push_back(Fit15.first);
 
 
             DeltaVfdFits.push_back(Fit0.second);
@@ -2098,6 +2108,9 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             DeltaVfdFits.push_back(Fit11.second);//FUll
             DeltaVfdFits.push_back(Fit12.second);
             DeltaVfdFits.push_back(Fit13.second);
+	    
+	    //DeltaVfdFits.push_back(Fit14.second);
+            //DeltaVfdFits.push_back(Fit15.second);
 
             for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
               {
@@ -2140,7 +2153,11 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
           Fit11 = Fit("TOB", "20230407_run365843", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
           Fit12 = Fit("TOB", "20230609_run368669", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
           Fit13 = Fit("TOB", "20230907_run373060", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
-
+	  /*
+	  Fit14 = Fit("TIB", "20240702_run382622", LAY , detids_2012, N_2012, "",Vinit);
+          Fit15 = Fit("TIB", "20240910_run385515", LAY , detids_2012, N_2012, "",Vinit);
+	  */
+	  
             VfdFits.push_back(Fit0.first);
             VfdFits.push_back(Fit1.first);
             VfdFits.push_back(Fit2.first);
@@ -2156,6 +2173,10 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             VfdFits.push_back(Fit12.first);
             VfdFits.push_back(Fit13.first);
 
+	    //VfdFits.push_back(Fit14.first);
+	    //VfdFits.push_back(Fit15.first);
+	    
+	    
             DeltaVfdFits.push_back(Fit0.second);
             DeltaVfdFits.push_back(Fit1.second);
             DeltaVfdFits.push_back(Fit2.second);
@@ -2171,6 +2192,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             DeltaVfdFits.push_back(Fit12.second);
             DeltaVfdFits.push_back(Fit13.second);
 
+	    //DeltaVfdFits.push_back(Fit14.second);
+            //DeltaVfdFits.push_back(Fit15.second);
 
             //     // Missign leakae current information
             //       // VfdFits.push_back(Fit("TOB", "20231025_run375658", LAY , detids_2012, N_TOB_2012, ""));
@@ -2217,6 +2240,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             Fit5 = Fit("TIB", "20180923_run323370", LAY, Full_detid, N_Full, "",Full_Vinit);
             Fit6 = Fit("TIB", "20220605_run353060", LAY, Full_detid, N_Full, "",Full_Vinit);
             Fit7 = Fit("TIB", "20230407_run365843", LAY, Full_detid, N_Full, "",Full_Vinit);
+	    
+	    //Fit8 = Fit("TIB", "20230321_run378238", LAY, Full_detid, N_Full, "",Full_Vinit);
 
             VfdFits.push_back(Fit0.first);
             VfdFits.push_back(Fit1.first);
@@ -2226,6 +2251,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             VfdFits.push_back(Fit5.first);
             VfdFits.push_back(Fit6.first);
             VfdFits.push_back(Fit7.first);
+	    
+	    //VfdFits.push_back(Fit8.first);
 
             DeltaVfdFits.push_back(Fit0.second);
             DeltaVfdFits.push_back(Fit1.second);
@@ -2235,6 +2262,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             DeltaVfdFits.push_back(Fit5.second);
             DeltaVfdFits.push_back(Fit6.second);
             DeltaVfdFits.push_back(Fit7.second);
+	    
+	    //DeltaVfdFits.push_back(Fit8.second);
 
             for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
               {
@@ -2279,7 +2308,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             Fit5 = Fit("TOB", "20180923_run323370", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
             Fit6 = Fit("TOB", "20220605_run353060", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
             Fit7 = Fit("TOB", "20230407_run365843", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
-
+	    //Fit8 = Fit("TOB", "20230321_run378238", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+	    
             VfdFits.push_back(Fit0.first);
             VfdFits.push_back(Fit1.first);
             VfdFits.push_back(Fit2.first);
@@ -2288,7 +2318,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             VfdFits.push_back(Fit5.first);
             VfdFits.push_back(Fit6.first);
             VfdFits.push_back(Fit7.first);
-
+	    //VfdFits.push_back(Fit8.first);
+	    
             DeltaVfdFits.push_back(Fit0.second);
             DeltaVfdFits.push_back(Fit1.second);
             DeltaVfdFits.push_back(Fit2.second);
@@ -2297,7 +2328,7 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             DeltaVfdFits.push_back(Fit5.second);
             DeltaVfdFits.push_back(Fit6.second);
             DeltaVfdFits.push_back(Fit7.second);
-
+	    //DeltaVfdFits.push_back(Fit8.second);
           for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
             {
               for (unsigned int j = 0 ; j < NFit; j++)//loop on fits
@@ -2564,7 +2595,6 @@ int PlotMeanVfdPerRunwPerFit (std::vector<std::vector<float>> VFD, std::vector<f
               simufile_name = "/afs/cern.ch/user/p/pvaucell/public/VdepEvo/VdepEvolution/Predictions/lumigr_TOB_L"+LAY+".root";
               FILE = "lumigr_TOB_L"+LAY;
             }
-
         }
 
     TFile* file = new TFile(simufile_name, "READ");
@@ -2808,8 +2838,7 @@ int main()
     std::vector<float> Lumi;
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATIB;
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATOB;
-    bool SmallScan = true;
-
+    bool SmallScan = false;
     if (SmallScan)
       {
         // // // Run1
@@ -2837,6 +2866,11 @@ int main()
             Lumi.push_back(235);//run :20230407_run365843: Full
             Lumi.push_back(252);//run :run368669 
             Lumi.push_back(266);//run :20230907_run373060
+	    
+	    /*
+	    Lumi.push_back(304); // run 382655
+	    Lumi.push_back(365); //run 385515
+	    */
       }
 
 else  
@@ -2855,6 +2889,7 @@ else
     // // // Run3
         Lumi.push_back(195);//run :20220605_run353060 : Full
         Lumi.push_back(235);//run :20230407_run365843: Full
+	// Lumi.push_back(266); //run : 378238-239 : Full
   }
 
     // //--------------------------------------------------------//
@@ -2871,14 +2906,14 @@ else
     //     //--------------------------------------------------------//
     // // Vfd
     // //--------------------------------------------------------//
-    DATATOB = FitLeakageCurrent("TOB","",4,SmallScan);
-    MeanVfdTOB = DATATOB.first;
-    PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
-    //--------------------------------------------------------//
-    // Delta Vfd-Vinit mean
-    //--------------------------------------------------------//
-    MeanVfdTOB = DATATOB.second;
-    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
+    // DATATOB = FitLeakageCurrent("TOB","",4,SmallScan);
+    // MeanVfdTOB = DATATOB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTOB = DATATOB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
 
     //--------------------------------------------------------//
     // Vfd
@@ -2909,14 +2944,14 @@ else
     //--------------------------------------------------------//
     // Vfd
     //--------------------------------------------------------//
-    // DATATIB = FitLeakageCurrent("TIB","",1,SmallScan);
-    // MeanVfdTIB = DATATIB.first;
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
-    // //--------------------------------------------------------//
-    // // Delta Vfd-Vinit mean
-    // //--------------------------------------------------------//
-    // MeanVfdTIB = DATATIB.second;
-    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
+    DATATIB = FitLeakageCurrent("TIB","",1,SmallScan);
+    MeanVfdTIB = DATATIB.first;
+    PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTIB = DATATIB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
 
 //         //--------------------------------------------------------//
 //     // Vfd
