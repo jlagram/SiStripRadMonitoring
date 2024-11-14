@@ -15,7 +15,7 @@ figures.
 - Main file is FitLeakageCurrent.C
         / ----- Main Idea ----- /
         |    There are 3 curves that are being analyzed ILeak VS Vbias, the associated first and 
-        |    second derivative. We will try ot fit each of these curves with different functions
+        |    second derivatives. We will try to fit each of these curves with different functions
         |    available in the ./FitFunctions.h file. There are 10 functions that are used at the 
         |    moment.
         |    / ---- Compilation ---- /
@@ -25,9 +25,9 @@ figures.
         |    |        |    Decomment the getchar() line. then 
         |    |        |    $ root
         |    |        |    $ .L FitLeakageCurrent.C
-        |    |        |    $ FitLeakageCurrent("TOB") (or "TIB")
+        |    |        |    $ main()
         |    |        |
-        |    |        |    Be careful, this will not run the main() the function FitLeakageCurrent 
+        |    |        |    Be careful, this will not run the main() but the function FitLeakageCurrent 
         |    |        |    You can choose the runs to be analyzed, TIB or TOB (TEC and TID are not
         |    |        |    yet implemented). With getchar() being decommented, you will get the 
         |    |        |    3 curves with all the fits displayed for each detid of each run.

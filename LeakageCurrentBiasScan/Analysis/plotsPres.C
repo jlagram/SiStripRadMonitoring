@@ -20,7 +20,7 @@ void plot()
 
     if (!file || file->IsZombie()) {
         std::cerr << "Error opening file: " << file << std::endl;
-        return 0;
+        return;
     }
 
     // Assume the data is stored in a TCanvas named "canvas"
@@ -38,7 +38,7 @@ void plot()
 
     if (!file2 || file2->IsZombie()) {
         std::cerr << "Error opening file: " << file2 << std::endl;
-        return 0;
+        return;
     }
 
     // Assume the data is stored in a TCanvas named "canvas"
@@ -66,7 +66,7 @@ void plot()
 
             if (!file3 || file3->IsZombie()) {
                 std::cerr << "Error opening file: " << file3 << std::endl;
-                return 0;
+                return;
             }
 
             // Assume the data is stored in a TCanvas named "canvas"
@@ -97,7 +97,7 @@ void plot()
 
             if (!file4 || file4->IsZombie()) {
                 std::cerr << "Error opening file: " << file4 << std::endl;
-                return 0;
+                return;
             }
 
             // Assume the data is stored in a TCanvas named "canvas"
@@ -127,7 +127,7 @@ void plot()
 
             if (!file5 || file5->IsZombie()) {
                 std::cerr << "Error opening file: " << file5 << std::endl;
-                return 0;
+                return;
             }
 
             // Assume the data is stored in a TCanvas named "canvas"

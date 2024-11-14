@@ -68,6 +68,23 @@ Double_t fitfunction4(Double_t *x, Double_t *par){ //atan + pol2
   return value;
 }
 
+Double_t fitfunction4bis(Double_t *x, Double_t *par){ //atan + pol2
+  Double_t value, value_th, value_0;
+  if (x[0]<par[2]) {
+    value = par[0] + par[1]*atan(par[3]*x[0]); // atan
+  }
+  else
+  {
+    value_th = par[0] + par[1]*atan(par[2]*par[3]);
+    value_0 = value_th - par[4]*par[2]-par[5]*par[2]*par[2];
+    value = value_0 + par[4]*x[0]+par[5]*x[0]*x[0]; // pol2
+  }
+  //else { value=0; TF1::RejectPoint();}
+  
+  return value;
+}
+
+
 
 Double_t fitfunction6(Double_t *x, Double_t *par){
   Double_t value, value_th, value_0;

@@ -70,14 +70,36 @@ void plotArea() {
         double x, y;
         graphs[0]->GetPoint(i, x, y);
         double minY = y;
+        // std::cout<<" x :"<<x<<" y :"<<y<<std::endl;
         double maxY = y;
-
+        // if (i == nPoints-1) std::cout<<" x :"<<x<<" y :"<<y<<std::endl;
         // Boucle sur les autres graphs pour trouver le min et max à chaque bin
         for (int j = 1; j < 10; ++j) {
             double yTemp;
-            graphs[j]->GetPoint(i, x, yTemp);
-            if (yTemp < minY && yTemp != 0) minY = yTemp;
-            if (yTemp > maxY) maxY = yTemp;
+
+            if (x < 320) // First 14 bins have optimized parameters for each fit function
+                {
+                    graphs[j]->GetPoint(i, x, yTemp);
+                    if (yTemp < minY && yTemp != 0) minY = yTemp;
+                    if (yTemp > maxY) maxY = yTemp;
+                }
+            else
+                {
+                    graphs[j]->GetPoint(i, x, yTemp);
+                    // if (i == nPoints-1) std::cout<<" x :"<<x<<" yTemp :"<<yTemp<<" minY :"<<minY<<std::endl;
+                    // !! this conditions works somehow, but it is not the best way to do it sorry
+                    if ( yTemp > 150  && minY>0) //&& yTemp<minY 
+                        {
+                            minY = yTemp;
+                        }
+                    else if (minY==0)
+                        {
+                            minY = yTemp;
+                        }
+                    if (yTemp > maxY) maxY = yTemp;
+
+                }
+
         }
 
         xValues[i] = x;
@@ -95,7 +117,7 @@ void plotArea() {
     // Tracer l'aire hachurée entre min et max
     TH1F *frame = new TH1F("frame", "", 100, xValues[0], xValues[nPoints-1]);
     frame->GetYaxis()->SetRangeUser(*std::min_element(minValues.begin(), minValues.end()) - 10, 
-                                    *std::max_element(maxValues.begin(), maxValues.end()) + 10);
+                                    *std::max_element(maxValues.begin(), maxValues.end()) + 50);
     frame->SetStats(0);
     frame->GetYaxis()->SetTitle("Full Depletion Voltage [V]");
     frame->GetXaxis()->SetTitle("Int. Lumi [fb^{-1}]");
@@ -135,13 +157,13 @@ void plotArea() {
     legend->Draw();
 
 
-    TLine* lvdrop = new TLine(195.5,0,195.5,307);
+    TLine* lvdrop = new TLine(195.5,0,195.5,347);
     lvdrop->SetLineStyle(2);
     lvdrop->SetLineColor(1);//red
     lvdrop->SetLineWidth(2);
     lvdrop->Draw();
 
-    TLine* lvdrop1 = new TLine(29.5,0,29.5,307);
+    TLine* lvdrop1 = new TLine(29.5,0,29.5,347);
     lvdrop1->SetLineStyle(2);
     lvdrop1->SetLineColor(1);//red
     lvdrop1->SetLineWidth(2);
@@ -153,7 +175,7 @@ TString cmsText     = "CMS";
 float cmsTextFont   = 61;  // default is helvetic-bold
 
 bool writeExtraText = true;
-TString extraText   = "Private Work";
+TString extraText   = "Preliminary";
 float extraTextFont = 52;  // default is helvetica-italics
 
 // text sizes and text offsets with respect to the top frame
@@ -190,7 +212,7 @@ TString lumiText = lumi_13TeV+lumi_sqrtS;
   latex.SetTextFont(42);
   latex.SetTextAlign(31); 
   latex.SetTextSize(lumiTextSize*t);    
-  latex.DrawLatex(1-r,1-t+lumiTextOffset*t,lumiText);
+  latex.DrawLatex(1-r-0.005,1-t+lumiTextOffset*t,lumiText);
 
       latex.SetTextFont(cmsTextFont);
       latex.SetTextAlign(11); 
@@ -230,7 +252,7 @@ float posX_=0;
       latex.SetTextFont(extraTextFont);
       latex.SetTextSize(extraTextSize*t);
       latex.SetTextAlign(11);
-      latex.DrawLatex(posX_+0.125, posY_, extraText);
+      latex.DrawLatex(posX_+0.09, posY_, extraText);
 	    }
 
 

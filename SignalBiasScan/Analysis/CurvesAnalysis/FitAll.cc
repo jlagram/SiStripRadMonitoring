@@ -334,17 +334,17 @@ int main()
 {
   vector<string> v_analysis;
   v_analysis.push_back("Signal");
-  // v_analysis.push_back("ClusterWidth");
+  v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
-  v_subdet.push_back("TIB");
+  // v_subdet.push_back("TIB");
   // v_subdet.push_back("TOB");
   // v_subdet.push_back("TEC");
-  // v_subdet.push_back("TID");
+  v_subdet.push_back("TID");
 
   bool use_curvature = true; //true-->kink ; false-->lines
 
-  bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
+  bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
 
   vector<string> runs; vector<string> dates;
@@ -405,11 +405,11 @@ int main()
   // runs.push_back("365843");	dates.push_back("20230407"); //----------FULL
   // runs.push_back("368669");	dates.push_back("20230609");
   // runs.push_back("373060");	dates.push_back("20230907"); 
-  // runs.push_back("375658"); dates.push_back("20231025"); //HI
+  runs.push_back("375658"); dates.push_back("20231025"); //HI
 
   runs.push_back("382655"); dates.push_back("20240702"); //small
-  // runs.push_back("385515"); dates.push_back("20240910"); //small
-
+  runs.push_back("385515"); dates.push_back("20240910"); //small
+  runs.push_back("386863"); dates.push_back("20241012"); //small
 
   for(int i=0; i<v_analysis.size(); i++)
   {

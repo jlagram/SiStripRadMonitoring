@@ -371,7 +371,8 @@ void DrawOneModule(string dirname, string subdet, string antype, string ref, con
         if(choice_simu == 0) {g_simu_name = "graph_" + ts_detid;}
         else
         {
-            g_simu_name = "lumigr_"+ts_detid;
+			if (choice_simu == 5 && subdet == "TIB") {g_simu_name = "lumigr_TIB_L1";}
+            else g_simu_name = "lumigr_"+ts_detid;
 			// g_simu_name = "feqgr_"+ts_detid;
         }
 
@@ -2736,7 +2737,7 @@ int main(int argc, char *argv[])
 
 // ./DECO_files
 //nicolasdvpt
-  bool use_curvature = true; //true-->kink ; false-->lines
+  bool use_curvature = false; //true-->kink ; false-->lines
 
 //--------------------------------------------
   bool usefluence = true; //Draw fluence axis
@@ -2851,6 +2852,7 @@ int main(int argc, char *argv[])
 			// runs.push_back("375658"); lumis.push_back(73.86+194.68);//HI
 	  runs.push_back("382655");  lumis.push_back(194.68+111.53); //small
   	runs.push_back("385515");  lumis.push_back(194.68+172.75);//small
+	runs.push_back("386863"); lumis.push_back(194.68+194.48); //small
 			//--------------------------------------------
 			if(draw_vfd_evolution_plots) {DrawKinkVsLumi(dirname, v_subdet[j], v_analysis[i], runs, lumis, usefluence, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);} //VFD EVOLUTION, SINGLE MODULES
 			if(compute_mean_drop)

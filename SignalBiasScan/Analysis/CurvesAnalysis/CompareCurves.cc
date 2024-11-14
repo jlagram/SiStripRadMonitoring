@@ -294,8 +294,8 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  if(showfit) x = func[ifirst]->GetParameter(0);
 
 
- TLegend *leg = new TLegend(0.6, 0.6, 0.95, 0.8);//en haut à droite => signal
-//  TLegend *leg = new TLegend(0.6, 0.15, 0.95, 0.55);//en bas à droite => CW
+//  TLegend *leg = new TLegend(0.6, 0.6, 0.95, 0.8);//en haut à droite => signal
+ TLegend *leg = new TLegend(0.6, 0.15, 0.95, 0.55);//en bas à droite => CW
 //  TLegend *leg = new TLegend(0.45, 0.15, 0.92, 0.55);//en bas à droite => CW
  //leg->SetBorderSize(0.1);
  leg->SetTextFont(42);
@@ -445,7 +445,7 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
 
  name+= "compareCurve/compareCurves_2024_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
  if(print) {c1->SaveAs(name.Data());}
- //getchar();
+ getchar();
  //c1->Close();
 
 
@@ -588,7 +588,7 @@ void CompareTOBCurves(string dirname, const int NF, vector<string> dates, vector
  // TOB + 1.3.1.6 //NEW -- ADDED 04/2018
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329011, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329021, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- /*
+ 
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329051, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329061, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329091, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
@@ -611,7 +611,7 @@ void CompareTOBCurves(string dirname, const int NF, vector<string> dates, vector
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329182, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329212, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
  CompareCurve(dirname, "TOB", NF, dates, runs, lumis, 4362329222, type, normalize, showfit, print, suffix, draw_plots, draw_vdep);
- */
+ 
 
  return;
 }
@@ -680,12 +680,12 @@ void CompareTIDCurves(string dirname, const int NF, vector<string> dates, vector
 //--- FULL LIST
 	//1 sensor (+0)
 
-	// v_modids.push_back(402666133);
-	// v_modids.push_back(402666129);
-	// v_modids.push_back(402666125);
-	// v_modids.push_back(402666134);
-	// v_modids.push_back(402666130);
-	// v_modids.push_back(402666126);
+	v_modids.push_back(402666133);
+	v_modids.push_back(402666129);
+	v_modids.push_back(402666125);
+	v_modids.push_back(402666134);
+	v_modids.push_back(402666130);
+	v_modids.push_back(402666126);
 
 	//------TID minus 
 	// TIDminus_4_2_1_1/
@@ -741,14 +741,14 @@ int main()
 
 
 	vector<string> v_analysis;
-	// v_analysis.push_back("Signal");
-	v_analysis.push_back("ClusterWidth");
+	v_analysis.push_back("Signal");
+	// v_analysis.push_back("ClusterWidth");
 
 	vector<string> v_subdet;
-	v_subdet.push_back("TIB");
+	// v_subdet.push_back("TIB");
 	// v_subdet.push_back("TOB");
 	// v_subdet.push_back("TEC");
-	// v_subdet.push_back("TID");
+	v_subdet.push_back("TID");
 
 
 	vector<string> runs, dates; vector<float> lumis;  //NB : Lumi Run I = 29.46 fb-1
@@ -792,17 +792,18 @@ int main()
 
 	// runs.push_back("346395");   dates.push_back("20211029"); lumis.push_back(0.00000213+194.68); //----------------------------
 	// //2022
-	//  runs.push_back("353060");	dates.push_back("20220605");  lumis.push_back(0.00000534+194.68); // //-- FULL
+	 runs.push_back("353060");	dates.push_back("20220605");  lumis.push_back(0.00000534+194.68); // //-- FULL
 	//  runs.push_back("359691");	dates.push_back("20221001"); lumis.push_back(11.59+194.68); //----------------------
 	// runs.push_back("362696");	dates.push_back("20221126"); lumis.push_back(40.35+194.68); //----------------------
-	// runs.push_back("365843");	dates.push_back("20230407"); lumis.push_back(41.42+194.68); //----------FULL
-	runs.push_back("368669");	dates.push_back("20230609"); lumis.push_back(58.16+194.68); 
-	runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
-	runs.push_back("375658");   dates.push_back("20231025"); lumis.push_back(73.86+194.68);//HI
-
-	  runs.push_back("382655"); dates.push_back("20240702"); lumis.push_back(194.68+111.53); //small
-  	runs.push_back("385515"); dates.push_back("20240910"); lumis.push_back(194.68+172.75);//small
-
+	runs.push_back("365843");	dates.push_back("20230407"); lumis.push_back(41.42+194.68); //----------FULL
+	// runs.push_back("368669");	dates.push_back("20230609"); lumis.push_back(58.16+194.68); 
+	// runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
+	// runs.push_back("375658");   dates.push_back("20231025"); lumis.push_back(73.86+194.68);//HI
+	
+	runs.push_back("378238");   dates.push_back("20240321"); lumis.push_back(73.86+194.7);//Full
+// 	  runs.push_back("382655"); dates.push_back("20240702"); lumis.push_back(194.68+111.53); //small
+//   	runs.push_back("385515"); dates.push_back("20240910"); lumis.push_back(194.68+172.75);//small
+// runs.push_back("386863"); dates.push_back("20241012");lumis.push_back(194.68+194.48); //small
 	int NF = runs.size();
 
 	bool normalize=true;
