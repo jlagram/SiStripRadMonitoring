@@ -178,7 +178,7 @@ TGraphErrors* GetIleakVsVbias(TString run, int DID , TGraph* gsteps, TGraph* gcu
     //-------------------------------------------------------------//
     // remove points not in a voltage step by using 1, else use 15 . Use 15 for runs of run 1 and 1 for runs of run 2 and 3
     //-------------------------------------------------------------//
-     if ( volt_err<=15 && (run == "20180530_run317182" || run == "20180611_run317683" || run == "20220605_run353060" ) 
+     if ( volt_err<=15 && (run == "20180530_run317182" || run == "20180611_run317683" || run == "20220605_run353060" || run.Contains("2024") ) 
             && (DID == 436281508 || DID == 436281512 || DID == 436281516 || DID == 436281520 || DID == 436281524 || DID == 436281528 ) ) 
 	  {
 	    gout->SetPoint(ipt, volt, current);
@@ -351,7 +351,7 @@ std::pair<std::vector<float>,std::vector<float>> Fit(char* subdet, char* run,int
   
   // Histos and output file
   TString RUN = run;
-  subdet = "TIB";
+  // subdet = "TIB";
   TFile* fout = new TFile(Form("LeakageCurrent_%s_%s.root", subdet, run),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 5);
   TH1F* hparam0 = new TH1F("hparam0", "param0", 100, 0, 50);
@@ -578,7 +578,7 @@ float f1par2start = f1start[0];
 float f1par2end   = f1up[0];
 
 //blue 50-150 2018  and above 50-190 2017 // 50-250 -2016
-float f2down[2]  = {50,200};
+float f2down[3]  = {50,200,100};
 float f2start[2] = {150,280};
 float f2up[5]    = {150,190,300,360,220};
 
@@ -598,7 +598,7 @@ float f3par2end   = f3up[0];
 
 
 //green : 2018 and above: 10-150 worked 2017 : 50-190; 50-250 : 2016 with extra pts
-float f4down[3]  = {10,50,200};
+float f4down[4]  = {10,50,200,100};
 float f4start[4] = {75,150,220,280};
 float f4up[6]    = {150,190,260,200,360,200};
 
@@ -614,7 +614,11 @@ float f4par2end   = f4up[0];
 if (subdet=="TIB")
   {if (RUN.Contains("2024"))
     {
+      f1par2down = f1down[0] ; f1par2start= f1start[0]; f1par2end=f1up[0] ;
+
+      f2par2down = f2down[2] ; f2par2start= f2start[0]; f2par2end=f2up[2] ;
       f3par2down = f3down[2] ; f3par2start= f3start[1]; f3par2end=f3up[2] ;
+      f4par2down = f4down[3] ; f4par2start= f4start[1]; f4par2end=f4up[2] ;
     }
     if (RUN.Contains("2023") || RUN.Contains("2022") ||  RUN.Contains("2021")  ) 
         {
@@ -675,13 +679,22 @@ if (subdet=="TIB")
 
   if (subdet=="TOB")
   {
-    if (RUN.Contains("2023") || RUN.Contains("2022") ) 
+    if (RUN.Contains("2024") || RUN.Contains("2023") || RUN.Contains("2022") ) 
         {
           f1par2down = f1down[0] ; f1par2start= f1start[0]; f1par2end=f1up[1] ;
           f2par2down = f2down[0] ; f2par2start= f2start[0]; f2par2end=f2up[4] ;
           f3par2down = f3down[0] ; f3par2start= f3start[0]; f3par2end=f3up[4] ;
           f4par2down = f4down[1] ; f4par2start= f4start[0]; f4par2end=f4up[1] ;
-        
+          if (RUN.Contains("365843"))
+            {
+                f3par2down = f3down[1] ; f3par2start= f3start[1]; f3par2end=f3up[4] ;
+            }
+          if (LAY == 1 && RUN.Contains("2024"))
+            {
+              f1par2down = f1down[1] ; f1par2start= f1start[1]; f1par2end=f1up[2] ;
+              f3par2down = f3down[2] ; f3par2start= f3start[1]; f3par2end=f3up[4] ;
+            }
+
         } 
     if ( RUN.Contains("2021")  ) 
         {
@@ -704,6 +717,14 @@ if (subdet=="TIB")
         f3par2down = f3down[1] ; f3par2start= f3start[0]; f3par2end=f3up[1] ;
         f4par2down = f4down[1] ; f4par2start= f4start[0]; f4par2end=f4up[1] ;
       }
+float f1down[4]  = {50,70,200,140};
+float f1start[4] = {100,150,280,200};
+float f1up[4]    = {150,170,300,360};
+
+float f3down[5]  = {45,60,85,200,140};
+float f3start[3] = {75,150,280};
+float f3up[5]    = {150,170,300,360,220};
+
 
       
     //Care 2016 needs extra pts but with larger errors
@@ -774,6 +795,14 @@ if (subdet=="TIB")
       {
         Nchi2up = 35;
       }
+    if (subdet=="TOB" &&  RUN.Contains("368669"))
+      {
+        Nchi2up = 20;
+      }
+  if (subdet=="TOB" &&  RUN.Contains("2024") && LAY == 1 )
+      {
+        Nchi2up = 80;
+      }
     if(fvdrop->GetNDF())
       {
         // std::cout<<"help 2"<<std::endl;
@@ -835,6 +864,10 @@ if (subdet=="TIB")
       {
         chi2up = 35;
       }
+   if (subdet=="TOB" &&  (RUN.Contains("2024") || RUN.Contains("2023") ) )
+      {
+        chi2up = 80;
+      }
     if(fvdrop3->GetNDF())
       {
         if (fvdrop3->GetChisquare()/fvdrop3->GetNDF()<chi2up && fvdrop3->GetChisquare()/fvdrop3->GetNDF()>0.0)
@@ -894,6 +927,10 @@ if (subdet=="TIB")
     if (subdet=="TIB" &&  RUN.Contains("2024"))
       {
         CHI2UP = 35;
+      }
+    if (subdet=="TOB" &&  RUN.Contains("2024") && LAY == 1 )
+      {
+        CHI2UP = 35;//sadly yes
       }
     if(fvdrop6->GetNDF())
       {
@@ -960,9 +997,13 @@ if (subdet=="TIB")
             chi2up = 50;
           }
       }
-    if (subdet=="TOB" && (RUN.Contains("2021") || RUN.Contains("2022") || RUN.Contains("2023") || RUN.Contains("2024")))
+    if (subdet=="TOB" && (RUN.Contains("2021") || RUN.Contains("2022") || RUN.Contains("2023")))
       {
         chi2up = 30;
+      }
+    if (subdet=="TOB" && RUN.Contains("2024") && LAY == 1)
+      {
+        chi2up = 50;
       }
     if(fvdrop4->GetNDF())
       {
@@ -1028,7 +1069,10 @@ if (subdet=="TIB")
               chi2up = 50;
             }
         }
-
+    if (subdet=="TOB" && RUN.Contains("2024") && LAY == 1)
+      {
+        chi2up = 50;
+      }
       if(fvdrop4->GetNDF())
         {
           if (fvdrop4->GetChisquare()/fvdrop4->GetNDF()<chi2up && fvdrop4->GetChisquare()/fvdrop4->GetNDF()>0.)
@@ -1117,7 +1161,15 @@ if (subdet=="TIB")
           }
         if (RUN.Contains("386863") || RUN.Contains("385515"))
           {
-            p = 0.01;
+            p = 0.012;
+          }
+        if ( RUN.Contains("373060"))
+          {
+            p = 0.007;
+          }
+        if (RUN.Contains("388832") )
+          {
+            p = 0.015;
           }
       }
     if (subdet=="TOB")
@@ -1135,7 +1187,15 @@ if (subdet=="TIB")
               }
             if (RUN.Contains("2023"))
               {
+                p = 0.0004;
+              }
+            if (RUN.Contains("382655"))
+              {
                 p = 0.0005;
+              }
+             if (RUN.Contains("2024") && !RUN.Contains("382655"))
+              {
+                p = 0.006;
               }
           }
         if (LAY == 1)
@@ -1152,9 +1212,13 @@ if (subdet=="TIB")
               {
                 p = 0.0002;
               }
-            if (RUN.Contains("run368669") || RUN == "20230907_run373060")
+            if (RUN.Contains("run368669") )
               {
-                p = 0.0002;
+                p = 0.00035;//0.0002
+              }
+            if (RUN == "20230907_run373060")
+              {
+                p = 0.0001;
               }
 
 
@@ -1174,7 +1238,7 @@ if (subdet=="TIB")
     // lvdrop10->SetLineColor(1);//
     lvdrop10->Draw();
     chi2up = 10;
-    if ( RUN == "20230609_run368669"){chi2up = 15;}
+    if ( RUN == "20230609_run368669"){chi2up = 15; if (subdet == "TOB" && LAY == 1){chi2up = 20;}}
     if ( RUN == "20230907_run373060"){chi2up = 20;}
     
     if(fvdrop10->GetNDF())
@@ -1252,10 +1316,10 @@ if (subdet=="TIB")
     lstart->Draw("same");
 
   float Vfd = 0;
-  float fitderivdown[2] = {10,50};
+  float fitderivdown[3] = {10,50,100};
   float fitderivup[3]   = {300,350,280};
-  float fderivdown[3]  = {130,190,230};
-  float fderivstart[5] = {100,150,250,300,200};
+  float fderivdown[4]  = {130,190,230,40};
+  float fderivstart[6] = {100,150,250,300,200,80};
   float fderivup[5]    = {150,170,300,360,220};
 
   float fderiv1par2down  = fderivdown[0];
@@ -1315,11 +1379,16 @@ if (subdet=="TOB")
         fderiv1par2down = fderivdown[2] ; fderiv1par2start= fderivstart[2]; fderiv1par2end=fderivup[3] ;
         fderiv2par2down = fderivdown[1] ; fderiv2par2start= fderivstart[1]; fderiv2par2end=fderivup[3] ;
       } 
+    if (RUN.Contains("2024") ) 
+      {
+        fderiv1par2down = fderivdown[3] ; fderiv1par2start= fderivstart[5]; fderiv1par2end=fderivup[1] ;
+        // fderiv2par2down = fderivdown[1] ; fderiv2par2start= fderivstart[1]; fderiv2par2end=fderivup[3] ;
+      } 
   }
     //------------------------------------------------------------//
     //------------------------------------------------------------//
 
-    if (  RUN.Contains("2015") || RUN.Contains("2016"))
+    if (  RUN.Contains("2015") || RUN.Contains("2016") || (subdet == "TOB" && LAY==4 && RUN.Contains("2024") ))
       {
           TF1* fvdropderiv = new TF1("fvdropderiv", fitfunctionderiv2, fitderivdown[0], fitderivup[2], 4);
         fvdropderiv->SetParameter(0, 4.);
@@ -1344,7 +1413,7 @@ if (subdet=="TOB")
 
         if(fvdropderiv->GetNDF())
         {
-          if (fvdropderiv->GetChisquare()/fvdropderiv->GetNDF()<5)
+          if (fvdropderiv->GetChisquare()/fvdropderiv->GetNDF()<5 || (subdet == "TOB" && LAY==4 && RUN.Contains("2024")&& fvdropderiv->GetChisquare()/fvdropderiv->GetNDF()<15 ))
           {
             bool skip = false;
             if (COUNT[4]!=0)
@@ -1384,10 +1453,7 @@ if (subdet=="TOB")
       lvdropderiv->SetLineWidth(2);
       lvdropderiv->Draw("same");
     }
-
-        //------------------------------------------------------------//
-    //------------------------------------------------------------//
-    if (RUN.Contains("2012") || RUN.Contains("2013") )
+    else if (RUN.Contains("2012") || RUN.Contains("2013") )
       {
         TF1* fvdropderiv = new TF1("fvdropderiv", fitfunctionderiv2, fitderivdown[1], fitderivup[1]+10, 5);
       fvdropderiv->SetParameter(0, 4.);
@@ -1451,11 +1517,14 @@ if (subdet=="TOB")
 
 
     }
-      //------------------------------------------------------------//
-        //------------------------------------------------------------//
-else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| RUN.Contains("2018") || RUN.Contains("2017"))
+
+if ((RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || RUN.Contains("2021")|| RUN.Contains("2018") || RUN.Contains("2017") ))
   {
     //Initiliazed with TIB values
+    if ( !(subdet == "TOB" && LAY==4 && RUN.Contains("2024") ))
+      {
+
+      
     float stddevdown = 5;
     float stddevstart = 20;
     float stddevup = 100;
@@ -1466,13 +1535,21 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
         stddevstart = 30;
         stddevup = 150;
       }
-      if (RUN.Contains("2024"))
-        {
-          stddevdown = 15;
-          stddevstart = 50;
-          stddevup = 100;
-          par1Up = 150;
-        }
+    if (RUN.Contains("2024"))
+      {
+        stddevdown = 15;
+        stddevstart = 50;
+        stddevup = 100;
+        par1Up = 150;
+        if (RUN.Contains("388832"))
+          {
+            stddevdown = 20;
+            stddevstart = 60;
+            stddevup = 150;
+            par1Up = 250;
+          }
+      }
+
             TF1* fvdropderiv = new TF1("fvdropderiv", fitfunctionderiv3,fitderivdown[0], fitderivup[1], 4);
       fvdropderiv->SetParameter(0, 0.);//ordonné à l'origine
       fvdropderiv->SetParLimits(0, 0, 10);
@@ -1493,6 +1570,11 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
 	    if(fvdropderiv->GetNDF()) cout<<" chi2/ndf: "<<fvdropderiv->GetChisquare()/fvdropderiv->GetNDF();
 	    cout<<endl;
       Vfd = fvdropderiv->GetParameter(2)+3*fvdropderiv->GetParameter(3);
+
+      if (RUN.Contains("2024"))
+        {
+          Vfd = fvdropderiv->GetParameter(2)+5*fvdropderiv->GetParameter(3);
+        }
       fvdropderiv->Draw("same");
       TLine* lvdropderiv = new TLine(Vfd, ymin_deriv, Vfd, ymax_deriv);
       lvdropderiv->SetLineStyle(2);
@@ -1525,7 +1607,7 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
               }
           }
       }
-
+      }
        //-------------------------------//
       // ------three linear regimes ---//
       //-------------------------------//
@@ -1547,6 +1629,16 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
         par3down = 50;
         par3start = 70;
         par3up = 150;
+        if (RUN.Contains("2024"))
+          {
+            par2down = 10;
+            par2start = 30;
+            par2up = 60;
+
+            par3down = 75;
+            par3start = 130;
+            par3up = 200;
+          }
       }
 
     if (subdet == "TIB" && ( RUN.Contains("2023") || RUN.Contains("2024")))
@@ -1558,6 +1650,17 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
         par3down = 110;
         par3start = 140;
         par3up = 160;
+
+        if  (RUN.Contains("386863") || RUN.Contains("388832"))
+          {
+            par2down = 60;
+            par2start = 80;
+            par2up = 100;
+
+            par3down = 150;
+            par3start = 200;
+            par3up = 250;
+          }
       }
 
 
@@ -1584,7 +1687,7 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
 
       if(TriL->GetNDF())
       {
-        if (TriL->GetChisquare()/TriL->GetNDF()<5)
+        if (( TriL->GetChisquare()/TriL->GetNDF()<5) || (subdet == "TOB" && LAY==4 && RUN.Contains("2024") && TriL->GetChisquare()/TriL->GetNDF()<15) )
           {
             bool skip = false;
             if (COUNT[5]!=0)
@@ -1608,7 +1711,7 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
           }
       }
             // c2->cd();
-      lvdropderiv = new TLine(TriL->GetParameter(3), ymin,TriL->GetParameter(3), ymax);
+      TLine* lvdropderiv = new TLine(TriL->GetParameter(3), ymin,TriL->GetParameter(3), ymax);
       lvdropderiv->SetLineStyle(2);
       lvdropderiv->SetLineColor(44);
       lvdropderiv->SetLineWidth(2);
@@ -1643,13 +1746,21 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
 
 	    if(fvdropderivGen->GetNDF()) cout<<" chi2/ndf: "<<fvdropderivGen->GetChisquare()/fvdropderivGen->GetNDF();
 	    cout<<endl;
-      float k = 0.90;
+      float k = 0.90;//default 0.90
+      if (subdet == "TOB" && RUN.Contains("2024") && LAY == 4)
+        {
+          k = 0.85;
+        }
+      if (RUN.Contains("388832"))
+        {
+          k = 0.98;
+        }
       Vfd = tan(k*3.14/2)/sqrt(fvdropderivGen->GetParameter(1))+fvdropderivGen->GetParameter(2);
       fvdropderivGen->Draw("same");
 
       if(fvdropderivGen->GetNDF())
       {
-        if (fvdropderivGen->GetChisquare()/fvdropderivGen->GetNDF()<5)
+        if (fvdropderivGen->GetChisquare()/fvdropderivGen->GetNDF()<5 || RUN.Contains("388832")  || (subdet == "TOB" && LAY==4 && RUN.Contains("2024") && fvdropderivGen->GetChisquare()/fvdropderivGen->GetNDF()<15))
           {
             bool skip = false;
             if (COUNT[8]!=0)
@@ -1663,6 +1774,28 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
                     // skip = true;
                   }
               }
+            // !! --------------------------------------------
+            // define a specific Vfd value for Run 388832
+            if (RUN.Contains("388832"))
+              {
+                  // -par[0]/sqrt(par[1])*atan(sqrt(par[1])*(x[0]-par[2]))+exp(par[3]*x[0]-par[4])+(par[0]/sqrt(par[1]))*3.14/2
+                  TF1 *fsolve = new TF1("fsolve", 
+                          "(-[0]/sqrt([1]))*atan(sqrt([1])*(x-[2])) + exp([3]*x-[4]) + ([0]/sqrt([1]))*3.14/2", 
+                          10, 350); // Intervalle d'intérêt
+
+                      // Initialiser les paramètres (tu peux ajuster ces valeurs)
+                      fsolve->SetParameter(0, fvdropderivGen->GetParameter(0));  // par[0]
+                      fsolve->SetParameter(1, fvdropderivGen->GetParameter(1));  // par[1]
+                      fsolve->SetParameter(2, fvdropderivGen->GetParameter(2));  // par[2]
+                      fsolve->SetParameter(3, fvdropderivGen->GetParameter(3));  // par[3]
+                      fsolve->SetParameter(4, fvdropderivGen->GetParameter(4));  // par[4]
+
+                      // Trouver le minimum dans l'intervalle [-10, 10]
+                      // double min_val = f->GetMinimum(-10, 10);   // Valeur minimale
+                      Vfd = fsolve->GetMinimumX(10, 350);   // Position x correspondante
+              }
+
+            // !! --------------------------------------------
             // VfdOutput[0]+=fvdrop->GetParameter(2);
             if (!skip && status != 4)
               {
@@ -1810,7 +1943,9 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
                                       meandown = 50; meanup= 150;}    
 
         if (RUN.Contains("2017") || RUN.Contains("2018") ) {up = 160; down = 20;curvmax = 0.01; mean = 100;
-                                                            meandown = 50; meanup= 120;} 
+                                                            meandown = 50; meanup= 120;}
+        if (RUN.Contains("388832")  ) {up = 300; down = 50;curvmax = 0.008; mean = 220;
+                                      meandown = 180; meanup= 280;} 
       }
     if (subdet=="TOB")
       {                                                       
@@ -1851,7 +1986,7 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
     // if (  RUN.Contains("2022") ){CurvVfd = fcurv->GetMinimumX()}
 
     float VFDfromCurve = fcurv->GetParameter(2);
-    if (RUN.Contains("386863") ){VFDfromCurve = xminCURV;}// We lack extra points above 300 GeV, so it's hard to fit
+    if (RUN.Contains("386863") && subdet=="TIB" ){VFDfromCurve = xminCURV;}//|| RUN.Contains("388832")  We lack extra points above 300 GeV, so it's hard to fit
       if(fcurv->GetNDF())
       {
         if (fcurv->GetChisquare()/fcurv->GetNDF()<5)
@@ -1918,7 +2053,7 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
     float CurvVfd = fcurvGen->GetParameter(2);
     // if (  RUN.Contains("2022") ){CurvVfd = fcurv->GetMinimumX()}
 
-        if (RUN.Contains("386863") ){CurvVfd = xminCURV;}// We lack extra points above 300 GeV, so it's hard to fit
+        if (RUN.Contains("386863") && subdet == "TIB"){CurvVfd = xminCURV;}// || RUN.Contains("388832")  We lack extra points above 300 GeV, so it's hard to fit
 
       if(fcurvGen->GetNDF())
       {
@@ -2075,8 +2210,17 @@ else if (RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Contains("2022") || R
     c4->Update();
     // getchar();//to desactivate when running on all the modules and all the runs
     
-    // c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
+  if (RUN.Contains("2024") || RUN.Contains("2023"))
+    {
+    c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
     c2->SaveAs(Form("IleakEffect_%s_%i.png", run, detid));
+    c3->SaveAs(Form("IleakCurvature_%s_%i.png", run, detid));
+    c4->SaveAs(Form("IleakCurvatureHisto_%s_%i.png", run, detid));
+    cd->SaveAs(Form("Ileak_Deriv_%s_%i.png", run, detid));
+ 
+    }
+    // c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
+    // c2->SaveAs(Form("IleakEffect_%s_%i.png", run, detid));
     // c3->SaveAs(Form("IleakCurvature_%s_%i.png", run, detid));
     // c4->SaveAs(Form("IleakCurvatureHisto_%s_%i.png", run, detid));
     // cd->SaveAs(Form("Ileak_Deriv_%s_%i.png", run, detid));
@@ -2181,6 +2325,7 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
   std::pair<std::vector<float>,std::vector<float>> Fit14;
   std::pair<std::vector<float>,std::vector<float>> Fit15;
   std::pair<std::vector<float>,std::vector<float>> Fit16;
+  std::pair<std::vector<float>,std::vector<float>> Fit17;
   // 2012
   if (Small)
     {
@@ -2192,59 +2337,62 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
           //!! removed these modules because they are causing trouble ro retrieve the Vfd
           float  Vinit[N_2012] = {220,230,270,260,270,270,280,270,270,260,231.71,245.52};//,280,280,279.71,270,280,270
 
-          // Fit0 = Fit("TIB", "20120506_run193541", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit1 = Fit("TIB", "20151121_run262254", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit2 = Fit("TIB", "20160706_run276437", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit3 = Fit("TIB", "20160909_run280385", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit4 = Fit("TIB", "20171030_run305862", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit5 = Fit("TIB", "20180530_run317182", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit6 = Fit("TIB", "20180611_run317683", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit7 = Fit("TIB", "20181018_run324841", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit8 = Fit("TIB", "20181115_run326776", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit9 = Fit("TIB", "20211029_run346395", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit10 = Fit("TIB", "20220605_run353060", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit11 = Fit("TIB", "20230407_run365843", LAY , detids_2012, N_2012, "",Vinit);
-          // Fit12 = Fit("TIB", "20230609_run368669", LAY , detids_2012, N_2012, "",Vinit);
+          Fit0 = Fit("TIB", "20120506_run193541", LAY , detids_2012, N_2012, "",Vinit);
+          Fit1 = Fit("TIB", "20151121_run262254", LAY , detids_2012, N_2012, "",Vinit);
+          Fit2 = Fit("TIB", "20160706_run276437", LAY , detids_2012, N_2012, "",Vinit);
+          Fit3 = Fit("TIB", "20160909_run280385", LAY , detids_2012, N_2012, "",Vinit);
+          Fit4 = Fit("TIB", "20171030_run305862", LAY , detids_2012, N_2012, "",Vinit);
+          Fit5 = Fit("TIB", "20180530_run317182", LAY , detids_2012, N_2012, "",Vinit);
+          Fit6 = Fit("TIB", "20180611_run317683", LAY , detids_2012, N_2012, "",Vinit);
+          Fit7 = Fit("TIB", "20181018_run324841", LAY , detids_2012, N_2012, "",Vinit);
+          Fit8 = Fit("TIB", "20181115_run326776", LAY , detids_2012, N_2012, "",Vinit);
+          Fit9 = Fit("TIB", "20211029_run346395", LAY , detids_2012, N_2012, "",Vinit);
+          Fit10 = Fit("TIB", "20220605_run353060", LAY , detids_2012, N_2012, "",Vinit);
+          Fit11 = Fit("TIB", "20230407_run365843", LAY , detids_2012, N_2012, "",Vinit);
+          Fit12 = Fit("TIB", "20230609_run368669", LAY , detids_2012, N_2012, "",Vinit);
           Fit13 = Fit("TIB", "20230907_run373060", LAY , detids_2012, N_2012, "",Vinit);
 	        Fit14 = Fit("TIB", "20240702_run382655", LAY , detids_2012, N_2012, "",Vinit);
           Fit15 = Fit("TIB", "20240910_run385515", LAY , detids_2012, N_2012, "",Vinit);
 	        Fit16 = Fit("TIB", "20241012_run386863", LAY , detids_2012, N_2012, "",Vinit);
+          Fit17 = Fit("TIB", "20241125_run388832", LAY , detids_2012, N_2012, "",Vinit);//noise
 
-            // VfdFits.push_back(Fit0.first);
-            // VfdFits.push_back(Fit1.first);
-            // VfdFits.push_back(Fit2.first);
-            // VfdFits.push_back(Fit3.first);
-            // VfdFits.push_back(Fit4.first);
-            // VfdFits.push_back(Fit5.first);
-            // VfdFits.push_back(Fit6.first);
-            // VfdFits.push_back(Fit7.first);
-            // VfdFits.push_back(Fit8.first);
-            // VfdFits.push_back(Fit9.first);
-            // VfdFits.push_back(Fit10.first);//Full
-            // VfdFits.push_back(Fit11.first);//FUll
-            // VfdFits.push_back(Fit12.first);
+            VfdFits.push_back(Fit0.first);
+            VfdFits.push_back(Fit1.first);
+            VfdFits.push_back(Fit2.first);
+            VfdFits.push_back(Fit3.first);
+            VfdFits.push_back(Fit4.first);
+            VfdFits.push_back(Fit5.first);
+            VfdFits.push_back(Fit6.first);
+            VfdFits.push_back(Fit7.first);
+            VfdFits.push_back(Fit8.first);
+            VfdFits.push_back(Fit9.first);
+            VfdFits.push_back(Fit10.first);//Full
+            VfdFits.push_back(Fit11.first);//FUll
+            VfdFits.push_back(Fit12.first);
             VfdFits.push_back(Fit13.first);
             VfdFits.push_back(Fit14.first);
             VfdFits.push_back(Fit15.first);
             VfdFits.push_back(Fit16.first);
+            VfdFits.push_back(Fit17.first);//noise
 
-            // DeltaVfdFits.push_back(Fit0.second);
-            // DeltaVfdFits.push_back(Fit1.second);
-            // DeltaVfdFits.push_back(Fit2.second);
-            // DeltaVfdFits.push_back(Fit3.second);
-            // DeltaVfdFits.push_back(Fit4.second);
-            // DeltaVfdFits.push_back(Fit5.second);
-            // DeltaVfdFits.push_back(Fit6.second);
-            // DeltaVfdFits.push_back(Fit7.second);
-            // DeltaVfdFits.push_back(Fit8.second);
-            // DeltaVfdFits.push_back(Fit9.second);
-            // DeltaVfdFits.push_back(Fit10.second);//Full
-            // DeltaVfdFits.push_back(Fit11.second);//FUll
-            // DeltaVfdFits.push_back(Fit12.second);
+            DeltaVfdFits.push_back(Fit0.second);
+            DeltaVfdFits.push_back(Fit1.second);
+            DeltaVfdFits.push_back(Fit2.second);
+            DeltaVfdFits.push_back(Fit3.second);
+            DeltaVfdFits.push_back(Fit4.second);
+            DeltaVfdFits.push_back(Fit5.second);
+            DeltaVfdFits.push_back(Fit6.second);
+            DeltaVfdFits.push_back(Fit7.second);
+            DeltaVfdFits.push_back(Fit8.second);
+            DeltaVfdFits.push_back(Fit9.second);
+            DeltaVfdFits.push_back(Fit10.second);//Full
+            DeltaVfdFits.push_back(Fit11.second);//FUll
+            DeltaVfdFits.push_back(Fit12.second);
             DeltaVfdFits.push_back(Fit13.second);
 	          DeltaVfdFits.push_back(Fit14.second);
             DeltaVfdFits.push_back(Fit15.second);
             DeltaVfdFits.push_back(Fit16.second);
+            DeltaVfdFits.push_back(Fit17.second);//noise
 
 
             for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
@@ -2291,6 +2439,7 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
 	        Fit14 = Fit("TOB", "20240702_run382655", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
           Fit15 = Fit("TOB", "20240910_run385515", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
 	        Fit16 = Fit("TOB", "20241012_run386863", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);
+          // Fit17 = Fit("TOB", "20241125_run388832", LAY , detids_TOB_2012, N_TOB_2012, "",Vinit);//noise
 	  
             VfdFits.push_back(Fit0.first);
             VfdFits.push_back(Fit1.first);
@@ -2309,6 +2458,7 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             VfdFits.push_back(Fit14.first);
             VfdFits.push_back(Fit15.first);
 	          VfdFits.push_back(Fit16.first);
+            // VfdFits.push_back(Fit17.first);//noise
 	    
             DeltaVfdFits.push_back(Fit0.second);
             DeltaVfdFits.push_back(Fit1.second);
@@ -2327,6 +2477,7 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
 	          DeltaVfdFits.push_back(Fit14.second);
             DeltaVfdFits.push_back(Fit15.second);
             DeltaVfdFits.push_back(Fit16.second);
+            // DeltaVfdFits.push_back(Fit17.second);//noise
             //     // Missign leakae current information
             //       // VfdFits.push_back(Fit("TOB", "20231025_run375658", LAY , detids_2012, N_TOB_2012, ""));
 
@@ -2372,7 +2523,9 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             Fit5 = Fit("TIB", "20180923_run323370", LAY, Full_detid, N_Full, "",Full_Vinit);
             Fit6 = Fit("TIB", "20220605_run353060", LAY, Full_detid, N_Full, "",Full_Vinit);
             Fit7 = Fit("TIB", "20230407_run365843", LAY, Full_detid, N_Full, "",Full_Vinit);
-	    
+            Fit8 = Fit("TIB", "20240321_run378238", LAY, Full_detid, N_Full, "",Full_Vinit);
+            Fit9 = Fit("TIB", "20241125_run388832", LAY, Full_detid, N_Full, "",Full_Vinit);
+
 	    //Fit8 = Fit("TIB", "20230321_run378238", LAY, Full_detid, N_Full, "",Full_Vinit);
 
             VfdFits.push_back(Fit0.first);
@@ -2383,6 +2536,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             VfdFits.push_back(Fit5.first);
             VfdFits.push_back(Fit6.first);
             VfdFits.push_back(Fit7.first);
+            VfdFits.push_back(Fit8.first);
+            VfdFits.push_back(Fit9.first);
 	    
 	    //VfdFits.push_back(Fit8.first);
 
@@ -2394,6 +2549,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             DeltaVfdFits.push_back(Fit5.second);
             DeltaVfdFits.push_back(Fit6.second);
             DeltaVfdFits.push_back(Fit7.second);
+            DeltaVfdFits.push_back(Fit8.second);
+            DeltaVfdFits.push_back(Fit9.second);
 	    
 	    //DeltaVfdFits.push_back(Fit8.second);
 
@@ -2440,6 +2597,9 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             Fit5 = Fit("TOB", "20180923_run323370", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
             Fit6 = Fit("TOB", "20220605_run353060", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
             Fit7 = Fit("TOB", "20230407_run365843", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit8 = Fit("TOB", "20240321_run378238", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
+            Fit9 = Fit("TOB", "20241125_run388832", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);//noise
+
 	    //Fit8 = Fit("TOB", "20230321_run378238", LAY, detids_FullTOB_2012, N_FullTOB_2012, "",Full_Vinit);
 	    
             VfdFits.push_back(Fit0.first);
@@ -2450,6 +2610,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             VfdFits.push_back(Fit5.first);
             VfdFits.push_back(Fit6.first);
             VfdFits.push_back(Fit7.first);
+            VfdFits.push_back(Fit8.first);
+            VfdFits.push_back(Fit9.first);//noise
 	    //VfdFits.push_back(Fit8.first);
 	    
             DeltaVfdFits.push_back(Fit0.second);
@@ -2460,6 +2622,8 @@ std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> FitLe
             DeltaVfdFits.push_back(Fit5.second);
             DeltaVfdFits.push_back(Fit6.second);
             DeltaVfdFits.push_back(Fit7.second);
+            DeltaVfdFits.push_back(Fit8.second);
+            DeltaVfdFits.push_back(Fit9.second);//noise
 	    //DeltaVfdFits.push_back(Fit8.second);
           for (unsigned int i = 0 ; i < VfdFits.size(); i++)//loop on runs
             {
@@ -2971,38 +3135,43 @@ int main()
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATIB;
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATOB;
     bool SmallScan = true;
+    bool noisescan = false ; //true for tib, false for tob
     if (SmallScan)
       {
-        // // // // Run1
-        //    Lumi.push_back(7);//193541
-        //     // Lumi.push_back(15);//199832
-        //     // Lumi.push_back(21);//203832
-        //     // Lumi.push_back(28);//208339
+        // // // Run1
+           Lumi.push_back(7);//193541
+            // Lumi.push_back(15);//199832
+            // Lumi.push_back(21);//203832
+            // Lumi.push_back(28);//208339
 
-        // // // // Run2
-        //     Lumi.push_back(29);//     20151121_run262254
-        //     Lumi.push_back(44);// 20160706_run276437
-        //     // Lumi.push_back(54);// 20160803_run278167
-        //     Lumi.push_back(65);// 20160909_run280385
-        //     // Lumi.push_back(76);// 20170527_run295324
-        //     Lumi.push_back(121);// 20171030_run305862 : first good run for tob
+        // // // Run2
+            Lumi.push_back(29);//     20151121_run262254
+            Lumi.push_back(44);// 20160706_run276437
+            // Lumi.push_back(54);// 20160803_run278167
+            Lumi.push_back(65);// 20160909_run280385
+            // Lumi.push_back(76);// 20170527_run295324
+            Lumi.push_back(121);// 20171030_run305862 : first good run for tob
 
-        //     Lumi.push_back(144);// 20180530_run317182
-        //     Lumi.push_back(151);// 20180611_run317683
-        //     Lumi.push_back(192);// 20181018_run324841 // TOBnot many data points, add inter step pounts
-        //     Lumi.push_back(194);// 20181115_run326776
+            Lumi.push_back(144);// 20180530_run317182
+            Lumi.push_back(151);// 20180611_run317683
+            Lumi.push_back(192);// 20181018_run324841 // TOBnot many data points, add inter step pounts
+            Lumi.push_back(194);// 20181115_run326776
 
-        // // Run3
-        //     Lumi.push_back(194);//run :20211029_run346395 // TOBnot many data points, add inter step pounts : first modules avant 436232901, nbre de points veto, error bars sometimes are bigger
-        //     Lumi.push_back(195);//run :20220605_run353060 : Full // TOBnot many data points, add inter step pounts, parameter gaussian deriv szconde and courbe verte func
-        //     Lumi.push_back(235);//run :20230407_run365843: Full
-        //     Lumi.push_back(252);//run :run368669 
+        // Run3
+            Lumi.push_back(194);//run :20211029_run346395 // TOBnot many data points, add inter step pounts : first modules avant 436232901, nbre de points veto, error bars sometimes are bigger
+            Lumi.push_back(195);//run :20220605_run353060 : Full // TOBnot many data points, add inter step pounts, parameter gaussian deriv szconde and courbe verte func
+            Lumi.push_back(235);//run :20230407_run365843: Full
+            Lumi.push_back(252);//run :run368669 
             Lumi.push_back(266);//run :20230907_run373060 
-            // !! FIT PARAMETERS HAVE BEEN OPTIMIZED UP UNTIL THIS POINT -> AFTER THAT, SOME WORKS NEED TO BE DONE TO HAVE BETTER FITS
+            // !! FIT PARAMETERS are not completely fully optimized for the last 4 runs. May be some improvements can be done
 	    
             Lumi.push_back(304); // run 382655
             Lumi.push_back(365); //run 385515
             Lumi.push_back(387); //run 386863
+            if (noisescan)
+              {
+                Lumi.push_back(391); //run 388862 //noise
+              }             
 	    
       }
 
@@ -3011,8 +3180,8 @@ else
     // Full scans -----------//
 
     ////// Run 1
-        // Lumi.push_back(0);//run :20110315_run160497
-        Lumi.push_back(7.4);//run :20110315_run160497
+  //       // Lumi.push_back(0);//run :20110315_run160497
+        Lumi.push_back(7.4);//run :20120510_run193928
     // // // // Run2
         Lumi.push_back(33);//run :20160423_run271056
         Lumi.push_back(74);//run :20170527_run295376
@@ -3022,20 +3191,21 @@ else
     // // // Run3
         Lumi.push_back(195);//run :20220605_run353060 : Full
         Lumi.push_back(235);//run :20230407_run365843: Full
-	// Lumi.push_back(266); //run : 378238-239 : Full
+	Lumi.push_back(266); //run : 378238-239 : Full
+  Lumi.push_back(391); //run 388862 //noise
   }
 
     // //--------------------------------------------------------//
     // // Vfd
     // //--------------------------------------------------------//
-    // DATATOB = FitLeakageCurrent("TOB","",1,SmallScan);
-    // MeanVfdTOB = DATATOB.first;
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
-    // //--------------------------------------------------------//
-    // // Delta Vfd-Vinit mean
-    // //--------------------------------------------------------//
-    // MeanVfdTOB = DATATOB.second;
-    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
+    DATATOB = FitLeakageCurrent("TOB","",1,SmallScan);
+    MeanVfdTOB = DATATOB.first;
+    PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTOB = DATATOB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan);
     //     //--------------------------------------------------------//
     // // Vfd
     // //--------------------------------------------------------//
@@ -3048,9 +3218,9 @@ else
     // MeanVfdTOB = DATATOB.second;
     // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan);
 
-    //--------------------------------------------------------//
-    // Vfd
-    //--------------------------------------------------------//
+    // // --------------------------------------------------------//
+    // // Vfd
+    // // --------------------------------------------------------//
     // DATATOB = FitLeakageCurrent("TOB","",5,SmallScan);
     // MeanVfdTOB = DATATOB.first;
     // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","5",SmallScan);
@@ -3077,27 +3247,27 @@ else
     //--------------------------------------------------------//
     // Vfd
     //--------------------------------------------------------//
-    DATATIB = FitLeakageCurrent("TIB","",1,SmallScan);
-    MeanVfdTIB = DATATIB.first;
-    PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
-    //--------------------------------------------------------//
-    // Delta Vfd-Vinit mean
-    //--------------------------------------------------------//
-    MeanVfdTIB = DATATIB.second;
-    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
+    // DATATIB = FitLeakageCurrent("TIB","",1,SmallScan);
+    // MeanVfdTIB = DATATIB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTIB = DATATIB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan);
 
 //         //--------------------------------------------------------//
 //     // Vfd
 //     //--------------------------------------------------------//
-//     DATATIB = FitLeakageCurrent("TIB","",4,SmallScan);
-//     MeanVfdTIB = DATATIB.first;
-//     PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan);
-//     //--------------------------------------------------------//
-//     // Delta Vfd-Vinit mean
-//     //--------------------------------------------------------//
-//     MeanVfdTIB = DATATIB.second;
-//     PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan);
-// //-----------------------------------------------------------------------//
+    // DATATIB = FitLeakageCurrent("TIB","",4,SmallScan);
+    // MeanVfdTIB = DATATIB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTIB = DATATIB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan);
+//-----------------------------------------------------------------------//
 
 
 

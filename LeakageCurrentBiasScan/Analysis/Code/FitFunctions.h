@@ -243,7 +243,6 @@ Double_t fitfunctionderivGeneral(Double_t *x, Double_t *par){
 Double_t fitfunctioncurvGeneral(Double_t *x, Double_t *par){
   Double_t value;
     value = -par[0]/(1+par[1]*(x[0]-par[2])*(x[0]-par[2])) +exp(par[3]*x[0]-par[4]); // gaus
-  //  \frac{-a}{1+b\left(x-u\right)^{2}}+\exp\left(cx-d\right)
   return value;
 }
 

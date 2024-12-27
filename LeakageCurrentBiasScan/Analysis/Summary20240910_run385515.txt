@@ -1,0 +1,5 @@
+Run : 20240910_run385515 for fit 2deriv gaussian  with Hot detid : 436232909
+Hot Mean Vfd 53.7381 and cold Mean Vfd : 180.432
+Run : 20240910_run385515 for fit 2deriv Gen  with Hot detid : 436232922
+Hot Mean Vfd 127.794 and cold Mean Vfd : 191.104
+//----------------------------//

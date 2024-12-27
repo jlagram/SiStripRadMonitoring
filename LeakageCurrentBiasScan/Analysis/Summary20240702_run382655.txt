@@ -1,0 +1,13 @@
+Run : 20240702_run382655 for fit deriv TriL  with Hot detid : 436232905
+Hot Mean Vfd 75 and cold Mean Vfd : 190.927
+Run : 20240702_run382655 for fit deriv TriL  with Hot detid : 436232906
+Hot Mean Vfd 75 and cold Mean Vfd : 152.285
+Run : 20240702_run382655 for fit deriv TriL  with Hot detid : 436232913
+Hot Mean Vfd 75 and cold Mean Vfd : 152.285
+Run : 20240702_run382655 for fit deriv TriL  with Hot detid : 436232914
+Hot Mean Vfd 75 and cold Mean Vfd : 141.244
+Run : 20240702_run382655 for fit deriv TriL  with Hot detid : 436232921
+Hot Mean Vfd 75 and cold Mean Vfd : 144.556
+Run : 20240702_run382655 for fit deriv TriL  with Hot detid : 436232922
+Hot Mean Vfd 75 and cold Mean Vfd : 138.233
+//----------------------------//

@@ -1,1 +1,5 @@
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 436232905
+Hot Mean Vfd 179.581 and cold Mean Vfd : 116.968
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 436232905
+Hot Mean Vfd 142.534 and cold Mean Vfd : 59.1804
 //----------------------------//

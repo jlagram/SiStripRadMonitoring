@@ -1,0 +1,3 @@
+Run : 20241012_run386863 for fit 2deriv Gen  with Hot detid : 436232902
+Hot Mean Vfd 111.776 and cold Mean Vfd : 198.695
+//----------------------------//

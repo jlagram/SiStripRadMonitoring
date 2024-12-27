@@ -70,14 +70,19 @@ void plotArea() {
         double x, y;
         graphs[0]->GetPoint(i, x, y);
         double minY = y;
-        // std::cout<<" x :"<<x<<" y :"<<y<<std::endl;
+
         double maxY = y;
         // if (i == nPoints-1) std::cout<<" x :"<<x<<" y :"<<y<<std::endl;
         // Boucle sur les autres graphs pour trouver le min et max à chaque bin
         for (int j = 1; j < 10; ++j) {
             double yTemp;
-
-            if (x < 320) // First 14 bins have optimized parameters for each fit function
+            if (x < 50 ) // First 14 bins have optimized parameters for each fit function
+                {
+                    graphs[j]->GetPoint(i, x, yTemp);
+                    if (yTemp < minY && yTemp > 50) minY = yTemp;
+                    if (yTemp > maxY) maxY = yTemp;
+                }
+            if (x < 320 && x> 50) // First 14 bins have optimized parameters for each fit function
                 {
                     graphs[j]->GetPoint(i, x, yTemp);
                     if (yTemp < minY && yTemp != 0) minY = yTemp;
@@ -85,23 +90,28 @@ void plotArea() {
                 }
             else
                 {
-                    graphs[j]->GetPoint(i, x, yTemp);
-                    // if (i == nPoints-1) std::cout<<" x :"<<x<<" yTemp :"<<yTemp<<" minY :"<<minY<<std::endl;
-                    // !! this conditions works somehow, but it is not the best way to do it sorry
-                    if ( yTemp > 150  && minY>0) //&& yTemp<minY 
-                        {
-                            minY = yTemp;
-                        }
-                    else if (minY==0)
-                        {
-                            minY = yTemp;
-                        }
-                    if (yTemp > maxY) maxY = yTemp;
+                    // graphs[j]->GetPoint(i, x, yTemp);
 
+
+                            // !! 
+                    // std::cout<< "j ; "<<j<<std::endl;
+                    // yTemp = minY;
+                    // while (x >320 && yTemp < 150 && j < 9)
+                    //     {
+                            
+                    //         graphs[j]->GetPoint(i, x, yTemp);
+                    //         std::cout<<" x :"<<x<<" yTemp :"<<y<<std::endl;
+                    //         j++;
+                    //     }
+                    // !! 
+                    graphs[j]->GetPoint(i, x, yTemp);
+                    // // if (yTemp < 200) continue;
+                    if (yTemp < minY && yTemp > 100) minY = yTemp;
+                    if (yTemp > maxY) maxY = yTemp;
                 }
 
         }
-
+        // std::cout<<" x :"<<x<<" miny :"<<minY<<std::endl;
         xValues[i] = x;
         minValues[i] = minY;
         maxValues[i] = maxY;

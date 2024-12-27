@@ -58,10 +58,24 @@ void GetConditions(TGraph *&gsteps, TGraph *&gcur_DCU, TGraph *&gcur_PS, TGraph 
   // Read files with current infos
   //gcur_DCU = ReadDCUCurrentRoot(Form("Data/DCU_I_%s_%s.root", subdet, run), detid, bad_periods);
   //gcur_DCU = ReadDCUCurrentFromGB("~/work/DCU_TIBD_TOB_from_1348837200_to_1348862400.root", detid, bad_periods);
-  gcur_DCU = ReadDCUCurrentFromGB(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/DCU/DCU_I_%s.root", run.c_str()), detid, bad_periods);
+  std::cout<<" Run " << run << std::endl;
+  TString RUN = run.c_str();
+  if (RUN == "20241125_run388832")
+    {
+        gcur_DCU = ReadDCUCurrentFromGB(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/DCU/DCU_I_noise_%s.root", run.c_str()), detid, bad_periods);
+        gcur_PS = ReadPSCurrentRoot(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/PS/PS_I_%s_noise_%s.root", subdet.c_str(), run.c_str()), detid, nmodforchannel, bad_periods, false); // last argument for prints
+
+    }
+  else
+    {
+        gcur_DCU = ReadDCUCurrentFromGB(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/DCU/DCU_I_%s.root", run.c_str()), detid, bad_periods);
+        gcur_PS = ReadPSCurrentRoot(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/PS/PS_I_%s_%s.root", subdet.c_str(), run.c_str()), detid, nmodforchannel, bad_periods, false); // last argument for prints
+
+    }
+
   if(!gcur_DCU) {std::cout<<" No DCU info. Exit."<<std::endl; return;}
   //gcur_PS = ReadPSCurrentRoot(Form("Data/PS_I_%s_%s.root", subdet, run), detid, nmodforchannel, bad_periods, false); // last argument for prints
-  gcur_PS = ReadPSCurrentRoot(Form("/afs/cern.ch/user/j/jlagram/work/public/SiStripRadMonitoring/LeakageCurrentCorrections/Data/PS/PS_I_%s_%s.root", subdet.c_str(), run.c_str()), detid, nmodforchannel, bad_periods, false); // last argument for prints
+
   if(!gcur_PS) {std::cout<<" No PS info. Exit."<<std::endl; return;}
   return;
 }
@@ -707,7 +721,7 @@ void ComputeCorrections(std::string subdet, std::string run, int* detids, const 
       ifit++;
     }
    
-    getchar();
+    // getchar();
     
 //    delete c1;
 //    delete c2;
