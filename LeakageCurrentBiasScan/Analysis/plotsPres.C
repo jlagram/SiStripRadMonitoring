@@ -14,9 +14,11 @@
 void plot()
 {
     bool Use3Files = true;
-    TString SUB = "TOB"; // Only TIB or TOB at the moment // TID is not possible because no TIB modules in small scans and you may lack stats for TEC
-    TString lay = "4";
-    TFile* file = new TFile("./Delta"+SUB+"_L"+lay+"SMALLSCAN.root", "READ");
+    TString SUB = "TIB"; // Only TIB or TOB at the moment // TID is not possible because no TIB modules in small scans and you may lack stats for TEC
+    TString lay = "1";
+    TString CMSSW = "CMSSW_14_0_14";
+    TString SCAN = "FULLSCAN";
+    TFile* file = new TFile("./Delta"+SUB+"_L"+lay+"FULLSCAN.root", "READ");
 
     if (!file || file->IsZombie()) {
         std::cerr << "Error opening file: " << file << std::endl;
@@ -34,7 +36,7 @@ void plot()
     canvas->Draw();
 
     //---------------//
-    TFile* file2 = new TFile("/afs/cern.ch/user/p/pvaucell/CMSSW_13_2_2/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/CW/relative/"+SUB+"L4_kink_diffClusterWidth.root", "READ");
+    TFile* file2 = new TFile("/afs/cern.ch/user/p/pvaucell/"+CMSSW+"/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/CW/relative/"+SUB+"L1_kink_diffClusterWidth.root", "READ");
 
     if (!file2 || file2->IsZombie()) {
         std::cerr << "Error opening file: " << file2 << std::endl;
@@ -62,7 +64,7 @@ void plot()
     }
     //-----------------------------//
 
-            TFile* file3 = new TFile("/afs/cern.ch/user/p/pvaucell/CMSSW_13_2_2/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/CW/relative/"+SUB+"L4_line_diffClusterWidth.root", "READ");
+            TFile* file3 = new TFile("/afs/cern.ch/user/p/pvaucell/"+CMSSW+"/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/CW/relative/"+SUB+"L1_line_diffClusterWidth.root", "READ");
 
             if (!file3 || file3->IsZombie()) {
                 std::cerr << "Error opening file: " << file3 << std::endl;
@@ -93,7 +95,7 @@ void plot()
 
     //-----------------------------//
 
-            TFile* file4 = new TFile("/afs/cern.ch/user/p/pvaucell/CMSSW_13_2_2/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/signal/relative/"+SUB+"L4_kink_diffSignal.root", "READ");
+            TFile* file4 = new TFile("/afs/cern.ch/user/p/pvaucell/"+CMSSW+"/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/signal/relative/"+SUB+"L1_kink_diffSignal.root", "READ");
 
             if (!file4 || file4->IsZombie()) {
                 std::cerr << "Error opening file: " << file4 << std::endl;
@@ -123,7 +125,7 @@ void plot()
 
     //-----------------------------//
 
-            TFile* file5 = new TFile("/afs/cern.ch/user/p/pvaucell/CMSSW_13_2_2/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/signal/relative/"+SUB+"L4_line_diffSignal.root", "READ");
+            TFile* file5 = new TFile("/afs/cern.ch/user/p/pvaucell/"+CMSSW+"/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/signal/relative/"+SUB+"L1_line_diffSignal.root", "READ");
 
             if (!file5 || file5->IsZombie()) {
                 std::cerr << "Error opening file: " << file5 << std::endl;
@@ -182,7 +184,7 @@ void plot()
 // // *****************************************************************************
  
 //  c1->Update();
- canvas->SaveAs(SUB+"L"+lay+"DeltaVFDGeneral.pdf");
+ canvas->SaveAs(SUB+"L"+lay+"DeltaVFDGeneral_"+SCAN+".pdf");
 //  delete canvas;
  file->Close();
  file2->Close();

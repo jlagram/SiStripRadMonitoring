@@ -1594,7 +1594,7 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
 
   if(subdet=="TIB")
   {
-	  //TIB-
+	  //TIB- L1
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121381, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121382, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121385, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
@@ -1602,16 +1602,16 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121389, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121390, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	 
-	  //TIB+
+	  //TIB+ L1  until run 203836 (included) 
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121605, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121606, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121609, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121610, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121613, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369121614, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125861, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 
+		// TIB L1
+	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125861, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125862, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125865, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
 	  DrawOneModule(dirname, "TIB", type, "", NF, runs, lumis, 369125866, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
@@ -1648,33 +1648,40 @@ void DrawKinkVsLumi(string dirname, string subdet, string type, vector<string> r
   else if(subdet=="TOB")
   {
   //TOB L4
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815081, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815082, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815121, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815122, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815161, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815162, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815201, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815202, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815241, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815242, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815281, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815282, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815081, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815082, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815121, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815122, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815161, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815162, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815201, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815202, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815241, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815242, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815281, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362815282, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+
+
+
 
 
 	  // TOB + 1.3.1.6 //NEW -- ADDED 04/2018
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329011, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329021, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329051, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329061, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329091, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329101, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329131, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329141, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329171, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329181, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329211, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
-	  DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329221, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329011, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329021, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329051, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329061, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329091, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329101, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329131, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329141, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329171, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329181, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329211, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+	//   DrawOneModule(dirname, "TOB", type, "", NF, runs, lumis, 4362329221, usefluence, true, use_curvature, superimpose_simu, draw_vdep_lab, draw_fit, draw_gray_band);
+
+
+
+
   }
 
 
@@ -2001,21 +2008,25 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	v_runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
 	v_runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
 
-		v_runs.push_back("303824"); lumis.push_back(70.55+29.46);
-		v_runs.push_back("314574"); lumis.push_back(97.37+29.46);
-		v_runs.push_back("323374"); lumis.push_back(152.45+29.46);
-		v_runs.push_back("324841");	lumis.push_back(161.40+29.46);
+	v_runs.push_back("303824"); lumis.push_back(70.55+29.46);
+	v_runs.push_back("314574"); lumis.push_back(97.37+29.46);
+	v_runs.push_back("323374"); lumis.push_back(152.45+29.46);
+	v_runs.push_back("324841");	lumis.push_back(161.40+29.46);
 
-					//2021
-			// v_runs.push_back("346395");lumis.push_back(0.00000213+194.68); //----------------------------not working
-			//2022./z
-			// v_runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
-			v_runs.push_back("359691");lumis.push_back(11.59+194.68); //----------------------
-			v_runs.push_back("362696");lumis.push_back(40.35+194.68); //----------------------
-			// v_runs.push_back("365843");lumis.push_back(41.42+194.68); //----------FULL
-			v_runs.push_back("368669"); lumis.push_back(58.16+194.68); 
-			v_runs.push_back("373060"); lumis.push_back(72.69+194.68);
-			v_runs.push_back("375658"); lumis.push_back(73.86+194.68);//HI
+	//2021
+	// v_runs.push_back("346395");lumis.push_back(0.00000213+194.68); //----------------------------not working
+	//2022./z
+	// v_runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
+	v_runs.push_back("359691");lumis.push_back(11.59+194.68); //----------------------
+	v_runs.push_back("362696");lumis.push_back(40.35+194.68); //----------------------
+	// v_runs.push_back("365843");lumis.push_back(41.42+194.68); //----------FULL
+	v_runs.push_back("368669"); lumis.push_back(58.16+194.68); 
+	v_runs.push_back("373060"); lumis.push_back(72.69+194.68);
+	v_runs.push_back("375658"); lumis.push_back(73.86+194.68);//HI
+
+	v_runs.push_back("382655");  lumis.push_back(194.68+111.53); //small
+	v_runs.push_back("385515");  lumis.push_back(194.68+172.75);//small
+	v_runs.push_back("386863"); lumis.push_back(194.68+194.48); //small
 			
 	}
 	else {v_runs.push_back(run); lumis.push_back(lumi);}
@@ -2344,18 +2355,22 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
 	v_runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
 	v_runs.push_back("324841");	lumis.push_back(161.40+29.46);
-			//2021
-			v_runs.push_back("346395");lumis.push_back(0.00000213+194.68); //---------------------------
-			//2022./z
-			v_runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
-			v_runs.push_back("359691");lumis.push_back(11.59+194.68); //----------------------
-			v_runs.push_back("362696");lumis.push_back(40.35+194.68); //----------------------
-			//2023
-			v_runs.push_back("365843");lumis.push_back(41.42+194.68); // //-- FULL
-			v_runs.push_back("368669"); lumis.push_back(58.16+194.68); 
-			v_runs.push_back("373060"); lumis.push_back(72.69+194.68);
-			v_runs.push_back("375658"); lumis.push_back(73.86+194.68);//HI
+	//2021
+	v_runs.push_back("346395");lumis.push_back(0.00000213+194.68); //---------------------------
+	//2022./z
+	v_runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
+	v_runs.push_back("359691");lumis.push_back(11.59+194.68); //----------------------
+	v_runs.push_back("362696");lumis.push_back(40.35+194.68); //----------------------
+	//2023
+	v_runs.push_back("365843");lumis.push_back(41.42+194.68); // //-- FULL
+	v_runs.push_back("368669"); lumis.push_back(58.16+194.68); 
+	v_runs.push_back("373060"); lumis.push_back(72.69+194.68);
+	v_runs.push_back("375658"); lumis.push_back(73.86+194.68);//HI
+	v_runs.push_back("382655");  lumis.push_back(194.68+111.53); //small
+	v_runs.push_back("385515");  lumis.push_back(194.68+172.75);//small
+	v_runs.push_back("386863"); lumis.push_back(194.68+194.48); //small
 			
+
 	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
 	c1->SetTopMargin(0.1);
 	c1->SetBottomMargin(0.1);
@@ -2737,7 +2752,7 @@ int main(int argc, char *argv[])
 
 // ./DECO_files
 //nicolasdvpt
-  bool use_curvature = false; //true-->kink ; false-->lines
+  bool use_curvature = true; //true-->kink ; false-->lines
 
 //--------------------------------------------
   bool usefluence = true; //Draw fluence axis
@@ -2764,8 +2779,8 @@ int main(int argc, char *argv[])
 
 //-- Choose the subdet
   vector<string> v_subdet;//FIXME only the first subdet is taken into account
-    v_subdet.push_back("TIB");
-//   v_subdet.push_back("TOB");
+    // v_subdet.push_back("TIB");
+  v_subdet.push_back("TOB");
 //   v_subdet.push_back("TEC");
 //   v_subdet.push_back("TID");
 

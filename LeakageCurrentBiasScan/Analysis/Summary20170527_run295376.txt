@@ -1,401 +1,1075 @@
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120373
-Hot Mean Vfd 168.023 and cold Mean Vfd : 98.7199
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120377
-Hot Mean Vfd 168.023 and cold Mean Vfd : 100.581
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120381
-Hot Mean Vfd 168.023 and cold Mean Vfd : 102.257
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369120389
-Hot Mean Vfd 269.699 and cold Mean Vfd : 350.651
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120453
-Hot Mean Vfd 63.9738 and cold Mean Vfd : 135.482
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369120453
-Hot Mean Vfd 190.325 and cold Mean Vfd : 287.95
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120457
-Hot Mean Vfd 63.9738 and cold Mean Vfd : 134.227
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369120457
-Hot Mean Vfd 163.867 and cold Mean Vfd : 265.825
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120461
-Hot Mean Vfd 63.9738 and cold Mean Vfd : 133.052
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369120461
-Hot Mean Vfd 150.638 and cold Mean Vfd : 248.617
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369120534
-Hot Mean Vfd 185.003 and cold Mean Vfd : 234.85
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369120538
-Hot Mean Vfd 207.912 and cold Mean Vfd : 242.815
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369120542
-Hot Mean Vfd 224.277 and cold Mean Vfd : 249.452
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120629
-Hot Mean Vfd 61.1094 and cold Mean Vfd : 131.494
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120630
-Hot Mean Vfd 58.8875 and cold Mean Vfd : 130.636
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120633
-Hot Mean Vfd 57.8256 and cold Mean Vfd : 129.769
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120634
-Hot Mean Vfd 56.7076 and cold Mean Vfd : 128.947
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120637
-Hot Mean Vfd 56.1837 and cold Mean Vfd : 128.116
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120638
-Hot Mean Vfd 55.4966 and cold Mean Vfd : 127.328
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120645
-Hot Mean Vfd 56.1954 and cold Mean Vfd : 126.531
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120649
-Hot Mean Vfd 56.7671 and cold Mean Vfd : 125.993
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120653
-Hot Mean Vfd 57.2435 and cold Mean Vfd : 125.476
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120661
-Hot Mean Vfd 57.3314 and cold Mean Vfd : 124.979
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120662
-Hot Mean Vfd 168.054 and cold Mean Vfd : 100.522
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120665
-Hot Mean Vfd 57.4068 and cold Mean Vfd : 124.339
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120666
-Hot Mean Vfd 168.072 and cold Mean Vfd : 101.12
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369120669
-Hot Mean Vfd 57.4722 and cold Mean Vfd : 123.711
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120670
-Hot Mean Vfd 168.084 and cold Mean Vfd : 101.697
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120678
-Hot Mean Vfd 168.327 and cold Mean Vfd : 102.348
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120682
-Hot Mean Vfd 168.51 and cold Mean Vfd : 102.992
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369120686
-Hot Mean Vfd 168.652 and cold Mean Vfd : 103.615
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121301
-Hot Mean Vfd 212.143 and cold Mean Vfd : 255.068
-Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 369121301
-Hot Mean Vfd 96.1404 and cold Mean Vfd : 166.08
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369121302
-Hot Mean Vfd 57.0063 and cold Mean Vfd : 123.552
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121302
-Hot Mean Vfd 197.446 and cold Mean Vfd : 245.935
-Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 369121302
-Hot Mean Vfd 78.0019 and cold Mean Vfd : 165.52
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121305
-Hot Mean Vfd 190.422 and cold Mean Vfd : 234.864
-Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 369121305
-Hot Mean Vfd 84.0481 and cold Mean Vfd : 164.682
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369121306
-Hot Mean Vfd 56.5953 and cold Mean Vfd : 122.884
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121306
-Hot Mean Vfd 180.372 and cold Mean Vfd : 228.136
-Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 369121306
-Hot Mean Vfd 78.0019 and cold Mean Vfd : 164.142
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121309
-Hot Mean Vfd 175.942 and cold Mean Vfd : 219.414
-Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 369121309
-Hot Mean Vfd 81.6296 and cold Mean Vfd : 163.327
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369121310
-Hot Mean Vfd 56.2299 and cold Mean Vfd : 122.227
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121310
-Hot Mean Vfd 168.552 and cold Mean Vfd : 214.292
-Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 369121310
-Hot Mean Vfd 78.0019 and cold Mean Vfd : 162.807
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121333
-Hot Mean Vfd 184.205 and cold Mean Vfd : 207.217
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121337
-Hot Mean Vfd 197.77 and cold Mean Vfd : 216.241
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121341
-Hot Mean Vfd 209.64 and cold Mean Vfd : 224.405
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369121350
-Hot Mean Vfd 55.9023 and cold Mean Vfd : 120.38
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369121354
-Hot Mean Vfd 55.6074 and cold Mean Vfd : 119.773
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369121358
-Hot Mean Vfd 55.3406 and cold Mean Vfd : 119.177
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121366
-Hot Mean Vfd 218.676 and cold Mean Vfd : 231.827
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121370
-Hot Mean Vfd 226.708 and cold Mean Vfd : 237.541
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121374
-Hot Mean Vfd 233.894 and cold Mean Vfd : 242.778
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121381
-Hot Mean Vfd 240.411 and cold Mean Vfd : 247.597
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121385
-Hot Mean Vfd 246.308 and cold Mean Vfd : 253.607
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121389
-Hot Mean Vfd 251.668 and cold Mean Vfd : 258.787
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121414
-Hot Mean Vfd 245.936 and cold Mean Vfd : 263.299
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121418
-Hot Mean Vfd 240.682 and cold Mean Vfd : 258.816
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121422
-Hot Mean Vfd 235.848 and cold Mean Vfd : 254.604
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121461
-Hot Mean Vfd 241.079 and cold Mean Vfd : 250.641
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369121462
-Hot Mean Vfd 168.661 and cold Mean Vfd : 104.282
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121465
-Hot Mean Vfd 245.922 and cold Mean Vfd : 254.103
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369121466
-Hot Mean Vfd 168.669 and cold Mean Vfd : 104.679
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121469
-Hot Mean Vfd 250.419 and cold Mean Vfd : 257.374
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369121470
-Hot Mean Vfd 168.675 and cold Mean Vfd : 105.068
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121477
-Hot Mean Vfd 255.161 and cold Mean Vfd : 260.467
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121481
-Hot Mean Vfd 259.587 and cold Mean Vfd : 263.822
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121485
-Hot Mean Vfd 263.728 and cold Mean Vfd : 267.005
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121525
-Hot Mean Vfd 261.892 and cold Mean Vfd : 270.029
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121529
-Hot Mean Vfd 260.168 and cold Mean Vfd : 268.442
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369121533
-Hot Mean Vfd 258.544 and cold Mean Vfd : 266.931
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369121669
-Hot Mean Vfd 168.563 and cold Mean Vfd : 107.017
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124373
-Hot Mean Vfd 144.207 and cold Mean Vfd : 47.8247
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124374
-Hot Mean Vfd 254.043 and cold Mean Vfd : 265.49
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124374
-Hot Mean Vfd 150.684 and cold Mean Vfd : 48.1449
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124377
-Hot Mean Vfd 148.525 and cold Mean Vfd : 48.5059
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124378
-Hot Mean Vfd 249.791 and cold Mean Vfd : 261.752
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124378
-Hot Mean Vfd 150.684 and cold Mean Vfd : 48.8217
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124381
-Hot Mean Vfd 149.388 and cold Mean Vfd : 49.1781
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124382
-Hot Mean Vfd 245.77 and cold Mean Vfd : 258.179
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124382
-Hot Mean Vfd 150.684 and cold Mean Vfd : 49.4897
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124389
-Hot Mean Vfd 151.941 and cold Mean Vfd : 49.8416
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124390
-Hot Mean Vfd 247.609 and cold Mean Vfd : 254.762
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124390
-Hot Mean Vfd 155.335 and cold Mean Vfd : 50.1987
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124393
-Hot Mean Vfd 155.796 and cold Mean Vfd : 50.6172
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124394
-Hot Mean Vfd 158.125 and cold Mean Vfd : 50.9695
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124397
-Hot Mean Vfd 158.249 and cold Mean Vfd : 51.3828
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124398
-Hot Mean Vfd 159.986 and cold Mean Vfd : 51.7304
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124405
-Hot Mean Vfd 251.273 and cold Mean Vfd : 258.49
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124405
-Hot Mean Vfd 158.94 and cold Mean Vfd : 52.1386
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124406
-Hot Mean Vfd 158.998 and cold Mean Vfd : 52.4397
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124409
-Hot Mean Vfd 254.757 and cold Mean Vfd : 260.277
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124409
-Hot Mean Vfd 158.158 and cold Mean Vfd : 52.7815
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124410
-Hot Mean Vfd 158.258 and cold Mean Vfd : 53.0787
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124413
-Hot Mean Vfd 258.068 and cold Mean Vfd : 261.93
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124413
-Hot Mean Vfd 157.56 and cold Mean Vfd : 53.4163
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124414
-Hot Mean Vfd 157.682 and cold Mean Vfd : 53.7096
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124421
-Hot Mean Vfd 254.704 and cold Mean Vfd : 263.461
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124421
-Hot Mean Vfd 158.702 and cold Mean Vfd : 54.043
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124422
-Hot Mean Vfd 253.169 and cold Mean Vfd : 260.842
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124422
-Hot Mean Vfd 160.088 and cold Mean Vfd : 54.4287
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124425
-Hot Mean Vfd 250.069 and cold Mean Vfd : 259.576
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124425
-Hot Mean Vfd 160.896 and cold Mean Vfd : 54.8412
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124426
-Hot Mean Vfd 248.705 and cold Mean Vfd : 257.114
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124426
-Hot Mean Vfd 162.057 and cold Mean Vfd : 55.2219
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124429
-Hot Mean Vfd 245.837 and cold Mean Vfd : 255.954
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124429
-Hot Mean Vfd 162.709 and cold Mean Vfd : 55.6294
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124430
-Hot Mean Vfd 244.621 and cold Mean Vfd : 253.634
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124430
-Hot Mean Vfd 163.697 and cold Mean Vfd : 56.0053
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124438
-Hot Mean Vfd 162.018 and cold Mean Vfd : 56.5117
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124442
-Hot Mean Vfd 160.468 and cold Mean Vfd : 56.8141
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124446
-Hot Mean Vfd 159.033 and cold Mean Vfd : 57.0119
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124549
-Hot Mean Vfd 241.532 and cold Mean Vfd : 251.902
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124553
-Hot Mean Vfd 238.57 and cold Mean Vfd : 249.509
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124557
-Hot Mean Vfd 235.726 and cold Mean Vfd : 247.189
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369124581
-Hot Mean Vfd 168.662 and cold Mean Vfd : 108.172
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369124585
-Hot Mean Vfd 168.748 and cold Mean Vfd : 108.368
-Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 369124589
-Hot Mean Vfd 168.822 and cold Mean Vfd : 108.562
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124598
-Hot Mean Vfd 234.468 and cold Mean Vfd : 244.938
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124602
-Hot Mean Vfd 233.258 and cold Mean Vfd : 243.859
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124645
-Hot Mean Vfd 231.783 and cold Mean Vfd : 242.811
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124645
-Hot Mean Vfd 160.753 and cold Mean Vfd : 58.5305
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124646
-Hot Mean Vfd 230.361 and cold Mean Vfd : 241.558
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124646
-Hot Mean Vfd 162.705 and cold Mean Vfd : 58.9012
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124649
-Hot Mean Vfd 228.992 and cold Mean Vfd : 240.338
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124649
-Hot Mean Vfd 164.188 and cold Mean Vfd : 59.2954
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124650
-Hot Mean Vfd 227.671 and cold Mean Vfd : 239.154
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124650
-Hot Mean Vfd 165.903 and cold Mean Vfd : 59.6624
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124653
-Hot Mean Vfd 226.397 and cold Mean Vfd : 238.001
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124653
-Hot Mean Vfd 167.193 and cold Mean Vfd : 60.0528
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124654
-Hot Mean Vfd 225.166 and cold Mean Vfd : 236.881
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124654
-Hot Mean Vfd 168.714 and cold Mean Vfd : 60.4161
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124661
-Hot Mean Vfd 223.952 and cold Mean Vfd : 235.789
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124661
-Hot Mean Vfd 170.192 and cold Mean Vfd : 60.8026
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124662
-Hot Mean Vfd 171.751 and cold Mean Vfd : 61.1912
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124665
-Hot Mean Vfd 222.779 and cold Mean Vfd : 234.064
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124665
-Hot Mean Vfd 173.063 and cold Mean Vfd : 61.5922
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124666
-Hot Mean Vfd 174.46 and cold Mean Vfd : 61.9769
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124669
-Hot Mean Vfd 221.644 and cold Mean Vfd : 232.426
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124669
-Hot Mean Vfd 175.631 and cold Mean Vfd : 62.374
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124670
-Hot Mean Vfd 176.891 and cold Mean Vfd : 62.755
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124677
-Hot Mean Vfd 177.258 and cold Mean Vfd : 63.1482
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124678
-Hot Mean Vfd 177.661 and cold Mean Vfd : 63.4591
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124681
-Hot Mean Vfd 177.992 and cold Mean Vfd : 63.774
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124682
-Hot Mean Vfd 178.36 and cold Mean Vfd : 64.0819
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124685
-Hot Mean Vfd 178.66 and cold Mean Vfd : 64.3937
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124686
-Hot Mean Vfd 178.997 and cold Mean Vfd : 64.6987
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124693
-Hot Mean Vfd 224.267 and cold Mean Vfd : 230.87
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124693
-Hot Mean Vfd 179.067 and cold Mean Vfd : 65.0075
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124694
-Hot Mean Vfd 179.208 and cold Mean Vfd : 65.2873
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124697
-Hot Mean Vfd 226.806 and cold Mean Vfd : 232.74
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124697
-Hot Mean Vfd 179.271 and cold Mean Vfd : 65.574
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124698
-Hot Mean Vfd 179.402 and cold Mean Vfd : 65.8511
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124701
-Hot Mean Vfd 229.266 and cold Mean Vfd : 234.565
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124701
-Hot Mean Vfd 179.458 and cold Mean Vfd : 66.135
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124702
-Hot Mean Vfd 179.58 and cold Mean Vfd : 66.4095
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124709
-Hot Mean Vfd 179.91 and cold Mean Vfd : 66.6908
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124710
-Hot Mean Vfd 180.289 and cold Mean Vfd : 66.9968
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124713
-Hot Mean Vfd 180.593 and cold Mean Vfd : 67.309
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124714
-Hot Mean Vfd 180.946 and cold Mean Vfd : 67.6121
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124717
-Hot Mean Vfd 181.228 and cold Mean Vfd : 67.9214
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124718
-Hot Mean Vfd 181.557 and cold Mean Vfd : 68.2216
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124725
-Hot Mean Vfd 181.103 and cold Mean Vfd : 68.5281
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124726
-Hot Mean Vfd 180.862 and cold Mean Vfd : 68.7292
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124729
-Hot Mean Vfd 180.434 and cold Mean Vfd : 68.9564
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124730
-Hot Mean Vfd 180.212 and cold Mean Vfd : 69.1555
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124733
-Hot Mean Vfd 179.808 and cold Mean Vfd : 69.3807
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124734
-Hot Mean Vfd 179.603 and cold Mean Vfd : 69.578
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124741
-Hot Mean Vfd 179.295 and cold Mean Vfd : 69.8011
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124742
-Hot Mean Vfd 179.021 and cold Mean Vfd : 70.0073
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124745
-Hot Mean Vfd 178.732 and cold Mean Vfd : 70.2161
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124746
-Hot Mean Vfd 178.474 and cold Mean Vfd : 70.4205
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124749
-Hot Mean Vfd 178.201 and cold Mean Vfd : 70.6274
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124750
-Hot Mean Vfd 177.958 and cold Mean Vfd : 70.8299
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124757
-Hot Mean Vfd 177.961 and cold Mean Vfd : 71.0349
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124758
-Hot Mean Vfd 178.054 and cold Mean Vfd : 71.2767
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124761
-Hot Mean Vfd 178.055 and cold Mean Vfd : 71.5318
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124762
-Hot Mean Vfd 178.144 and cold Mean Vfd : 71.7715
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124765
-Hot Mean Vfd 178.144 and cold Mean Vfd : 72.0243
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124766
-Hot Mean Vfd 178.23 and cold Mean Vfd : 72.2617
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124774
-Hot Mean Vfd 231.356 and cold Mean Vfd : 236.28
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124774
-Hot Mean Vfd 177.909 and cold Mean Vfd : 72.6258
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124778
-Hot Mean Vfd 233.383 and cold Mean Vfd : 237.695
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124778
-Hot Mean Vfd 177.597 and cold Mean Vfd : 72.9186
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369124782
-Hot Mean Vfd 235.35 and cold Mean Vfd : 239.048
-Run : 20170527_run295376 for fit deriv exp  with Hot detid : 369124782
-Hot Mean Vfd 177.293 and cold Mean Vfd : 73.2089
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369125605
-Hot Mean Vfd 55.0984 and cold Mean Vfd : 111.264
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125605
-Hot Mean Vfd 236.924 and cold Mean Vfd : 241.26
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125606
-Hot Mean Vfd 234.958 and cold Mean Vfd : 242.302
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369125609
-Hot Mean Vfd 54.8773 and cold Mean Vfd : 110.978
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125609
-Hot Mean Vfd 236.493 and cold Mean Vfd : 240.863
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125610
-Hot Mean Vfd 234.589 and cold Mean Vfd : 241.889
-Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 369125613
-Hot Mean Vfd 54.6745 and cold Mean Vfd : 110.694
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125613
-Hot Mean Vfd 236.085 and cold Mean Vfd : 240.483
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125614
-Hot Mean Vfd 234.239 and cold Mean Vfd : 241.491
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125702
-Hot Mean Vfd 232.527 and cold Mean Vfd : 240.117
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125706
-Hot Mean Vfd 230.861 and cold Mean Vfd : 238.83
-Run : 20170527_run295376 for fit GenFunc  with Hot detid : 369125710
-Hot Mean Vfd 229.239 and cold Mean Vfd : 237.568
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228169
+Hot Mean Vfd 169.999 and cold Mean Vfd : 77.8122
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436228169
+Hot Mean Vfd 185.616 and cold Mean Vfd : 120.946
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228170
+Hot Mean Vfd 169.999 and cold Mean Vfd : 84.3969
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436228170
+Hot Mean Vfd 185.616 and cold Mean Vfd : 125.565
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228177
+Hot Mean Vfd 169.999 and cold Mean Vfd : 88.5809
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436228177
+Hot Mean Vfd 185.616 and cold Mean Vfd : 124.603
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228178
+Hot Mean Vfd 169.999 and cold Mean Vfd : 93.1041
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228185
+Hot Mean Vfd 169.999 and cold Mean Vfd : 95.2472
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228186
+Hot Mean Vfd 169.999 and cold Mean Vfd : 98.645
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228201
+Hot Mean Vfd 169.993 and cold Mean Vfd : 100.117
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228202
+Hot Mean Vfd 169.989 and cold Mean Vfd : 102.803
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228209
+Hot Mean Vfd 169.986 and cold Mean Vfd : 103.641
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228210
+Hot Mean Vfd 169.983 and cold Mean Vfd : 105.851
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228217
+Hot Mean Vfd 169.981 and cold Mean Vfd : 106.31
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228218
+Hot Mean Vfd 169.98 and cold Mean Vfd : 108.182
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228261
+Hot Mean Vfd 228.048 and cold Mean Vfd : 359.344
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228262
+Hot Mean Vfd 228.048 and cold Mean Vfd : 356.609
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228269
+Hot Mean Vfd 228.048 and cold Mean Vfd : 355.019
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228270
+Hot Mean Vfd 228.048 and cold Mean Vfd : 352.577
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228277
+Hot Mean Vfd 228.048 and cold Mean Vfd : 351.323
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228278
+Hot Mean Vfd 228.048 and cold Mean Vfd : 349.121
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228306
+Hot Mean Vfd 209.708 and cold Mean Vfd : 348.111
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228325
+Hot Mean Vfd 189.911 and cold Mean Vfd : 344.567
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228326
+Hot Mean Vfd 174.513 and cold Mean Vfd : 340.494
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228333
+Hot Mean Vfd 162.195 and cold Mean Vfd : 337.925
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228334
+Hot Mean Vfd 152.116 and cold Mean Vfd : 334.154
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228341
+Hot Mean Vfd 143.717 and cold Mean Vfd : 331.956
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228342
+Hot Mean Vfd 136.611 and cold Mean Vfd : 328.448
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228345
+Hot Mean Vfd 154.607 and cold Mean Vfd : 325.027
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436228346
+Hot Mean Vfd 170.228 and cold Mean Vfd : 325.802
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436228357
+Hot Mean Vfd 165.563 and cold Mean Vfd : 70.5388
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436228358
+Hot Mean Vfd 165.563 and cold Mean Vfd : 71.67
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228361
+Hot Mean Vfd 169.98 and cold Mean Vfd : 91.1993
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436228365
+Hot Mean Vfd 165.563 and cold Mean Vfd : 72.8728
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436228366
+Hot Mean Vfd 165.563 and cold Mean Vfd : 73.9382
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228369
+Hot Mean Vfd 169.981 and cold Mean Vfd : 91.4898
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228370
+Hot Mean Vfd 169.982 and cold Mean Vfd : 92.3719
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436228373
+Hot Mean Vfd 165.563 and cold Mean Vfd : 75.1181
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228377
+Hot Mean Vfd 169.982 and cold Mean Vfd : 92.9195
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436228378
+Hot Mean Vfd 169.983 and cold Mean Vfd : 93.7572
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229061
+Hot Mean Vfd 50.0074 and cold Mean Vfd : 112.222
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229062
+Hot Mean Vfd 50.0074 and cold Mean Vfd : 111.606
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229069
+Hot Mean Vfd 50.0074 and cold Mean Vfd : 110.75
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229070
+Hot Mean Vfd 50.0074 and cold Mean Vfd : 110.172
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229097
+Hot Mean Vfd 165.836 and cold Mean Vfd : 334.278
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229098
+Hot Mean Vfd 161.961 and cold Mean Vfd : 332.502
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229105
+Hot Mean Vfd 158.517 and cold Mean Vfd : 331.193
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229106
+Hot Mean Vfd 155.435 and cold Mean Vfd : 329.493
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229113
+Hot Mean Vfd 152.661 and cold Mean Vfd : 328.287
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229114
+Hot Mean Vfd 150.152 and cold Mean Vfd : 326.656
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436229125
+Hot Mean Vfd 169.949 and cold Mean Vfd : 90.8336
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436229126
+Hot Mean Vfd 169.919 and cold Mean Vfd : 91.3867
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436229133
+Hot Mean Vfd 169.891 and cold Mean Vfd : 91.9057
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436229134
+Hot Mean Vfd 169.867 and cold Mean Vfd : 92.44
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436229141
+Hot Mean Vfd 169.844 and cold Mean Vfd : 92.9341
+Run : 20170527_run295376 for fit sigmoid+pol1  with Hot detid : 436229142
+Hot Mean Vfd 169.824 and cold Mean Vfd : 93.4506
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229161
+Hot Mean Vfd 163.412 and cold Mean Vfd : 74.5742
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229162
+Hot Mean Vfd 161.875 and cold Mean Vfd : 75.0812
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229169
+Hot Mean Vfd 160.723 and cold Mean Vfd : 75.4741
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229170
+Hot Mean Vfd 159.827 and cold Mean Vfd : 75.9626
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229177
+Hot Mean Vfd 159.11 and cold Mean Vfd : 76.3294
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229178
+Hot Mean Vfd 158.523 and cold Mean Vfd : 76.8005
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229189
+Hot Mean Vfd 76.1114 and cold Mean Vfd : 104.252
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229190
+Hot Mean Vfd 93.5141 and cold Mean Vfd : 104.817
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229193
+Hot Mean Vfd 152.095 and cold Mean Vfd : 329.921
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229194
+Hot Mean Vfd 153.87 and cold Mean Vfd : 329.095
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229197
+Hot Mean Vfd 105.945 and cold Mean Vfd : 105.612
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229198
+Hot Mean Vfd 115.267 and cold Mean Vfd : 106.151
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229201
+Hot Mean Vfd 155.496 and cold Mean Vfd : 328.483
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229202
+Hot Mean Vfd 156.993 and cold Mean Vfd : 327.686
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229205
+Hot Mean Vfd 122.519 and cold Mean Vfd : 106.896
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229206
+Hot Mean Vfd 128.319 and cold Mean Vfd : 107.411
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229209
+Hot Mean Vfd 158.374 and cold Mean Vfd : 327.113
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229210
+Hot Mean Vfd 159.653 and cold Mean Vfd : 326.341
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229253
+Hot Mean Vfd 159.675 and cold Mean Vfd : 328.529
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229254
+Hot Mean Vfd 159.695 and cold Mean Vfd : 327.634
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436229257
+Hot Mean Vfd 186.711 and cold Mean Vfd : 128.374
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436229258
+Hot Mean Vfd 187.368 and cold Mean Vfd : 128.698
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229261
+Hot Mean Vfd 159.714 and cold Mean Vfd : 326.894
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229262
+Hot Mean Vfd 159.731 and cold Mean Vfd : 326.026
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436229265
+Hot Mean Vfd 187.806 and cold Mean Vfd : 128.614
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436229266
+Hot Mean Vfd 188.119 and cold Mean Vfd : 128.93
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229269
+Hot Mean Vfd 159.748 and cold Mean Vfd : 325.326
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229270
+Hot Mean Vfd 159.763 and cold Mean Vfd : 324.484
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436229273
+Hot Mean Vfd 188.354 and cold Mean Vfd : 128.844
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436229274
+Hot Mean Vfd 188.536 and cold Mean Vfd : 129.153
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229321
+Hot Mean Vfd 132.835 and cold Mean Vfd : 107.347
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229322
+Hot Mean Vfd 136.599 and cold Mean Vfd : 107.742
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229329
+Hot Mean Vfd 139.783 and cold Mean Vfd : 108.077
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229330
+Hot Mean Vfd 142.513 and cold Mean Vfd : 108.459
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229337
+Hot Mean Vfd 144.878 and cold Mean Vfd : 108.776
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229338
+Hot Mean Vfd 146.948 and cold Mean Vfd : 109.146
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229381
+Hot Mean Vfd 156.29 and cold Mean Vfd : 329.342
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229382
+Hot Mean Vfd 157.641 and cold Mean Vfd : 328.123
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229385
+Hot Mean Vfd 149.191 and cold Mean Vfd : 108.683
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229386
+Hot Mean Vfd 151.184 and cold Mean Vfd : 109.063
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229389
+Hot Mean Vfd 158.913 and cold Mean Vfd : 327.946
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229390
+Hot Mean Vfd 155.744 and cold Mean Vfd : 327.427
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229393
+Hot Mean Vfd 152.967 and cold Mean Vfd : 109.439
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229394
+Hot Mean Vfd 154.573 and cold Mean Vfd : 109.811
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229397
+Hot Mean Vfd 156.998 and cold Mean Vfd : 326.595
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229398
+Hot Mean Vfd 154.041 and cold Mean Vfd : 326.09
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229401
+Hot Mean Vfd 156.025 and cold Mean Vfd : 110.18
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229402
+Hot Mean Vfd 157.345 and cold Mean Vfd : 110.546
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229417
+Hot Mean Vfd 160.029 and cold Mean Vfd : 325.656
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229425
+Hot Mean Vfd 165.725 and cold Mean Vfd : 326.287
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229426
+Hot Mean Vfd 171.15 and cold Mean Vfd : 326.553
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229433
+Hot Mean Vfd 176.323 and cold Mean Vfd : 327.164
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436229434
+Hot Mean Vfd 181.26 and cold Mean Vfd : 327.422
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229449
+Hot Mean Vfd 158.654 and cold Mean Vfd : 75.7723
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229449
+Hot Mean Vfd 158.765 and cold Mean Vfd : 111.952
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229450
+Hot Mean Vfd 158.765 and cold Mean Vfd : 76.103
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229450
+Hot Mean Vfd 160.066 and cold Mean Vfd : 112.307
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229457
+Hot Mean Vfd 158.86 and cold Mean Vfd : 76.3475
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229457
+Hot Mean Vfd 161.264 and cold Mean Vfd : 112.645
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229458
+Hot Mean Vfd 158.942 and cold Mean Vfd : 76.6709
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229458
+Hot Mean Vfd 162.369 and cold Mean Vfd : 112.99
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229465
+Hot Mean Vfd 159.014 and cold Mean Vfd : 76.9052
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229465
+Hot Mean Vfd 163.392 and cold Mean Vfd : 113.313
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436229466
+Hot Mean Vfd 159.078 and cold Mean Vfd : 77.2215
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436229466
+Hot Mean Vfd 164.343 and cold Mean Vfd : 113.649
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232229
+Hot Mean Vfd 179.773 and cold Mean Vfd : 328.785
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232230
+Hot Mean Vfd 178.351 and cold Mean Vfd : 327.994
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232237
+Hot Mean Vfd 176.99 and cold Mean Vfd : 327.642
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232238
+Hot Mean Vfd 175.685 and cold Mean Vfd : 326.866
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232241
+Hot Mean Vfd 179.988 and cold Mean Vfd : 326.096
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232242
+Hot Mean Vfd 184.119 and cold Mean Vfd : 326.314
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232245
+Hot Mean Vfd 182.751 and cold Mean Vfd : 326.531
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232246
+Hot Mean Vfd 181.435 and cold Mean Vfd : 325.771
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232249
+Hot Mean Vfd 185.305 and cold Mean Vfd : 325.016
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232250
+Hot Mean Vfd 189.032 and cold Mean Vfd : 325.234
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232261
+Hot Mean Vfd 187.276 and cold Mean Vfd : 325.452
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232262
+Hot Mean Vfd 185.584 and cold Mean Vfd : 324.629
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232269
+Hot Mean Vfd 183.95 and cold Mean Vfd : 324.026
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232270
+Hot Mean Vfd 182.374 and cold Mean Vfd : 323.219
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232277
+Hot Mean Vfd 180.85 and cold Mean Vfd : 322.639
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232293
+Hot Mean Vfd 158.793 and cold Mean Vfd : 76.9552
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232293
+Hot Mean Vfd 164.831 and cold Mean Vfd : 113.23
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232294
+Hot Mean Vfd 158.538 and cold Mean Vfd : 77.2217
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232294
+Hot Mean Vfd 165.286 and cold Mean Vfd : 113.493
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232297
+Hot Mean Vfd 184.211 and cold Mean Vfd : 322.314
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232301
+Hot Mean Vfd 158.309 and cold Mean Vfd : 77.4155
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232301
+Hot Mean Vfd 165.712 and cold Mean Vfd : 113.705
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232302
+Hot Mean Vfd 158.102 and cold Mean Vfd : 77.6767
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232302
+Hot Mean Vfd 166.112 and cold Mean Vfd : 113.962
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232309
+Hot Mean Vfd 157.913 and cold Mean Vfd : 77.8633
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232309
+Hot Mean Vfd 166.487 and cold Mean Vfd : 114.165
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232310
+Hot Mean Vfd 157.741 and cold Mean Vfd : 78.1195
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232310
+Hot Mean Vfd 166.84 and cold Mean Vfd : 114.416
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232357
+Hot Mean Vfd 181.932 and cold Mean Vfd : 324.788
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232358
+Hot Mean Vfd 179.727 and cold Mean Vfd : 323.911
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232361
+Hot Mean Vfd 177.851 and cold Mean Vfd : 323.041
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232362
+Hot Mean Vfd 176.034 and cold Mean Vfd : 322.226
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232365
+Hot Mean Vfd 174.021 and cold Mean Vfd : 321.416
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232366
+Hot Mean Vfd 172.07 and cold Mean Vfd : 320.561
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232369
+Hot Mean Vfd 170.42 and cold Mean Vfd : 319.711
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232370
+Hot Mean Vfd 168.819 and cold Mean Vfd : 318.917
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232373
+Hot Mean Vfd 167.028 and cold Mean Vfd : 318.128
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232374
+Hot Mean Vfd 165.288 and cold Mean Vfd : 317.293
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232377
+Hot Mean Vfd 163.826 and cold Mean Vfd : 316.463
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232378
+Hot Mean Vfd 162.406 and cold Mean Vfd : 315.689
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232389
+Hot Mean Vfd 167.301 and cold Mean Vfd : 115.336
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232389
+Hot Mean Vfd 162.426 and cold Mean Vfd : 314.918
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232390
+Hot Mean Vfd 167.736 and cold Mean Vfd : 115.579
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232393
+Hot Mean Vfd 157.349 and cold Mean Vfd : 77.9559
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232393
+Hot Mean Vfd 160.988 and cold Mean Vfd : 314.515
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232394
+Hot Mean Vfd 156.987 and cold Mean Vfd : 78.1765
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232394
+Hot Mean Vfd 159.587 and cold Mean Vfd : 313.739
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232397
+Hot Mean Vfd 168.148 and cold Mean Vfd : 115.501
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232397
+Hot Mean Vfd 159.644 and cold Mean Vfd : 312.967
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232398
+Hot Mean Vfd 168.538 and cold Mean Vfd : 115.741
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232398
+Hot Mean Vfd 159.699 and cold Mean Vfd : 312.522
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232401
+Hot Mean Vfd 156.654 and cold Mean Vfd : 78.3956
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232401
+Hot Mean Vfd 159.611 and cold Mean Vfd : 312.08
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232402
+Hot Mean Vfd 156.345 and cold Mean Vfd : 78.6135
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232402
+Hot Mean Vfd 158.299 and cold Mean Vfd : 311.607
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232405
+Hot Mean Vfd 168.909 and cold Mean Vfd : 115.662
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232405
+Hot Mean Vfd 158.369 and cold Mean Vfd : 310.851
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232406
+Hot Mean Vfd 169.26 and cold Mean Vfd : 115.898
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232406
+Hot Mean Vfd 158.437 and cold Mean Vfd : 310.417
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232409
+Hot Mean Vfd 156.058 and cold Mean Vfd : 78.8299
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232409
+Hot Mean Vfd 157.187 and cold Mean Vfd : 309.986
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436232410
+Hot Mean Vfd 155.791 and cold Mean Vfd : 79.0451
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232410
+Hot Mean Vfd 155.968 and cold Mean Vfd : 309.241
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232421
+Hot Mean Vfd 156.453 and cold Mean Vfd : 308.501
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232422
+Hot Mean Vfd 156.926 and cold Mean Vfd : 308.175
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232425
+Hot Mean Vfd 159.505 and cold Mean Vfd : 307.851
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232426
+Hot Mean Vfd 162.024 and cold Mean Vfd : 308.056
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232429
+Hot Mean Vfd 162.418 and cold Mean Vfd : 308.26
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232430
+Hot Mean Vfd 162.803 and cold Mean Vfd : 307.938
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232433
+Hot Mean Vfd 165.202 and cold Mean Vfd : 307.619
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232434
+Hot Mean Vfd 167.548 and cold Mean Vfd : 307.822
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232437
+Hot Mean Vfd 167.864 and cold Mean Vfd : 308.025
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232438
+Hot Mean Vfd 168.174 and cold Mean Vfd : 307.708
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232441
+Hot Mean Vfd 170.414 and cold Mean Vfd : 307.392
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232442
+Hot Mean Vfd 172.606 and cold Mean Vfd : 307.594
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232453
+Hot Mean Vfd 172.301 and cold Mean Vfd : 307.795
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232454
+Hot Mean Vfd 172.003 and cold Mean Vfd : 307.332
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232461
+Hot Mean Vfd 171.71 and cold Mean Vfd : 307.191
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232462
+Hot Mean Vfd 171.423 and cold Mean Vfd : 306.735
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232469
+Hot Mean Vfd 171.143 and cold Mean Vfd : 306.601
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232470
+Hot Mean Vfd 170.867 and cold Mean Vfd : 306.151
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232485
+Hot Mean Vfd 170.477 and cold Mean Vfd : 306.024
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232486
+Hot Mean Vfd 170.094 and cold Mean Vfd : 305.547
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232489
+Hot Mean Vfd 169.301 and cold Mean Vfd : 305.073
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232490
+Hot Mean Vfd 168.524 and cold Mean Vfd : 304.484
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232493
+Hot Mean Vfd 168.17 and cold Mean Vfd : 303.898
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232494
+Hot Mean Vfd 167.823 and cold Mean Vfd : 303.432
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232497
+Hot Mean Vfd 167.081 and cold Mean Vfd : 302.968
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232498
+Hot Mean Vfd 166.352 and cold Mean Vfd : 302.391
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232501
+Hot Mean Vfd 166.031 and cold Mean Vfd : 301.817
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232502
+Hot Mean Vfd 165.716 and cold Mean Vfd : 301.361
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232505
+Hot Mean Vfd 165.019 and cold Mean Vfd : 300.909
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232506
+Hot Mean Vfd 164.334 and cold Mean Vfd : 300.343
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232521
+Hot Mean Vfd 163.142 and cold Mean Vfd : 300.076
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232522
+Hot Mean Vfd 161.971 and cold Mean Vfd : 299.363
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232529
+Hot Mean Vfd 160.82 and cold Mean Vfd : 298.804
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232530
+Hot Mean Vfd 159.689 and cold Mean Vfd : 298.1
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232537
+Hot Mean Vfd 158.577 and cold Mean Vfd : 297.703
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232538
+Hot Mean Vfd 157.483 and cold Mean Vfd : 297.009
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436232549
+Hot Mean Vfd 176.921 and cold Mean Vfd : 135.088
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232549
+Hot Mean Vfd 159.306 and cold Mean Vfd : 296.319
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436232550
+Hot Mean Vfd 167.418 and cold Mean Vfd : 134.927
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232550
+Hot Mean Vfd 161.098 and cold Mean Vfd : 296.523
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232553
+Hot Mean Vfd 160.061 and cold Mean Vfd : 296.727
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232554
+Hot Mean Vfd 159.041 and cold Mean Vfd : 296.058
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436232557
+Hot Mean Vfd 159.499 and cold Mean Vfd : 134.635
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232557
+Hot Mean Vfd 160.792 and cold Mean Vfd : 295.393
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436232558
+Hot Mean Vfd 152.798 and cold Mean Vfd : 134.477
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232558
+Hot Mean Vfd 162.515 and cold Mean Vfd : 295.598
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232561
+Hot Mean Vfd 161.5 and cold Mean Vfd : 295.802
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232562
+Hot Mean Vfd 160.729 and cold Mean Vfd : 295.142
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436232565
+Hot Mean Vfd 147.054 and cold Mean Vfd : 134.192
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232565
+Hot Mean Vfd 162.412 and cold Mean Vfd : 294.559
+Run : 20170527_run295376 for fit atan+pol1  with Hot detid : 436232566
+Hot Mean Vfd 142.076 and cold Mean Vfd : 134.036
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232566
+Hot Mean Vfd 164.069 and cold Mean Vfd : 294.764
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232569
+Hot Mean Vfd 163.073 and cold Mean Vfd : 294.968
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232570
+Hot Mean Vfd 162.093 and cold Mean Vfd : 294.317
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232581
+Hot Mean Vfd 169.623 and cold Mean Vfd : 113.34
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232581
+Hot Mean Vfd 163.585 and cold Mean Vfd : 293.67
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232582
+Hot Mean Vfd 169.968 and cold Mean Vfd : 113.546
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232582
+Hot Mean Vfd 165.055 and cold Mean Vfd : 293.832
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232585
+Hot Mean Vfd 166.667 and cold Mean Vfd : 293.994
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232586
+Hot Mean Vfd 168.255 and cold Mean Vfd : 294.21
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232589
+Hot Mean Vfd 170.297 and cold Mean Vfd : 113.676
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232589
+Hot Mean Vfd 169.658 and cold Mean Vfd : 294.424
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232590
+Hot Mean Vfd 170.611 and cold Mean Vfd : 113.879
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232590
+Hot Mean Vfd 171.04 and cold Mean Vfd : 294.583
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232593
+Hot Mean Vfd 172.562 and cold Mean Vfd : 294.742
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232594
+Hot Mean Vfd 174.062 and cold Mean Vfd : 294.953
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232597
+Hot Mean Vfd 170.911 and cold Mean Vfd : 114.004
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232597
+Hot Mean Vfd 175.383 and cold Mean Vfd : 295.164
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232598
+Hot Mean Vfd 171.198 and cold Mean Vfd : 114.204
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232598
+Hot Mean Vfd 176.686 and cold Mean Vfd : 295.32
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232601
+Hot Mean Vfd 178.125 and cold Mean Vfd : 295.475
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232602
+Hot Mean Vfd 179.544 and cold Mean Vfd : 295.683
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232613
+Hot Mean Vfd 171.306 and cold Mean Vfd : 114.325
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232613
+Hot Mean Vfd 180.943 and cold Mean Vfd : 295.889
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232614
+Hot Mean Vfd 171.409 and cold Mean Vfd : 114.5
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232614
+Hot Mean Vfd 182.323 and cold Mean Vfd : 296.095
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232617
+Hot Mean Vfd 181.25 and cold Mean Vfd : 296.299
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232618
+Hot Mean Vfd 180.192 and cold Mean Vfd : 295.649
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232621
+Hot Mean Vfd 171.508 and cold Mean Vfd : 114.522
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232621
+Hot Mean Vfd 181.549 and cold Mean Vfd : 295.002
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232622
+Hot Mean Vfd 171.603 and cold Mean Vfd : 114.694
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232622
+Hot Mean Vfd 182.888 and cold Mean Vfd : 295.207
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232625
+Hot Mean Vfd 181.84 and cold Mean Vfd : 295.412
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232626
+Hot Mean Vfd 180.806 and cold Mean Vfd : 294.77
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232629
+Hot Mean Vfd 171.694 and cold Mean Vfd : 114.714
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232629
+Hot Mean Vfd 182.123 and cold Mean Vfd : 294.131
+Run : 20170527_run295376 for fit atan+pol2  with Hot detid : 436232630
+Hot Mean Vfd 171.782 and cold Mean Vfd : 114.884
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232630
+Hot Mean Vfd 183.423 and cold Mean Vfd : 294.337
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232633
+Hot Mean Vfd 182.399 and cold Mean Vfd : 294.542
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232634
+Hot Mean Vfd 181.388 and cold Mean Vfd : 293.908
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232645
+Hot Mean Vfd 182.551 and cold Mean Vfd : 293.276
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232646
+Hot Mean Vfd 183.7 and cold Mean Vfd : 293.44
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232649
+Hot Mean Vfd 184.973 and cold Mean Vfd : 293.603
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232650
+Hot Mean Vfd 186.225 and cold Mean Vfd : 293.816
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232653
+Hot Mean Vfd 187.329 and cold Mean Vfd : 294.026
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232654
+Hot Mean Vfd 188.419 and cold Mean Vfd : 294.186
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232657
+Hot Mean Vfd 189.632 and cold Mean Vfd : 294.346
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232658
+Hot Mean Vfd 190.83 and cold Mean Vfd : 294.555
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232661
+Hot Mean Vfd 191.879 and cold Mean Vfd : 294.764
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232662
+Hot Mean Vfd 192.916 and cold Mean Vfd : 294.921
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232665
+Hot Mean Vfd 194.072 and cold Mean Vfd : 295.077
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232666
+Hot Mean Vfd 195.215 and cold Mean Vfd : 295.283
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232677
+Hot Mean Vfd 196.349 and cold Mean Vfd : 295.488
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232685
+Hot Mean Vfd 197.47 and cold Mean Vfd : 295.694
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232686
+Hot Mean Vfd 198.578 and cold Mean Vfd : 295.899
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232693
+Hot Mean Vfd 199.672 and cold Mean Vfd : 296.104
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232694
+Hot Mean Vfd 200.754 and cold Mean Vfd : 296.307
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232709
+Hot Mean Vfd 201.722 and cold Mean Vfd : 296.509
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232710
+Hot Mean Vfd 202.678 and cold Mean Vfd : 296.671
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232714
+Hot Mean Vfd 203.733 and cold Mean Vfd : 296.832
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232717
+Hot Mean Vfd 204.667 and cold Mean Vfd : 297.035
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232718
+Hot Mean Vfd 205.591 and cold Mean Vfd : 297.195
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232721
+Hot Mean Vfd 206.612 and cold Mean Vfd : 297.353
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232722
+Hot Mean Vfd 207.622 and cold Mean Vfd : 297.554
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232725
+Hot Mean Vfd 208.513 and cold Mean Vfd : 297.754
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232726
+Hot Mean Vfd 209.395 and cold Mean Vfd : 297.911
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232729
+Hot Mean Vfd 210.373 and cold Mean Vfd : 298.066
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232730
+Hot Mean Vfd 211.34 and cold Mean Vfd : 298.264
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232741
+Hot Mean Vfd 212.267 and cold Mean Vfd : 298.461
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232742
+Hot Mean Vfd 213.184 and cold Mean Vfd : 298.644
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232745
+Hot Mean Vfd 212.458 and cold Mean Vfd : 298.827
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232749
+Hot Mean Vfd 213.36 and cold Mean Vfd : 298.344
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232750
+Hot Mean Vfd 214.256 and cold Mean Vfd : 298.525
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232757
+Hot Mean Vfd 215.139 and cold Mean Vfd : 298.706
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232761
+Hot Mean Vfd 214.418 and cold Mean Vfd : 298.886
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232777
+Hot Mean Vfd 215.297 and cold Mean Vfd : 298.516
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232778
+Hot Mean Vfd 216.167 and cold Mean Vfd : 298.698
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232785
+Hot Mean Vfd 217.028 and cold Mean Vfd : 299.095
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232786
+Hot Mean Vfd 217.88 and cold Mean Vfd : 299.273
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232793
+Hot Mean Vfd 218.723 and cold Mean Vfd : 299.663
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232794
+Hot Mean Vfd 219.558 and cold Mean Vfd : 299.839
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232806
+Hot Mean Vfd 219.337 and cold Mean Vfd : 300.014
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232813
+Hot Mean Vfd 219.118 and cold Mean Vfd : 299.751
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232814
+Hot Mean Vfd 218.901 and cold Mean Vfd : 299.49
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232821
+Hot Mean Vfd 218.687 and cold Mean Vfd : 299.229
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232822
+Hot Mean Vfd 218.474 and cold Mean Vfd : 298.97
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232841
+Hot Mean Vfd 219.225 and cold Mean Vfd : 298.867
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232842
+Hot Mean Vfd 219.969 and cold Mean Vfd : 299.016
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232849
+Hot Mean Vfd 220.706 and cold Mean Vfd : 299.318
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232850
+Hot Mean Vfd 221.435 and cold Mean Vfd : 299.464
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232857
+Hot Mean Vfd 222.157 and cold Mean Vfd : 299.76
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232858
+Hot Mean Vfd 222.872 and cold Mean Vfd : 299.905
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232869
+Hot Mean Vfd 222.11 and cold Mean Vfd : 300.049
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232870
+Hot Mean Vfd 221.355 and cold Mean Vfd : 299.567
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232873
+Hot Mean Vfd 220.542 and cold Mean Vfd : 299.087
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232874
+Hot Mean Vfd 219.736 and cold Mean Vfd : 298.581
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232877
+Hot Mean Vfd 219.003 and cold Mean Vfd : 298.077
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232878
+Hot Mean Vfd 218.277 and cold Mean Vfd : 297.603
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232881
+Hot Mean Vfd 217.493 and cold Mean Vfd : 297.13
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232882
+Hot Mean Vfd 216.717 and cold Mean Vfd : 296.632
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232885
+Hot Mean Vfd 216.012 and cold Mean Vfd : 296.136
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232886
+Hot Mean Vfd 215.312 and cold Mean Vfd : 295.67
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232889
+Hot Mean Vfd 214.557 and cold Mean Vfd : 295.205
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232890
+Hot Mean Vfd 213.808 and cold Mean Vfd : 294.715
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232933
+Hot Mean Vfd 214.479 and cold Mean Vfd : 295.265
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232934
+Hot Mean Vfd 215.144 and cold Mean Vfd : 295.394
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232937
+Hot Mean Vfd 215.908 and cold Mean Vfd : 295.522
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232938
+Hot Mean Vfd 216.665 and cold Mean Vfd : 295.695
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232941
+Hot Mean Vfd 217.311 and cold Mean Vfd : 295.868
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232942
+Hot Mean Vfd 217.952 and cold Mean Vfd : 295.995
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232945
+Hot Mean Vfd 218.689 and cold Mean Vfd : 296.121
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232946
+Hot Mean Vfd 219.42 and cold Mean Vfd : 296.291
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232949
+Hot Mean Vfd 220.043 and cold Mean Vfd : 296.461
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232950
+Hot Mean Vfd 220.661 and cold Mean Vfd : 296.586
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232953
+Hot Mean Vfd 221.374 and cold Mean Vfd : 296.71
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232954
+Hot Mean Vfd 222.081 and cold Mean Vfd : 296.879
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232969
+Hot Mean Vfd 222.668 and cold Mean Vfd : 297.21
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232970
+Hot Mean Vfd 223.25 and cold Mean Vfd : 297.326
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232977
+Hot Mean Vfd 223.827 and cold Mean Vfd : 297.603
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232978
+Hot Mean Vfd 224.4 and cold Mean Vfd : 297.717
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232986
+Hot Mean Vfd 224.967 and cold Mean Vfd : 298.102
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232997
+Hot Mean Vfd 225.542 and cold Mean Vfd : 298.214
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436232998
+Hot Mean Vfd 226.112 and cold Mean Vfd : 298.331
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233001
+Hot Mean Vfd 225.714 and cold Mean Vfd : 298.448
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233002
+Hot Mean Vfd 225.32 and cold Mean Vfd : 298.138
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233005
+Hot Mean Vfd 225.884 and cold Mean Vfd : 297.828
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233006
+Hot Mean Vfd 226.443 and cold Mean Vfd : 297.945
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233009
+Hot Mean Vfd 226.05 and cold Mean Vfd : 298.062
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233010
+Hot Mean Vfd 225.661 and cold Mean Vfd : 297.754
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233013
+Hot Mean Vfd 226.214 and cold Mean Vfd : 297.448
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233014
+Hot Mean Vfd 226.763 and cold Mean Vfd : 297.565
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233017
+Hot Mean Vfd 226.375 and cold Mean Vfd : 297.681
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233018
+Hot Mean Vfd 225.991 and cold Mean Vfd : 297.377
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233033
+Hot Mean Vfd 226.548 and cold Mean Vfd : 297.226
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233034
+Hot Mean Vfd 227.1 and cold Mean Vfd : 297.349
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233041
+Hot Mean Vfd 227.648 and cold Mean Vfd : 297.621
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233042
+Hot Mean Vfd 228.191 and cold Mean Vfd : 297.741
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233049
+Hot Mean Vfd 228.73 and cold Mean Vfd : 298.009
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233050
+Hot Mean Vfd 229.265 and cold Mean Vfd : 298.129
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233061
+Hot Mean Vfd 228.548 and cold Mean Vfd : 298.247
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233062
+Hot Mean Vfd 227.837 and cold Mean Vfd : 297.799
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233065
+Hot Mean Vfd 227.673 and cold Mean Vfd : 297.351
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233066
+Hot Mean Vfd 227.511 and cold Mean Vfd : 297.153
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233069
+Hot Mean Vfd 226.812 and cold Mean Vfd : 296.955
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233070
+Hot Mean Vfd 226.118 and cold Mean Vfd : 296.512
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233073
+Hot Mean Vfd 225.964 and cold Mean Vfd : 296.071
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233074
+Hot Mean Vfd 225.81 and cold Mean Vfd : 295.876
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233077
+Hot Mean Vfd 225.128 and cold Mean Vfd : 295.682
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233078
+Hot Mean Vfd 224.451 and cold Mean Vfd : 295.244
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233081
+Hot Mean Vfd 224.305 and cold Mean Vfd : 294.808
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233082
+Hot Mean Vfd 224.16 and cold Mean Vfd : 294.616
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233129
+Hot Mean Vfd 223.624 and cold Mean Vfd : 295.213
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233130
+Hot Mean Vfd 223.093 and cold Mean Vfd : 294.845
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233137
+Hot Mean Vfd 222.566 and cold Mean Vfd : 294.68
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233138
+Hot Mean Vfd 222.042 and cold Mean Vfd : 294.316
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233145
+Hot Mean Vfd 221.523 and cold Mean Vfd : 294.155
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233146
+Hot Mean Vfd 221.007 and cold Mean Vfd : 293.793
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233157
+Hot Mean Vfd 220.68 and cold Mean Vfd : 293.433
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233158
+Hot Mean Vfd 220.355 and cold Mean Vfd : 293.159
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233161
+Hot Mean Vfd 220.843 and cold Mean Vfd : 292.887
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233162
+Hot Mean Vfd 221.327 and cold Mean Vfd : 292.991
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233165
+Hot Mean Vfd 221.004 and cold Mean Vfd : 293.094
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233166
+Hot Mean Vfd 220.683 and cold Mean Vfd : 292.823
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233169
+Hot Mean Vfd 221.163 and cold Mean Vfd : 292.553
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233170
+Hot Mean Vfd 221.639 and cold Mean Vfd : 292.657
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233173
+Hot Mean Vfd 221.319 and cold Mean Vfd : 292.76
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233174
+Hot Mean Vfd 221.001 and cold Mean Vfd : 292.491
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233177
+Hot Mean Vfd 221.473 and cold Mean Vfd : 292.223
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233178
+Hot Mean Vfd 221.942 and cold Mean Vfd : 292.327
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233189
+Hot Mean Vfd 222.446 and cold Mean Vfd : 292.43
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233190
+Hot Mean Vfd 222.946 and cold Mean Vfd : 292.552
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233193
+Hot Mean Vfd 222.327 and cold Mean Vfd : 292.673
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233194
+Hot Mean Vfd 221.713 and cold Mean Vfd : 292.264
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233197
+Hot Mean Vfd 222.211 and cold Mean Vfd : 291.856
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233198
+Hot Mean Vfd 222.705 and cold Mean Vfd : 291.978
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233201
+Hot Mean Vfd 222.096 and cold Mean Vfd : 292.099
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233202
+Hot Mean Vfd 221.49 and cold Mean Vfd : 291.694
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233205
+Hot Mean Vfd 221.982 and cold Mean Vfd : 291.29
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233206
+Hot Mean Vfd 222.471 and cold Mean Vfd : 291.412
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233209
+Hot Mean Vfd 221.87 and cold Mean Vfd : 291.533
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233210
+Hot Mean Vfd 221.273 and cold Mean Vfd : 291.131
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436233221
+Hot Mean Vfd 156.063 and cold Mean Vfd : 75.9586
+Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 436233221
+Hot Mean Vfd 156.527 and cold Mean Vfd : 93.7263
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436233222
+Hot Mean Vfd 156.318 and cold Mean Vfd : 76.1046
+Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 436233222
+Hot Mean Vfd 156.527 and cold Mean Vfd : 93.8275
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233226
+Hot Mean Vfd 221.73 and cold Mean Vfd : 290.849
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436233229
+Hot Mean Vfd 156.556 and cold Mean Vfd : 76.2486
+Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 436233229
+Hot Mean Vfd 156.527 and cold Mean Vfd : 93.954
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436233230
+Hot Mean Vfd 156.78 and cold Mean Vfd : 76.3933
+Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 436233230
+Hot Mean Vfd 156.527 and cold Mean Vfd : 94.0543
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233233
+Hot Mean Vfd 222.184 and cold Mean Vfd : 291.073
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233234
+Hot Mean Vfd 222.634 and cold Mean Vfd : 291.179
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436233237
+Hot Mean Vfd 156.991 and cold Mean Vfd : 76.5337
+Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 436233237
+Hot Mean Vfd 156.527 and cold Mean Vfd : 94.2047
+Run : 20170527_run295376 for fit sigmoid+pol2  with Hot detid : 436233238
+Hot Mean Vfd 157.19 and cold Mean Vfd : 76.677
+Run : 20170527_run295376 for fit deriv Gen  with Hot detid : 436233238
+Hot Mean Vfd 156.527 and cold Mean Vfd : 94.3039
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233241
+Hot Mean Vfd 223.082 and cold Mean Vfd : 291.399
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233242
+Hot Mean Vfd 223.526 and cold Mean Vfd : 291.504
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233253
+Hot Mean Vfd 223.274 and cold Mean Vfd : 291.609
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233254
+Hot Mean Vfd 223.024 and cold Mean Vfd : 291.379
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233257
+Hot Mean Vfd 223.555 and cold Mean Vfd : 291.149
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233258
+Hot Mean Vfd 224.083 and cold Mean Vfd : 291.298
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233261
+Hot Mean Vfd 223.832 and cold Mean Vfd : 291.446
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233262
+Hot Mean Vfd 223.584 and cold Mean Vfd : 291.217
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233265
+Hot Mean Vfd 224.106 and cold Mean Vfd : 290.99
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233266
+Hot Mean Vfd 224.625 and cold Mean Vfd : 291.138
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233269
+Hot Mean Vfd 224.376 and cold Mean Vfd : 291.285
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233270
+Hot Mean Vfd 224.129 and cold Mean Vfd : 291.058
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233273
+Hot Mean Vfd 224.643 and cold Mean Vfd : 290.832
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233274
+Hot Mean Vfd 225.153 and cold Mean Vfd : 290.979
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233285
+Hot Mean Vfd 224.612 and cold Mean Vfd : 291.126
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233286
+Hot Mean Vfd 224.075 and cold Mean Vfd : 290.756
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233289
+Hot Mean Vfd 224.082 and cold Mean Vfd : 290.388
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233290
+Hot Mean Vfd 224.09 and cold Mean Vfd : 290.288
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233293
+Hot Mean Vfd 223.559 and cold Mean Vfd : 290.188
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233294
+Hot Mean Vfd 223.031 and cold Mean Vfd : 289.822
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233297
+Hot Mean Vfd 223.042 and cold Mean Vfd : 289.458
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233298
+Hot Mean Vfd 223.053 and cold Mean Vfd : 289.36
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233301
+Hot Mean Vfd 222.532 and cold Mean Vfd : 289.262
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233302
+Hot Mean Vfd 222.014 and cold Mean Vfd : 288.9
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233305
+Hot Mean Vfd 222.027 and cold Mean Vfd : 288.539
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233306
+Hot Mean Vfd 222.041 and cold Mean Vfd : 288.443
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233317
+Hot Mean Vfd 221.611 and cold Mean Vfd : 288.348
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233318
+Hot Mean Vfd 221.184 and cold Mean Vfd : 288.03
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233321
+Hot Mean Vfd 221.647 and cold Mean Vfd : 287.714
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233322
+Hot Mean Vfd 222.107 and cold Mean Vfd : 287.844
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233325
+Hot Mean Vfd 221.683 and cold Mean Vfd : 287.975
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233326
+Hot Mean Vfd 221.26 and cold Mean Vfd : 287.66
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233329
+Hot Mean Vfd 221.717 and cold Mean Vfd : 287.346
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233330
+Hot Mean Vfd 222.172 and cold Mean Vfd : 287.476
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233333
+Hot Mean Vfd 221.752 and cold Mean Vfd : 287.606
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233334
+Hot Mean Vfd 221.335 and cold Mean Vfd : 287.294
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233337
+Hot Mean Vfd 221.786 and cold Mean Vfd : 286.982
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233338
+Hot Mean Vfd 222.235 and cold Mean Vfd : 287.113
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233349
+Hot Mean Vfd 221.87 and cold Mean Vfd : 287.243
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233353
+Hot Mean Vfd 222.278 and cold Mean Vfd : 286.958
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233354
+Hot Mean Vfd 222.683 and cold Mean Vfd : 287.069
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233357
+Hot Mean Vfd 222.321 and cold Mean Vfd : 287.179
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233358
+Hot Mean Vfd 221.96 and cold Mean Vfd : 286.896
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233361
+Hot Mean Vfd 222.363 and cold Mean Vfd : 286.613
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233362
+Hot Mean Vfd 222.763 and cold Mean Vfd : 286.724
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233365
+Hot Mean Vfd 222.404 and cold Mean Vfd : 286.834
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233366
+Hot Mean Vfd 222.048 and cold Mean Vfd : 286.553
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233369
+Hot Mean Vfd 222.446 and cold Mean Vfd : 286.273
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233381
+Hot Mean Vfd 221.941 and cold Mean Vfd : 286.383
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233382
+Hot Mean Vfd 221.44 and cold Mean Vfd : 286.027
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233385
+Hot Mean Vfd 221.01 and cold Mean Vfd : 285.671
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233386
+Hot Mean Vfd 220.582 and cold Mean Vfd : 285.353
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233389
+Hot Mean Vfd 220.088 and cold Mean Vfd : 285.035
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233390
+Hot Mean Vfd 219.598 and cold Mean Vfd : 284.683
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233393
+Hot Mean Vfd 219.178 and cold Mean Vfd : 284.331
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233394
+Hot Mean Vfd 218.76 and cold Mean Vfd : 284.016
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233397
+Hot Mean Vfd 218.277 and cold Mean Vfd : 283.702
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233398
+Hot Mean Vfd 217.797 and cold Mean Vfd : 283.354
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233401
+Hot Mean Vfd 217.387 and cold Mean Vfd : 283.007
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233402
+Hot Mean Vfd 216.978 and cold Mean Vfd : 282.696
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233417
+Hot Mean Vfd 216.788 and cold Mean Vfd : 282.515
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233418
+Hot Mean Vfd 217.158 and cold Mean Vfd : 282.32
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233425
+Hot Mean Vfd 216.968 and cold Mean Vfd : 282.547
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233426
+Hot Mean Vfd 217.335 and cold Mean Vfd : 282.353
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233433
+Hot Mean Vfd 217.145 and cold Mean Vfd : 282.579
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233434
+Hot Mean Vfd 217.51 and cold Mean Vfd : 282.386
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233445
+Hot Mean Vfd 217.891 and cold Mean Vfd : 282.483
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233446
+Hot Mean Vfd 218.271 and cold Mean Vfd : 282.591
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233449
+Hot Mean Vfd 218.706 and cold Mean Vfd : 282.697
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233450
+Hot Mean Vfd 219.139 and cold Mean Vfd : 282.835
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233453
+Hot Mean Vfd 219.512 and cold Mean Vfd : 282.972
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233454
+Hot Mean Vfd 219.883 and cold Mean Vfd : 283.077
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233457
+Hot Mean Vfd 220.309 and cold Mean Vfd : 283.183
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233458
+Hot Mean Vfd 220.733 and cold Mean Vfd : 283.319
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233461
+Hot Mean Vfd 221.098 and cold Mean Vfd : 283.454
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233462
+Hot Mean Vfd 221.461 and cold Mean Vfd : 283.559
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233465
+Hot Mean Vfd 221.878 and cold Mean Vfd : 283.663
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233466
+Hot Mean Vfd 222.294 and cold Mean Vfd : 283.798
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233481
+Hot Mean Vfd 222.649 and cold Mean Vfd : 283.848
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233482
+Hot Mean Vfd 223.003 and cold Mean Vfd : 283.95
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233489
+Hot Mean Vfd 223.355 and cold Mean Vfd : 283.969
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233490
+Hot Mean Vfd 223.705 and cold Mean Vfd : 284.07
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233497
+Hot Mean Vfd 224.053 and cold Mean Vfd : 284.088
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233498
+Hot Mean Vfd 224.399 and cold Mean Vfd : 284.189
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233509
+Hot Mean Vfd 224.748 and cold Mean Vfd : 284.29
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233510
+Hot Mean Vfd 225.096 and cold Mean Vfd : 284.393
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233513
+Hot Mean Vfd 224.664 and cold Mean Vfd : 284.496
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233517
+Hot Mean Vfd 225.01 and cold Mean Vfd : 284.183
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233518
+Hot Mean Vfd 225.355 and cold Mean Vfd : 284.286
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233521
+Hot Mean Vfd 224.926 and cold Mean Vfd : 284.389
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233522
+Hot Mean Vfd 224.499 and cold Mean Vfd : 284.077
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233525
+Hot Mean Vfd 224.842 and cold Mean Vfd : 283.766
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233526
+Hot Mean Vfd 225.183 and cold Mean Vfd : 283.869
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233529
+Hot Mean Vfd 224.759 and cold Mean Vfd : 283.972
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233530
+Hot Mean Vfd 224.337 and cold Mean Vfd : 283.663
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233541
+Hot Mean Vfd 224.078 and cold Mean Vfd : 283.354
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233542
+Hot Mean Vfd 223.82 and cold Mean Vfd : 283.133
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233545
+Hot Mean Vfd 223.641 and cold Mean Vfd : 282.914
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233546
+Hot Mean Vfd 223.462 and cold Mean Vfd : 282.736
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233549
+Hot Mean Vfd 223.208 and cold Mean Vfd : 282.558
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233550
+Hot Mean Vfd 222.955 and cold Mean Vfd : 282.34
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233553
+Hot Mean Vfd 222.779 and cold Mean Vfd : 282.122
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233554
+Hot Mean Vfd 222.604 and cold Mean Vfd : 281.946
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233557
+Hot Mean Vfd 222.354 and cold Mean Vfd : 281.77
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233558
+Hot Mean Vfd 222.106 and cold Mean Vfd : 281.554
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233561
+Hot Mean Vfd 221.934 and cold Mean Vfd : 281.339
+Run : 20170527_run295376 for fit GenFunc  with Hot detid : 436233562
+Hot Mean Vfd 221.763 and cold Mean Vfd : 281.165
 //----------------------------//

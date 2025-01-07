@@ -9,13 +9,23 @@
 #include <iostream>
 #include <vector>
 
-void plotArea() {
+// !!
+#include <algorithm>
+#include <limits>
+//!!
+//the code is made such that, it can start from any point in lumi using the nPointsCorr varaible, for any number of scans using nPoints, but explecitely for 10 fits
+// If you want to remove one fit method, good luck with it :D
+
+
+
+void SummaryPlot() {
     // Ouvrir le premier fichier root qui contient les 10 TGraph
-    TString subdet = "TIB";
-    TString layer = "L1";
+    TString subdet = "TIB";// TIB or TOB
+    TString layer = "L1";//L1 or  L4
     TString Mode = ""; // Delta
-    TString Scan = "SMALLSCAN"; //SMALL
+    TString Scan = "FULLSCAN"; //SMALL, FULL
     TString file1Name = Mode+subdet + "_" + layer + Scan + ".root";   
+    //-------------------------------------------------------------------
     TFile *file1 = TFile::Open(file1Name);
 
     if (!file1 || file1->IsZombie()) {
@@ -32,6 +42,7 @@ void plotArea() {
     // canvas3->cd();
 
     // canvas3->ls();
+    //--- filemanes of the predictions made by Paul :D
     TString SimuIn[10] = {
         "lumigr_TIB_L1", "lumigr_TIB_L2", "lumigr_TIB_L3", "lumigr_TIB_L4",
         "lumigr_TOB_L1", "lumigr_TOB_L2", "lumigr_TOB_L3", "lumigr_TOB_L4","lumigr_TOB_L5", "lumigr_TOB_L6",
@@ -64,70 +75,287 @@ void plotArea() {
 
     // Créer deux TGraph pour stocker les valeurs min et max pour chaque bin
     int nPoints = graphs[0]->GetN();
-    std::vector<double> xValues(nPoints), minValues(nPoints), maxValues(nPoints);
+    std::vector<double> xValues, minValues, maxValues;
 
-    for (int i = 0; i < nPoints; ++i) {
-        double x, y;
-        graphs[0]->GetPoint(i, x, y);
-        double minY = y;
+    //-----------------------------------------------------
+    // !! 
+    //!! 1)  Seuils spécifiques à chaque std::vector<double>
+    std::vector<double> minThresholds ;
+    std::vector<double> maxThresholds ;
 
-        double maxY = y;
-        // if (i == nPoints-1) std::cout<<" x :"<<x<<" y :"<<y<<std::endl;
-        // Boucle sur les autres graphs pour trouver le min et max à chaque bin
-        for (int j = 1; j < 10; ++j) {
-            double yTemp;
-            if (x < 50 ) // First 14 bins have optimized parameters for each fit function
+    for ( int i  = 0; i< nPoints ; i++)
+        {
+            if (Scan == "SMALLSCAN")
                 {
-                    graphs[j]->GetPoint(i, x, yTemp);
-                    if (yTemp < minY && yTemp > 50) minY = yTemp;
-                    if (yTemp > maxY) maxY = yTemp;
+                    if (i == nPoints-1 || i == nPoints-2 || i == nPoints-3)
+                        {
+                            if (subdet == "TIB")
+                                {
+                                    minThresholds.push_back(100);
+                                    maxThresholds.push_back(350);
+                                }
+                            else if (subdet == "TOB" && layer == "L1")
+                                {
+                                    minThresholds.push_back(100);
+                                    maxThresholds.push_back(300);
+                                }
+                            else if (subdet == "TOB" && layer == "L4")
+                                {
+                                    minThresholds.push_back(50);
+                                    maxThresholds.push_back(300);    
+                                }
+                            else
+                                {
+                                    minThresholds.push_back(50);
+                                    maxThresholds.push_back(350);
+                                }
+                        }
+                    else
+                        {
+                                    if (subdet == "TIB")
+                                        {
+                                            if (i == 0)
+                                                {
+                                                    minThresholds.push_back(210);
+                                                    maxThresholds.push_back(350);
+                                                }
+                                            else
+                                                {
+                                                    minThresholds.push_back(40);
+                                                    maxThresholds.push_back(350);
+                                                }
+                                        }
+                                    else if (subdet == "TOB" && layer == "L1")
+                                        {
+                                            minThresholds.push_back(40);
+                                            maxThresholds.push_back(300);
+                                        }
+                                    else if (subdet == "TOB" && layer == "L4")
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(300);    
+                                        }
+                                    else
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(350);
+                                        }
+                        }
                 }
-            if (x < 320 && x> 50) // First 14 bins have optimized parameters for each fit function
+            else //FULLSCAN
                 {
-                    graphs[j]->GetPoint(i, x, yTemp);
-                    if (yTemp < minY && yTemp != 0) minY = yTemp;
-                    if (yTemp > maxY) maxY = yTemp;
-                }
-            else
-                {
-                    // graphs[j]->GetPoint(i, x, yTemp);
+                    if (i == nPoints-1 )
+                        {
+                            if (subdet == "TIB")
+                                {
+                                    minThresholds.push_back(160);
+                                    maxThresholds.push_back(350);
+                                }
+                            else if (subdet == "TOB" && layer == "L1")
+                                {
+                                    minThresholds.push_back(100);
+                                    maxThresholds.push_back(300);
+                                }
+                            else if (subdet == "TOB" && layer == "L4")
+                                {
+                                    minThresholds.push_back(50);
+                                    maxThresholds.push_back(300);    
+                                }
+                            else
+                                {
+                                    minThresholds.push_back(50);
+                                    maxThresholds.push_back(350);
+                                }
+                        }
+                    else
+                        {
+                            if (subdet == "TIB" && layer == "L1")
+                                {
 
+                                    if (i == 2)
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(200);
+                                        }
+                                    else if (i == 1)
+                                        {
+                                            minThresholds.push_back(100);
+                                            maxThresholds.push_back(250);
+                                        }
+                                    else
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(350);
+                                        }
+                                }
+                            else if (subdet == "TIB" && layer == "L4")
+                                {
+                                    if (i == 5)
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(150);
+                                        }
+                                    else if (i == 8)
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(160);
+                                        }
+                                    else if (i == 4)
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(150);
+                                        }
+                                    else if (i == 3)
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(150);
+                                        }
+                                    else if (i == 2)
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(200);
+                                        }
+                                    else if (i == 1)
+                                        {
+                                            minThresholds.push_back(100);
+                                            maxThresholds.push_back(250);
+                                        }
+                                    else if (i == 0)
+                                        {
+                                            minThresholds.push_back(100);
+                                            maxThresholds.push_back(400);
+                                        }
+                                    else
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(350);
+                                        }
+                                }
+                            else if (subdet == "TOB" && layer == "L1")
+                                {
+                                    if (i == 2)
+                                        {
+                                            minThresholds.push_back(30);
+                                            maxThresholds.push_back(250);
+                                        }
+                                    else if (i == 0)
+                                        {
+                                            minThresholds.push_back(100);
+                                            maxThresholds.push_back(400);
+                                        }
+                                    else
+                                        {
+                                            minThresholds.push_back(30);
+                                            maxThresholds.push_back(400);
+                                        }
 
-                            // !! 
-                    // std::cout<< "j ; "<<j<<std::endl;
-                    // yTemp = minY;
-                    // while (x >320 && yTemp < 150 && j < 9)
-                    //     {
-                            
-                    //         graphs[j]->GetPoint(i, x, yTemp);
-                    //         std::cout<<" x :"<<x<<" yTemp :"<<y<<std::endl;
-                    //         j++;
-                    //     }
-                    // !! 
-                    graphs[j]->GetPoint(i, x, yTemp);
-                    // // if (yTemp < 200) continue;
-                    if (yTemp < minY && yTemp > 100) minY = yTemp;
-                    if (yTemp > maxY) maxY = yTemp;
+                                }
+                            else if (subdet == "TOB" && layer == "L4")
+                                {
+                                    if (i == 0)
+                                        {
+                                            minThresholds.push_back(100);
+                                            maxThresholds.push_back(350);
+                                        }
+                                    else
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(300);
+                                        }
+    
+                                }
+                            else
+                                {
+                                    minThresholds.push_back(50);
+                                    maxThresholds.push_back(350);
+                                }
+                        }
                 }
+
+        //  std::cout<<" i :"<<i<<" minThresholds :"<<minThresholds[i]<<" maxThresholds :"<<maxThresholds[i]<<std::endl;
 
         }
-        // std::cout<<" x :"<<x<<" miny :"<<minY<<std::endl;
-        xValues[i] = x;
-        minValues[i] = minY;
-        maxValues[i] = maxY;
+    //------------------------------------------------------
+
+    // !! 
+    // !! 2) Store graph points in vectors
+    std::vector<std::vector<double>> data;//[nScan][10]
+
+    for ( int i = 0 ; i < nPoints ; i++) 
+        {
+            if (subdet == "TOB" && layer == "L1" && i <= 4 && Scan == "SMALLSCAN")
+                {
+                    continue;
+                }
+            double x = 0;
+            double y = 0;
+            double lower_threshold = minThresholds[i];
+            double upper_threshold = maxThresholds[i];
+            std::vector<double> temp;
+
+            for (int j = 0; j < 10; ++j) 
+                {
+
+                    graphs[j]->GetPoint(i, x, y);
+                    if ( y > lower_threshold && y < upper_threshold)
+                        {
+                            temp.push_back(y);
+                        }
+                    // std::cout<<" x :"<<x<<" y :"<<y<<std::endl;
+                }
+            if (temp.size()==0)
+                {
+                    std::cout<<"No data registered for this run with the defined thresholds"<<std::endl;
+                    break;
+                }
+            data.push_back(temp);
+            xValues.push_back(x);
+            std::cout<<" xi:"<<i<<std::endl;
+        }
+
+    //---------------------------------------------------
+
+    // !!
+    // !! 3) Trouver les min et max pour chaque std::vector<double> respectant les seuils
+    // Vector pour stocker les min et max trouvés
+
+    // Loop sur chaque vecteur interne et ses seuils
+    for (size_t i = 0; i < data.size(); ++i) {
+        const auto& vec = data[i];
+
+        auto min_it = std::min_element(vec.begin(), vec.end());
+        auto max_it = std::max_element(vec.begin(), vec.end());
+
+        double min_value = *min_it; 
+        double max_value = *max_it;
+
+        minValues.push_back(min_value);
+        maxValues.push_back(max_value);
+        // std::cout<<" data_i:"<<i<<std::endl;
+
     }
 
+    //---------------------------------------------------
+    // Afficher les résultats
+    // for (size_t i = 0; i < minValues.size(); ++i) {
+    //     std::cout << " Vecteur " << i + 1 << " : "<< xValues[i]
+    //               << " Min = " << minValues[i]
+    //               << ", Max = " << maxValues[i] << std::endl;
+    // }
+    //---------------------------------------------------
+    int nPointsCorr = data.size();
+
     // Créer les TGraph pour min et max
-    TGraph *minGraph = new TGraph(nPoints, &xValues[0], &minValues[0]);
-    TGraph *maxGraph = new TGraph(nPoints, &xValues[0], &maxValues[0]);
+    TGraph *minGraph = new TGraph(nPointsCorr, &xValues[0], &minValues[0]);
+    TGraph *maxGraph = new TGraph(nPointsCorr, &xValues[0], &maxValues[0]);
 
     // Créer un canvas
     TCanvas *c = new TCanvas("c", "Min-Max Area Plot", 800, 600);
 
     // Tracer l'aire hachurée entre min et max
-    TH1F *frame = new TH1F("frame", "", 100, xValues[0], xValues[nPoints-1]);
-    frame->GetYaxis()->SetRangeUser(*std::min_element(minValues.begin(), minValues.end()) - 10, 
-                                    *std::max_element(maxValues.begin(), maxValues.end()) + 50);
+    TH1F *frame = new TH1F("frame", "", 100, 0,400);//xValues[0], xValues[nPointsCorr-1] if you wan to focus on the data especially for smallscan TOBL1
+    frame->GetYaxis()->SetRangeUser(0,400);
+    // frame->GetXaxis()->SetRange(1,-1);
     frame->SetStats(0);
     frame->GetYaxis()->SetTitle("Full Depletion Voltage [V]");
     frame->GetXaxis()->SetTitle("Int. Lumi [fb^{-1}]");
@@ -135,8 +363,8 @@ void plotArea() {
     frame->SetMinimum(0);
     frame->Draw();
 
-    TGraphErrors *fillArea = new TGraphErrors(nPoints);
-    for (int i = 0; i < nPoints; ++i) {
+    TGraphErrors *fillArea = new TGraphErrors(nPointsCorr);
+    for (int i = 0; i < nPointsCorr; ++i) {
         fillArea->SetPoint(i, xValues[i], (minValues[i] + maxValues[i]) / 2);  // Moyenne pour la position centrale
         fillArea->SetPointError(i, 0, (maxValues[i] - minValues[i]) / 2);      // Intervalle pour la hauteur
     }
@@ -161,19 +389,19 @@ void plotArea() {
     additionalGraph->Draw("L SAME");  // Tracer la courbe sur le même canvas
 
     // Légende
-    TLegend *legend = new TLegend(0.7, 0.7, 0.9, 0.9);
+    TLegend *legend = new TLegend(0.65, 0.7, 0.9, 0.9);
     legend->AddEntry(fillArea, "V_{fd} range", "f");
     legend->AddEntry(additionalGraph, "Simulation", "l");
     legend->Draw();
 
 
-    TLine* lvdrop = new TLine(195.5,0,195.5,347);
+    TLine* lvdrop = new TLine(195.5,0,195.5,400);
     lvdrop->SetLineStyle(2);
     lvdrop->SetLineColor(1);//red
     lvdrop->SetLineWidth(2);
     lvdrop->Draw();
 
-    TLine* lvdrop1 = new TLine(29.5,0,29.5,347);
+    TLine* lvdrop1 = new TLine(29.5,0,29.5,400);
     lvdrop1->SetLineStyle(2);
     lvdrop1->SetLineColor(1);//red
     lvdrop1->SetLineWidth(2);
@@ -203,7 +431,7 @@ float relExtraDY = 1.2;
 float extraOverCmsTextSize  = 0.76;
 
 TString lumi_13TeV = "";//137 fb^{-1}
-TString lumi_sqrtS = "TIB L1";
+TString lumi_sqrtS = subdet+layer;
 TString lumiText = lumi_13TeV+lumi_sqrtS;
   float H = canvas3->GetWh();
   float W = canvas3->GetWw();
@@ -268,6 +496,7 @@ float posX_=0;
 
     // Afficher le canvas
     c->Update();
-    c->SaveAs("SummaryPlot.png");
-    c->SaveAs("SummaryPlot.pdf");
+    c->SaveAs("SummaryPlot_"+Scan+subdet+layer+".png");
+    c->SaveAs("SummaryPlot_"+Scan+subdet+layer+".pdf");
+
 }
