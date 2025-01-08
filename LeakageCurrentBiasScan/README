@@ -78,8 +78,11 @@ figures.
         // TOBL1
         // TOBL4
         //-----------------
-
- 
+        
+    - Comapare leakage current  of a given detid using => ComapreLeakageCurrent.C
+        - Select the runs and the detids that you want (be careful, in smallscans you only have a few detids)
+        - Up to 10 runs can be compared (limited by the color palette of cms)
+    //-----------------
     The lists of detids for TIB and TOB are available in this directory as TIB_list.txt and TOB_list.txt :DCU
 
     You now have everything,

@@ -1,1 +1,17 @@
+Run : 20120506_run193541 for fit atan+pol1  with Hot detid : 369121382
+Hot Mean Vfd 200 and cold Mean Vfd : 300.005
+Run : 20120506_run193541 for fit atan+pol2  with Hot detid : 369121382
+Hot Mean Vfd 349.944 and cold Mean Vfd : 200
+Run : 20120506_run193541 for fit atan+pol2  with Hot detid : 369121385
+Hot Mean Vfd 274.972 and cold Mean Vfd : 274.972
+Run : 20120506_run193541 for fit atan+pol1  with Hot detid : 369121386
+Hot Mean Vfd 200 and cold Mean Vfd : 266.67
+Run : 20120506_run193541 for fit atan+pol2  with Hot detid : 369121386
+Hot Mean Vfd 299.963 and cold Mean Vfd : 249.981
+Run : 20120506_run193541 for fit atan+pol2  with Hot detid : 369121389
+Hot Mean Vfd 274.972 and cold Mean Vfd : 274.972
+Run : 20120506_run193541 for fit atan+pol1  with Hot detid : 369121390
+Hot Mean Vfd 200 and cold Mean Vfd : 260.003
+Run : 20120506_run193541 for fit atan+pol2  with Hot detid : 369121390
+Hot Mean Vfd 289.966 and cold Mean Vfd : 259.978
 //----------------------------//

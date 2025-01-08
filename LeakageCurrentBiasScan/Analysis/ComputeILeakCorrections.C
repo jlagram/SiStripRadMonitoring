@@ -599,19 +599,19 @@ int ComputeCorrection(std::string subdet, std::string run, int detid, TGraphErro
   // Fit voltage drop
   // sqrt(x) function works for spring 2012 runs for modules with high Vdepl (almost no 'plateau')
   // used also for early 2015 runs with reduced leakage current and all Run1 when fitting the curves for all the modules (more robust)
-  TF1* fvdrop = new TF1("fvdrop", " [0]*([1]+(1+[2]*x)*sqrt(x)) ", 10, 300); //20,360 // limit at 200V for 2018 -10\B0 scan due to thermal runaway
-  fvdrop->SetParameter(0,0.2);
-  fvdrop->SetParLimits(0, -5, 10);  
-  fvdrop->SetParLimits(1, -10, 100);
-  fvdrop->SetParameter(1,-1);
-  fit_status = gvdrop->Fit("fvdrop");//, "R");
-  // For 2015 bad fits
-  if(fvdrop->GetParameter(1)<-9.9){
-    fvdrop->SetParameter(0,0.);
-    fvdrop->SetParameter(1,50);
-    fvdrop->SetParameter(3,0.);
-    fit_status = gvdrop->Fit("fvdrop");
-  }
+  // TF1* fvdrop = new TF1("fvdrop", " [0]*([1]+(1+[2]*x)*sqrt(x)) ", 10, 300); //20,360 // limit at 200V for 2018 -10\B0 scan due to thermal runaway
+  // fvdrop->SetParameter(0,0.2);
+  // fvdrop->SetParLimits(0, -5, 10);  
+  // fvdrop->SetParLimits(1, -10, 100);
+  // fvdrop->SetParameter(1,-1);
+  // fit_status = gvdrop->Fit("fvdrop");//, "R");
+  // // For 2015 bad fits
+  // if(fvdrop->GetParameter(1)<-9.9){
+  //   fvdrop->SetParameter(0,0.);
+  //   fvdrop->SetParameter(1,50);
+  //   fvdrop->SetParameter(3,0.);
+  //   fit_status = gvdrop->Fit("fvdrop");
+  // }
 
 
   // function with curve in 2 parts : x^1/2 + x^3/2 and pol1 for 'plateau'
@@ -702,24 +702,24 @@ void ComputeCorrections(std::string subdet, std::string run, int* detids, const 
 	}
     
     // Store fit result
-    if(fit)
-    if(fit->GetNDF()>1)
-    //if(fit->GetChisquare()/fit->GetNDF() < 50.)
-    {
+    //Don't wan to show ht efit with the sqrt function so I removed the fit selections
+    // if(fit)
+    // if(fit->GetNDF()>1)
+    // {
       fout->cd();
       cout<<"Storing fit for detid "<<detid<<endl;
-      cout<<"Chi2/ndf: "<<fit->GetChisquare()/fit->GetNDF()<<endl;
-      fit->SetName(Form("fit_%i", detid));
-      fit->Write();
+      // cout<<"Chi2/ndf: "<<fit->GetChisquare()/fit->GetNDF()<<endl;
+      // fit->SetName(Form("fit_%i", detid));
+      // fit->Write();
       gvdrop->SetName(Form("vdrop_%i", detid));
       gvdrop->Write();
-      if(fit->GetNDF()) hchi2->Fill(fit->GetChisquare()/fit->GetNDF());
-      g2param->SetPoint(ifit, fit->GetParameter(0), fit->GetParameter(1));
-      hparam0->Fill(fit->GetParameter(0));
-      hparam1->Fill(fit->GetParameter(1));
-      hparam2->Fill(fit->GetParameter(2));
+      // if(fit->GetNDF()) hchi2->Fill(fit->GetChisquare()/fit->GetNDF());
+      // g2param->SetPoint(ifit, fit->GetParameter(0), fit->GetParameter(1));
+      // hparam0->Fill(fit->GetParameter(0));
+      // hparam1->Fill(fit->GetParameter(1));
+      // hparam2->Fill(fit->GetParameter(2));
       ifit++;
-    }
+    // }
    
     // getchar();
     
@@ -895,7 +895,7 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
   
   // load currents for all detids
   LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, subdet, run, bad_periods);
-
+  gROOT->SetBatch(kTRUE);
   // Histos and output file
   TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet.c_str(), run.c_str()),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);
@@ -982,7 +982,7 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
     		fout->cd();
     		cout<<"Storing fit for detid "<<detid<<endl;
     		fit->SetName(Form("fit_%i", detid));
-    		fit->Write();
+    		fit->Write(); // !! do avoid the fit directly in the tgraph errors
 			cerr<<detid<<" "<<fit->Eval(300)<<endl;
     		gvdrop->SetName(Form("vdrop_%i", detid));
 			//h = (TH1*) gvdrop->GetHistogram();
@@ -1239,9 +1239,17 @@ int detids1[N1]={436311928};
   //ComputeDCUOverPSRatios("TIB", "20221001_run359691", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20221001_run359691.txt");
   //ComputeCorrections("TIB", "20221001_run359691", detids_2012_bis, N_2012_bis, "Steps/bad_periods_20221001_run359691.txt");
   //ComputeCorrections("TIB", "20221126_run362696", detids_2012_bis, N_2012_bis, "");
-  ComputeCorrections("TIB", "20230407_run365843", detids_2012_bis, N_2012_bis, "");
-  ComputeAllDCUOverPSRatios("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "");
-  ComputeAllCorrections("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "", 9, 50);
+  // ComputeCorrections("TIB", "20230407_run365843", detids_2012_bis, N_2012_bis, "");
+  // ComputeAllDCUOverPSRatios("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "");
+  // ComputeAllCorrections("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "", 9, 50);
+
+ComputeCorrections("TIB", "20230407_run365843", detids_2012_bis, N_2012_bis, "");
+ComputeCorrections("TIB", "20230907_run373060", detids_2012_bis, N_2012_bis, "");
+ComputeCorrections("TIB", "20231025_run375658", detids_2012_bis, N_2012_bis, "");
+ComputeCorrections("TIB", "20240321_run378238", detids_2012_bis, N_2012_bis, "");
+ComputeCorrections("TIB", "20240702_run382655", detids_2012_bis, N_2012_bis, "");
+ComputeCorrections("TIB", "20240910_run385515", detids_2012_bis, N_2012_bis, "");
+ComputeCorrections("TIB", "20241012_run386863", detids_2012_bis, N_2012_bis, "");
 
 
   //noise
