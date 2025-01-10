@@ -48,6 +48,7 @@ figures.
 
     - Make grey-ish area plots:
         There is only one macro to use: SummaryPlot.C. The parameters to change are at the beginning of the scan (subdet, layer, small or full scan)
+        -Input for thi macro is generated with FitLeakageCurrent.C
         The different possibilities are :
             // -- Smallscan --//
             // TIBL1
@@ -65,7 +66,7 @@ figures.
     - Make DeltaVFD plots with leakage current and CW, CC varaibles => plotPres.C macro
     The current plots that are used are only available in the repertory of Paul like:
     /afs/cern.ch/user/p/pvaucell/"+CMSSW+"/src/SiStripRadMonitoring/SignalBiasScan/Analysis/CurvesAnalysis/plots/signal/relative/"+SUB+"L1_kink_diffSignal.root.
-    but these plots are easily replicable.
+    but these plots are easily replicable. The inputs are generated from FitleakageCurrent.C and the CompareCurves.cc from the SIgnalAnalysis directory
     The possibilities are the same :
         // -- Smallscan --//
         // TIBL1
@@ -82,8 +83,15 @@ figures.
     - Comapare leakage current  of a given detid using => ComapreLeakageCurrent.C
         - Select the runs and the detids that you want (be careful, in smallscans you only have a few detids)
         - Up to 10 runs can be compared (limited by the color palette of cms)
+        - Input for this macro is generated with FitLeakageCurrent.C
     //-----------------
+    - Comapare leakage current  of a given detid + resistance using => ComapreLeakageCurrentTimesResistance.C
+        - Select the runs and the detids that you want (be careful, in smallscans you only have a few detids)
+        - Up to 10 runs can be compared (limited by the color palette of cms)
+        - Input to this macro is generate with ComputeIleakCorrections.C
+
     The lists of detids for TIB and TOB are available in this directory as TIB_list.txt and TOB_list.txt :DCU
+
 
     You now have everything,
     Happy Coding !

@@ -333,7 +333,7 @@ void FitAllCurves(string DirName, string SubDet, string date, string Run, string
 int main()
 {
   vector<string> v_analysis;
-  v_analysis.push_back("Signal");
+  // v_analysis.push_back("Signal");
   v_analysis.push_back("ClusterWidth");
 
   vector<string> v_subdet;
@@ -412,18 +412,18 @@ int main()
   // runs.push_back("386863"); dates.push_back("20241012"); //small
 
 //--// fullscnas runs
-	runs.push_back("160497");dates.push_back("20110315"); //Full
-	runs.push_back("170000");	dates.push_back("20110715"); //not used for now, still missing files
-	 runs.push_back("190459");	dates.push_back("20120405");
-	runs.push_back("193928");	dates.push_back("20120510");
-	runs.push_back("246963"); dates.push_back("20150603"); //Full, 0T
-	runs.push_back("271056");	dates.push_back("20160423"); //Full, No B field
-	runs.push_back("295376");	dates.push_back("20170527"); //-- FULL
-	 runs.push_back("303824");	dates.push_back("20170924"); //-- FULL (~100fb-1)
-	runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
-	runs.push_back("323374");	dates.push_back("20180923"); //FULL
+	// runs.push_back("160497");dates.push_back("20110315"); //Full
+	// runs.push_back("170000");	dates.push_back("20110715"); //not used for now, still missing files
+	//  runs.push_back("190459");	dates.push_back("20120405");
+	// runs.push_back("193928");	dates.push_back("20120510");
+	// runs.push_back("246963"); dates.push_back("20150603"); //Full, 0T
+	// runs.push_back("271056");	dates.push_back("20160423"); //Full, No B field
+	// runs.push_back("295376");	dates.push_back("20170527"); //-- FULL
+	//  runs.push_back("303824");	dates.push_back("20170924"); //-- FULL (~100fb-1)
+	// runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
+	// runs.push_back("323374");	dates.push_back("20180923"); //FULL
+
 	runs.push_back("324841");	dates.push_back("20181018");
-	 runs.push_back("346395");   dates.push_back("20211029"); //---------------------------
 	runs.push_back("353060");	dates.push_back("20220605"); // //-- FULL
 	runs.push_back("365843");	dates.push_back("20230407"); // //-- FULL
 	// runs.push_back("378238");dates.push_back("20240321"); // //-- FULL done
@@ -437,9 +437,9 @@ int main()
         if(v_subdet[j]=="TOB" && v_analysis[i]=="Signal" && runs[irun]=="203832") {continue;}
         else if(v_subdet[j]=="TEC" && v_analysis[i]=="Signal" && runs[irun]=="160497") {continue;}
 
-        // string dirname = "../"+v_analysis[i]+"Analysis/Code/Outputs/";
+        string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/"+v_analysis[i]+"Analysis/Code/Outputs/";
         // string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/"+v_analysis[i]+"Curves/";
-        string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/DECO_files_kink_range_fix/" ; // to store theDECO_files for fit all
+        // string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/DECO_files_kink_range_fix/" ; // to store theDECO_files for fit all
         // string dirname = "../"+v_analysis[i]+"Analysis/Code/";
         FitAllCurves(dirname, v_subdet[j], dates[irun], runs[irun], v_analysis[i], use_curvature, smallScan_modules_only);
       }

@@ -895,7 +895,7 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
   
   // load currents for all detids
   LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, subdet, run, bad_periods);
-  gROOT->SetBatch(kTRUE);
+  // gROOT->SetBatch(kTRUE);
   // Histos and output file
   TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet.c_str(), run.c_str()),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);

@@ -21,7 +21,7 @@
 void SummaryPlot() {
     // Ouvrir le premier fichier root qui contient les 10 TGraph
     TString subdet = "TIB";// TIB or TOB
-    TString layer = "L1";//L1 or  L4
+    TString layer = "L4";//L1 or  L4
     TString Mode = ""; // Delta
     TString Scan = "FULLSCAN"; //SMALL, FULL
     TString file1Name = Mode+subdet + "_" + layer + Scan + ".root";   
@@ -146,10 +146,15 @@ void SummaryPlot() {
                 {
                     if (i == nPoints-1 )
                         {
-                            if (subdet == "TIB")
+                            if (subdet == "TIB" && layer == "L1")
                                 {
                                     minThresholds.push_back(160);
                                     maxThresholds.push_back(350);
+                                }
+                            else if (subdet == "TIB" && layer == "L4")
+                                {
+                                    minThresholds.push_back(50);
+                                    maxThresholds.push_back(200);
                                 }
                             else if (subdet == "TOB" && layer == "L1")
                                 {
@@ -197,8 +202,8 @@ void SummaryPlot() {
                                         }
                                     else if (i == 8)
                                         {
-                                            minThresholds.push_back(50);
-                                            maxThresholds.push_back(160);
+                                            minThresholds.push_back(40);
+                                            maxThresholds.push_back(200);
                                         }
                                     else if (i == 4)
                                         {

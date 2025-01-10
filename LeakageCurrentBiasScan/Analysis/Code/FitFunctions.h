@@ -260,7 +260,7 @@ Double_t fitderivsqrt(Double_t *x, Double_t *par){
 
 Double_t fitcurvsqrt(Double_t *x, Double_t *par){
   Double_t value;
-  value = -0.25*par[0]*par[3]*par[3]*(par[1]+par[2]*x[0])*((par[3]*x[0]+par[4])^(3/2))+par[0]*par[1]*par[3]*(1/sqrt(par[3]*x[0]+par[4]));
+  value = -0.25*par[0]*par[3]*par[3]*(par[1]+par[2]*x[0])*pow(par[3]*x[0]+par[4],1.5)+par[0]*par[1]*par[3]*(1/sqrt(par[3]*x[0]+par[4]));
   return value;
 }
 #endif

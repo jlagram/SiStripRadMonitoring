@@ -16,18 +16,11 @@ void combineTGraphErrors( std::vector<TString> RUNS) {
     const int NRUNS = RUNS.size();
 
     std::vector<TString> FileNames;
-    std::vector<TString> DETID;
-    DETID.push_back("369121381");
-    DETID.push_back("369121386");
-
     for (unsigned int i = 0; i < NRUNS; i++) {
-      for (unsigned int j = 0 ; j < DETID.size(); j++){
-            // FileNames.push_back("/eos/user/j/jlagram/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/LeakCurCorr_TIB_" + RUNS[i] + ".root");
-            FileNames.push_back("IleakVsVbias_raw_" + RUNS[i] +"_detid_" + DETID[j] + ".root");
-        }
+        // FileNames.push_back("/eos/user/j/jlagram/SiStripRadMonitoring/LeakageCurrentCorrections/Corrections/wDCUcur/LeakCurCorr_TIB_" + RUNS[i] + ".root");
+        FileNames.push_back("LeakCurCorr_TIB_" + RUNS[i] + ".root");
     }
-    // The root files IleakVsVbias_raw are coming from FitLeakageCurrent.C, there is a line where gIleak->Saveas is done
-    // You just need to uncomment that line and run the macro to get the root files :D
+
     std::vector<TGraphErrors*> graphs_381;
     std::vector<TGraphErrors*> graphs_386;
 
@@ -107,51 +100,41 @@ void combineTGraphErrors( std::vector<TString> RUNS) {
     colors.push_back(ColorDarkGrey);
     colors.push_back(ColorLightBlue);
 
-  const unsigned int NPLOTS = FileNames.size(); // Ndetid * NRuns
-  for (unsigned int i = 0; i < NRUNS; i++) {
-    for (unsigned int j = 0 ; j < DETID.size(); j++){
-        TFile* file = TFile::Open(FileNames[DETID.size()*i+j]);
+
+    for (unsigned int i = 0; i < NRUNS; i++) {
+        std::cout<<"Opening file: "<<FileNames[i]<<std::endl;
+        TFile* file = TFile::Open(FileNames[i]);
         if (!file || file->IsZombie()) {
-            std::cerr << "Error opening file: " << FileNames[DETID.size()*i+j] << std::endl;
+            std::cerr << "Error opening file: " << FileNames[i] << std::endl;
             continue;
         }
 
-        // std::cout << "Opened file: " << FileNames[DETID.size()*i+j] << std::endl;
-        // std::cout << "i and j => index: " <<i<<" and j : "<<j<<" => index : "<<DETID.size()*i+j<<std::endl;
+        // file->ls();
         file->cd();
-        if ((DETID.size()*i+j) % DETID.size() == 0)
-          {
-            // std::cout << "TGraph 381 found in file: " << FileNames[DETID.size()*i+j] << std::endl;
-            TGraphErrors* graph_381 = (TGraphErrors*)file->Get("");
-            if (graph_381) {
-              graph_381->SetLineColor(colors[i]);
-              graph_381->SetMarkerColor(colors[i]);
-              graph_381->SetMarkerStyle(20);
-              graphs_381.push_back(graph_381);
-            }
-            else
-              {
-                std::cerr << "TGraph 381 not found in file: " << FileNames[DETID.size()*i+j] << std::endl;
-              }
-          }
-        else
-          {
-            // std::cout << "TGraph 386 found in file: " << FileNames[DETID.size()*i+j] << std::endl;
-            TGraphErrors* graph_386 = (TGraphErrors*)file->Get("");
-            if (graph_386) 
-              {
-                graph_386->SetLineColor(colors[i]);
-                graph_386->SetMarkerColor(colors[i]);
-                graph_386->SetMarkerStyle(20);
-                graphs_386.push_back(graph_386);
-              } 
-            else {
-                std::cerr << "vdrop_369121386 not found in file: " << FileNames[DETID.size()*i+j] << std::endl;
-              }
-          }
+        TGraphErrors* graph_381 = (TGraphErrors*)file->Get("vdrop_369121381");
+        TGraphErrors* graph_386 = (TGraphErrors*)file->Get("vdrop_369121386");
+
+        if (graph_381) {
+            graph_381->SetLineColor(colors[i]);
+            graph_381->SetMarkerColor(colors[i]);
+            graph_381->SetMarkerStyle(20);
+            graphs_381.push_back(graph_381);
+        } else {
+            std::cerr << "vdrop_369121381 not found in file: " << FileNames[i] << std::endl;
+        }
+
+        if (graph_386) {
+            graph_386->SetLineColor(colors[i]);
+            graph_386->SetMarkerColor(colors[i]);
+            graph_386->SetMarkerStyle(20);
+            graphs_386.push_back(graph_386);
+        } else {
+            std::cerr << "vdrop_369121386 not found in file: " << FileNames[i] << std::endl;
+        }
+
         file->Close();
-      }
-  }
+    }
+
 
     // Combine the TGraphErrors    
 
@@ -160,7 +143,6 @@ void combineTGraphErrors( std::vector<TString> RUNS) {
 
     // --------------381----------------
     canvas->cd(1);
-     gPad->SetLeftMargin(0.10);
     TLegend* legend_381 = new TLegend(0.1, 0.7, 0.4, 0.9);
         legend_381->SetTextSize(0.02); 
 
@@ -171,9 +153,7 @@ void combineTGraphErrors( std::vector<TString> RUNS) {
     }
     multiGraph_381->SetTitle("TIB Detid 369121381");
     multiGraph_381->GetXaxis()->SetTitle("V_{biais} [V]");
-    multiGraph_381->GetYaxis()->SetTitle("I_{Leak} [#muA]");
-    multiGraph_381->GetXaxis()->SetLabelSize(0.020);
-    multiGraph_381->GetYaxis()->SetLabelSize(0.020);
+    multiGraph_381->GetYaxis()->SetTitle("I_{Leak} [mA]");
     multiGraph_381->Draw("AP");
     legend_381->Draw();
 
@@ -274,8 +254,6 @@ float posX_=0;
     multiGraph_386->SetTitle("TIB Detid 369121386");
     multiGraph_386->GetXaxis()->SetTitle("V_{biais} [V]");
     multiGraph_386->GetYaxis()->SetTitle("I_{Leak} [mA]");
-    multiGraph_386->GetXaxis()->SetLabelSize(0.020);
-    multiGraph_386->GetYaxis()->SetLabelSize(0.020);
     multiGraph_386->Draw("AP");
     legend_386->Draw();
  //------Start of Copy Paste-----------------------------//
@@ -336,7 +314,7 @@ H = canvas->GetWh();
       latex.DrawLatex(posX_+0.18,1-t+0.005, extraText);
 	    }
 
-    canvas->SaveAs("CompareLeakageCurrent.pdf");
+    canvas->SaveAs("CombinedTGraphErrors.pdf");
 
     // Cleanup
     delete multiGraph_381;
@@ -352,7 +330,7 @@ int main()
 
         RUNS.push_back("20230407_run365843");
         RUNS.push_back("20230907_run373060");
-        // RUNS.push_back("20231025_run375658");
+        RUNS.push_back("20231025_run375658");
         RUNS.push_back("20240321_run378238");
         RUNS.push_back("20240702_run382655");
         RUNS.push_back("20240910_run385515");

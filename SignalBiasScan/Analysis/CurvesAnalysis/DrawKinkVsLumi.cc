@@ -2485,6 +2485,8 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 		// }
 
 		double vfd_drop = fabs(odepvolt - SubdetRef.GetVdepl(odetid));
+		// std::cout<<"vfd_drop = "<<vfd_drop<<std::endl;
+		// std::cout<<"SubdetRef.GetVdepl(odetid) = "<<SubdetRef.GetVdepl(odetid)<<std::endl;
 		if (std::isnan(vfd_drop)) {continue;}
 		if(vfd_drop == 0 || SubdetRef.GetVdepl(odetid) == 0) {nof_skippedModules++; continue;}
 
@@ -2569,7 +2571,7 @@ pair<vector<double>, vector<double> > Compute_Mean_Vfd_Drop_Per_Layer(TString di
 void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run = "", double lumi = 0)
 {
 	bool plot_fluence = true; // false <-> do not superimpose fluence for each layer //faster
-    bool read_flu_from_file = true;
+    bool read_flu_from_file = false;
 	bool use_logScale = false;
 
     // ifstream file_in("fluence_per_layer.txt"); //read the mean fluences from txt file
@@ -2886,8 +2888,8 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
 	latex.SetTextSize(0.025);
 	latex.DrawLatex(0.55, 0.85, fluka_text);
 	c1->Update();
-	c1->SaveAs("Vfd_Drop_Per_Layer.pdf");
-	c1->SaveAs("Vfd_Drop_Per_Layer.root");
+	c1->SaveAs("Vfd_Drop_Per_Layer"+antype+".pdf");
+	c1->SaveAs("Vfd_Drop_Per_Layer"+antype+".root");
 
 	delete c1; c1 = NULL;
 	for(int i=0; i<v_h.size(); i++)
@@ -2931,7 +2933,7 @@ void Plot_Mean_Vfd_Drop_Per_Layer(TString dirname, TString antype, TString run =
   */
 void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype="ClusterWidth")
 {
-	bool use_fluence = false; // false <-> do not superimpose fluence for each layer //faster
+	bool use_fluence = true; // false <-> do not superimpose fluence for each layer //faster
 	bool read_flu_from_file = true;
     bool use_logScale = false;
 
@@ -2939,36 +2941,36 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 	ifstream file_in("Fluence_perLayer_MultiScans.txt"); //read the mean fluences from txt file
 	// ifstream file_in("Fluence_perLayer_MultiScans_TIBTOB.txt"); //read the mean fluences from txt file
 
+	dirname =  "/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/DECO_files/all_modules/";
 
 	vector<TString> v_subdet;
 	v_subdet.push_back("TIB");
-	v_subdet.push_back("TOB");
-	v_subdet.push_back("TEC"); //If want to only use TIB/TOB, also change the fluence file being read !
-	v_subdet.push_back("TID");
+	// v_subdet.push_back("TOB");
+	// v_subdet.push_back("TEC"); //If want to only use TIB/TOB, also change the fluence file being read !
+	// v_subdet.push_back("TID");
 
 	//If want to plot multiple runs at once, remove 'run' arg and list the runs here instead !
 	vector<TString> v_runs; vector<double> lumis;
 
-	v_runs.push_back("160497");lumis.push_back(0.045); //Full
-	v_runs.push_back("170000");lumis.push_back(1.44); //not used for now, still missing files
-	v_runs.push_back("190459");lumis.push_back(6.15);
-	v_runs.push_back("193928");lumis.push_back(7.41);
-	v_runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T
-	v_runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field
-	v_runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL
-	v_runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1)
-	v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)
-	v_runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL
-	v_runs.push_back("324841");	lumis.push_back(161.40+29.46);
-	//2021
-	v_runs.push_back("346395");lumis.push_back(0.00000213+194.68); //---------------------------
-	//2022./z
-	v_runs.push_back("353060");lumis.push_back(0.00000534+194.68); // //-- FULL
+	// v_runs.push_back("160497");lumis.push_back(0.045); //Full, input not computed
+	v_runs.push_back("170000");lumis.push_back(1.44); // ok
+	v_runs.push_back("190459");lumis.push_back(6.15);// ok
+	v_runs.push_back("193928");lumis.push_back(7.41);// ok
+	v_runs.push_back("246963");lumis.push_back(0.001+29.46); //Full, 0T // ok
+	v_runs.push_back("271056");lumis.push_back(4.26+29.46); //Full, No B field // ok
+	v_runs.push_back("295376");lumis.push_back(45.71+29.46); //-- FULL // ok 
+	v_runs.push_back("303824");lumis.push_back(70.55+29.46); //-- FULL (~100fb-1) // ok
+	v_runs.push_back("314574");lumis.push_back(97.37+29.46); //-- FULL (-20°)// ok
+	v_runs.push_back("323374");lumis.push_back(152.45+29.46); //FULL // ok
+	// v_runs.push_back("324841");	lumis.push_back(161.40+29.46); // !!Missing // --FUll - the code is somewhat crashing when producing the DECO_files for these three runs... with error =>(/usr/include/c++/11/bits/stl_vector.h:1134: std::vector<_Tp, _Alloc>::const_reference std::vector<_Tp, _Alloc>::front() const [with _Tp = double; _Alloc = std::allocator<double>; std::vector<_Tp, _Alloc>::const_reference = const double&]: Assertion '!this->empty()' failed)
 
-	//2023
-	v_runs.push_back("365843");lumis.push_back(41.42+194.68); // //-- FULL
+	// //2022./z
+	// v_runs.push_back("353060");lumis.push_back(0.00000534+194.68);// !!Missing // //-- FULL
+
+	// //2023
+	// v_runs.push_back("365843");lumis.push_back(41.42+194.68);// !!Missing // //-- FULL
 		//2024
-	v_runs.push_back("378238");lumis.push_back(41.42+194.68+72.69); // //-- FULL
+	v_runs.push_back("378238");lumis.push_back(41.42+194.68+72.69); // - FULL  // ok
 
 	TCanvas *c1 = new TCanvas("c1","c1", 1000, 800);
 	c1->SetTopMargin(0.1);
@@ -3152,27 +3154,42 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 //----------------
 	// CAPTIONS //
 //----------------
-bool writeExtraText = false;
-	TString cmsText = "CMS";
+	bool writeExtraText = true; //Write 'CMS prelim' label
+	float extraTextFont = 52;  // default is helvetica-italics
+	float cmsTextFont   = 61;
+	// text sizes and text offsets with respect to the top frame
+	// in unit of the top margin size
+	float lumiTextSize     = 0.6;
+	float lumiTextOffset   = 0.2;
+	float cmsTextSize      = 0.75;
+	float cmsTextOffset    = 0.1;  // only used in outOfFrame version
+
+	float relPosX    = 0.045;
+	float relPosY    = 0.035;
+	float relExtraDY = 1.2;
+	// ratio of "CMS" and extra text size
+	float extraOverCmsTextSize  = 0.76;
+
+	TString cmsText     = "CMS";
 	TLatex latex;
 	latex.SetNDC();
 	latex.SetTextAngle(0);
 	latex.SetTextColor(kBlack);
-	latex.SetTextFont(61);
+	latex.SetTextFont(cmsTextFont);
 	latex.SetTextAlign(11);
 	latex.SetTextSize(0.05);
-	// latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
-if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin(),0.93,cmsText);
-	
+	latex.DrawLatex(c1->GetLeftMargin(),1-c1->GetTopMargin()+lumiTextOffset*c1->GetTopMargin(),cmsText);
+
+	float extraTextSize = extraOverCmsTextSize*cmsTextSize;
 	TString extraText   = "Preliminary";
-	latex.SetTextFont(52);
-	latex.SetTextSize(0.04);
-	// latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
-if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin() + 0.1, 0.932, extraText);
-	TString lumi_text   = "29.45 fb^{-1} (Run 1) + 194.68 fb^{-1} (Run 2)";
+	latex.SetTextFont(extraTextFont);
+	latex.SetTextSize(0.038);
+	if(writeExtraText) latex.DrawLatex(c1->GetLeftMargin()+0.09 , 1-c1->GetTopMargin()+lumiTextOffset*c1->GetTopMargin(), extraText);
+
+    TString lumi_text   = "391 fb^{-1}";
 	latex.SetTextFont(42);
-	latex.SetTextSize(0.03);
-	latex.DrawLatex(0.60, 0.93, lumi_text);
+	latex.SetTextSize(0.05);
+	latex.DrawLatex(1-c1->GetRightMargin()-0.12, 1-c1->GetTopMargin()+lumiTextOffset*c1->GetTopMargin(), lumi_text);
 
 	TString fluka_text   = "CMS FLUKA v3.9.0.0";
 	latex.SetTextFont(52);
