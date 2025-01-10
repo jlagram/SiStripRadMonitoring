@@ -2945,9 +2945,9 @@ void Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(TString dirname, TString antype=
 
 	vector<TString> v_subdet;
 	v_subdet.push_back("TIB");
-	// v_subdet.push_back("TOB");
-	// v_subdet.push_back("TEC"); //If want to only use TIB/TOB, also change the fluence file being read !
-	// v_subdet.push_back("TID");
+	v_subdet.push_back("TOB");
+	v_subdet.push_back("TEC"); //If want to only use TIB/TOB, also change the fluence file being read !
+	v_subdet.push_back("TID");
 
 	//If want to plot multiple runs at once, remove 'run' arg and list the runs here instead !
 	vector<TString> v_runs; vector<double> lumis;
@@ -3383,8 +3383,8 @@ int main(int argc, char *argv[])
   bool draw_vfd_evolution_plots = false; //Vfd evol plots
   bool draw_vfd_relative_evolution_plots = false; //Vfd relative evol plots
   bool draw_vfd_relative_evolution_superimposed_plots = false; //Vfd relative evol plots with both observables drawn
-  bool compute_mean_drop = true; //Compute mean Vfd drop for each Layer
-  bool compute_mean_drop_multipleScans = false; //Compute mean Vfd drop for each Layer, for several scans
+  bool compute_mean_drop = false; //Compute mean Vfd drop for each Layer
+  bool compute_mean_drop_multipleScans = true; //Compute mean Vfd drop for each Layer, for several scans
   bool plot_cw_vs_vfd = true;
 //--------------------------------------------
 
@@ -3524,6 +3524,10 @@ int main(int argc, char *argv[])
 	}
 
 	if(compute_mean_drop_multipleScans) {Plot_Mean_Vfd_Drop_Per_Layer_MultipleScans(dirname, "ClusterWidth");}
+	// !! When you add a new run and  want this plot vs fluence, you have to becareful;
+	// !! The fluence file being read is hardcoded, so you have to first comptue the fluence ( with "bool use_fluence = true;" and "bool read_flu_from_file = false;")
+	// !! Then, you can write the fluence in the Fluence_perLayer_MultiScan.txt file, in the right order- TIB,TOB,TID,TEC and use it for the next time you need to run the code
+	// !! Why should you do this => Computing the fluence takes a lot of time, like a LOT OF TIME, so you don't want to recompute each time you add a new run
 	//--------------------------------------------
 
 	return 0;
