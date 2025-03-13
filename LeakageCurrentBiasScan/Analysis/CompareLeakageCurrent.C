@@ -11,14 +11,14 @@
 // This macro allows to compare the leakage current of a given detid for different runs directly (and not by comparing the plots by eye)
 //
 
-void combineTGraphErrors( std::vector<TString> RUNS) {
+void combineTGraphErrors( std::vector<TString> RUNS, std::vector<TString> DATES) {
 
     const int NRUNS = RUNS.size();
 
     std::vector<TString> FileNames;
     std::vector<TString> DETID;
-    DETID.push_back("369121381");
-    DETID.push_back("369121386");
+    DETID.push_back("470177449");
+    DETID.push_back("470177958");
 
     for (unsigned int i = 0; i < NRUNS; i++) {
       for (unsigned int j = 0 ; j < DETID.size(); j++){
@@ -156,24 +156,34 @@ void combineTGraphErrors( std::vector<TString> RUNS) {
     // Combine the TGraphErrors    
 
     TCanvas* canvas = new TCanvas("canvas", "Combined TGraphErrors",0,0,1600,1000);
-    canvas->Divide(2, 1);
+    // canvas->Divide(2, 1);
 
     // --------------381----------------
     canvas->cd(1);
-     gPad->SetLeftMargin(0.10);
-    TLegend* legend_381 = new TLegend(0.1, 0.7, 0.4, 0.9);
-        legend_381->SetTextSize(0.02); 
+     gPad->SetLeftMargin(0.15);
+     gPad->SetBottomMargin(0.15);
+     
+      gPad->SetTopMargin(0.15);
+    TLegend* legend_381 = new TLegend(0.2, 0.65, 0.5, 0.85);
+        // legend_381->SetTextSize(0.02); 
+  legend_381->SetBorderSize(0);
+  legend_381->SetFillStyle(0);
+  legend_381->SetFillColor(kWhite);
+  legend_381->SetTextFont(42);
+  legend_381->SetTextSize(0.04);
 
     TMultiGraph* multiGraph_381 = new TMultiGraph();
     for (size_t i = 0; i < graphs_381.size(); ++i) {
         multiGraph_381->Add(graphs_381[i]);
-        legend_381->AddEntry(graphs_381[i], RUNS[i], "lp");
+        legend_381->AddEntry(graphs_381[i], DATES[i], "lp");
     }
-    multiGraph_381->SetTitle("TIB Detid 369121381");
+    multiGraph_381->SetTitle("Detid "+DETID[0]);
     multiGraph_381->GetXaxis()->SetTitle("V_{biais} [V]");
     multiGraph_381->GetYaxis()->SetTitle("I_{Leak} [#muA]");
-    multiGraph_381->GetXaxis()->SetLabelSize(0.020);
-    multiGraph_381->GetYaxis()->SetLabelSize(0.020);
+    multiGraph_381->GetXaxis()->SetTitleSize(0.06);
+    multiGraph_381->GetYaxis()->SetTitleSize(0.06);
+    multiGraph_381->GetXaxis()->SetLabelSize(0.040);
+    multiGraph_381->GetYaxis()->SetLabelSize(0.040);
     multiGraph_381->Draw("AP");
     legend_381->Draw();
 
@@ -187,9 +197,9 @@ float extraTextFont = 52;  // default is helvetica-italics
 
 // text sizes and text offsets with respect to the top frame
 // in unit of the top margin size
-float lumiTextSize     = 0.6;
+float lumiTextSize     = 0.45;
 float lumiTextOffset   = 0.2;
-float cmsTextSize      = 0.75;
+float cmsTextSize      = 0.55;
 float cmsTextOffset    = 0.1;  // only used in outOfFrame version
 
 float relPosX    = 0.045;
@@ -200,7 +210,7 @@ float relExtraDY = 1.2;
 float extraOverCmsTextSize  = 0.76;
 
 TString lumi_13TeV = "";//137 fb^{-1}
-TString lumi_sqrtS = "TIBL1";
+TString lumi_sqrtS = "TEC W9 R5";
 TString lumiText = lumi_13TeV+lumi_sqrtS;
   float H = canvas->GetWh();
   float W = canvas->GetWw();
@@ -219,12 +229,12 @@ TString lumiText = lumi_13TeV+lumi_sqrtS;
   latex.SetTextFont(42);
   latex.SetTextAlign(31); 
   latex.SetTextSize(lumiTextSize*t);    
-  latex.DrawLatex(1-r,1-t+0.005,lumiText);
+  latex.DrawLatex(1-r-0.001,1-t+0.007,lumiText);
 
       latex.SetTextFont(cmsTextFont);
       latex.SetTextAlign(11); 
       latex.SetTextSize(cmsTextSize*t);    
-      latex.DrawLatex(l,1-t+0.005,cmsText);
+      latex.DrawLatex(l,1-t+0.007,cmsText);
 
 float posX_=0;
   float posY_=0;
@@ -262,101 +272,107 @@ float posX_=0;
       latex.DrawLatex(posX_+0.18,1-t+0.005, extraText);
 	    }
 
-    // -------------386 ----------------
-    canvas->cd(2);
-    TLegend* legend_386 = new TLegend(0.1, 0.7, 0.4, 0.9);
-    legend_386->SetTextSize(0.02); 
-    TMultiGraph* multiGraph_386 = new TMultiGraph();
-    for (size_t i = 0; i < graphs_386.size(); ++i) {
-        multiGraph_386->Add(graphs_386[i]);
-        legend_386->AddEntry(graphs_386[i], RUNS[i], "lp");
-    }
-    multiGraph_386->SetTitle("TIB Detid 369121386");
-    multiGraph_386->GetXaxis()->SetTitle("V_{biais} [V]");
-    multiGraph_386->GetYaxis()->SetTitle("I_{Leak} [mA]");
-    multiGraph_386->GetXaxis()->SetLabelSize(0.020);
-    multiGraph_386->GetYaxis()->SetLabelSize(0.020);
-    multiGraph_386->Draw("AP");
-    legend_386->Draw();
- //------Start of Copy Paste-----------------------------//
+//     // -------------386 ----------------
+//     canvas->cd(2);
+//     TLegend* legend_386 = new TLegend(0.1, 0.7, 0.4, 0.9);
+//     legend_386->SetTextSize(0.02); 
+//     TMultiGraph* multiGraph_386 = new TMultiGraph();
+//     for (size_t i = 0; i < graphs_386.size(); ++i) {
+//         multiGraph_386->Add(graphs_386[i]);
+//         legend_386->AddEntry(graphs_386[i], RUNS[i], "lp");
+//     }
+//     multiGraph_386->SetTitle("TIB "+DETID[1]);
+//     multiGraph_386->GetXaxis()->SetTitle("V_{biais} [V]");
+//     multiGraph_386->GetYaxis()->SetTitle("I_{Leak} [mA]");
+//     multiGraph_386->GetXaxis()->SetLabelSize(0.020);
+//     multiGraph_386->GetYaxis()->SetLabelSize(0.020);
+//     multiGraph_386->Draw("AP");
+//     legend_386->Draw();
+//  //------Start of Copy Paste-----------------------------//
 
-H = canvas->GetWh();
-   W = canvas->GetWw();
-   l = canvas->GetLeftMargin();
-   t = canvas->GetTopMargin();
-   r = canvas->GetRightMargin();
-   b = canvas->GetBottomMargin();
-  latex.SetNDC();
-  latex.SetTextAngle(0);
-  latex.SetTextColor(kBlack);    
+// H = canvas->GetWh();
+//    W = canvas->GetWw();
+//    l = canvas->GetLeftMargin();
+//    t = canvas->GetTopMargin();
+//    r = canvas->GetRightMargin();
+//    b = canvas->GetBottomMargin();
+//   latex.SetNDC();
+//   latex.SetTextAngle(0);
+//   latex.SetTextColor(kBlack);    
 
-  latex.SetTextFont(42);
-  latex.SetTextAlign(31); 
-  latex.SetTextSize(lumiTextSize*t);    
-  latex.DrawLatex(1-r,1-t+0.005,lumiText);
+//   latex.SetTextFont(42);
+//   latex.SetTextAlign(31); 
+//   latex.SetTextSize(lumiTextSize*t);    
+//   latex.DrawLatex(1-r,1-t+0.005,lumiText);
 
-      latex.SetTextFont(cmsTextFont);
-      latex.SetTextAlign(11); 
-      latex.SetTextSize(cmsTextSize*t);    
-      latex.DrawLatex(l,1-t+0.005,cmsText);
+//       latex.SetTextFont(cmsTextFont);
+//       latex.SetTextAlign(11); 
+//       latex.SetTextSize(cmsTextSize*t);    
+//       latex.DrawLatex(l,1-t+0.005,cmsText);
 
-  posX_=0;
-  posY_=0;
-  iPosX = 3;
-  if( iPosX%10<=1 )
-    {
-      posX_ =   l + relPosX*(1-l-r);
-    }
-  else if( iPosX%10==2 )
-    {
-      posX_ =  l + 0.5*(1-l-r);
-    }
-  else if( iPosX%10==3 )
-    {
-      posX_ =  1-r - relPosX*(1-l-r);
-    }
-   posY_ = 1-t - relPosY*(1-t-b);
-  	  if( writeExtraText ) 
-	    {
-         posX_ =   l +  relPosX*(1-l-r);
-         posY_ =   1-t+lumiTextOffset*t;
-        int alignY_=3;
-         int alignX_=2;
-         if( iPosX/10==0 ) alignX_=1;
-         if( iPosX==0    ) alignX_=1;
-         if( iPosX==0    ) alignY_=1;
-         if( iPosX/10==1 ) alignX_=1;
-         if( iPosX/10==2 ) alignX_=2;
-         if( iPosX/10==3 ) alignX_=3;
-         //if( iPosX == 0  ) relPosX = 0.12;
-         int align_ = 10*alignX_ + alignY_;
-      latex.SetTextFont(extraTextFont);
-      latex.SetTextSize(extraTextSize*t);
-      latex.SetTextAlign(11);
-      latex.DrawLatex(posX_+0.18,1-t+0.005, extraText);
-	    }
+//   posX_=0;
+//   posY_=0;
+//   iPosX = 3;
+//   if( iPosX%10<=1 )
+//     {
+//       posX_ =   l + relPosX*(1-l-r);
+//     }
+//   else if( iPosX%10==2 )
+//     {
+//       posX_ =  l + 0.5*(1-l-r);
+//     }
+//   else if( iPosX%10==3 )
+//     {
+//       posX_ =  1-r - relPosX*(1-l-r);
+//     }
+//    posY_ = 1-t - relPosY*(1-t-b);
+//   	  if( writeExtraText ) 
+// 	    {
+//          posX_ =   l +  relPosX*(1-l-r);
+//          posY_ =   1-t+lumiTextOffset*t;
+//         int alignY_=3;
+//          int alignX_=2;
+//          if( iPosX/10==0 ) alignX_=1;
+//          if( iPosX==0    ) alignX_=1;
+//          if( iPosX==0    ) alignY_=1;
+//          if( iPosX/10==1 ) alignX_=1;
+//          if( iPosX/10==2 ) alignX_=2;
+//          if( iPosX/10==3 ) alignX_=3;
+//          //if( iPosX == 0  ) relPosX = 0.12;
+//          int align_ = 10*alignX_ + alignY_;
+//       latex.SetTextFont(extraTextFont);
+//       latex.SetTextSize(extraTextSize*t);
+//       latex.SetTextAlign(11);
+//       latex.DrawLatex(posX_+0.18,1-t+0.005, extraText);
+// 	    }
 
     canvas->SaveAs("CompareLeakageCurrent.pdf");
 
     // Cleanup
     delete multiGraph_381;
-    delete multiGraph_386;
+    // delete multiGraph_386;
     delete legend_381;
-    delete legend_386;
+    // delete legend_386;
     delete canvas;
 }
 
 int main()
     {
         std::vector<TString> RUNS;
+        std::vector<TString> DATES;
+        // RUNS.push_back("20230407_run365843");
+        // RUNS.push_back("20230907_run373060");
+        // // RUNS.push_back("20231025_run375658");
+        // RUNS.push_back("20240321_run378238");
+        // RUNS.push_back("20240702_run382655");
+        // RUNS.push_back("20240910_run385515");
+        // RUNS.push_back("20241012_run386863");
 
-        RUNS.push_back("20230407_run365843");
-        RUNS.push_back("20230907_run373060");
-        // RUNS.push_back("20231025_run375658");
         RUNS.push_back("20240321_run378238");
-        RUNS.push_back("20240702_run382655");
-        RUNS.push_back("20240910_run385515");
-        RUNS.push_back("20241012_run386863");
+        RUNS.push_back("20241125_run388832");
 
-        combineTGraphErrors(RUNS);
+        DATES.push_back("21 March 2024");
+        DATES.push_back("25 November 2024");  
+
+        combineTGraphErrors(RUNS,DATES);
     }

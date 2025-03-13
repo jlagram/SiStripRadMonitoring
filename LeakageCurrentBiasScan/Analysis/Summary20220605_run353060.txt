@@ -1,1 +1,177 @@
+Run : 20220605_run353060 for fit 2deriv Gen  with Hot detid : 470176173
+Hot Mean Vfd 53.4928 and cold Mean Vfd : 117.68
+Run : 20220605_run353060 for fit deriv TriL  with Hot detid : 470176933
+Hot Mean Vfd 100 and cold Mean Vfd : 185.164
+Run : 20220605_run353060 for fit deriv TriL  with Hot detid : 470176934
+Hot Mean Vfd 100 and cold Mean Vfd : 172.998
+Run : 20220605_run353060 for fit deriv TriL  with Hot detid : 470176937
+Hot Mean Vfd 100 and cold Mean Vfd : 163.873
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470177701
+Hot Mean Vfd 299.983 and cold Mean Vfd : 88.2115
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470177701
+Hot Mean Vfd 171.456 and cold Mean Vfd : 92.7661
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470177701
+Hot Mean Vfd 276.001 and cold Mean Vfd : 142.656
+Run : 20220605_run353060 for fit deriv Gen  with Hot detid : 470177701
+Hot Mean Vfd 49.2211 and cold Mean Vfd : 143.001
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470177702
+Hot Mean Vfd 299.983 and cold Mean Vfd : 93.935
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470177702
+Hot Mean Vfd 171.456 and cold Mean Vfd : 95.3045
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470177702
+Hot Mean Vfd 276.001 and cold Mean Vfd : 146.26
+Run : 20220605_run353060 for fit deriv Gen  with Hot detid : 470177702
+Hot Mean Vfd 49.2211 and cold Mean Vfd : 143.001
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470177705
+Hot Mean Vfd 299.983 and cold Mean Vfd : 99.3573
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470177705
+Hot Mean Vfd 171.456 and cold Mean Vfd : 97.6843
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470177705
+Hot Mean Vfd 276.001 and cold Mean Vfd : 149.674
+Run : 20220605_run353060 for fit deriv Gen  with Hot detid : 470177705
+Hot Mean Vfd 49.2211 and cold Mean Vfd : 143.001
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470177706
+Hot Mean Vfd 299.983 and cold Mean Vfd : 104.502
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470177706
+Hot Mean Vfd 171.456 and cold Mean Vfd : 99.9198
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470177706
+Hot Mean Vfd 276.001 and cold Mean Vfd : 152.913
+Run : 20220605_run353060 for fit deriv Gen  with Hot detid : 470177706
+Hot Mean Vfd 49.2211 and cold Mean Vfd : 143.001
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470177709
+Hot Mean Vfd 299.983 and cold Mean Vfd : 109.389
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470177709
+Hot Mean Vfd 171.456 and cold Mean Vfd : 102.024
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470177709
+Hot Mean Vfd 276.001 and cold Mean Vfd : 155.99
+Run : 20220605_run353060 for fit deriv Gen  with Hot detid : 470177709
+Hot Mean Vfd 49.2211 and cold Mean Vfd : 143.001
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470177710
+Hot Mean Vfd 299.983 and cold Mean Vfd : 114.037
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470177710
+Hot Mean Vfd 171.456 and cold Mean Vfd : 104.008
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470177710
+Hot Mean Vfd 276.001 and cold Mean Vfd : 158.917
+Run : 20220605_run353060 for fit deriv Gen  with Hot detid : 470177710
+Hot Mean Vfd 49.2211 and cold Mean Vfd : 143.001
+Run : 20220605_run353060 for fit sigmoid+pol1  with Hot detid : 470180261
+Hot Mean Vfd 168.424 and cold Mean Vfd : 108.379
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180261
+Hot Mean Vfd 247.491 and cold Mean Vfd : 158.162
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180262
+Hot Mean Vfd 226.108 and cold Mean Vfd : 156.494
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180265
+Hot Mean Vfd 209.477 and cold Mean Vfd : 154.892
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180266
+Hot Mean Vfd 196.172 and cold Mean Vfd : 153.354
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470180517
+Hot Mean Vfd 76.0433 and cold Mean Vfd : 260
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180517
+Hot Mean Vfd 185.752 and cold Mean Vfd : 151.874
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470180518
+Hot Mean Vfd 76.0433 and cold Mean Vfd : 233.72
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180518
+Hot Mean Vfd 177.07 and cold Mean Vfd : 150.548
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470180521
+Hot Mean Vfd 76.0433 and cold Mean Vfd : 214.011
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180521
+Hot Mean Vfd 169.723 and cold Mean Vfd : 149.27
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470180522
+Hot Mean Vfd 76.0433 and cold Mean Vfd : 198.681
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180522
+Hot Mean Vfd 163.425 and cold Mean Vfd : 148.039
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180773
+Hot Mean Vfd 157.287 and cold Mean Vfd : 146.852
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180774
+Hot Mean Vfd 151.917 and cold Mean Vfd : 145.527
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180777
+Hot Mean Vfd 147.178 and cold Mean Vfd : 144.249
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470180778
+Hot Mean Vfd 142.966 and cold Mean Vfd : 143.013
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470442405
+Hot Mean Vfd 299.721 and cold Mean Vfd : 112.405
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470442405
+Hot Mean Vfd 139.12 and cold Mean Vfd : 142.284
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470442406
+Hot Mean Vfd 299.526 and cold Mean Vfd : 115.353
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470442406
+Hot Mean Vfd 135.659 and cold Mean Vfd : 141.203
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470442409
+Hot Mean Vfd 299.373 and cold Mean Vfd : 118.209
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470442409
+Hot Mean Vfd 132.528 and cold Mean Vfd : 140.155
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470442410
+Hot Mean Vfd 299.251 and cold Mean Vfd : 120.978
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470442410
+Hot Mean Vfd 129.681 and cold Mean Vfd : 139.137
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470442661
+Hot Mean Vfd 73.5957 and cold Mean Vfd : 186.417
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470442665
+Hot Mean Vfd 71.9642 and cold Mean Vfd : 175.271
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470442666
+Hot Mean Vfd 70.7987 and cold Mean Vfd : 165.982
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470442917
+Hot Mean Vfd 176.393 and cold Mean Vfd : 100.015
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470442918
+Hot Mean Vfd 180.096 and cold Mean Vfd : 101.697
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470442921
+Hot Mean Vfd 182.975 and cold Mean Vfd : 103.327
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470442922
+Hot Mean Vfd 185.279 and cold Mean Vfd : 104.907
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443173
+Hot Mean Vfd 68.802 and cold Mean Vfd : 158.122
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443174
+Hot Mean Vfd 67.2491 and cold Mean Vfd : 150.744
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443177
+Hot Mean Vfd 66.0067 and cold Mean Vfd : 144.349
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443178
+Hot Mean Vfd 64.9902 and cold Mean Vfd : 138.754
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470443429
+Hot Mean Vfd 298.87 and cold Mean Vfd : 122.739
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443429
+Hot Mean Vfd 64.4194 and cold Mean Vfd : 133.817
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470443430
+Hot Mean Vfd 298.553 and cold Mean Vfd : 125.037
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443430
+Hot Mean Vfd 63.9365 and cold Mean Vfd : 129.613
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470443433
+Hot Mean Vfd 298.284 and cold Mean Vfd : 127.274
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443433
+Hot Mean Vfd 63.5225 and cold Mean Vfd : 125.851
+Run : 20220605_run353060 for fit sigmoid+pol2  with Hot detid : 470443434
+Hot Mean Vfd 298.054 and cold Mean Vfd : 129.453
+Run : 20220605_run353060 for fit atan+pol2  with Hot detid : 470443434
+Hot Mean Vfd 63.1637 and cold Mean Vfd : 122.466
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470443685
+Hot Mean Vfd 183.891 and cold Mean Vfd : 104.715
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470443686
+Hot Mean Vfd 182.734 and cold Mean Vfd : 105.585
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470443689
+Hot Mean Vfd 181.756 and cold Mean Vfd : 106.433
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470443690
+Hot Mean Vfd 180.917 and cold Mean Vfd : 107.259
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470439077
+Hot Mean Vfd 182.777 and cold Mean Vfd : 102.368
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470439078
+Hot Mean Vfd 184.405 and cold Mean Vfd : 103.488
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470439081
+Hot Mean Vfd 185.842 and cold Mean Vfd : 104.585
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470439082
+Hot Mean Vfd 187.119 and cold Mean Vfd : 105.66
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470439085
+Hot Mean Vfd 188.261 and cold Mean Vfd : 106.713
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470439086
+Hot Mean Vfd 189.289 and cold Mean Vfd : 107.744
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470444197
+Hot Mean Vfd 189.462 and cold Mean Vfd : 106.727
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470444198
+Hot Mean Vfd 189.618 and cold Mean Vfd : 107.533
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470444201
+Hot Mean Vfd 189.761 and cold Mean Vfd : 108.323
+Run : 20220605_run353060 for fit GenFunc  with Hot detid : 470444202
+Hot Mean Vfd 189.893 and cold Mean Vfd : 109.099
+Run : 20220605_run353060 for fit deriv exp  with Hot detid : 470181285
+Hot Mean Vfd 126.872 and cold Mean Vfd : 125.422
+Run : 20220605_run353060 for fit 2deriv Gen  with Hot detid : 470181285
+Hot Mean Vfd 54.6674 and cold Mean Vfd : 125.097
 //----------------------------//

@@ -20,8 +20,9 @@
 
 void SummaryPlot() {
     // Ouvrir le premier fichier root qui contient les 10 TGraph
-    TString subdet = "TIB";// TIB or TOB
-    TString layer = "L4";//L1 or  L4
+    TString subdet = "TEC";// TIB or TOB
+    TString layer = "R5";//L1 or  L4
+    TString extra = "5";
     TString Mode = ""; // Delta
     TString Scan = "FULLSCAN"; //SMALL, FULL
     TString file1Name = Mode+subdet + "_" + layer + Scan + ".root";   
@@ -166,6 +167,11 @@ void SummaryPlot() {
                                     minThresholds.push_back(50);
                                     maxThresholds.push_back(300);    
                                 }
+                            else if (subdet == "TEC" && layer == "R5")
+                                {
+                                    minThresholds.push_back(110);
+                                    maxThresholds.push_back(200);    
+                                }
                             else
                                 {
                                     minThresholds.push_back(50);
@@ -261,6 +267,30 @@ void SummaryPlot() {
                                         {
                                             minThresholds.push_back(100);
                                             maxThresholds.push_back(350);
+                                        }
+                                    else
+                                        {
+                                            minThresholds.push_back(50);
+                                            maxThresholds.push_back(300);
+                                        }
+    
+                                }
+                            else if (subdet == "TEC" && layer == "R5")
+                                {
+                                    if (i == 6)
+                                        {
+                                            minThresholds.push_back(0);
+                                            maxThresholds.push_back(160);
+                                        }
+                                    else if ( i == 7)
+                                        {
+                                            minThresholds.push_back(60);
+                                            maxThresholds.push_back(300);
+                                        }
+                                    else if (i == 8)
+                                        {
+                                            minThresholds.push_back(110);
+                                            maxThresholds.push_back(200);
                                         }
                                     else
                                         {
@@ -384,9 +414,14 @@ void SummaryPlot() {
         return;
     }
 
-    TGraph *additionalGraph = (TGraph*)file2->Get("lumigr_"+subdet+"_"+layer+"");  // Assumer le nom du graph dans le deuxième fichier
+    TGraph *additionalGraph = (TGraph*)file2->Get("lumigr_"+subdet+"_"+layer+"");
+    if  (subdet == "TEC" || subdet == "TID" )
+        {
+            additionalGraph = (TGraph*)file2->Get("lumigr_"+extra);
+ 
+        }
     if (!additionalGraph) {
-        std::cerr << "Erreur: impossible de trouver la courbe dans lumigr_lumigr_"+subdet+"_"+layer+".root" << std::endl;
+        std::cerr << "Erreur: impossible de trouver la courbe dans _lumigr_"+subdet+"_"+layer+".root" << std::endl;
         return;
     }
     additionalGraph->SetLineColor(kRed);  // Couleur de la courbe

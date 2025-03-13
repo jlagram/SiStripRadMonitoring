@@ -895,7 +895,7 @@ void ComputeAllCorrections(std::string subdet, std::string run, std::string file
   
   // load currents for all detids
   LoadConditions(map_DCU_currents, map_PS_currents, map_NMOD, subdet, run, bad_periods);
-  // gROOT->SetBatch(kTRUE);
+  
   // Histos and output file
   TFile* fout = new TFile(Form("LeakCurCorr_%s_%s.root", subdet.c_str(), run.c_str()),"recreate");
   TH1F* hchi2 = new TH1F("hchi2", "Chi2/NDF", 100, 0, 50);
@@ -1091,7 +1091,7 @@ void ComputeILeakDCUFractions()
 
 void ComputeILeakCorrections(std::string subdet="TIB_L1", std::string run="20120506_run193541")
 {
-
+  // gROOT->SetBatch(kTRUE);
   // 2011
   const int N_2011=11;
   int detids_2011[N_2011]={369121605,369121606,369121609,369121610,369121613,369121614,369125861,369125862,369125866,369125869,369125870};
@@ -1243,13 +1243,13 @@ int detids1[N1]={436311928};
   // ComputeAllDCUOverPSRatios("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "");
   // ComputeAllCorrections("TIB", "20230407_run365843", "Data/TIB_detids_sorted.txt", "", 9, 50);
 
-ComputeCorrections("TIB", "20230407_run365843", detids_2012_bis, N_2012_bis, "");
-ComputeCorrections("TIB", "20230907_run373060", detids_2012_bis, N_2012_bis, "");
-ComputeCorrections("TIB", "20231025_run375658", detids_2012_bis, N_2012_bis, "");
-ComputeCorrections("TIB", "20240321_run378238", detids_2012_bis, N_2012_bis, "");
-ComputeCorrections("TIB", "20240702_run382655", detids_2012_bis, N_2012_bis, "");
-ComputeCorrections("TIB", "20240910_run385515", detids_2012_bis, N_2012_bis, "");
-ComputeCorrections("TIB", "20241012_run386863", detids_2012_bis, N_2012_bis, "");
+// ComputeCorrections("TIB", "20230407_run365843", detids_2012_bis, N_2012_bis, "");
+// ComputeCorrections("TIB", "20230907_run373060", detids_2012_bis, N_2012_bis, "");
+// ComputeCorrections("TIB", "20231025_run375658", detids_2012_bis, N_2012_bis, "");
+// ComputeCorrections("TIB", "20240321_run378238", detids_2012_bis, N_2012_bis, "");
+// ComputeCorrections("TIB", "20240702_run382655", detids_2012_bis, N_2012_bis, "");
+// ComputeCorrections("TIB", "20240910_run385515", detids_2012_bis, N_2012_bis, "");
+// ComputeCorrections("TIB", "20241012_run386863", detids_2012_bis, N_2012_bis, "");
 
 
   //noise
@@ -1532,6 +1532,170 @@ ComputeCorrections("TIB", "20241012_run386863", detids_2012_bis, N_2012_bis, "")
   const int N_TEC=20;
   int detids_TEC[N_TEC]={470148196, 470148200, 470148204, 470148228, 470148232, 470148236, 470148240, 470148292, 470148296, 470148300, 470148304, 470148261, 470148262, 470148265, 470148266, 470148324, 470148328, 470148332, 470148336, 470148340};
   
+  const int N_TEC_Martin = 160;
+  int detids_TEC_Martin[N_TEC_Martin]={
+              470177449
+              ,470177958
+              ,470176941
+              ,470177450
+              ,470176942
+              ,470440105
+              ,470177961
+              ,470177453
+              ,470177962
+              ,470177454
+              ,470440109
+              ,470177965
+              ,470177966
+              ,470442661
+              ,470180517
+              ,470442662
+              ,470180518
+              ,470443173
+              ,470181029
+              ,470442665
+              ,470180521
+              ,470181030
+              ,470180522
+              ,470443685
+              ,470181541
+              ,470443177
+              ,470443686
+              ,470181033
+              ,470181542
+              ,470443178
+              ,470181034
+              ,470444197
+              ,470182053
+              ,470181545
+              ,470182054
+              ,470443690
+              ,470181546
+              ,470182057
+              ,470182058
+              ,470440101
+              ,470444198
+              ,470440102
+              ,470443174
+              ,470443689
+              ,470439593
+              ,470439594
+              ,470444201
+              ,470439085
+              ,470439086
+              ,470439597
+              ,470444202
+              ,470440106
+              ,470439598
+              ,470442666
+              ,470438574
+              ,470438573
+              ,470440110
+              ,470176430
+              ,470438309
+              ,470176165
+              ,470438310
+              ,470176166
+              ,470438821
+              ,470176677
+              ,470438313
+              ,470438822
+              ,470176169
+              ,470176678
+              ,470438314
+              ,470176170
+              ,470439333
+              ,470177189
+              ,470438825
+              ,470439334
+              ,470176681
+              ,470177190
+              ,470176173
+              ,470438826
+              ,470176682
+              ,470439845
+              ,470177701
+              ,470439337
+              ,470177193
+              ,470177702
+              ,470176685
+              ,470177194
+              ,470176686
+              ,470177705
+              ,470177197
+              ,470177706
+              ,470177198
+              ,470177709
+              ,470177710
+              ,470180261
+              ,470180262
+              ,470442917
+              ,470180773
+              ,470442409
+              ,470180265
+              ,470180774
+              ,470442410
+              ,470180266
+              ,470443429
+              ,470181285
+              ,470442921
+              ,470443430
+              ,470180777
+              ,470181286
+              ,470176938
+              ,470442922
+              ,470180778
+              ,470443941
+              ,470181797
+              ,470443433
+              ,470443942
+              ,470181289
+              ,470181798
+              ,470181290
+              ,470181801
+              ,470181802
+              ,470442405
+              ,470439846
+              ,470442406
+              ,470442918
+              ,470443945
+              ,470439338
+              ,470439849
+              ,470443946
+              ,470439341
+              ,470438829
+              ,470439850
+              ,470439342
+              ,470439853
+              ,470439854
+              ,470443434
+              ,470438318
+              ,470438317
+              ,470438830
+              ,470176174
+              ,470438565
+              ,470176421
+              ,470438566
+              ,470176422
+              ,470439077
+              ,470176933
+              ,470438569
+              ,470439078
+              ,470176425
+              ,470176934
+              ,470438570
+              ,470176426
+              ,470439589
+              ,470177445
+              ,470439081
+              ,470439590
+              ,470176937
+              ,470177446
+              ,470176429
+              ,470439082
+              ,470177957
+    };
+
    // 2012
   
   //ComputeAllDCUOverPSRatios("TEC", "20120405_run190459", "Data/TEC_detids_sorted.txt", "Steps/bad_periods_20120405_run190459.txt");
@@ -1639,6 +1803,21 @@ ComputeCorrections("TIB", "20241012_run386863", detids_2012_bis, N_2012_bis, "")
   //ComputeAllDCUOverPSRatios("TEC", "20230407_run365843", "Data/TEC_detids_sorted.txt", "");
   //ComputeAllCorrections("TEC", "20230407_run365843", "Data/TEC_detids_sorted.txt", "", 4, 50);
   
+
+
+
+  ComputeCorrections("TEC", "20240321_run378238", detids_TEC_Martin,N_TEC_Martin, "");
+  ComputeAllDCUOverPSRatios("TEC", "20240321_run378238", "Data/detid_lists/TEC_Martin.txt", "");
+  ComputeAllCorrections("TEC", "20240321_run378238", "Data/detid_lists/TEC_Martin.txt", "", 4, 50);
+
+
+  ComputeCorrections("TEC", "noise_20241125_run388832", detids_TEC_Martin, N_TEC_Martin, "");
+  ComputeAllDCUOverPSRatios("TEC", "noise_20241125_run388832", "Data/detid_lists/TEC_Martin.txt", "");
+  ComputeAllCorrections("TEC", "noise_20241125_run388832", "Data/detid_lists/TEC_Martin.txt", "", 4, 50);
+
+
+
+
 
   // noise
   //ComputeCorrections("TEC", "noise_20120921_run203243", detids_TEC, N_TEC, "Steps/bad_periods_noise_20120921_run203243.txt");

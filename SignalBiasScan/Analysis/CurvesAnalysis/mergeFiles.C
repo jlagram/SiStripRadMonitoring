@@ -12,7 +12,7 @@ void mergeFiles() {
     TChain chain("tree");  // Remplace "tree" par le nom correct de ton TTree
 
     // Liste des fichiers dans le répertoire courant
-    void* dir = gSystem->OpenDirectory(".");
+    void* dir = gSystem->OpenDirectory("/afs/cern.ch/user/p/pvaucell/public/VdepEvolution/Predictions/");
     const char* file;
     
     // Parcourir tous les fichiers du répertoire
