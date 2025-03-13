@@ -3381,8 +3381,8 @@ int PlotDeltaMeanVfdPerRunPerFit (std::vector<std::vector<float>> VFD, std::vect
 // Then, you should be good
 
 // !! You can run both the Vfd and DeltaVfd at the same time
-// !! Becareful about the predictions that are taken from the repo of Paul (as per now), see just above with "choice_simu == 5" (the current predictions are made for up until 2026/ end of Run 3)
-// !! The predictions are not always up-to-date, so you can also add your own predictions in the same way as the current ones
+// !! Becareful about the predictions that are taken from the repo of Paul (as per now), see just above with "choice_simu == 5" (the current predictions are made for up until 2026 / end of Run 3)
+// !! The predictions might not be up-to-date (depends on when you take this code) but you should be good for the end of Run 3, so you can also add your own predictions in the same way as the current ones
 
 // !! The trickiest part is changing the parameters of the fits, the code is hard to read, parameters have to be changed for each subdet,layer,run,fit...
 // The first part is about anyalzing IleakvsVbiais, the second is about the first derivatrive and then the second derivative
@@ -3395,6 +3395,8 @@ int PlotDeltaMeanVfdPerRunPerFit (std::vector<std::vector<float>> VFD, std::vect
 // see : line ~ 180
 
 // if you want to select a specific PS or modules , you can change the selection at lines ~470
+
+
 
 int main()
   {
