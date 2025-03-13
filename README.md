@@ -2,6 +2,7 @@ SiStripRadMonitoring
 ====================
 Twiki to look at: https://twiki.cern.ch/twiki/bin/view/CMS/SiStripSignalHVScansCode and https://twiki.cern.ch/twiki/bin/view/CMS/SiStripSignalHVScans
 ====================
+
 Since the next person will take over my workspace, here are a few things to know.
 
 While the repository should be cloned on lxplus, I wasn't able to make the crab job submition work on el8 and el9 (because CERN removed slc7)
@@ -61,6 +62,7 @@ For CurvesAnalysis, you have to take care of DrawKinkVsLumi.cc, CompareCurves.cc
 You just have to run FitAll.exe (type "make" :D ) first and then the other ones (DrawKinkVsLumi.exe, ...) should run smoothly
 
 ====================
+
 Fit.cc / FitAll.cc : Apply the line and kink methods (I actually never modified those files) on the CW and Signal Curves
 
 !! You can select the modules you want to analyze (can be usful to analyze specific power supplies or problematic modules)
@@ -127,6 +129,7 @@ The possibilities are  :
 
 
 ====================
+
 Global Note 1 : When analyzing runs, make sure to run the code for all sub-detectors (TIB,TOB,TID,TEC) because backward compatibility 
 (analyzing a run 2 scan for example) is not really possible anymore...
 
