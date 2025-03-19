@@ -29,6 +29,10 @@ it seems that when running on the ui, you do not need to take into account a tim
 
 machines that are always 1h shifted with respect to local time in strasbourg)
 
+Compile wiht : scramv1 b -j4
+
+When running the crab jobs, the output will be stored in : /eos/cms/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/
+
 ====================
 
 There is always a Makefile to compile the needed code. You basically just have to add the latest run with the date on the associated luminosity (use brilcalc from twiki)
