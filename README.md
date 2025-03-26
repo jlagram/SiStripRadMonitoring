@@ -33,6 +33,14 @@ Compile with : scramv1 b -j4 (in SiStripRadMonitoring directory)
 
 When running the crab jobs, the output will be stored in : /eos/cms/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/
 
+!!!!!!!!! REALLY IMPORTANT !!!!!!!!
+
+You need to copy  the clusters Tree in your ui envrionment from eos to be able to run the next code.
+
+Indeed, In SignalAnalysis and ClusterWidthAnalysis, you can run Run_Tree_Compiled that eeds the ClustersTree*.root. This can only be done on the ui.
+
+Even if the code runs on lxplus, the data is not registered so ui is mandadory IN THE SINGULARITY
+
 ====================
 
 There is always a Makefile to compile the needed code. You basically just have to add the latest run with the date on the associated luminosity (use brilcalc from twiki)
