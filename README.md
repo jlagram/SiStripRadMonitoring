@@ -29,9 +29,17 @@ it seems that when running on the ui, you do not need to take into account a tim
 
 machines that are always 1h shifted with respect to local time in strasbourg)
 
-Compile wiht : scramv1 b -j4
+Compile with : scramv1 b -j4
 
 When running the crab jobs, the output will be stored in : /eos/cms/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/
+
+!!!!!!!!! REALLY IMPORTANT !!!!!!!!
+
+You need to copy  the clusters Tree in your ui envrionment from eos to be able to run the next code.
+
+Indeed, In SignalAnalysis and ClusterWidthAnalysis, you can run Run_Tree_Compiled that eeds the ClustersTree*.root. This can only be done on the ui.
+
+Even if the code runs on lxplus, the data is not registered so ui is mandadory IN THE SINGULARITY
 
 ====================
 
@@ -55,7 +63,7 @@ In ClusterWidthAnalysis and SignalAnalysis, it's quite straight forward to under
 
 You actually "need" to create the file in the Run_TreeMaker_files directory and copy paste the code in the Run_TreeMaker_compiled.C file
 
-so that we can keep track of all the runs analyzed. Then, you can put the outputs in the common directory and switch ti the CurvesAnalysis directory.
+so that we can keep track of all the runs analyzed. Then, you can put the outputs in the common directory and switch to the CurvesAnalysis directory.
 
 PS : you can put the plots on your environment but for some codes, it can be annoying. I will let you explore this ..
 

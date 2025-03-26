@@ -35,6 +35,7 @@ time_t convertTimestamp( std::string str){
   if(year==2013 || (year==2012 && month>=10) || (year==2022 && month>=10 ) || (year==2023 && month<=5 ) || (year==2023 && month==6 )|| (year==2023 && month==9 )|| (year==2023 && month==10 )    ) out_time+=3600;//FIXME : these conditions should alwayds be verfied (monitored)
   //They work for specific cases.
   else if (year==2024 && month==9 ){out_time+=0;}//when running on ui2
+  // else if (year == 2024){out_time+= 7200;}
   else out_time+=7200;
   
   return out_time;
