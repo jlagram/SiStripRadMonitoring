@@ -319,8 +319,10 @@ int main()
 //   string dirname = "../"+type+"Analysis/Code/Outputs";
 //  string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/"+type+"Curves";
 // string dirname ="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/SignalAnalysis/Code/Outputs";
-	// string dirname ="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/"+type+"Analysis/Code/Outputs"; //for 353060,346395 and 324841
-string dirname = "../"+type+"Analysis/Code";
+	string dirname ="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/"+type+"Analysis/Code/Outputs"; //for 353060,346395 and 324841
+// string dirname = "../"+type+"Analysis/Code";
+
+
   for(int irun = 0; irun < runs.size(); irun++)
   {
 	  for(int j=0; j<v_subdet.size(); j++)

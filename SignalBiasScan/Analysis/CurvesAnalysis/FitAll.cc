@@ -409,7 +409,7 @@ int main()
 
   // runs.push_back("382655"); dates.push_back("20240702"); //small
   // runs.push_back("385515"); dates.push_back("20240910"); //small
-  // runs.push_back("386863"); dates.push_back("20241012"); //small
+  runs.push_back("386863"); dates.push_back("20241012"); //small
 
 //--// fullscnas runs
 	// runs.push_back("160497");dates.push_back("20110315"); //Full
@@ -423,9 +423,9 @@ int main()
 	// runs.push_back("314574");	dates.push_back("20180418"); //-- FULL (-20°)
 	// runs.push_back("323374");	dates.push_back("20180923"); //FULL
 
-	runs.push_back("324841");	dates.push_back("20181018");
-	runs.push_back("353060");	dates.push_back("20220605"); // //-- FULL
-	runs.push_back("365843");	dates.push_back("20230407"); // //-- FULL
+	// runs.push_back("324841");	dates.push_back("20181018");
+	// runs.push_back("353060");	dates.push_back("20220605"); // //-- FULL
+	// runs.push_back("365843");	dates.push_back("20230407"); // //-- FULL
 	// runs.push_back("378238");dates.push_back("20240321"); // //-- FULL done
 
   for(int i=0; i<v_analysis.size(); i++)
