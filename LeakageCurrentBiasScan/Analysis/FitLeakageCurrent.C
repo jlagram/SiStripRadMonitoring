@@ -151,25 +151,25 @@ TGraphErrors* GetIleakVsVbias(TString run, int DID , TGraph* gsteps, TGraph* gcu
     //-------------------------------------------------------------//
     // remove points not in a voltage step by using 1, else use 15 . Use 15 for runs of run 1 and 1 for runs of run 2 and 3
     //-------------------------------------------------------------//
-     if ( volt_err<=15 && (run == "20180530_run317182" || run == "20180611_run317683" || run == "20220605_run353060" || run.Contains("2024") ) 
+    if ( volt_err<=15 && (run == "20180530_run317182" || run == "20180611_run317683" || run == "20220605_run353060" || run.Contains("2024") ) 
             && (DID == 436281508 || DID == 436281512 || DID == 436281516 || DID == 436281520 || DID == 436281524 || DID == 436281528 ) ) 
-	  {
-	    gout->SetPoint(ipt, volt, current);
-      gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
-      ipt++;
-	  }
-	else if(volt_err<=15 && (( run.Contains("2016") || run.Contains("2015") ||  run.Contains("2012")||  run.Contains("2011")|| run.Contains("2010")) || run.Contains("20170527_run295324"))) //1 //15 + allows to avoid the first point at 155 volt due to the previous loop where (300+10)/2 is done=> error of ~150volts
-	  {
-	    gout->SetPoint(ipt, volt, current);
-      gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
-      ipt++;
-	  }
-  else if (volt_err<=1)
-	  {
-	    gout->SetPoint(ipt, volt, current);
-      gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
-      ipt++;
-	  }	
+      {
+        gout->SetPoint(ipt, volt, current);
+        gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
+        ipt++;
+      }
+    else if(volt_err<=15 && (( run.Contains("2016") || run.Contains("2015") ||  run.Contains("2012")||  run.Contains("2011")|| run.Contains("2010")) || run.Contains("20170527_run295324"))) //1 //15 + allows to avoid the first point at 155 volt due to the previous loop where (300+10)/2 is done=> error of ~150volts
+      {
+        gout->SetPoint(ipt, volt, current);
+        gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
+        ipt++;
+      }
+    else if (volt_err<=1)
+      {
+        gout->SetPoint(ipt, volt, current);
+        gout->SetPointError(ipt, volt_err, sqrt(2*2+0.02*current*0.02*current)); // added a prop. syst.
+        ipt++;
+      }	
   } // End of loop on DCU measurements
 
   TH1F* h = gout->GetHistogram();
@@ -445,45 +445,45 @@ else if (subdet == "TEC") // Martin Delcourt request : TEC R5 wheel 9
 	double scale_DCU = 0.45*Steps_max/DCU_max;
 	Scale( gcur_DCU, scale_DCU);
 		
-    // Draw conditions for monitoring
-    TCanvas* c1 = new TCanvas("c1", "Currents");
-    gsteps->Draw("APL");
-    if(gvolt) gvolt->Draw("P");
-    gcur_DCU->Draw("P");
-    gcur_PS->Draw("PL");
-    // gcur_DCU->Draw("P");
-    TH1F* h = gsteps->GetHistogram();
-    h->SetTitle(Form("DetID %i", detid));
-    h->GetYaxis()->SetTitle("[V or #muA]");
-    h->GetXaxis()->SetTitle("time");
-    
-    TLegend* leg = new TLegend(0.4,0.57,0.6,0.87);
-    leg->SetBorderSize(0);
-    leg->SetFillStyle(0);
-    leg->SetFillColor(kWhite);
-    leg->SetTextFont(42);
-    leg->SetTextSize(0.02);
-    leg->AddEntry(gsteps,"Voltage (Steps)","APL");
-    leg->AddEntry(gsteps,"Voltage (volt)","P");
-    leg->AddEntry(gcur_DCU,"DCU current","P");
-    leg->AddEntry(gcur_PS,"PS Current","PL");
-    leg->Draw();
-    
-    // Get leakage current vs Vbias
-    TCanvas* c2 = new TCanvas("c2", "FinalIleakvsVbias", 200, 0, 700, 500);
-    TGraphErrors* gIleak = GetIleakVsVbias(RUN,detid, gsteps, gcur_DCU_unscaled, gcur_PS_unscaled);
-	  if(!gIleak) {cout<<"Skipping detid"<<endl; continue;}
-	  gIleak = AverageIleakVsVbias(gIleak);
-    gIleak->SetMarkerStyle(20);
-    gIleak->Draw("AP");
-	  gIleak->SetTitle(Form("DetID %i", detid));
-    TH1F* hleak = gIleak->GetHistogram();
+  // Draw conditions for monitoring
+  TCanvas* c1 = new TCanvas("c1", "Currents");
+  gsteps->Draw("APL");
+  if(gvolt) gvolt->Draw("P");
+  gcur_DCU->Draw("P");
+  gcur_PS->Draw("PL");
+  // gcur_DCU->Draw("P");
+  TH1F* h = gsteps->GetHistogram();
+  h->SetTitle(Form("DetID %i", detid));
+  h->GetYaxis()->SetTitle("[V or #muA]");
+  h->GetXaxis()->SetTitle("time");
+  
+  TLegend* leg = new TLegend(0.4,0.57,0.6,0.87);
+  leg->SetBorderSize(0);
+  leg->SetFillStyle(0);
+  leg->SetFillColor(kWhite);
+  leg->SetTextFont(42);
+  leg->SetTextSize(0.02);
+  leg->AddEntry(gsteps,"Voltage (Steps)","APL");
+  leg->AddEntry(gsteps,"Voltage (volt)","P");
+  leg->AddEntry(gcur_DCU,"DCU current","P");
+  leg->AddEntry(gcur_PS,"PS Current","PL");
+  leg->Draw();
+  
+  // Get leakage current vs Vbias
+  TCanvas* c2 = new TCanvas("c2", "FinalIleakvsVbias", 200, 0, 700, 500);
+  TGraphErrors* gIleak = GetIleakVsVbias(RUN,detid, gsteps, gcur_DCU_unscaled, gcur_PS_unscaled);
+  if(!gIleak) {cout<<"Skipping detid"<<endl; continue;}
+  gIleak = AverageIleakVsVbias(gIleak);
+  gIleak->SetMarkerStyle(20);
+  gIleak->Draw("AP");
+  gIleak->SetTitle(Form("DetID %i", detid));
+  TH1F* hleak = gIleak->GetHistogram();
 
-    hleak->GetXaxis()->SetTitle("V_{bias} [V]");
-    hleak->GetYaxis()->SetTitle("I_{leak} [#muA]");
-    int npt = gIleak->GetN();
-	  // c2->Print(Form("IleakVsVbias_raw_%i_%s_detid_%i.pdf",npt, run, detid));
-	
+  hleak->GetXaxis()->SetTitle("V_{bias} [V]");
+  hleak->GetYaxis()->SetTitle("I_{leak} [#muA]");
+  int npt = gIleak->GetN();
+  // c2->Print(Form("IleakVsVbias_raw_%i_%s_detid_%i.pdf",npt, run, detid));
+
 	if(npt<3) continue;
 	double x,y;
 	lastpty = 0;
@@ -500,11 +500,11 @@ else if (subdet == "TEC") // Martin Delcourt request : TEC R5 wheel 9
     {
         gIleak->SaveAs(Form("IleakVsVbias_raw_%s_detid_%i.root", run, detid));
     }
-   //------------------------------------------------------------//
-    //------------------------------------------------------------//
-    //---------------------Leakage current vs Vbiais--------------//
-    //------------------------------------------------------------//
-  //------------------------------------------------------------//
+//------------------------------------------------------------//
+//------------------------------------------------------------//
+//---------------------Leakage current vs Vbiais--------------//
+//------------------------------------------------------------//
+//------------------------------------------------------------//
 
 
     double ymin = gIleak->GetYaxis()->GetXmin();
@@ -775,7 +775,7 @@ if (subdet=="TIB")
       {
         Nchi2up = 20;
       }
-  if (subdet=="TOB" &&  RUN.Contains("2024") && LAY == 1 )
+    if (subdet=="TOB" &&  RUN.Contains("2024") && LAY == 1 )
       {
         Nchi2up = 80;
       }
@@ -1462,10 +1462,8 @@ if (subdet=="TOB")
       lvdropderiv->SetLineWidth(2);
       lvdropderiv->Draw("same");
 
-
-
-            c2->cd();
-            lvdropderiv = new TLine(fvdropderiv->GetParameter(2), ymin, fvdropderiv->GetParameter(2), ymax);
+      c2->cd();
+      lvdropderiv = new TLine(fvdropderiv->GetParameter(2), ymin, fvdropderiv->GetParameter(2), ymax);
       lvdropderiv->SetLineStyle(2);
       lvdropderiv->SetLineColor(44);//green
       lvdropderiv->SetLineWidth(2);
