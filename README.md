@@ -29,7 +29,7 @@ it seems that when running on the ui, you do not need to take into account a tim
 
 machines that are always 1h shifted with respect to local time in strasbourg)
 
-Compile with : scramv1 b -j4
+Compile with : scramv1 b -j4 (in SiStripRadMonitoring directory)
 
 When running the crab jobs, the output will be stored in : /eos/cms/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/
 
