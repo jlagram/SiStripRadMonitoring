@@ -8,6 +8,7 @@ README File for determining the full depletion volatge using the leakage current
 =============
 
 -The leakage current information comes from DCU and/or PS measurement.
+
 It can happen that the PS measurement is not available for many reasons. When this happens,
 the DCU information is used and the following assumption is made : the amount of current is 
 equally divided for the modules associated to the APV.
@@ -21,7 +22,8 @@ figures.
 =============
 
 Main file is FitLeakageCurrent.C (This file is quite a pain, i'm sorry)
-        / ----- Main Idea ----- /
+
+ / ----- Main Idea ----- /
         
  There are 3 curves that are being analyzed : ILeak VS Vbias, the associated first and 
  second derivatives. We will try to fit each of these curves with different functions
@@ -32,7 +34,7 @@ Main file is FitLeakageCurrent.C (This file is quite a pain, i'm sorry)
         
  / ---- Compilation ---- /
         
- There are two ways of running the FitLeakageCurrent.C file that corresponds to   two ways of running the code.
+ There are two ways of running the FitLeakageCurrent.C file that corresponds to two ways of running the code.
         
  / ----- Analyzing a scan ---- /
  
@@ -46,6 +48,7 @@ This will save the data with the fits so that you can look at the fits and corre
 The boring part is : parameters of the fits may have to be adjusted for each run and for each subdet (even for each layer of a subdet...)
 
 / ----- Analyzing all the runs ---- /
+
  | Comment the getchar() line
  
 $ make
@@ -67,11 +70,16 @@ value and the initial value of Vfd.
 ============
 
 Make grey-ish area plots:
-        There is only one macro to use: SummaryPlot.C. The parameters to change are at the beginning of the scan (subdet, layer, small or full scan)
-        -Input for this macro is generated with FitLeakageCurrent.C
-        The different possibilities are :
-            // -- Smallscan --//
-            // TIBL1
+
+There is only one macro to use: SummaryPlot.C. The parameters to change are at the beginning of the scan (subdet, layer, small or full scan)
+
+-Input for this macro is generated with FitLeakageCurrent.C
+
+The different possibilities are :
+
+// -- Smallscan --//
+
+// TIBL1
 
 // TOBL1
 
@@ -91,7 +99,7 @@ Make grey-ish area plots:
 
 //-----------------
        
-        If you want to add other layers, you have to compute the fits for the layer that you want with the FitLeakageCurrent.c macro.
+If you want to add other layers, you have to compute the fits for the layer that you want with the FitLeakageCurrent.c macro.
 
 
 
