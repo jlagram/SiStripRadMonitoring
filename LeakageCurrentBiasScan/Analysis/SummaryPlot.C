@@ -20,11 +20,11 @@
 
 void SummaryPlot() {
     // Ouvrir le premier fichier root qui contient les 10 TGraph
-    TString subdet = "TEC";// TIB or TOB
-    TString layer = "R5";//L1 or  L4
-    TString extra = "5";
+    TString subdet = "TIB";// TIB or TOB
+    TString layer = "L1";//L1 or  L4
+    TString extra = "1";
     TString Mode = ""; // Delta
-    TString Scan = "FULLSCAN"; //SMALL, FULL
+    TString Scan = "SMALLSCAN"; //SMALL, FULL
     TString file1Name = Mode+subdet + "_" + layer + Scan + ".root";   
     //-------------------------------------------------------------------
     TFile *file1 = TFile::Open(file1Name);
@@ -536,7 +536,7 @@ float posX_=0;
 
     // Afficher le canvas
     c->Update();
-    c->SaveAs("SummaryPlot_"+Scan+subdet+layer+".png");
+    c->SaveAs("SummaryPlot_"+Scan+subdet+layer+".root");
     c->SaveAs("SummaryPlot_"+Scan+subdet+layer+".pdf");
 
 }

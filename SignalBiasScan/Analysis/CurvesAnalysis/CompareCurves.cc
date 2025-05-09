@@ -443,9 +443,9 @@ void CompareCurve(string dirname, string subdet, const int NF, vector<string> da
  TString ext = ".png";
  // TString ext = ".pdf";
 
- name+= "compareCurve/compareCurves_2024_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
+ name+= "compareCurve/compareCurves_2025_" + subdet + "_detid" + Convert_Number_To_TString((ULong64_t) modid) + "_" + type + ext;
  if(print) {c1->SaveAs(name.Data());}
- getchar();
+//  getchar();
  //c1->Close();
 
 
@@ -741,8 +741,8 @@ int main()
 
 
 	vector<string> v_analysis;
-	v_analysis.push_back("Signal");
-	// v_analysis.push_back("ClusterWidth");
+	// v_analysis.push_back("Signal");
+	v_analysis.push_back("ClusterWidth");
 
 	vector<string> v_subdet;
 	v_subdet.push_back("TIB");
@@ -755,7 +755,7 @@ int main()
 	//--- RUN 2
 	//2015 (4)
 
-	// runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
+	runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
 	// //runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
 	// //runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
 	// runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
@@ -778,7 +778,7 @@ int main()
 	//2018
 	// runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(97.37+29.46); //Full -20°
 	// runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(97.37+29.46); //Full -10°
-	// runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
+	runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
     // runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
     // runs.push_back("320674");	dates.push_back("20180801");	lumis.push_back(127.08+29.46);
     // runs.push_back("323374");	dates.push_back("20180923");	lumis.push_back(152.45+29.46); //Full
@@ -800,22 +800,22 @@ int main()
 	// runs.push_back("373060");	dates.push_back("20230907"); lumis.push_back(72.69+194.68);
 	// runs.push_back("375658");   dates.push_back("20231025"); lumis.push_back(73.86+194.68);//HI
 	
-	runs.push_back("378238");   dates.push_back("20240321"); lumis.push_back(73.86+194.7);//Full
-	  runs.push_back("382655"); dates.push_back("20240702"); lumis.push_back(194.68+111.53); //small
-  	runs.push_back("385515"); dates.push_back("20240910"); lumis.push_back(194.68+172.75);//small
+	// runs.push_back("378238");   dates.push_back("20240321"); lumis.push_back(73.86+194.7);//Full
+	//   runs.push_back("382655"); dates.push_back("20240702"); lumis.push_back(194.68+111.53); //small
+  	// runs.push_back("385515"); dates.push_back("20240910"); lumis.push_back(194.68+172.75);//small
 runs.push_back("386863"); dates.push_back("20241012");lumis.push_back(194.68+194.48); //small
 	int NF = runs.size();
 
 	bool normalize=true;
 	bool print=true;
 	bool showfit=false;
-	bool draw_plots = true;
+	bool draw_plots = false;
 	bool draw_vdep = false; //Draw vertical line which rpz the Vfd value obtained with lines method for "run_vdep"
+
+
 
 	// suffix for plot file name
 	string suffix = "";
-
-
   for(int i=0; i<v_analysis.size(); i++)
   {
     //  directory of root files
@@ -824,7 +824,7 @@ runs.push_back("386863"); dates.push_back("20241012");lumis.push_back(194.68+194
 	string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/"+v_analysis[i]+"Analysis/Code/Outputs"; // path to all root files
 // !! Important : each time you analyze a scan, pls upload the T**_output_DECO_*******.root files in this directory above (TEC and TID files are not mandaotry for small scans)
 // !! same for the DECO_files for the fit_all.cc function
-// !! Avoids havingg local depedance to the root files and the file sare all stored in the same place
+// !! Avoids havingg local depedance to the root files and the files are all stored in the same place
 
  	for(int j=0; j<v_subdet.size(); j++)
  	{
