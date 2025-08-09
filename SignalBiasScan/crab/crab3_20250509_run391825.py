@@ -2,7 +2,7 @@ from CRABClient.UserUtilities import config
 # ,getUsernameFromSiteDB
 config = config()
 
-config.General.requestName = 'HVscan_20250509_run391825'
+config.General.requestName = 'HVscan_20250509_run391825_v2'
 config.General.workArea = 'crab_projects'
 config.General.transferOutputs = True
 config.General.transferLogs = False
@@ -17,7 +17,7 @@ config.Data.splitting = 'LumiBased'
 config.Data.unitsPerJob = 10 #Change to optimize file size
 config.Data.lumiMask = 'DecoHVScan_20250509_run391825_JSON.txt'
 config.Data.runRange = '391825' 
-config.Data.outLFNDirBase = '/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/DecoSmallHVscan_20241012_run386863_v1'
+config.Data.outLFNDirBase = '/store/group/dpg_tracker_strip/comm_tracker/Strip/RadMonitoring/SignalBiasScan/ClustersTrees/DecoSmallHVscan_20250509_run391825'
 config.Data.publication = False
 #config.Data.outputDatasetTag = ''
 

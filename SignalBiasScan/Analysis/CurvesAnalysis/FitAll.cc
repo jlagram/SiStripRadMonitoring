@@ -338,13 +338,13 @@ int main()
 
   vector<string> v_subdet;
   v_subdet.push_back("TIB");
-  v_subdet.push_back("TOB");
-  v_subdet.push_back("TEC");
-  v_subdet.push_back("TID");
+  // v_subdet.push_back("TOB");
+  // v_subdet.push_back("TEC");
+  // v_subdet.push_back("TID");
 
   bool use_curvature = true; //true-->kink ; false-->lines
 
-  bool smallScan_modules_only = false; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
+  bool smallScan_modules_only = true; //Set to true if not interested in Full Scan entries (e.g. for Vfd evol. plots -- Will save LOT of time)
 
 
   vector<string> runs; vector<string> dates;
@@ -409,7 +409,8 @@ int main()
 
   // runs.push_back("382655"); dates.push_back("20240702"); //small
   // runs.push_back("385515"); dates.push_back("20240910"); //small
-  runs.push_back("386863"); dates.push_back("20241012"); //small
+  // runs.push_back("386863"); dates.push_back("20241012"); //small
+  runs.push_back("391825"); dates.push_back("20250509"); //small
 
 //--// fullscnas runs
 	// runs.push_back("160497");dates.push_back("20110315"); //Full

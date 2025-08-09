@@ -320,6 +320,7 @@ int main()
 //  string dirname = "/eos/user/j/jlagram/SiStripRadMonitoring/"+type+"Curves";
 // string dirname ="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/SignalAnalysis/Code/Outputs";
 	string dirname ="/eos/user/j/jlagram/SiStripRadMonitoring/ntonon/"+type+"Analysis/Code/Outputs"; //for 353060,346395 and 324841
+	
 // string dirname = "../"+type+"Analysis/Code";
 
 

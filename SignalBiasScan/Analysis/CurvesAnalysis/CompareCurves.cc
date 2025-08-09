@@ -755,7 +755,7 @@ int main()
 	//--- RUN 2
 	//2015 (4)
 
-	runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
+	// runs.push_back("246963");	dates.push_back("20150603");	lumis.push_back(0.001+29.46);
 	// //runs.push_back("254790");	dates.push_back("20150821");  	lumis.push_back(0.17+29.46);
 	// //runs.push_back("258443");	dates.push_back("20151007");	lumis.push_back(2.09+29.46);
 	// runs.push_back("262254");	dates.push_back("20151121");  	lumis.push_back(4.23+29.46);
@@ -778,7 +778,7 @@ int main()
 	//2018
 	// runs.push_back("314574");	dates.push_back("20180418");	lumis.push_back(97.37+29.46); //Full -20°
 	// runs.push_back("314755");	dates.push_back("20180420");	lumis.push_back(97.37+29.46); //Full -10°
-	runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
+	// runs.push_back("317182");	dates.push_back("20180530");	lumis.push_back(113.01+29.46);
     // runs.push_back("317683");	dates.push_back("20180611");	lumis.push_back(119.21+29.46);
     // runs.push_back("320674");	dates.push_back("20180801");	lumis.push_back(127.08+29.46);
     // runs.push_back("323374");	dates.push_back("20180923");	lumis.push_back(152.45+29.46); //Full

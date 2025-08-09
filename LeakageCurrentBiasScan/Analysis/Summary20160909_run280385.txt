@@ -1,0 +1,17 @@
+Run : 20160909_run280385 for fit atan+pol2  with Hot detid : 369121382
+Hot Mean Vfd 87.5493 and cold Mean Vfd : 193.943
+Run : 20160909_run280385 for fit deriv Gen  with Hot detid : 369121382
+Hot Mean Vfd 197.115 and cold Mean Vfd : 41.8354
+Run : 20160909_run280385 for fit deriv Gen  with Hot detid : 369121385
+Hot Mean Vfd 119.475 and cold Mean Vfd : 119.475
+Run : 20160909_run280385 for fit atan+pol2  with Hot detid : 369121386
+Hot Mean Vfd 87.5493 and cold Mean Vfd : 158.478
+Run : 20160909_run280385 for fit deriv Gen  with Hot detid : 369121386
+Hot Mean Vfd 145.355 and cold Mean Vfd : 93.5952
+Run : 20160909_run280385 for fit deriv Gen  with Hot detid : 369121389
+Hot Mean Vfd 119.475 and cold Mean Vfd : 119.475
+Run : 20160909_run280385 for fit atan+pol2  with Hot detid : 369121390
+Hot Mean Vfd 87.5493 and cold Mean Vfd : 151.385
+Run : 20160909_run280385 for fit deriv Gen  with Hot detid : 369121390
+Hot Mean Vfd 135.003 and cold Mean Vfd : 103.947
+//----------------------------//

@@ -9,8 +9,8 @@ README File for determining the full depletion volatge using the leakage current
 
 -The leakage current information comes from DCU and/or PS measurement.
 
-It can happen that the PS measurement is not available for many reasons. When this happens,
-the DCU information is used and the following assumption is made : the amount of current is 
+It can happen that the DCU measurement is not available for many reasons. When this happens,
+the PS information is used and the following assumption is made : the amount of current is 
 equally divided for the modules associated to the APV.
 
 The leakage current method is implemented to be complementary w.r.t the cluster width and 

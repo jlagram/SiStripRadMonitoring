@@ -316,6 +316,11 @@ float GetStartFlat(TGraph* g, TH1F* &h, float &deriv_above_thresh, float &thresh
 // !! ------------------------------------------------------------------------------
 // !! Main Function !!
 // !! ------------------------------------------------------
+// !! ------------------------------------------------------------------------------
+// !! The struggle starts here : asically it is divided unto three sectionns : the first onen for the rleakge current curve , the secondn for the first derivative and the third forthe second derivative
+// !! ¨Parameters of the fits have to be optimized for each subdetector and for each year, especially when the amount of lumi collected between two scanns is high >50 fb
+// !! One should consider the parameters from 2012 to early 2024 already optimized, thus they shouldn 't need to be channged.
+
 
 std::pair<std::vector<float>,std::vector<float>> Fit(char* subdet, char* run,int LAY, int* detids, const int N, char* bad_periods="", float* Vinit = nullptr, const int NFIT = 10)
 {
@@ -397,21 +402,21 @@ std::pair<std::vector<float>,std::vector<float>> Fit(char* subdet, char* run,int
 	
     if(subdet=="TIB")  // TIB : subdetid==3
   {
-    if(((detid>>14)&0x7)!=LAY) continue; //return 1;
+    if(((detid>>14)&0x7)!=LAY) continue; //return 1;// !! FIlter the layer we want to analyze
     // else if(((detid>>14)&0x7)==2) return 2;
     // else if(((detid>>14)&0x7)==3) return 3;
     // else if(((detid>>14)&0x7)==4) return 4;
   }  
   else if(subdet=="TOB") // TOB subdetid==5
   {       
-    if(((detid>>14)&0x7)!=LAY) continue; //return 5;
+    if(((detid>>14)&0x7)!=LAY) continue; //return 5;// !! FIlter the layer we want to analyze
     // else if(((detid>>14)&0x7)==2) return 6;
     // else if(((detid>>14)&0x7)==3) return 7;
     // else if(((detid>>14)&0x7)==4) return 8;
     // else if(((detid>>14)&0x7)==5) return 9;
     // else if(((detid>>14)&0x7)==6) return 10;
   }   
-else if (subdet == "TEC") // Martin Delcourt request : TEC R5 wheel 9 
+else if (subdet == "TEC") // !!  Martin Delcourt request : TEC R5 wheel 9 
   {
     if (  !(((detid>>25)&0x7) == 6 &&  ((detid>>14)&0xF) == 9  && ((detid >> 5) & 7) == 5)   ) continue; // WHat we want but moduels aren- that great
   }
@@ -1083,7 +1088,7 @@ if (subdet=="TIB")
     fvdrop10->SetParameter(1, 10);
     fvdrop10->SetParLimits(1, 1,100);
     fvdrop10->SetParameter(2, -3);//150
-	  fvdrop10->SetParLimits(2, -5,-0.001);//2018 and above: 10-150 worked 2017 : 50-190; 50-250 : 2016 with extra pts
+	  fvdrop10->SetParLimits(2, -10,-0.001);//2018 and above: 10-150 worked 2017 : 50-190; 50-250 : 2016 with extra pts
     fvdrop10->SetParameter(3, 0.008);
     fvdrop10->SetParLimits(3, 0.002,0.05);///plateau length
     fvdrop10->SetParameter(4, 20);
@@ -1093,6 +1098,23 @@ if (subdet=="TIB")
 	  fvdrop10->SetLineColor(1);//green
     fvdrop10->SetLineWidth(2);//
 
+if (RUN.Contains("20241012"))
+  {
+    fvdrop10->SetParameter(0, 500);
+    fvdrop10->SetParLimits(0, 10,1500);
+    fvdrop10->SetParameter(1, 10);
+    fvdrop10->SetParLimits(1, 1,150);
+    fvdrop10->SetParameter(2, -3);//150
+	  fvdrop10->SetParLimits(2, -10,-0.001);//2018 and above: 10-150 worked 2017 : 50-190; 50-250 : 2016 with extra pts
+    fvdrop10->SetParameter(3, 0.008);
+    fvdrop10->SetParLimits(3, 0.002,0.05);///plateau length
+    fvdrop10->SetParameter(4, 20);
+    fvdrop10->SetParLimits(4, 1,30);
+    fvdrop10->SetParameter(5, 0.02);
+    fvdrop10->SetParLimits(5, 0.001,0.1);
+  }
+
+
     std::cout<<"Starting Fit of Leakage current vs Vbias with general function"<<std::endl;
     status = gIleak->Fit("fvdrop10", "Rsame")  ;
 	  if(fvdrop10->GetNDF()) cout<<" chi2/ndf: "<<fvdrop10->GetChisquare()/fvdrop10->GetNDF();
@@ -1100,138 +1122,231 @@ if (subdet=="TIB")
 
     fvdrop10->Draw("same");
 
-    float p = 0.005;//increase p => increase Vfd but not linear so you have to play with it, this is why there are so many different values, + it's really sensitive to the p-value :D
-    if (subdet=="TIB")
-      {
-        if (RUN.Contains("2016"))
-          {
-            p = 0.0007;
-          }
-        if (RUN.Contains("386863") || RUN.Contains("385515"))
-          {
-            p = 0.012;
-          }
-        if ( RUN.Contains("373060"))
-          {
-            p = 0.007;
-          }
-        if (RUN.Contains("388832") )
-          {
-            p = 0.015;
-          }
-      }
-    if (subdet=="TOB" )
-      {
-        p = 0.001;
-        if (LAY == 4 )
-          {
-            if (RUN.Contains("2016"))
-              {
-                p = 0.001;
-              }
-            if (RUN.Contains("2012"))
-              {
-                p = 0.01;
-              }
-            if (RUN.Contains("2023"))
-              {
-                p = 0.0004;
-              }
-            if (RUN.Contains("382655"))
-              {
-                p = 0.0005;
-              }
-             if (RUN.Contains("2024") && !RUN.Contains("382655"))
-              {
-                p = 0.006;
-              }
-            if (RUN.Contains("2025") )
-              {
-                p = 0.006;
-              }
-          }
-        if (LAY == 1)
-          {
-            if (RUN.Contains("2018"))
-              {
-                p = 0.0009;//-
-                if(RUN.Contains("326776") || RUN.Contains("324841"))
-                  {
-                    p = 0.00015;
-                  }
-              }
-            if (RUN.Contains("2021") || RUN.Contains("2022"))
-              {
-                p = 0.00025;
-              }
-            if (RUN.Contains("2023"))
-              {
-                p = 0.0002;
-              }
-            if (RUN.Contains("run368669") )
-              {
-                p = 0.00035;//0.0002
-              }
-            if (RUN.Contains("20230907_run373060"))
-              {
-                p = 0.0002;
-              }
-            if (RUN.Contains("2024"))
-              {
-                p = 0.0018;
-                if (RUN.Contains("385515") || RUN.Contains("386863"))
-                  {
-                    p = 0.010;
-                  }
-              }
-            if (RUN.Contains("2025"))
-              {
-                p = 0.010;
-              }
-          }
 
-      }
-    else if (subdet=="TEC")
-      {
-        p = 0.001;
-        if (RUN.Contains("2016"))
+    // float p = 0.005;//increase p => increase Vfd but not linear so you have to play with it, this is why there are so many different values, + it's really sensitive to the p-value :D
+    // if (subdet=="TIB")
+    //   {
+    //     if (RUN.Contains("2016"))
+    //       {
+    //         p = 0.0007;
+    //       }
+    //     if (RUN.Contains("386863") || RUN.Contains("385515"))
+    //       {
+    //         p = 0.012;
+    //       }
+    //     if ( RUN.Contains("373060"))
+    //       {
+    //         p = 0.007;
+    //       }
+    //     if (RUN.Contains("388832") )
+    //       {
+    //         p = 0.015;
+    //       }
+    //   }
+    // if (subdet=="TOB" )
+    //   {
+    //     p = 0.001;
+    //     if (LAY == 4 )
+    //       {
+    //         if (RUN.Contains("2016"))
+    //           {
+    //             p = 0.001;
+    //           }
+    //         if (RUN.Contains("2012"))
+    //           {
+    //             p = 0.01;
+    //           }
+    //         if (RUN.Contains("2023"))
+    //           {
+    //             p = 0.0004;
+    //           }
+    //         if (RUN.Contains("382655"))
+    //           {
+    //             p = 0.0005;
+    //           }
+    //          if (RUN.Contains("2024") && !RUN.Contains("382655"))
+    //           {
+    //             p = 0.006;
+    //           }
+    //         if (RUN.Contains("2025") )
+    //           {
+    //             p = 0.006;
+    //           }
+    //       }
+    //     if (LAY == 1)
+    //       {
+    //         if (RUN.Contains("2018"))
+    //           {
+    //             p = 0.0009;//-
+    //             if(RUN.Contains("326776") || RUN.Contains("324841"))
+    //               {
+    //                 p = 0.00015;
+    //               }
+    //           }
+    //         if (RUN.Contains("2021") || RUN.Contains("2022"))
+    //           {
+    //             p = 0.00025;
+    //           }
+    //         if (RUN.Contains("2023"))
+    //           {
+    //             p = 0.0002;
+    //           }
+    //         if (RUN.Contains("run368669") )
+    //           {
+    //             p = 0.00035;//0.0002
+    //           }
+    //         if (RUN.Contains("20230907_run373060"))
+    //           {
+    //             p = 0.0002;
+    //           }
+    //         if (RUN.Contains("2024"))
+    //           {
+    //             p = 0.0018;
+    //             if (RUN.Contains("385515") || RUN.Contains("386863"))
+    //               {
+    //                 p = 0.010;
+    //               }
+    //           }
+    //         if (RUN.Contains("2025"))
+    //           {
+    //             p = 0.010;
+    //           }
+    //       }
+
+    //   }
+    // else if (subdet=="TEC")
+    //   {
+    //     p = 0.001;
+    //     if (RUN.Contains("2016"))
+    //         {
+    //           p = 0.001;
+    //         }
+    //     if (RUN.Contains("2017"))
+    //         {
+    //           p = 0.0035;
+    //         }
+    //     if (RUN.Contains("2018"))
+    //         {
+    //           p = 0.0035;
+    //         }
+    //     if (RUN.Contains("2022"))
+    //         {
+    //           p = 0.004;
+    //         }
+    //     if (RUN.Contains("2023"))
+    //         {
+    //           p = 0.005;
+    //         }
+    //     if (RUN.Contains("2024") && RUN.Contains("378238"))
+    //         {
+    //           p = 0.006;
+    //         }
+    //     if (RUN.Contains("2024") && RUN.Contains("388832"))
+    //         {
+    //           p = 0.0069;
+    //         }
+    //     if (RUN.Contains("2025") )
+    //         {
+    //           p = 0.0069;
+    //         } 
+    //   }
+
+    // // !! Alerte General, cette valeur n'est pas super (je ne sais pas comment je l'ai trouvé mais il y a rien de cohérent)
+    // // !! Je laisse tout ici en commentaire en cas d'urengece s'il y a besoin d'une courbe mais éviter cette formulex
+    // float Vfdgen = fvdrop10->GetParameter(0)*3.14*p/(4*fvdrop10->GetParameter(5));// !!this parameter 5 can be very small
+    // // !! therefore the Vfd values can "diverge".This is why you may see in the code a lower threshold of 10-4 to this parameter. If you let it
+    // // !! free, it can go to 10e-12 making Vfd hard to retrieve (it's already the case).
+    // // !! The free parameter is p.
+
+      float p = 0.88;//default 0.90
+      // !! the vfd value is really sensitive to the k value, you can play with it to see the effect
+      //
+      if (subdet == "TIB" && RUN.Contains("2012") && LAY == 1)
+        {
+          p = 0.80;
+        }
+      if (subdet == "TIB" && (RUN.Contains("2015") || RUN.Contains("2016") )&& LAY == 1)
+        {
+          p = 0.85;
+        }
+
+      if (subdet == "TIB" && (RUN.Contains("2017") )&& LAY == 1)
+        {
+          p = 0.92;
+        }
+      if (subdet == "TIB" && (RUN.Contains("2018") )&& LAY == 1)
+        {
+          p = 0.94;
+          if (RUN.Contains("20181018") || RUN.Contains("20181115"))
             {
-              p = 0.001;
+              p = 0.91;
             }
-        if (RUN.Contains("2017"))
+        }
+      if (subdet == "TIB" && (RUN.Contains("2021") )&& LAY == 1)
+        {
+          p = 0.93;
+        }
+      if (subdet == "TIB" && (RUN.Contains("2022") )&& LAY == 1)
+        {
+          p = 0.94;
+        }
+      if (subdet == "TIB" && (RUN.Contains("2023") )&& LAY == 1)
+        {
+          if (RUN.Contains("20230407") )
             {
-              p = 0.0035;
+              p = 0.90;
             }
-        if (RUN.Contains("2018"))
+          else if  (RUN.Contains("20230609")|| RUN.Contains("20230907") )
             {
-              p = 0.0035;
+              p = 0.89;
             }
-        if (RUN.Contains("2022"))
+        }
+      if (subdet == "TIB" && (RUN.Contains("2024") )&& LAY == 1)
+        {
+          if (RUN.Contains("20240910") )
             {
-              p = 0.004;
+              p = 0.85;
             }
-        if (RUN.Contains("2023"))
+          else if  (RUN.Contains("20241012") )
             {
-              p = 0.005;
+              p = 0.81;
             }
-        if (RUN.Contains("2024") && RUN.Contains("378238"))
+          else if  ( RUN.Contains("20241125"))
             {
-              p = 0.006;
+              p = 0.88;
             }
-        if (RUN.Contains("2024") && RUN.Contains("388832"))
-            {
-              p = 0.0069;
-            }
-        if (RUN.Contains("2025") )
-            {
-              p = 0.0069;
-            } 
-      }
-    float Vfdgen = fvdrop10->GetParameter(0)*3.14*p/(4*fvdrop10->GetParameter(5));// !!this parameter 5 can be very small
-    // !! therefore the Vfd values can "diverge".This is why you may see in the code a lower threshold of 10-4 to this parameter. If you let it
-    // !! free, it can go to 10e-12 making Vfd hard to retrieve (it's already the case).
-    // !! The free parameter is p.
-    // !! the formula is obtained when looking at asymptotic values of the function
+        }
+      if (subdet == "TOB" && RUN.Contains("2024") && LAY == 4)
+        {
+          p = 0.85;
+        }
+     else  if (subdet == "TOB" && RUN.Contains("2025") && LAY == 4)
+        {
+          p = 0.85;
+        }
+      else if (subdet == "TEC"  && LAY == 5)
+        {
+          if (RUN.Contains("2025") ) {p = 0.6;}
+          if (RUN.Contains("2024") && RUN.Contains("388832")) {p = 0.6;}
+          if (RUN.Contains("2024") && RUN.Contains("20240321_run378238")) {p = 0.8;}
+          if (RUN.Contains("2023")) {p = 0.835;}
+          if (RUN.Contains("2022")) {p = 0.875;}
+        }
+      
+      
+      if (RUN.Contains("388832") && (subdet == "TOB" ))
+        {
+          p = 0.98;
+        }
+
+    // !! Une meilleur formule est
+    float Vfdgen = abs(1./(fvdrop10->GetParameter(2)))*tan(0.5*3.14*p);
+
+    // !! Une formule alternative (pas forcément meilleure):
+    // float Vfd_apriori = 5; // 5 is for Vfd = 100, 6 is for Vfd = 300
+    // !! It is used to extract the Vfdgen value from the fit parameters by approximating the logarithm part with this number when lloking at the derivative
+    // float Vfdgen = sqrt(fvdrop10->GetParameter(0)/(Vfd_apriori*fvdrop10->GetParameter(2)*fvdrop10->GetParameter(5)));
+
 
         std::cout<<" VfdGen : "<<Vfdgen<<std::endl;
     std::cout<<"End of  Fit of Leakage current vs Vbias with general function "<<std::endl;
@@ -1246,8 +1361,12 @@ if (subdet=="TIB")
     if ( RUN == "20230907_run373060"){chi2up = 20;}
     if (RUN.Contains("2024") && subdet == "TOB" && LAY == 1){chi2up = 80;}
     if (RUN.Contains("2024") && subdet == "TEC" && LAY == 5){chi2up = 80;}
+    if (RUN.Contains("2024") && subdet == "TIB" && LAY == 1){chi2up = 20;}
     if ((RUN.Contains("326776") || RUN.Contains("324841") )&& subdet == "TOB" && LAY == 1){chi2up = 30;}
     if (RUN.Contains("2025") ){chi2up = 80;}
+
+    std::cout<<" !!!! -------- !!!! ------------ !! "<<fvdrop10->GetChisquare()/fvdrop10->GetNDF()<<" with chi2up : "<<chi2up<<std::endl;
+    
     if(fvdrop10->GetNDF())
       {
         if (fvdrop10->GetChisquare()/fvdrop10->GetNDF()<chi2up && fvdrop10->GetChisquare()/fvdrop10->GetNDF()>0. && Vfdgen > 0 && Vfdgen < 400)
@@ -2234,15 +2353,15 @@ if ((RUN.Contains("2025") ||RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Co
     c4->Update();
     // getchar();//to desactivate when running on all the modules and all the runs
     
-  // if (RUN.Contains("2024") || RUN.Contains("2023") || RUN.Contains("326776") || RUN.Contains("324841"))
-  //   {
-  //   c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
-  //   c2->SaveAs(Form("IleakEffect_%s_%i.png", run, detid));
-  //   c3->SaveAs(Form("IleakCurvature_%s_%i.png", run, detid));
-  //   c4->SaveAs(Form("IleakCurvatureHisto_%s_%i.png", run, detid));
-  //   cd->SaveAs(Form("Ileak_Deriv_%s_%i.png", run, detid));
+  if (subdet == "TIB") // "RUN.Contains("2024") || RUN.Contains("2023") || RUN.Contains("326776") || RUN.Contains("324841")
+    {
+    // c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
+    c2->SaveAs(Form("IleakEffect_%s_%i.png", run, detid));
+    // c3->SaveAs(Form("IleakCurvature_%s_%i.png", run, detid));
+    // c4->SaveAs(Form("IleakCurvatureHisto_%s_%i.png", run, detid));
+    // cd->SaveAs(Form("Ileak_Deriv_%s_%i.png", run, detid));
  
-  //   }
+    }
   // if (subdet == "TIB" && AvoidExcessofPlots < 20 && (RUN.Contains("20241125_run388832") ))
   //   {
   //     c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
@@ -3297,8 +3416,8 @@ int main()
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATIB;
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATOB;
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATEC;
-    bool SmallScan = false; // up to you
-    bool noisescan = true ; // if (FullScan) {true for tib l1, false for tob and TIBl4} else {false} because nosie scan is not good for TOB 
+    bool SmallScan = true; // up to you
+    bool noisescan = false ; // if (FullScan) {true for tib l1, false for tob and TIBl4} else {false} because nosie scan is not good for TOB 
     const int NFIT = 10; // number of fit performed
     if (SmallScan)
       {
@@ -3431,14 +3550,14 @@ else
     // //--------------------------------------------------------//
     // // Vfd
     // //--------------------------------------------------------//
-    // DATATIB = FitLeakageCurrent("TIB","",1,SmallScan,NFIT);
-    // MeanVfdTIB = DATATIB.first;
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
-    // //--------------------------------------------------------//
-    // // Delta Vfd-Vinit mean
-    // //--------------------------------------------------------//
-    // MeanVfdTIB = DATATIB.second;
-    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
+    DATATIB = FitLeakageCurrent("TIB","",1,SmallScan,NFIT);
+    MeanVfdTIB = DATATIB.first;
+    PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTIB = DATATIB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
 
         //--------------------------------------------------------//
     // Vfd Only Fullscan
@@ -3463,14 +3582,14 @@ else
     //--------------------------------------------------------//
     // Vfd
     //--------------------------------------------------------//
-    DATATEC = FitLeakageCurrent("TEC","",5,SmallScan,NFIT);
-    MeanVfdTEC = DATATEC.first;
-    PlotMeanVfdPerRunwPerFit(MeanVfdTEC,LumiTEC,"TEC","5",SmallScan,NFIT);
-    //--------------------------------------------------------//
-    // Delta Vfd-Vinit mean
-    //--------------------------------------------------------//
-    MeanVfdTEC = DATATEC.second;
-    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTEC,LumiTEC,"TEC","5",SmallScan,NFIT);
+    // DATATEC = FitLeakageCurrent("TEC","",5,SmallScan,NFIT);
+    // MeanVfdTEC = DATATEC.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTEC,LumiTEC,"TEC","5",SmallScan,NFIT);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTEC = DATATEC.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTEC,LumiTEC,"TEC","5",SmallScan,NFIT);
 
 
     return 0;
