@@ -1385,16 +1385,65 @@ if ((RUN.Contains("20181018") || RUN.Contains("20230609"))  && subdet=="TOB" && 
             }
         }
 
+      // !! the vfd value is really sensitive to the k value, you can play with it to see the effect
+      //
+      if ( (subdet == "TOB" ) && RUN.Contains("2012") && LAY == 4)
+        {
+          p = 0.82;
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2015") || RUN.Contains("2016") )&& LAY == 4)
+        {
+          p = 0.84;
+        }
 
-      if (subdet == "TOB" && RUN.Contains("2024") && LAY == 4)
+      if ( (subdet == "TOB" ) && (RUN.Contains("2017") )&& LAY == 4)
         {
-          p = 0.85;
+          p = 0.93;
         }
-     else  if (subdet == "TOB" && RUN.Contains("2025") && LAY == 4)
+      if ( (subdet == "TOB" ) && (RUN.Contains("2018") )&& LAY == 4)
         {
-          p = 0.85;
+          p = 0.97;
+          if (RUN.Contains("20181018") || RUN.Contains("20181115"))
+            {
+              p = 0.94;
+            }
         }
-      else if (subdet == "TEC"  && LAY == 5)
+      if ( (subdet == "TOB" ) && (RUN.Contains("2021") )&& LAY == 4)
+        {
+          p = 0.95;
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2022") )&& LAY == 4)
+        {
+          p = 0.95;
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2023") )&& LAY == 4)
+        {
+          if (RUN.Contains("20230407") )
+            {
+              p = 0.91;
+            }
+          else if  (RUN.Contains("20230609")|| RUN.Contains("20230907") )
+            {
+              p = 0.91;
+            }
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2024") )&& LAY == 4)
+        {
+          if (RUN.Contains("20240910") )
+            {
+              p = 0.85;
+            }
+          else if  (RUN.Contains("20241012") )
+            {
+              p = 0.88;
+            }
+          else if  ( RUN.Contains("20241125"))
+            {
+              p = 0.88;
+            }
+        }
+
+if (subdet == "TEC"  && LAY == 5)
         {
           if (RUN.Contains("2025") ) {p = 0.6;}
           if (RUN.Contains("2024") && RUN.Contains("388832")) {p = 0.6;}
@@ -2423,15 +2472,15 @@ if ((RUN.Contains("2025") ||RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Co
     c4->Update();
     // getchar();//to desactivate when running on all the modules and all the runs
     
-  if (subdet == "TOB") // "RUN.Contains("2024") || RUN.Contains("2023") || RUN.Contains("326776") || RUN.Contains("324841")
-    {
-    // c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
-    c2->SaveAs(Form("IleakEffect_%s_%i.png", run, detid));
-    // c3->SaveAs(Form("IleakCurvature_%s_%i.png", run, detid));
-    // c4->SaveAs(Form("IleakCurvatureHisto_%s_%i.png", run, detid));
-    // cd->SaveAs(Form("Ileak_Deriv_%s_%i.png", run, detid));
+  // if (subdet == "TOB") // "RUN.Contains("2024") || RUN.Contains("2023") || RUN.Contains("326776") || RUN.Contains("324841")
+  //   {
+  //   // c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
+  //   c2->SaveAs(Form("IleakEffect_%s_%i.png", run, detid));
+  //   // c3->SaveAs(Form("IleakCurvature_%s_%i.png", run, detid));
+  //   // c4->SaveAs(Form("IleakCurvatureHisto_%s_%i.png", run, detid));
+  //   // cd->SaveAs(Form("Ileak_Deriv_%s_%i.png", run, detid));
  
-    }
+  //   }
   // if (subdet == "TIB" && AvoidExcessofPlots < 20 && (RUN.Contains("20241125_run388832") ))
   //   {
   //     c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
@@ -3486,7 +3535,7 @@ int main()
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATIB;
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATOB;
     std::pair<std::vector<std::vector<float>>,std::vector<std::vector<float>>> DATATEC;
-    bool SmallScan = true; // up to you
+    bool SmallScan = false; // up to you
     bool noisescan = false ; // if (FullScan) {true for tib l1, false for tob and TIBl4} else {false} because nosie scan is not good for TOB 
     const int NFIT = 10; // number of fit performed
     if (SmallScan)
@@ -3582,14 +3631,14 @@ else
         //--------------------------------------------------------//
     // Vfd
     //--------------------------------------------------------//
-    // DATATOB = FitLeakageCurrent("TOB","",4,SmallScan,NFIT);
-    // MeanVfdTOB = DATATOB.first;
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan,NFIT);
-    // //--------------------------------------------------------//
-    // // Delta Vfd-Vinit mean
-    // //--------------------------------------------------------//
-    // MeanVfdTOB = DATATOB.second;
-    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan,NFIT);
+    DATATOB = FitLeakageCurrent("TOB","",4,SmallScan,NFIT);
+    MeanVfdTOB = DATATOB.first;
+    PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan,NFIT);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTOB = DATATOB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan,NFIT);
 
     // // --------------------------------------------------------//
     // // Vfd

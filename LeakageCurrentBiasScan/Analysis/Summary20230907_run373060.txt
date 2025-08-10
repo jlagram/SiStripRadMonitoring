@@ -1,1 +1,3 @@
+Run : 20230907_run373060 for fit deriv Gen  with Hot detid : 436281512
+Hot Mean Vfd 135.559 and cold Mean Vfd : 48.1056
 //----------------------------//

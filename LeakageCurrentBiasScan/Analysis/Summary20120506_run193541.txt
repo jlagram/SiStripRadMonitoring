@@ -1,1 +1,7 @@
+Run : 20120506_run193541 for fit sigmoid+pol1  with Hot detid : 436281512
+Hot Mean Vfd 358.548 and cold Mean Vfd : 280
+Run : 20120506_run193541 for fit atan+pol1  with Hot detid : 436281512
+Hot Mean Vfd 340.979 and cold Mean Vfd : 241.646
+Run : 20120506_run193541 for fit atan+pol1  with Hot detid : 436281520
+Hot Mean Vfd 340.979 and cold Mean Vfd : 274.757
 //----------------------------//

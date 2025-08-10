@@ -1,3 +1,5 @@
-Run : 20240910_run385515 for fit 2deriv Gen  with Hot detid : 436232917
-Hot Mean Vfd 99.0975 and cold Mean Vfd : 193.168
+Run : 20240910_run385515 for fit atan+pol2  with Hot detid : 436281512
+Hot Mean Vfd 177.941 and cold Mean Vfd : 107.72
+Run : 20240910_run385515 for fit deriv TriL  with Hot detid : 436281512
+Hot Mean Vfd 67.5 and cold Mean Vfd : 131.25
 //----------------------------//

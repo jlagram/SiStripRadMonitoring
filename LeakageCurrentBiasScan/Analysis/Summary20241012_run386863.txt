@@ -1,5 +1,1 @@
-Run : 20241012_run386863 for fit atan+pol2  with Hot detid : 436232905
-Hot Mean Vfd 105.005 and cold Mean Vfd : 190
-Run : 20241012_run386863 for fit 2deriv gaussian  with Hot detid : 436232905
-Hot Mean Vfd 131.996 and cold Mean Vfd : 197.506
 //----------------------------//
