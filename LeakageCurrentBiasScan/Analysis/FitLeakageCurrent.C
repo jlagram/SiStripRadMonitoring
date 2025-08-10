@@ -1098,7 +1098,25 @@ if (subdet=="TIB")
 	  fvdrop10->SetLineColor(1);//green
     fvdrop10->SetLineWidth(2);//
 
-if (RUN.Contains("20241012"))
+if (RUN.Contains("20241012") || RUN.Contains("20241125") && subdet=="TIB" && LAY==1)
+  {
+    fvdrop10->SetParameter(0, 500);
+    fvdrop10->SetParLimits(0, 10,1500);
+    fvdrop10->SetParameter(1, 10);
+    fvdrop10->SetParLimits(1, 1,150);
+    fvdrop10->SetParameter(2, -3);//150
+	  fvdrop10->SetParLimits(2, -10,-0.001);//2018 and above: 10-150 worked 2017 : 50-190; 50-250 : 2016 with extra pts
+    fvdrop10->SetParameter(3, 0.008);
+    fvdrop10->SetParLimits(3, 0.002,0.05);///plateau length
+    fvdrop10->SetParameter(4, 20);
+    fvdrop10->SetParLimits(4, 1,30);
+    fvdrop10->SetParameter(5, 0.02);
+    fvdrop10->SetParLimits(5, 0.001,0.1);
+  }
+
+
+
+if ((RUN.Contains("20181018") || RUN.Contains("20230609"))  && subdet=="TOB" && LAY==1)
   {
     fvdrop10->SetParameter(0, 500);
     fvdrop10->SetParLimits(0, 10,1500);
@@ -1261,20 +1279,20 @@ if (RUN.Contains("20241012"))
       float p = 0.88;//default 0.90
       // !! the vfd value is really sensitive to the k value, you can play with it to see the effect
       //
-      if (subdet == "TIB" && RUN.Contains("2012") && LAY == 1)
+      if ( (subdet == "TIB" ) && RUN.Contains("2012") && LAY == 1)
         {
           p = 0.80;
         }
-      if (subdet == "TIB" && (RUN.Contains("2015") || RUN.Contains("2016") )&& LAY == 1)
+      if ( (subdet == "TIB" ) && (RUN.Contains("2015") || RUN.Contains("2016") )&& LAY == 1)
         {
           p = 0.85;
         }
 
-      if (subdet == "TIB" && (RUN.Contains("2017") )&& LAY == 1)
+      if ( (subdet == "TIB" ) && (RUN.Contains("2017") )&& LAY == 1)
         {
           p = 0.92;
         }
-      if (subdet == "TIB" && (RUN.Contains("2018") )&& LAY == 1)
+      if ( (subdet == "TIB" ) && (RUN.Contains("2018") )&& LAY == 1)
         {
           p = 0.94;
           if (RUN.Contains("20181018") || RUN.Contains("20181115"))
@@ -1282,15 +1300,15 @@ if (RUN.Contains("20241012"))
               p = 0.91;
             }
         }
-      if (subdet == "TIB" && (RUN.Contains("2021") )&& LAY == 1)
+      if ( (subdet == "TIB" ) && (RUN.Contains("2021") )&& LAY == 1)
         {
           p = 0.93;
         }
-      if (subdet == "TIB" && (RUN.Contains("2022") )&& LAY == 1)
+      if ( (subdet == "TIB" ) && (RUN.Contains("2022") )&& LAY == 1)
         {
           p = 0.94;
         }
-      if (subdet == "TIB" && (RUN.Contains("2023") )&& LAY == 1)
+      if ( (subdet == "TIB" ) && (RUN.Contains("2023") )&& LAY == 1)
         {
           if (RUN.Contains("20230407") )
             {
@@ -1301,7 +1319,7 @@ if (RUN.Contains("20241012"))
               p = 0.89;
             }
         }
-      if (subdet == "TIB" && (RUN.Contains("2024") )&& LAY == 1)
+      if ( (subdet == "TIB" ) && (RUN.Contains("2024") )&& LAY == 1)
         {
           if (RUN.Contains("20240910") )
             {
@@ -1313,9 +1331,61 @@ if (RUN.Contains("20241012"))
             }
           else if  ( RUN.Contains("20241125"))
             {
+              p = 0.9;
+            }
+        }
+
+
+
+
+      if ( (subdet == "TOB" ) && (RUN.Contains("2017") )&& LAY == 1)
+        {
+          p = 0.94;
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2018") )&& LAY == 1)
+        {
+          p = 0.94;
+          if (RUN.Contains("20181018") || RUN.Contains("20181115"))
+            {
+              p = 0.91;
+            }
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2021") )&& LAY == 1)
+        {
+          p = 0.91;
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2022") )&& LAY == 1)
+        {
+          p = 0.91;
+        }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2023") )&& LAY == 1)
+        {
+          if (RUN.Contains("20230407") )
+            {
+              p = 0.89;
+            }
+          else if  (RUN.Contains("20230609")|| RUN.Contains("20230907") )
+            {
               p = 0.88;
             }
         }
+      if ( (subdet == "TOB" ) && (RUN.Contains("2024") )&& LAY == 1)
+        {
+          if (RUN.Contains("20240910") )
+            {
+              p = 0.81;
+            }
+          else if  (RUN.Contains("20241012") )
+            {
+              p = 0.81;
+            }
+          else if  ( RUN.Contains("20241125"))
+            {
+              p = 0.9;
+            }
+        }
+
+
       if (subdet == "TOB" && RUN.Contains("2024") && LAY == 4)
         {
           p = 0.85;
@@ -2353,7 +2423,7 @@ if ((RUN.Contains("2025") ||RUN.Contains("2024")|| RUN.Contains("2023")|| RUN.Co
     c4->Update();
     // getchar();//to desactivate when running on all the modules and all the runs
     
-  if (subdet == "TIB") // "RUN.Contains("2024") || RUN.Contains("2023") || RUN.Contains("326776") || RUN.Contains("324841")
+  if (subdet == "TOB") // "RUN.Contains("2024") || RUN.Contains("2023") || RUN.Contains("326776") || RUN.Contains("324841")
     {
     // c1->SaveAs(Form("Ileak-Vbias_%s_%i.png", run, detid));
     c2->SaveAs(Form("IleakEffect_%s_%i.png", run, detid));
@@ -3501,17 +3571,17 @@ else
     //--------------------------------------------------------//
     // Vfd
     //--------------------------------------------------------//
-    // DATATOB = FitLeakageCurrent("TOB","",1,SmallScan,NFIT);
-    // MeanVfdTOB = DATATOB.first;
-    // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan,NFIT);
-    // //--------------------------------------------------------//
-    // // Delta Vfd-Vinit mean
-    // //--------------------------------------------------------//
-    // MeanVfdTOB = DATATOB.second;
-    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan,NFIT);
-    //     //--------------------------------------------------------//
-    // // Vfd
-    // //--------------------------------------------------------//
+    DATATOB = FitLeakageCurrent("TOB","",1,SmallScan,NFIT);
+    MeanVfdTOB = DATATOB.first;
+    PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan,NFIT);
+    //--------------------------------------------------------//
+    // Delta Vfd-Vinit mean
+    //--------------------------------------------------------//
+    MeanVfdTOB = DATATOB.second;
+    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTOB,Lumi,"TOB","1",SmallScan,NFIT);
+        //--------------------------------------------------------//
+    // Vfd
+    //--------------------------------------------------------//
     // DATATOB = FitLeakageCurrent("TOB","",4,SmallScan,NFIT);
     // MeanVfdTOB = DATATOB.first;
     // PlotMeanVfdPerRunwPerFit(MeanVfdTOB,Lumi,"TOB","4",SmallScan,NFIT);
@@ -3550,27 +3620,27 @@ else
     // //--------------------------------------------------------//
     // // Vfd
     // //--------------------------------------------------------//
-    DATATIB = FitLeakageCurrent("TIB","",1,SmallScan,NFIT);
-    MeanVfdTIB = DATATIB.first;
-    PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
-    //--------------------------------------------------------//
-    // Delta Vfd-Vinit mean
-    //--------------------------------------------------------//
-    MeanVfdTIB = DATATIB.second;
-    PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
+    // DATATIB = FitLeakageCurrent("TIB","",1,SmallScan,NFIT);
+    // MeanVfdTIB = DATATIB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTIB = DATATIB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","1",SmallScan,NFIT);
 
         //--------------------------------------------------------//
     // Vfd Only Fullscan
 //     //--------------------------------------------------------//
-//     DATATIB = FitLeakageCurrent("TIB","",4,SmallScan,NFIT);
-//     MeanVfdTIB = DATATIB.first;
-//     PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan,NFIT);
-//     //--------------------------------------------------------//
-//     // Delta Vfd-Vinit mean
-//     //--------------------------------------------------------//
-//     MeanVfdTIB = DATATIB.second;
-//     PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan,NFIT);
-// //-----------------------------------------------------------------------//
+    // DATATIB = FitLeakageCurrent("TIB","",4,SmallScan,NFIT);
+    // MeanVfdTIB = DATATIB.first;
+    // PlotMeanVfdPerRunwPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan,NFIT);
+    // //--------------------------------------------------------//
+    // // Delta Vfd-Vinit mean
+    // //--------------------------------------------------------//
+    // MeanVfdTIB = DATATIB.second;
+    // PlotDeltaMeanVfdPerRunPerFit(MeanVfdTIB,Lumi,"TIB","4",SmallScan,NFIT);
+//-----------------------------------------------------------------------//
 
 
 // --------------------------------------------------------//
